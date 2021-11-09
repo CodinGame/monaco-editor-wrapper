@@ -1,0 +1,25 @@
+{
+  "injectionSelector": "L:comment.block.documentation",
+  "patterns": [
+    {
+      "include": "#jsdocbody"
+    }
+  ],
+  "repository": {
+    "jsdocbody": {
+      "begin": "(?<=/\\*\\*)([^*]|\\*(?!/))*$",
+      "while": "(^|\\G)\\s*\\*(?!/)(?=([^*]|[*](?!/))*$)",
+      "patterns": [
+        {
+          "include": "source.ts#docblock"
+        }
+      ]
+    }
+  },
+  "scopeName": "documentation.injection.ts",
+  "information_for_contributors": [
+    "This file has been converted from https://github.com/microsoft/vscode/blob/master/extensions/typescript-basics/",
+    "If you want to provide a fix or improvement, please create a pull request against the original repository.",
+    "Once accepted there, we are happy to receive an update request."
+  ]
+}

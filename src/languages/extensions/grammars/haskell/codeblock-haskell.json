@@ -1,0 +1,33 @@
+{
+  "fileTypes": [],
+  "injectionSelector": "L:markup.fenced_code.block.markdown",
+  "patterns": [
+    {
+      "include": "#haskell-code-block"
+    }
+  ],
+  "repository": {
+    "haskell-code-block": {
+      "begin": "\\b(haskell|hs)\\b(\\s+[^`~]*)?$",
+      "end": "(^|\\G)(?=\\s*[`~]{3,}\\s*$)",
+      "patterns": [
+        {
+          "begin": "(^|\\G)(\\s*)(.*)",
+          "while": "(^|\\G)(?!\\s*([`~]{3,})\\s*$)",
+          "contentName": "meta.embedded.block.haskell",
+          "patterns": [
+            {
+              "include": "source.haskell"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "scopeName": "markdown.haskell.codeblock",
+  "information_for_contributors": [
+    "This file has been converted from https://github.com/JustusAdam/language-haskell/blob/df29e5733bd5b31c59af7404306e0759431c33ea/",
+    "If you want to provide a fix or improvement, please create a pull request against the original repository.",
+    "Once accepted there, we are happy to receive an update request."
+  ]
+}

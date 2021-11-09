@@ -1,0 +1,530 @@
+[
+  {
+    "language": "clojure",
+    "scopeName": "source.clojure"
+  },
+  {
+    "language": "coffeescript",
+    "scopeName": "source.coffee"
+  },
+  {
+    "language": "c",
+    "scopeName": "source.c"
+  },
+  {
+    "language": "cpp",
+    "scopeName": "source.cpp"
+  },
+  {
+    "scopeName": "source.c.platform"
+  },
+  {
+    "language": "cuda-cpp",
+    "scopeName": "source.cuda-cpp"
+  },
+  {
+    "language": "csharp",
+    "scopeName": "source.cs"
+  },
+  {
+    "language": "css",
+    "scopeName": "source.css",
+    "tokenTypes": {
+      "meta.function.url string.quoted": "other"
+    }
+  },
+  {
+    "language": "fsharp",
+    "scopeName": "source.fsharp"
+  },
+  {
+    "language": "go",
+    "scopeName": "source.go"
+  },
+  {
+    "language": "groovy",
+    "scopeName": "source.groovy"
+  },
+  {
+    "scopeName": "text.html.basic",
+    "embeddedLanguages": {
+      "text.html": "html",
+      "source.css": "css",
+      "source.js": "javascript",
+      "source.python": "python",
+      "source.smarty": "smarty"
+    },
+    "tokenTypes": {
+      "meta.tag string.quoted": "other"
+    }
+  },
+  {
+    "language": "html",
+    "scopeName": "text.html.derivative",
+    "embeddedLanguages": {
+      "text.html": "html",
+      "source.css": "css",
+      "source.js": "javascript",
+      "source.python": "python",
+      "source.smarty": "smarty"
+    },
+    "tokenTypes": {
+      "meta.tag string.quoted": "other"
+    }
+  },
+  {
+    "language": "java",
+    "scopeName": "source.java"
+  },
+  {
+    "language": "javascript",
+    "scopeName": "source.js",
+    "embeddedLanguages": {
+      "meta.tag.js": "jsx-tags",
+      "meta.tag.without-attributes.js": "jsx-tags",
+      "meta.tag.attributes.js": "javascript",
+      "meta.embedded.expression.js": "javascript"
+    },
+    "tokenTypes": {
+      "meta.template.expression": "other",
+      "meta.template.expression string": "string",
+      "meta.template.expression comment": "comment",
+      "entity.name.type.instance.jsdoc": "other",
+      "entity.name.function.tagged-template": "other",
+      "meta.import string.quoted": "other",
+      "variable.other.jsdoc": "other"
+    }
+  },
+  {
+    "scopeName": "source.js.regexp"
+  },
+  {
+    "language": "json",
+    "scopeName": "source.json"
+  },
+  {
+    "language": "jsonc",
+    "scopeName": "source.json.comments"
+  },
+  {
+    "language": "lua",
+    "scopeName": "source.lua"
+  },
+  {
+    "language": "markdown",
+    "scopeName": "text.html.markdown",
+    "embeddedLanguages": {
+      "meta.embedded.block.html": "html",
+      "source.js": "javascript",
+      "source.css": "css",
+      "meta.embedded.block.frontmatter": "yaml",
+      "meta.embedded.block.css": "css",
+      "meta.embedded.block.ini": "ini",
+      "meta.embedded.block.java": "java",
+      "meta.embedded.block.lua": "lua",
+      "meta.embedded.block.makefile": "makefile",
+      "meta.embedded.block.perl": "perl",
+      "meta.embedded.block.r": "r",
+      "meta.embedded.block.ruby": "ruby",
+      "meta.embedded.block.php": "php",
+      "meta.embedded.block.sql": "sql",
+      "meta.embedded.block.vs_net": "vs_net",
+      "meta.embedded.block.xml": "xml",
+      "meta.embedded.block.xsl": "xsl",
+      "meta.embedded.block.yaml": "yaml",
+      "meta.embedded.block.dosbatch": "dosbatch",
+      "meta.embedded.block.clojure": "clojure",
+      "meta.embedded.block.coffee": "coffee",
+      "meta.embedded.block.c": "c",
+      "meta.embedded.block.cpp": "cpp",
+      "meta.embedded.block.diff": "diff",
+      "meta.embedded.block.dockerfile": "dockerfile",
+      "meta.embedded.block.go": "go",
+      "meta.embedded.block.groovy": "groovy",
+      "meta.embedded.block.pug": "jade",
+      "meta.embedded.block.javascript": "javascript",
+      "meta.embedded.block.json": "json",
+      "meta.embedded.block.less": "less",
+      "meta.embedded.block.objc": "objc",
+      "meta.embedded.block.scss": "scss",
+      "meta.embedded.block.perl6": "perl6",
+      "meta.embedded.block.powershell": "powershell",
+      "meta.embedded.block.python": "python",
+      "meta.embedded.block.rust": "rust",
+      "meta.embedded.block.scala": "scala",
+      "meta.embedded.block.shellscript": "shellscript",
+      "meta.embedded.block.typescript": "typescript",
+      "meta.embedded.block.typescriptreact": "typescriptreact",
+      "meta.embedded.block.csharp": "csharp",
+      "meta.embedded.block.fsharp": "fsharp"
+    }
+  },
+  {
+    "language": "objective-c",
+    "scopeName": "source.objc"
+  },
+  {
+    "language": "perl",
+    "scopeName": "source.perl"
+  },
+  {
+    "language": "perl6",
+    "scopeName": "source.perl.6"
+  },
+  {
+    "language": "php",
+    "scopeName": "source.php"
+  },
+  {
+    "language": "php",
+    "scopeName": "text.html.php",
+    "embeddedLanguages": {
+      "text.html": "html",
+      "source.php": "php",
+      "source.sql": "sql",
+      "text.xml": "xml",
+      "source.js": "javascript",
+      "source.json": "json",
+      "source.css": "css"
+    }
+  },
+  {
+    "language": "powershell",
+    "scopeName": "source.powershell"
+  },
+  {
+    "language": "python",
+    "scopeName": "source.python"
+  },
+  {
+    "scopeName": "source.regexp.python"
+  },
+  {
+    "language": "r",
+    "scopeName": "source.r"
+  },
+  {
+    "language": "ruby",
+    "scopeName": "source.ruby"
+  },
+  {
+    "language": "rust",
+    "scopeName": "source.rust"
+  },
+  {
+    "language": "scss",
+    "scopeName": "source.css.scss"
+  },
+  {
+    "scopeName": "source.sassdoc"
+  },
+  {
+    "language": "shellscript",
+    "scopeName": "source.shell"
+  },
+  {
+    "language": "swift",
+    "scopeName": "source.swift"
+  },
+  {
+    "language": "typescript",
+    "scopeName": "source.ts",
+    "tokenTypes": {
+      "meta.template.expression": "other",
+      "meta.template.expression string": "string",
+      "meta.template.expression comment": "comment",
+      "entity.name.type.instance.jsdoc": "other",
+      "entity.name.function.tagged-template": "other",
+      "meta.import string.quoted": "other",
+      "variable.other.jsdoc": "other"
+    }
+  },
+  {
+    "scopeName": "documentation.injection.ts",
+    "injectTo": [
+      "source.ts",
+      "source.tsx"
+    ]
+  },
+  {
+    "scopeName": "documentation.injection.js.jsx",
+    "injectTo": [
+      "source.js",
+      "source.js.jsx"
+    ]
+  },
+  {
+    "language": "vb",
+    "scopeName": "source.asp.vb.net"
+  },
+  {
+    "language": "xml",
+    "scopeName": "text.xml"
+  },
+  {
+    "language": "xsl",
+    "scopeName": "text.xml.xsl"
+  },
+  {
+    "language": "dockercompose",
+    "scopeName": "source.yaml"
+  },
+  {
+    "language": "yaml",
+    "scopeName": "source.yaml"
+  },
+  {
+    "scopeName": "inline-template.ng",
+    "injectTo": [
+      "source.ts"
+    ],
+    "embeddedLanguages": {
+      "text.html": "html",
+      "source.css": "css",
+      "source.js": "javascript"
+    }
+  },
+  {
+    "scopeName": "inline-styles.ng",
+    "injectTo": [
+      "source.ts"
+    ],
+    "embeddedLanguages": {
+      "source.css": "css"
+    }
+  },
+  {
+    "scopeName": "template.ng",
+    "injectTo": [
+      "text.html.derivative",
+      "source.ts"
+    ],
+    "embeddedLanguages": {
+      "text.html": "html",
+      "source.css": "css"
+    }
+  },
+  {
+    "scopeName": "expression.ng"
+  },
+  {
+    "language": "d",
+    "scopeName": "source.d"
+  },
+  {
+    "language": "dscript",
+    "scopeName": "source.dscript"
+  },
+  {
+    "language": "dml",
+    "scopeName": "source.dml"
+  },
+  {
+    "language": "sdl",
+    "scopeName": "source.sdl"
+  },
+  {
+    "language": "diet",
+    "scopeName": "source.diet"
+  },
+  {
+    "language": "dart",
+    "scopeName": "source.dart"
+  },
+  {
+    "language": "haskell",
+    "scopeName": "source.haskell"
+  },
+  {
+    "language": "cabal",
+    "scopeName": "source.cabal"
+  },
+  {
+    "language": "literate haskell",
+    "scopeName": "text.tex.latex.haskell"
+  },
+  {
+    "scopeName": "markdown.haskell.codeblock",
+    "injectTo": [
+      "text.html.markdown"
+    ],
+    "embeddedLanguages": {
+      "meta.embedded.block.haskell": "haskell"
+    }
+  },
+  {
+    "scopeName": "markdown.lhaskell.codeblock",
+    "injectTo": [
+      "text.html.markdown"
+    ],
+    "embeddedLanguages": {
+      "meta.embedded.block.lhaskell": "lhaskell"
+    }
+  },
+  {
+    "scopeName": "markdown.cabal.codeblock",
+    "injectTo": [
+      "text.html.markdown"
+    ],
+    "embeddedLanguages": {
+      "meta.embedded.block.cabal": "cabal"
+    }
+  },
+  {
+    "language": "kotlin",
+    "scopeName": "source.kotlin"
+  },
+  {
+    "language": "kotlinscript",
+    "scopeName": "source.kotlin"
+  },
+  {
+    "scopeName": "markdown.kotlin.codeblock",
+    "injectTo": [
+      "text.html.markdown"
+    ],
+    "embeddedLanguages": {
+      "meta.embedded.block.kotlin": "kotlin"
+    }
+  },
+  {
+    "language": "ocaml",
+    "scopeName": "source.ocaml"
+  },
+  {
+    "language": "ocaml.hover.info",
+    "scopeName": "source.ocaml.hover.info"
+  },
+  {
+    "language": "ocaml.hover.type",
+    "scopeName": "source.ocaml.hover.type"
+  },
+  {
+    "language": "ocaml.merlin",
+    "scopeName": "source.ocaml.merlin"
+  },
+  {
+    "language": "ocaml.ocamlbuild",
+    "scopeName": "source.ocaml.ocamlbuild"
+  },
+  {
+    "language": "ocaml.opam",
+    "scopeName": "source.ocaml.opam"
+  },
+  {
+    "language": "reason.hover.info",
+    "scopeName": "source.reason.hover.info"
+  },
+  {
+    "language": "reason.hover.signature",
+    "scopeName": "source.reason.hover.signature"
+  },
+  {
+    "language": "reason.hover.type",
+    "scopeName": "source.reason.hover.type"
+  },
+  {
+    "scopeName": "markdown.reason.codeblock",
+    "injectTo": [
+      "text.html.markdown"
+    ],
+    "embeddedLanguages": {
+      "meta.embedded.block.reason": "reason"
+    }
+  },
+  {
+    "scopeName": "markdown.ocaml.codeblock",
+    "injectTo": [
+      "text.html.markdown"
+    ],
+    "embeddedLanguages": {
+      "meta.embedded.block.ocaml": "ocaml"
+    }
+  },
+  {
+    "language": "pascal",
+    "scopeName": "source.pascal"
+  },
+  {
+    "language": "sql",
+    "scopeName": "source.sql"
+  },
+  {
+    "language": "scala",
+    "scopeName": "source.scala"
+  },
+  {
+    "language": "COBOL",
+    "scopeName": "source.cobol",
+    "embeddedLanguages": {
+      "meta.embedded.block.sql": "sql",
+      "meta.embedded.block.html": "html"
+    }
+  },
+  {
+    "language": "COBOL Copybook",
+    "scopeName": "source.cobol",
+    "embeddedLanguages": {
+      "meta.embedded.block.sql": "sql",
+      "meta.embedded.block.html": "html"
+    }
+  },
+  {
+    "language": "elixir",
+    "scopeName": "source.elixir"
+  },
+  {
+    "language": "Eex",
+    "scopeName": "text.elixir"
+  },
+  {
+    "language": "HTML (Eex)",
+    "scopeName": "text.html.elixir"
+  },
+  {
+    "language": "erlang",
+    "scopeName": "source.erlang"
+  },
+  {
+    "language": "tcl",
+    "scopeName": "source.tcl"
+  },
+  {
+    "language": "verilog",
+    "scopeName": "source.verilog"
+  },
+  {
+    "language": "systemverilog",
+    "scopeName": "source.systemverilog"
+  },
+  {
+    "language": "bsv",
+    "scopeName": "source.bsv"
+  },
+  {
+    "language": "ucf",
+    "scopeName": "source.ucfconstraints"
+  },
+  {
+    "language": "sdc",
+    "scopeName": "source.sdc"
+  },
+  {
+    "language": "xdc",
+    "scopeName": "source.sdc"
+  },
+  {
+    "scopeName": "markdown.verilog.codeblock",
+    "injectTo": [
+      "text.html.markdown"
+    ],
+    "embeddedLanguages": {
+      "meta.embedded.block.verilog": "source.verilog",
+      "meta.embedded.block.systemverilog": "source.systemverilog"
+    }
+  },
+  {
+    "language": "postgres",
+    "scopeName": "source.pgsql"
+  }
+]

@@ -1,0 +1,6845 @@
+[
+  {
+    "id": "clojure",
+    "aliases": [
+      "Clojure",
+      "clojure"
+    ],
+    "extensions": [
+      ".clj",
+      ".cljs",
+      ".cljc",
+      ".cljx",
+      ".clojure",
+      ".edn"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": ";;"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ]
+      ],
+      "folding": {
+        "offSide": true
+      }
+    }
+  },
+  {
+    "id": "coffeescript",
+    "extensions": [
+      ".coffee",
+      ".cson",
+      ".iced"
+    ],
+    "aliases": [
+      "CoffeeScript",
+      "coffeescript",
+      "coffee"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "#",
+        "blockComment": [
+          "###",
+          "###"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          " ",
+          " "
+        ]
+      ],
+      "folding": {
+        "offSide": true,
+        "markers": {
+          "start": "^\\s*#region\\b",
+          "end": "^\\s*#endregion\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "c",
+    "extensions": [
+      ".c",
+      ".i"
+    ],
+    "aliases": [
+      "C",
+      "c"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
+      "folding": {
+        "markers": {
+          "start": "^\\s*#pragma\\s+region\\b",
+          "end": "^\\s*#pragma\\s+endregion\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "cpp",
+    "extensions": [
+      ".cpp",
+      ".cc",
+      ".cxx",
+      ".c++",
+      ".hpp",
+      ".hh",
+      ".hxx",
+      ".h++",
+      ".h",
+      ".ii",
+      ".ino",
+      ".inl",
+      ".ipp",
+      ".ixx",
+      ".tpp",
+      ".txx",
+      ".hpp.in",
+      ".h.in"
+    ],
+    "aliases": [
+      "C++",
+      "Cpp",
+      "cpp"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
+      "folding": {
+        "markers": {
+          "start": "^\\s*#pragma\\s+region\\b",
+          "end": "^\\s*#pragma\\s+endregion\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "cuda-cpp",
+    "extensions": [
+      ".cu",
+      ".cuh"
+    ],
+    "aliases": [
+      "CUDA C++"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
+      "folding": {
+        "markers": {
+          "start": "^\\s*#pragma\\s+region\\b",
+          "end": "^\\s*#pragma\\s+endregion\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "csharp",
+    "extensions": [
+      ".cs",
+      ".csx",
+      ".cake"
+    ],
+    "aliases": [
+      "C#",
+      "csharp"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "<",
+          ">"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ]
+      ],
+      "folding": {
+        "markers": {
+          "start": "^\\s*#region\\b",
+          "end": "^\\s*#endregion\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "css",
+    "aliases": [
+      "CSS",
+      "css"
+    ],
+    "extensions": [
+      ".css"
+    ],
+    "mimetypes": [
+      "text/css"
+    ],
+    "configuration": {
+      "comments": {
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "[",
+          "close": "]",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "(",
+          "close": ")",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "folding": {
+        "markers": {
+          "start": "^\\s*\\/\\*\\s*#region\\b\\s*(.*?)\\s*\\*\\/",
+          "end": "^\\s*\\/\\*\\s*#endregion\\b.*\\*\\/"
+        }
+      },
+      "indentationRules": {
+        "increaseIndentPattern": "(^.*\\{[^}]*$)",
+        "decreaseIndentPattern": "^\\s*\\}"
+      },
+      "wordPattern": "(#?-?\\d*\\.\\d\\w*%?)|(::?[\\w-]*(?=[^,{;]*[,{]))|(([@#.!])?[\\w-?]+%?|[@#!.])"
+    }
+  },
+  {
+    "id": "fsharp",
+    "extensions": [
+      ".fs",
+      ".fsi",
+      ".fsx",
+      ".fsscript"
+    ],
+    "aliases": [
+      "F#",
+      "FSharp",
+      "fsharp"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "(*",
+          "*)"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "folding": {
+        "offSide": true,
+        "markers": {
+          "start": "^\\s*//\\s*#region\\b|^\\s*\\(\\*\\s*#region(.*)\\*\\)",
+          "end": "^\\s*//\\s*#endregion\\b|^\\s*\\(\\*\\s*#endregion\\s*\\*\\)"
+        }
+      }
+    }
+  },
+  {
+    "id": "go",
+    "extensions": [
+      ".go"
+    ],
+    "aliases": [
+      "Go"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "indentationRules": {
+        "increaseIndentPattern": "^.*(\\bcase\\b.*:|\\bdefault\\b:|(\\b(func|if|else|switch|select|for|struct)\\b.*)?{[^}\"'`]*|\\([^)\"'`]*)$",
+        "decreaseIndentPattern": "^\\s*(\\bcase\\b.*:|\\bdefault\\b:|}[)}]*[),]?|\\)[,]?)$"
+      },
+      "folding": {
+        "markers": {
+          "start": "^\\s*//\\s*#?region\\b",
+          "end": "^\\s*//\\s*#?endregion\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "groovy",
+    "aliases": [
+      "Groovy",
+      "groovy"
+    ],
+    "extensions": [
+      ".groovy",
+      ".gvy",
+      ".gradle",
+      ".jenkinsfile",
+      ".nf"
+    ],
+    "filenames": [
+      "Jenkinsfile"
+    ],
+    "filenamePatterns": [
+      "Jenkinsfile.*"
+    ],
+    "firstLine": "^#!.*\\bgroovy\\b",
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "html",
+    "extensions": [
+      ".html",
+      ".htm",
+      ".shtml",
+      ".xhtml",
+      ".xht",
+      ".mdoc",
+      ".jsp",
+      ".asp",
+      ".aspx",
+      ".jshtm",
+      ".volt",
+      ".ejs",
+      ".rhtml"
+    ],
+    "aliases": [
+      "HTML",
+      "htm",
+      "html",
+      "xhtml"
+    ],
+    "mimetypes": [
+      "text/html",
+      "text/x-jshtm",
+      "text/template",
+      "text/ng-template",
+      "application/xhtml+xml"
+    ],
+    "configuration": {
+      "comments": {
+        "blockComment": [
+          "<!--",
+          "-->"
+        ]
+      },
+      "brackets": [
+        [
+          "<!--",
+          "-->"
+        ],
+        [
+          "<",
+          ">"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "'",
+          "close": "'"
+        },
+        {
+          "open": "\"",
+          "close": "\""
+        },
+        {
+          "open": "<!--",
+          "close": "-->",
+          "notIn": [
+            "comment",
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        {
+          "open": "'",
+          "close": "'"
+        },
+        {
+          "open": "\"",
+          "close": "\""
+        },
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "<",
+          "close": ">"
+        }
+      ],
+      "colorizedBracketPairs": [],
+      "folding": {
+        "markers": {
+          "start": "^\\s*<!--\\s*#region\\b.*-->",
+          "end": "^\\s*<!--\\s*#endregion\\b.*-->"
+        }
+      },
+      "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\$\\^\\&\\*\\(\\)\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\s]+)",
+      "onEnterRules": [
+        {
+          "beforeText": {
+            "pattern": "<(?!(?:area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr))([_:\\w][_:\\w-.\\d]*)(?:(?:[^'\"/>]|\"[^\"]*\"|'[^']*')*?(?!\\/)>)[^<]*$",
+            "flags": "i"
+          },
+          "afterText": {
+            "pattern": "^<\\/([_:\\w][_:\\w-.\\d]*)\\s*>",
+            "flags": "i"
+          },
+          "action": {
+            "indent": "indentOutdent"
+          }
+        },
+        {
+          "beforeText": {
+            "pattern": "<(?!(?:area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr))([_:\\w][_:\\w-.\\d]*)(?:(?:[^'\"/>]|\"[^\"]*\"|'[^']*')*?(?!\\/)>)[^<]*$",
+            "flags": "i"
+          },
+          "action": {
+            "indent": "indent"
+          }
+        }
+      ],
+      "indentationRules": {
+        "increaseIndentPattern": "<(?!\\?|(?:area|base|br|col|frame|hr|html|img|input|keygen|link|menuitem|meta|param|source|track|wbr)\\b|[^>]*\\/>)([-_\\.A-Za-z0-9]+)(?=\\s|>)\\b[^>]*>(?!.*<\\/\\1>)|<!--(?!.*-->)|\\{[^}\"']*$",
+        "decreaseIndentPattern": "^\\s*(<\\/(?!html)[-_\\.A-Za-z0-9]+\\b[^>]*>|-->|\\})"
+      }
+    }
+  },
+  {
+    "id": "java",
+    "extensions": [
+      ".java",
+      ".jav"
+    ],
+    "aliases": [
+      "Java",
+      "java"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "/**",
+          "close": " */",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "folding": {
+        "markers": {
+          "start": "^\\s*//\\s*(?:(?:#?region\\b)|(?:<editor-fold\\b))",
+          "end": "^\\s*//\\s*(?:(?:#?endregion\\b)|(?:</editor-fold>))"
+        }
+      }
+    }
+  },
+  {
+    "id": "javascriptreact",
+    "aliases": [
+      "JavaScript React",
+      "jsx"
+    ],
+    "extensions": [
+      ".jsx"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "${",
+          "}"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "/**",
+          "close": " */",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "autoCloseBefore": ";:.,=}])>` \n\t",
+      "folding": {
+        "markers": {
+          "start": "^\\s*//\\s*#?region\\b",
+          "end": "^\\s*//\\s*#?endregion\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "javascript",
+    "aliases": [
+      "JavaScript",
+      "javascript",
+      "js"
+    ],
+    "extensions": [
+      ".js",
+      ".es6",
+      ".mjs",
+      ".cjs",
+      ".pac"
+    ],
+    "filenames": [
+      "jakefile"
+    ],
+    "firstLine": "^#!.*\\bnode",
+    "mimetypes": [
+      "text/javascript"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "${",
+          "}"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "/**",
+          "close": " */",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "autoCloseBefore": ";:.,=}])>` \n\t",
+      "folding": {
+        "markers": {
+          "start": "^\\s*//\\s*#?region\\b",
+          "end": "^\\s*//\\s*#?endregion\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "jsx-tags",
+    "aliases": [],
+    "configuration": {
+      "comments": {
+        "blockComment": [
+          "{/*",
+          "*/}"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "colorizedBracketPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "/**",
+          "close": " */",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "<",
+          ">"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ]
+      ]
+    }
+  },
+  {
+    "id": "json",
+    "aliases": [
+      "JSON",
+      "json"
+    ],
+    "extensions": [
+      ".json",
+      ".bowerrc",
+      ".jscsrc",
+      ".webmanifest",
+      ".js.map",
+      ".css.map",
+      ".ts.map",
+      ".har",
+      ".jslintrc",
+      ".jsonld",
+      ".geojson"
+    ],
+    "filenames": [
+      "composer.lock",
+      ".watchmanconfig"
+    ],
+    "mimetypes": [
+      "application/json",
+      "application/manifest+json"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "[",
+          "close": "]",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "(",
+          "close": ")",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        }
+      ],
+      "wordPattern": "(\"(?:[^\\\\\\\"]*(?:\\\\.)?)*\"?)|[^\\s{}\\[\\],:]+",
+      "indentationRules": {
+        "increaseIndentPattern": "({+(?=([^\"]*\"[^\"]*\")*[^\"}]*$))|(\\[+(?=([^\"]*\"[^\"]*\")*[^\"\\]]*$))",
+        "decreaseIndentPattern": "^\\s*[}\\]],?\\s*$"
+      }
+    }
+  },
+  {
+    "id": "jsonc",
+    "aliases": [
+      "JSON with Comments"
+    ],
+    "extensions": [
+      ".jsonc",
+      ".eslintrc",
+      ".eslintrc.json",
+      ".jsfmtrc",
+      ".jshintrc",
+      ".swcrc",
+      ".hintrc",
+      ".babelrc"
+    ],
+    "filenames": [
+      "babel.config.json",
+      ".babelrc.json",
+      ".ember-cli"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "[",
+          "close": "]",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "(",
+          "close": ")",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        }
+      ],
+      "wordPattern": "(\"(?:[^\\\\\\\"]*(?:\\\\.)?)*\"?)|[^\\s{}\\[\\],:]+",
+      "indentationRules": {
+        "increaseIndentPattern": "({+(?=([^\"]*\"[^\"]*\")*[^\"}]*$))|(\\[+(?=([^\"]*\"[^\"]*\")*[^\"\\]]*$))",
+        "decreaseIndentPattern": "^\\s*[}\\]],?\\s*$"
+      }
+    }
+  },
+  {
+    "id": "lua",
+    "extensions": [
+      ".lua"
+    ],
+    "aliases": [
+      "Lua",
+      "lua"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "--",
+        "blockComment": [
+          "--[[",
+          "]]"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "indentationRules": {
+        "increaseIndentPattern": "^((?!(\\-\\-)).)*((\\b(else|function|then|do|repeat)\\b((?!\\b(end|until)\\b).)*)|(\\{\\s*))$",
+        "decreaseIndentPattern": "^\\s*((\\b(elseif|else|end|until)\\b)|(\\})|(\\)))"
+      }
+    }
+  },
+  {
+    "id": "markdown",
+    "aliases": [
+      "Markdown",
+      "markdown"
+    ],
+    "extensions": [
+      ".md",
+      ".mkd",
+      ".mdwn",
+      ".mdown",
+      ".markdown",
+      ".markdn",
+      ".mdtxt",
+      ".mdtext",
+      ".workbook"
+    ],
+    "configuration": {
+      "comments": {
+        "blockComment": [
+          "<!--",
+          "-->"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "colorizedBracketPairs": [],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "<",
+          "close": ">",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "(",
+          ")"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "`",
+          "`"
+        ],
+        [
+          "_",
+          "_"
+        ],
+        [
+          "*",
+          "*"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ]
+      ],
+      "folding": {
+        "offSide": true,
+        "markers": {
+          "start": "^\\s*<!--\\s*#?region\\b.*-->",
+          "end": "^\\s*<!--\\s*#?endregion\\b.*-->"
+        }
+      },
+      "wordPattern": {
+        "pattern": "(\\p{Alphabetic}|\\p{Number}|\\p{Nonspacing_Mark})(((\\p{Alphabetic}|\\p{Number}|\\p{Nonspacing_Mark})|[_])?(\\p{Alphabetic}|\\p{Number}|\\p{Nonspacing_Mark}))*",
+        "flags": "ug"
+      }
+    }
+  },
+  {
+    "id": "objective-c",
+    "extensions": [
+      ".m"
+    ],
+    "aliases": [
+      "Objective-C"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "objective-cpp",
+    "extensions": [
+      ".mm"
+    ],
+    "aliases": [
+      "Objective-C++"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "perl",
+    "aliases": [
+      "Perl",
+      "perl"
+    ],
+    "extensions": [
+      ".pl",
+      ".pm",
+      ".pod",
+      ".t",
+      ".PL",
+      ".psgi"
+    ],
+    "firstLine": "^#!.*\\bperl\\b",
+    "configuration": {
+      "comments": {
+        "lineComment": "#"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "folding": {
+        "markers": {
+          "start": "^(?:(?:=pod\\s*$)|(?:\\s*#region\\b))",
+          "end": "^(?:(?:=cut\\s*$)|(?:\\s*#endregion\\b))"
+        }
+      }
+    }
+  },
+  {
+    "id": "perl6",
+    "aliases": [
+      "Perl 6",
+      "perl6"
+    ],
+    "extensions": [
+      ".p6",
+      ".pl6",
+      ".pm6",
+      ".nqp"
+    ],
+    "firstLine": "(^#!.*\\bperl6\\b)|use\\s+v6",
+    "configuration": {
+      "comments": {
+        "lineComment": "#"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "php",
+    "extensions": [
+      ".php",
+      ".php4",
+      ".php5",
+      ".phtml",
+      ".ctp"
+    ],
+    "aliases": [
+      "PHP",
+      "php"
+    ],
+    "firstLine": "^#!\\s*/.*\\bphp\\b",
+    "mimetypes": [
+      "application/x-php"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "[",
+          "close": "]",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "(",
+          "close": ")",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "/**",
+          "close": " */",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "indentationRules": {
+        "increaseIndentPattern": "({(?!.*}).*|\\(|\\[|((else(\\s)?)?if|else|for(each)?|while|switch|case).*:)\\s*((/[/*].*|)?$|\\?>)",
+        "decreaseIndentPattern": "^(.*\\*\\/)?\\s*((\\})|(\\)+[;,])|(\\]\\)*[;,])|\\b(else:)|\\b((end(if|for(each)?|while|switch));))"
+      },
+      "folding": {
+        "markers": {
+          "start": "^\\s*(#|//)region\\b",
+          "end": "^\\s*(#|//)endregion\\b"
+        }
+      },
+      "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\-\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
+      "onEnterRules": [
+        {
+          "beforeText": "^\\s*\\/\\*\\*(?!\\/)([^\\*]|\\*(?!\\/))*$",
+          "afterText": "^\\s*\\*\\/$",
+          "action": {
+            "indent": "indentOutdent",
+            "appendText": " * "
+          }
+        },
+        {
+          "beforeText": "^\\s*\\/\\*\\*(?!\\/)([^\\*]|\\*(?!\\/))*$",
+          "action": {
+            "indent": "none",
+            "appendText": " * "
+          }
+        },
+        {
+          "beforeText": "^(\\t|(\\ \\ ))*\\ \\*(\\ ([^\\*]|\\*(?!\\/))*)?$",
+          "action": {
+            "indent": "none",
+            "appendText": "* "
+          }
+        },
+        {
+          "beforeText": "^(\\t|(\\ \\ ))*\\ \\*\\/\\s*$",
+          "action": {
+            "indent": "none",
+            "removeText": 1
+          }
+        },
+        {
+          "beforeText": "^(\\t|(\\ \\ ))*\\ \\*[^/]*\\*\\/\\s*$",
+          "action": {
+            "indent": "none",
+            "removeText": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "powershell",
+    "extensions": [
+      ".ps1",
+      ".psm1",
+      ".psd1",
+      ".pssc",
+      ".psrc"
+    ],
+    "aliases": [
+      "PowerShell",
+      "powershell",
+      "ps",
+      "ps1"
+    ],
+    "firstLine": "^#!\\s*/.*\\bpwsh\\b",
+    "configuration": {
+      "comments": {
+        "lineComment": "#",
+        "blockComment": [
+          "<#",
+          "#>"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "@'",
+          "close": "\n'@",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "@\"",
+          "close": "\n\"@",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        [
+          "<#",
+          "#>"
+        ]
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "folding": {
+        "markers": {
+          "start": "^\\s*#[rR]egion\\b",
+          "end": "^\\s*#[eE]nd[rR]egion\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "python",
+    "extensions": [
+      ".py",
+      ".rpy",
+      ".pyw",
+      ".cpy",
+      ".gyp",
+      ".gypi",
+      ".pyi",
+      ".ipy",
+      ".pyt"
+    ],
+    "aliases": [
+      "Python",
+      "py"
+    ],
+    "filenames": [
+      "Snakefile",
+      "SConstruct",
+      "SConscript"
+    ],
+    "firstLine": "^#!\\s*/?.*\\bpython[0-9.-]*\\b",
+    "configuration": {
+      "comments": {
+        "lineComment": "#",
+        "blockComment": [
+          "\"\"\"",
+          "\"\"\""
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "r\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "R\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "u\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "U\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "f\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "F\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "b\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "B\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "r'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "R'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "u'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "U'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "f'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "F'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "b'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "B'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "folding": {
+        "offSide": true,
+        "markers": {
+          "start": "^\\s*#\\s*region\\b",
+          "end": "^\\s*#\\s*endregion\\b"
+        }
+      },
+      "onEnterRules": [
+        {
+          "beforeText": "^\\s*(?:def|class|for|if|elif|else|while|try|with|finally|except|async).*?:\\s*$",
+          "action": {
+            "indent": "indent"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "r",
+    "extensions": [
+      ".r",
+      ".rhistory",
+      ".rprofile",
+      ".rt"
+    ],
+    "aliases": [
+      "R",
+      "r"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "#"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "ruby",
+    "extensions": [
+      ".rb",
+      ".rbx",
+      ".rjs",
+      ".gemspec",
+      ".rake",
+      ".ru",
+      ".erb",
+      ".podspec",
+      ".rbi"
+    ],
+    "filenames": [
+      "rakefile",
+      "gemfile",
+      "guardfile",
+      "podfile",
+      "capfile",
+      "cheffile",
+      "hobofile",
+      "vagrantfile",
+      "appraisals",
+      "rantfile",
+      "berksfile",
+      "berksfile.lock",
+      "thorfile",
+      "puppetfile",
+      "dangerfile",
+      "brewfile",
+      "fastfile",
+      "appfile",
+      "deliverfile",
+      "matchfile",
+      "scanfile",
+      "snapfile",
+      "gymfile"
+    ],
+    "aliases": [
+      "Ruby",
+      "rb"
+    ],
+    "firstLine": "^#!\\s*/.*\\bruby\\b",
+    "configuration": {
+      "comments": {
+        "lineComment": "#",
+        "blockComment": [
+          "=begin",
+          "=end"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "indentationRules": {
+        "increaseIndentPattern": "^\\s*((begin|class|(private|protected)\\s+def|def|else|elsif|ensure|for|if|module|rescue|unless|until|when|in|while|case)|([^#]*\\sdo\\b)|([^#]*=\\s*(case|if|unless)))\\b([^#\\{;]|(\"|'|/).*\\4)*(#.*)?$",
+        "decreaseIndentPattern": "^\\s*([}\\]]([,)]?\\s*(#|$)|\\.[a-zA-Z_]\\w*\\b)|(end|rescue|ensure|else|elsif|when|in)\\b)"
+      }
+    }
+  },
+  {
+    "id": "rust",
+    "extensions": [
+      ".rs"
+    ],
+    "aliases": [
+      "Rust",
+      "rust"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "indentationRules": {
+        "increaseIndentPattern": "^.*\\{[^}\"']*$|^.*\\([^\\)\"']*$",
+        "decreaseIndentPattern": "^\\s*(\\s*\\/[*].*[*]\\/\\s*)*[})]"
+      },
+      "folding": {
+        "markers": {
+          "start": "^\\s*//\\s*#?region\\b",
+          "end": "^\\s*//\\s*#?endregion\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "scss",
+    "aliases": [
+      "SCSS",
+      "scss"
+    ],
+    "extensions": [
+      ".scss"
+    ],
+    "mimetypes": [
+      "text/x-scss",
+      "text/scss"
+    ],
+    "configuration": {
+      "comments": {
+        "blockComment": [
+          "/*",
+          "*/"
+        ],
+        "lineComment": "//"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "[",
+          "close": "]",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "(",
+          "close": ")",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "folding": {
+        "markers": {
+          "start": "^\\s*\\/\\*\\s*#region\\b\\s*(.*?)\\s*\\*\\/",
+          "end": "^\\s*\\/\\*\\s*#endregion\\b.*\\*\\/"
+        }
+      },
+      "indentationRules": {
+        "increaseIndentPattern": "(^.*\\{[^}]*$)",
+        "decreaseIndentPattern": "^\\s*\\}"
+      },
+      "wordPattern": "(#?-?\\d*\\.\\d\\w*%?)|(::?[\\w-]*(?=[^,{;]*[,{]))|(([@$#.!])?[\\w-?]+%?|[@#!$.])"
+    }
+  },
+  {
+    "id": "shellscript",
+    "aliases": [
+      "Shell Script",
+      "shellscript",
+      "bash",
+      "sh",
+      "zsh",
+      "ksh",
+      "csh"
+    ],
+    "extensions": [
+      ".sh",
+      ".bash",
+      ".bashrc",
+      ".bash_aliases",
+      ".bash_profile",
+      ".bash_login",
+      ".ebuild",
+      ".profile",
+      ".bash_logout",
+      ".xprofile",
+      ".xsession",
+      ".xsessionrc",
+      ".Xsession",
+      ".zsh",
+      ".zshrc",
+      ".zprofile",
+      ".zlogin",
+      ".zlogout",
+      ".zshenv",
+      ".zsh-theme",
+      ".ksh",
+      ".csh",
+      ".cshrc",
+      ".tcshrc",
+      ".yashrc",
+      ".yash_profile"
+    ],
+    "filenames": [
+      "APKBUILD",
+      "PKGBUILD",
+      ".envrc",
+      ".hushlogin",
+      "zshrc",
+      "zshenv",
+      "zlogin",
+      "zprofile",
+      "zlogout",
+      "bashrc_Apple_Terminal",
+      "zshrc_Apple_Terminal"
+    ],
+    "firstLine": "^#!.*\\b(bash|zsh|sh|ksh|dtksh|pdksh|mksh|ash|dash|yash|sh|csh|jcsh|tcsh|itcsh).*|^#\\s*-\\*-[^*]*mode:\\s*shell-script[^*]*-\\*-",
+    "mimetypes": [
+      "text/x-shellscript"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "#"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "folding": {
+        "markers": {
+          "start": "^\\s*#\\s*#?region\\b.*",
+          "end": "^\\s*#\\s*#?endregion\\b.*"
+        }
+      }
+    }
+  },
+  {
+    "id": "swift",
+    "aliases": [
+      "Swift",
+      "swift"
+    ],
+    "extensions": [
+      ".swift"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "typescript",
+    "aliases": [
+      "TypeScript",
+      "ts",
+      "typescript"
+    ],
+    "extensions": [
+      ".ts",
+      ".cts",
+      ".mts"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "${",
+          "}"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "/**",
+          "close": " */",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "autoCloseBefore": ";:.,=}])>` \n\t",
+      "folding": {
+        "markers": {
+          "start": "^\\s*//\\s*#?region\\b",
+          "end": "^\\s*//\\s*#?endregion\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "typescriptreact",
+    "aliases": [
+      "TypeScript React",
+      "tsx"
+    ],
+    "extensions": [
+      ".tsx"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "${",
+          "}"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "/**",
+          "close": " */",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "autoCloseBefore": ";:.,=}])>` \n\t",
+      "folding": {
+        "markers": {
+          "start": "^\\s*//\\s*#?region\\b",
+          "end": "^\\s*//\\s*#?endregion\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "jsonc",
+    "filenames": [
+      "tsconfig.json",
+      "jsconfig.json"
+    ],
+    "filenamePatterns": [
+      "tsconfig.*.json",
+      "jsconfig.*.json",
+      "tsconfig-*.json",
+      "jsconfig-*.json"
+    ],
+    "configuration": null
+  },
+  {
+    "id": "vb",
+    "extensions": [
+      ".vb",
+      ".brs",
+      ".vbs",
+      ".bas",
+      ".vba"
+    ],
+    "aliases": [
+      "Visual Basic",
+      "vb"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "'"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "folding": {
+        "markers": {
+          "start": "^\\s*#Region\\b",
+          "end": "^\\s*#End Region\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "xml",
+    "extensions": [
+      ".xml",
+      ".xsd",
+      ".ascx",
+      ".atom",
+      ".axml",
+      ".axaml",
+      ".bpmn",
+      ".cpt",
+      ".csl",
+      ".csproj",
+      ".csproj.user",
+      ".dita",
+      ".ditamap",
+      ".dtd",
+      ".ent",
+      ".mod",
+      ".dtml",
+      ".fsproj",
+      ".fxml",
+      ".iml",
+      ".isml",
+      ".jmx",
+      ".launch",
+      ".menu",
+      ".mxml",
+      ".nuspec",
+      ".opml",
+      ".owl",
+      ".proj",
+      ".props",
+      ".pt",
+      ".publishsettings",
+      ".pubxml",
+      ".pubxml.user",
+      ".rbxlx",
+      ".rbxmx",
+      ".rdf",
+      ".rng",
+      ".rss",
+      ".shproj",
+      ".storyboard",
+      ".svg",
+      ".targets",
+      ".tld",
+      ".tmx",
+      ".vbproj",
+      ".vbproj.user",
+      ".vcxproj",
+      ".vcxproj.filters",
+      ".wsdl",
+      ".wxi",
+      ".wxl",
+      ".wxs",
+      ".xaml",
+      ".xbl",
+      ".xib",
+      ".xlf",
+      ".xliff",
+      ".xpdl",
+      ".xul",
+      ".xoml"
+    ],
+    "firstLine": "(\\<\\?xml.*)|(\\<svg)|(\\<\\!doctype\\s+svg)",
+    "aliases": [
+      "XML",
+      "xml"
+    ],
+    "configuration": {
+      "comments": {
+        "blockComment": [
+          "<!--",
+          "-->"
+        ]
+      },
+      "brackets": [
+        [
+          "<!--",
+          "-->"
+        ],
+        [
+          "<",
+          ">"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "<!--",
+          "close": "-->",
+          "notIn": [
+            "comment",
+            "string"
+          ]
+        },
+        {
+          "open": "<![CDATA[",
+          "close": "]]>",
+          "notIn": [
+            "comment",
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        {
+          "open": "'",
+          "close": "'"
+        },
+        {
+          "open": "\"",
+          "close": "\""
+        },
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "<",
+          "close": ">"
+        }
+      ],
+      "colorizedBracketPairs": [],
+      "folding": {
+        "markers": {
+          "start": "^\\s*<!--\\s*#region\\b.*-->",
+          "end": "^\\s*<!--\\s*#endregion\\b.*-->"
+        }
+      },
+      "wordPattern": {
+        "pattern": "[:A-Z_a-z\\u{C0}-\\u{D6}\\u{D8}-\\u{F6}\\u{F8}-\\u{2FF}\\u{370}-\\u{37D}\\u{37F}-\\u{1FFF}\\u{200C}-\\u{200D}\\u{2070}-\\u{218F}\\u{2C00}-\\u{2FEF}\\u{3001}-\\u{D7FF}\\u{F900}-\\u{FDCF}\\u{FDF0}-\\u{FFFD}\\u{10000}-\\u{EFFFF}][-:A-Z_a-z\\u{C0}-\\u{D6}\\u{D8}-\\u{F6}\\u{F8}-\\u{2FF}\\u{370}-\\u{37D}\\u{37F}-\\u{1FFF}\\u{200C}-\\u{200D}\\u{2070}-\\u{218F}\\u{2C00}-\\u{2FEF}\\u{3001}-\\u{D7FF}\\u{F900}-\\u{FDCF}\\u{FDF0}-\\u{FFFD}\\u{10000}-\\u{EFFFF}.0-9\\u{B7}\\u{0300}-\\u{036F}\\u{203F}-\\u{2040}]*",
+        "flags": "u"
+      }
+    }
+  },
+  {
+    "id": "xsl",
+    "extensions": [
+      ".xsl",
+      ".xslt"
+    ],
+    "aliases": [
+      "XSL",
+      "xsl"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "",
+        "blockComment": [
+          "<!--",
+          "-->"
+        ]
+      },
+      "brackets": [
+        [
+          "<!--",
+          "-->"
+        ],
+        [
+          "<",
+          ">"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "[",
+          "]"
+        ]
+      ],
+      "wordPattern": {
+        "pattern": "[:A-Z_a-z\\u{C0}-\\u{D6}\\u{D8}-\\u{F6}\\u{F8}-\\u{2FF}\\u{370}-\\u{37D}\\u{37F}-\\u{1FFF}\\u{200C}-\\u{200D}\\u{2070}-\\u{218F}\\u{2C00}-\\u{2FEF}\\u{3001}-\\u{D7FF}\\u{F900}-\\u{FDCF}\\u{FDF0}-\\u{FFFD}\\u{10000}-\\u{EFFFF}][-:A-Z_a-z\\u{C0}-\\u{D6}\\u{D8}-\\u{F6}\\u{F8}-\\u{2FF}\\u{370}-\\u{37D}\\u{37F}-\\u{1FFF}\\u{200C}-\\u{200D}\\u{2070}-\\u{218F}\\u{2C00}-\\u{2FEF}\\u{3001}-\\u{D7FF}\\u{F900}-\\u{FDCF}\\u{FDF0}-\\u{FFFD}\\u{10000}-\\u{EFFFF}.0-9\\u{B7}\\u{0300}-\\u{036F}\\u{203F}-\\u{2040}]*",
+        "flags": "u"
+      }
+    }
+  },
+  {
+    "id": "dockercompose",
+    "aliases": [
+      "Compose",
+      "compose"
+    ],
+    "filenamePatterns": [
+      "compose.yml",
+      "compose.yaml",
+      "compose.*.yml",
+      "compose.*.yaml",
+      "*docker*compose*.yml",
+      "*docker*compose*.yaml"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "#"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "folding": {
+        "offSide": true,
+        "markers": {
+          "start": "^\\s*#\\s*region\\b",
+          "end": "^\\s*#\\s*endregion\\b"
+        }
+      },
+      "indentationRules": {
+        "increaseIndentPattern": "^\\s*.*(:|-) ?(&amp;\\w+)?(\\{[^}\"']*|\\([^)\"']*)?$",
+        "decreaseIndentPattern": "^\\s+\\}$"
+      }
+    }
+  },
+  {
+    "id": "yaml",
+    "aliases": [
+      "YAML",
+      "yaml"
+    ],
+    "extensions": [
+      ".yml",
+      ".eyaml",
+      ".eyml",
+      ".yaml",
+      ".cff"
+    ],
+    "firstLine": "^#cloud-config",
+    "configuration": {
+      "comments": {
+        "lineComment": "#"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "folding": {
+        "offSide": true,
+        "markers": {
+          "start": "^\\s*#\\s*region\\b",
+          "end": "^\\s*#\\s*endregion\\b"
+        }
+      },
+      "indentationRules": {
+        "increaseIndentPattern": "^\\s*.*(:|-) ?(&amp;\\w+)?(\\{[^}\"']*|\\([^)\"']*)?$",
+        "decreaseIndentPattern": "^\\s+\\}$"
+      }
+    }
+  },
+  {
+    "id": "d",
+    "extensions": [
+      ".d",
+      ".di"
+    ],
+    "aliases": [
+      "D",
+      "Dlang"
+    ],
+    "firstLine": "^#!.*(dub|rdmd)",
+    "configuration": {
+      "comments": {
+        "blockComment": [
+          "/*",
+          "*/"
+        ],
+        "lineComment": "//"
+      },
+      "brackets": [
+        [
+          "(",
+          ")"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "folding": {
+        "markers": {
+          "start": "^\\s*//\\s*dfmt\\s*off",
+          "end": "^\\s*//\\s*dfmt\\s*on"
+        }
+      }
+    }
+  },
+  {
+    "id": "dpp",
+    "extensions": [
+      ".dpp",
+      ".d++"
+    ],
+    "aliases": [
+      "D++"
+    ],
+    "configuration": {
+      "comments": {
+        "blockComment": [
+          "/*",
+          "*/"
+        ],
+        "lineComment": "//"
+      },
+      "brackets": [
+        [
+          "(",
+          ")"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "folding": {
+        "markers": {
+          "start": "^\\s*//\\s*dfmt\\s*off",
+          "end": "^\\s*//\\s*dfmt\\s*on"
+        }
+      }
+    }
+  },
+  {
+    "id": "dscript",
+    "aliases": [
+      "arsd.DScript"
+    ],
+    "extensions": [
+      ".dscript",
+      ".ds"
+    ],
+    "configuration": {
+      "comments": {
+        "blockComment": [
+          "/*",
+          "*/"
+        ],
+        "lineComment": "//"
+      },
+      "brackets": [
+        [
+          "(",
+          ")"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "dml",
+    "aliases": [
+      "DlangUI Markup Language"
+    ],
+    "extensions": [
+      ".dml"
+    ],
+    "configuration": {
+      "comments": {
+        "blockComment": [
+          "/*",
+          "*/"
+        ],
+        "lineComment": "//"
+      },
+      "brackets": [
+        [
+          "(",
+          ")"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sdl",
+    "aliases": [
+      "SDL",
+      "Simple Declarative Language"
+    ],
+    "extensions": [
+      ".sdl"
+    ],
+    "configuration": {
+      "comments": {
+        "blockComment": [
+          "/*",
+          "*/"
+        ],
+        "lineComment": "//"
+      },
+      "brackets": [
+        [
+          "(",
+          ")"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "diet",
+    "aliases": [
+      "Diet"
+    ],
+    "extensions": [
+      ".dt"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//"
+      },
+      "brackets": [
+        [
+          "(",
+          ")"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        {
+          "open": "<",
+          "close": ">",
+          "notIn": [
+            "embedded",
+            "string"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "folding": {
+        "offSide": true
+      },
+      "wordPattern": "[^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+"
+    }
+  },
+  {
+    "id": "dart",
+    "extensions": [
+      ".dart"
+    ],
+    "aliases": [
+      "Dart"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "/**",
+          "close": " */",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "<",
+          ">"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "haskell",
+    "aliases": [
+      "Haskell",
+      "haskell"
+    ],
+    "extensions": [
+      ".hsig",
+      ".hs"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "--",
+        "blockComment": [
+          "{-",
+          "-}"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "folding": {
+        "offSide": true
+      }
+    }
+  },
+  {
+    "id": "cabal",
+    "aliases": [
+      "Cabal",
+      "cabal"
+    ],
+    "extensions": [
+      ".cabal"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "--",
+        "blockComment": []
+      }
+    }
+  },
+  {
+    "id": "literate haskell",
+    "aliases": [
+      "Literate Haskell",
+      "literate Haskell"
+    ],
+    "extensions": [
+      ".lhs"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "--",
+        "blockComment": [
+          "{-",
+          "-}"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "`",
+          "close": "`",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ],
+      "folding": {
+        "offSide": true
+      }
+    }
+  },
+  {
+    "id": "yaml",
+    "aliases": [
+      "YAML",
+      "yaml"
+    ],
+    "filenames": [
+      "stack.yaml.lock"
+    ],
+    "configuration": null
+  },
+  {
+    "id": "kotlin",
+    "aliases": [
+      "Kotlin",
+      "kotlin"
+    ],
+    "extensions": [
+      ".kt"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "/*",
+          "close": " */",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "<",
+          ">"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ]
+      ],
+      "folding": {
+        "offSide": true,
+        "markers": {
+          "start": "^\\s*//\\s*#region",
+          "end": "^\\s*//\\s*#endregion"
+        }
+      }
+    }
+  },
+  {
+    "id": "kotlinscript",
+    "aliases": [
+      "Kotlinscript",
+      "kotlinscript"
+    ],
+    "extensions": [
+      ".kts"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "<",
+          ">"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "/*",
+          "close": " */",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "<",
+          ">"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ]
+      ],
+      "folding": {
+        "offSide": true,
+        "markers": {
+          "start": "^\\s*//\\s*#region",
+          "end": "^\\s*//\\s*#endregion"
+        }
+      }
+    }
+  },
+  {
+    "id": "ocaml",
+    "aliases": [
+      "OCaml"
+    ],
+    "extensions": [
+      ".ml",
+      ".mli"
+    ],
+    "configuration": {
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "(**",
+          "close": " *)",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "comments": {
+        "blockComment": [
+          "(*",
+          "*)"
+        ]
+      },
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "ocaml.hover.info",
+    "configuration": null
+  },
+  {
+    "id": "ocaml.hover.type",
+    "configuration": null
+  },
+  {
+    "id": "ocaml.merlin",
+    "aliases": [
+      "Merlin"
+    ],
+    "extensions": [
+      "merlin"
+    ],
+    "configuration": null
+  },
+  {
+    "id": "ocaml.ocamlbuild",
+    "aliases": [
+      "OCamlbuild"
+    ],
+    "extensions": [
+      "_tags"
+    ],
+    "configuration": null
+  },
+  {
+    "id": "ocaml.opam",
+    "aliases": [
+      "OPAM"
+    ],
+    "extensions": [
+      "opam"
+    ],
+    "configuration": null
+  },
+  {
+    "id": "reason",
+    "aliases": [
+      "Reason"
+    ],
+    "extensions": [
+      ".re",
+      ".rei"
+    ],
+    "configuration": {
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "/**",
+          "close": " */",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "`",
+          "`"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "reason.hover.info",
+    "configuration": null
+  },
+  {
+    "id": "reason.hover.signature",
+    "configuration": null
+  },
+  {
+    "id": "reason.hover.type",
+    "configuration": null
+  },
+  {
+    "id": "pascal",
+    "aliases": [
+      "Pascal",
+      "pascal"
+    ],
+    "extensions": [
+      ".pas",
+      ".p",
+      ".dfm",
+      ".fmx",
+      ".dpr",
+      ".dpk",
+      ".lfm",
+      ".dpr",
+      ".lpr"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "{",
+          "}"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "<",
+          ">"
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "<",
+          ">"
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "folding": {
+        "markers": {
+          "start": "^\\s*\\{\\$REGION(\\s\\'.*\\')?\\}",
+          "end": "^\\s*\\{\\$ENDREGION\\}"
+        }
+      }
+    }
+  },
+  {
+    "id": "sql",
+    "extensions": [
+      ".sql"
+    ],
+    "aliases": [
+      "SQL"
+    ],
+    "configuration": {}
+  },
+  {
+    "id": "scala",
+    "aliases": [
+      "Scala",
+      "scala"
+    ],
+    "extensions": [
+      ".scala",
+      ".sbt",
+      ".sc"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "s\"",
+          "\""
+        ],
+        [
+          "f\"",
+          "\""
+        ],
+        [
+          "raw\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "COBOL",
+    "extensions": [
+      ".cbl",
+      ".cob",
+      ".cobol"
+    ],
+    "configuration": {
+      "wordPattern": "[\\w-]+"
+    }
+  },
+  {
+    "id": "COBOL Copybook",
+    "extensions": [
+      ".cpy"
+    ],
+    "configuration": {
+      "wordPattern": "[\\w-]+"
+    }
+  },
+  {
+    "id": "elixir",
+    "aliases": [
+      "Elixir",
+      "elixir"
+    ],
+    "extensions": [
+      ".ex",
+      ".exs"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "#"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "'",
+          "'"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "Eex",
+    "aliases": [
+      "Eex",
+      "eex"
+    ],
+    "extensions": [
+      ".eex"
+    ],
+    "configuration": null
+  },
+  {
+    "id": "HTML (Eex)",
+    "aliases": [
+      "HTML (Eex)"
+    ],
+    "extensions": [
+      ".html.eex"
+    ],
+    "configuration": {
+      "comments": {
+        "blockComment": [
+          "<%#",
+          "%>"
+        ]
+      },
+      "brackets": [
+        [
+          "<",
+          ">"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "[",
+          "]"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\""
+        },
+        {
+          "open": "<",
+          "close": ">"
+        },
+        {
+          "open": "%",
+          "close": "%",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        {
+          "open": "'",
+          "close": "'"
+        },
+        {
+          "open": "\"",
+          "close": "\""
+        },
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "<",
+          "close": ">"
+        },
+        {
+          "open": "%",
+          "close": "%"
+        }
+      ]
+    }
+  },
+  {
+    "id": "erlang",
+    "aliases": [
+      "Erlang",
+      "erlang"
+    ],
+    "extensions": [
+      ".erl",
+      ".hrl",
+      ".xrl",
+      ".yrl",
+      ".es",
+      ".escript",
+      ".app.src",
+      "rebar.config"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "%"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "<<",
+          ">>"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "[",
+          "close": "]",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "(",
+          "close": ")",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "<<",
+          "close": ">>",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        },
+        {
+          "open": "\"",
+          "close": "\""
+        }
+      ],
+      "folding": {
+        "markers": {
+          "start": "^\\s*\\%\\%region\\b",
+          "end": "^\\s*\\%\\%endregion\\b"
+        }
+      }
+    }
+  },
+  {
+    "id": "tcl",
+    "aliases": [
+      "Tcl",
+      "tcl"
+    ],
+    "extensions": [
+      ".tcl",
+      ".test"
+    ],
+    "configuration": {
+      "capabilities": {
+        "documentOnTypeFormattingProvider": {
+          "firstTriggerCharacter": "}",
+          "moreTriggerCharacter": [
+            ";",
+            ","
+          ]
+        },
+        "documentRangeFormattingProvider": "true",
+        "renameProvider": "true",
+        "documentHighlightProvider": "true",
+        "referencesProvider": "true"
+      },
+      "comments": {
+        "lineComment": "#"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ]
+      ]
+    }
+  },
+  {
+    "id": "verilog",
+    "aliases": [
+      "Verilog",
+      "verilog"
+    ],
+    "extensions": [
+      ".v",
+      ".vh",
+      ".vl"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "begin",
+          "end"
+        ],
+        [
+          "case",
+          "endcase"
+        ],
+        [
+          "casex",
+          "endcase"
+        ],
+        [
+          "casez",
+          "endcase"
+        ],
+        [
+          "config",
+          "endconfig"
+        ],
+        [
+          "fork",
+          "join"
+        ],
+        [
+          "function",
+          "endfunction"
+        ],
+        [
+          "generate",
+          "endgenerate"
+        ],
+        [
+          "macromodule",
+          "endmodule"
+        ],
+        [
+          "module",
+          "endmodule"
+        ],
+        [
+          "primitive",
+          "endprimitive"
+        ],
+        [
+          "specify",
+          "endspecify"
+        ],
+        [
+          "table",
+          "endtable"
+        ],
+        [
+          "task",
+          "endtask"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "systemverilog",
+    "aliases": [
+      "System Verilog",
+      "systemverilog"
+    ],
+    "extensions": [
+      ".sv",
+      ".SV"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "begin",
+          "end"
+        ],
+        [
+          "case",
+          "endcase"
+        ],
+        [
+          "casex",
+          "endcase"
+        ],
+        [
+          "casez",
+          "endcase"
+        ],
+        [
+          "checker",
+          "endchecker"
+        ],
+        [
+          "class",
+          "endclass"
+        ],
+        [
+          "clocking",
+          "endclocking"
+        ],
+        [
+          "config",
+          "endconfig"
+        ],
+        [
+          "covergroup",
+          "endgroup"
+        ],
+        [
+          "fork",
+          "join"
+        ],
+        [
+          "fork",
+          "join_any"
+        ],
+        [
+          "fork",
+          "join_none"
+        ],
+        [
+          "function",
+          "endfunction"
+        ],
+        [
+          "generate",
+          "endgenerate"
+        ],
+        [
+          "interface",
+          "endinterface"
+        ],
+        [
+          "macromodule",
+          "endmodule"
+        ],
+        [
+          "module",
+          "endmodule"
+        ],
+        [
+          "package",
+          "endpackage"
+        ],
+        [
+          "primitive",
+          "endprimitive"
+        ],
+        [
+          "program",
+          "endprogram"
+        ],
+        [
+          "property",
+          "endproperty"
+        ],
+        [
+          "randcase",
+          "endcase"
+        ],
+        [
+          "specify",
+          "endspecify"
+        ],
+        [
+          "sequence",
+          "endsequence"
+        ],
+        [
+          "table",
+          "endtable"
+        ],
+        [
+          "task",
+          "endtask"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "bsv",
+    "aliases": [
+      "BluespecSystemVerilog",
+      "Bluespec SystemVerilog",
+      "BSV"
+    ],
+    "extensions": [
+      ".bsv",
+      ".BSV"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "//",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "action",
+          "endaction"
+        ],
+        [
+          "actionvalue",
+          "endactionvalue"
+        ],
+        [
+          "begin",
+          "end"
+        ],
+        [
+          "case",
+          "endcase"
+        ],
+        [
+          "config",
+          "endconfig"
+        ],
+        [
+          "function",
+          "endfunction"
+        ],
+        [
+          "generate",
+          "endgenerate"
+        ],
+        [
+          "interface",
+          "endinterface"
+        ],
+        [
+          "method",
+          "endmethod"
+        ],
+        [
+          "module",
+          "endmodule"
+        ],
+        [
+          "package",
+          "endpackage"
+        ],
+        [
+          "rule",
+          "endrule"
+        ],
+        [
+          "seq",
+          "endseq"
+        ],
+        [
+          "specify",
+          "endspecify"
+        ],
+        [
+          "table",
+          "endtable"
+        ],
+        [
+          "task",
+          "endtask"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        }
+      ],
+      "wordPattern": "((\\\\.)|[a-zA-Z_$])((\\\\.)|[a-zA-Z_$0-9])*"
+    }
+  },
+  {
+    "id": "ucf",
+    "aliases": [
+      "vivado ucf",
+      "ucf constraints"
+    ],
+    "extensions": [
+      ".ucf"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "#",
+        "blockComment": [
+          "/*",
+          "*/"
+        ]
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sdc",
+    "aliases": [
+      "Synopsys Design Constraints"
+    ],
+    "extensions": [
+      ".sdc"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "#"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "xdc",
+    "aliases": [
+      "Xilinx Design Constraints"
+    ],
+    "extensions": [
+      ".xdc"
+    ],
+    "configuration": {
+      "comments": {
+        "lineComment": "#"
+      },
+      "brackets": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ]
+      ],
+      "autoClosingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ],
+      "surroundingPairs": [
+        [
+          "{",
+          "}"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "(",
+          ")"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "postgres",
+    "extensions": [
+      ".pgsql",
+      ".psql"
+    ],
+    "aliases": [
+      "Postgres"
+    ],
+    "configuration": {
+      "comments": {
+        "blockComment": [
+          "/*",
+          "*/"
+        ],
+        "lineComment": "--"
+      },
+      "brackets": [
+        [
+          "(",
+          ")"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "{",
+          "}"
+        ]
+      ],
+      "autoClosingPairs": [
+        {
+          "open": "(",
+          "close": ")"
+        },
+        {
+          "open": "[",
+          "close": "]"
+        },
+        {
+          "open": "{",
+          "close": "}"
+        },
+        {
+          "open": "\"",
+          "close": "\"",
+          "notIn": [
+            "string"
+          ]
+        },
+        {
+          "open": "'",
+          "close": "'",
+          "notIn": [
+            "string",
+            "comment"
+          ]
+        }
+      ],
+      "surroundingPairs": [
+        [
+          "(",
+          ")"
+        ],
+        [
+          "[",
+          "]"
+        ],
+        [
+          "{",
+          "}"
+        ],
+        [
+          "\"",
+          "\""
+        ],
+        [
+          "'",
+          "'"
+        ]
+      ]
+    }
+  }
+]

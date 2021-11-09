@@ -1,0 +1,48 @@
+{
+  "fileTypes": [
+    "eex"
+  ],
+  "name": "EEx",
+  "patterns": [
+    {
+      "begin": "<%+#",
+      "captures": {
+        "0": {
+          "name": "punctuation.definition.comment.eex"
+        }
+      },
+      "end": "%>",
+      "name": "comment.block.eex"
+    },
+    {
+      "begin": "<%+(?!>)[-=]*",
+      "captures": {
+        "0": {
+          "name": "punctuation.section.embedded.elixir"
+        }
+      },
+      "end": "-?%>",
+      "name": "source.elixir.embedded",
+      "patterns": [
+        {
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.comment.elixir"
+            }
+          },
+          "match": "(#).*?(?=-?%>)",
+          "name": "comment.line.number-sign.elixir"
+        },
+        {
+          "include": "source.elixir"
+        }
+      ]
+    }
+  ],
+  "scopeName": "text.elixir",
+  "information_for_contributors": [
+    "This file has been converted from https://github.com/timmhirsens/vscode-elixir/blob/master/",
+    "If you want to provide a fix or improvement, please create a pull request against the original repository.",
+    "Once accepted there, we are happy to receive an update request."
+  ]
+}
