@@ -43,6 +43,9 @@ for (const languageId of languagesIds) {
 }
 
 modeService.onDidEncounterLanguage(async (languageId) => {
+  if (languageId === 'plaintext') {
+    return
+  }
   const textMateTokenProviderPromise = createTextMateTokensProvider(languageId)
   textMateTokenProviderPromise.catch(err => {
     const monarchLoader = monarchLanguageLoader[languageId]
