@@ -53,8 +53,9 @@ function openNewCodeEditor (model: monaco.editor.ITextModel) {
   return editor
 }
 
+export type EditorOpenHandler = (model: monaco.editor.ITextModel, input: monaco.extra.IResourceEditorInput, editor: monaco.editor.ICodeEditor, sideBySide?: boolean) => Promise<monaco.editor.ICodeEditor | null>
+
 export default class MultiEditorStandaloneCodeEditorServiceImpl extends monaco.extra.StandaloneCodeEditorServiceImpl {
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
   private modelResolverService: EditorModelResolverService
   constructor (
     styleSheet: monaco.extra.GlobalStyleSheet | null,
@@ -66,7 +67,21 @@ export default class MultiEditorStandaloneCodeEditorServiceImpl extends monaco.e
     this.modelResolverService = modelResolverService
   }
 
-  async openCodeEditor (input: monaco.extra.IResourceEditorInput, editor: monaco.editor.ICodeEditor): Promise<monaco.editor.ICodeEditor | null> {
+  private handlers: EditorOpenHandler[] = []
+  public registerEditorOpenHandler (handler: EditorOpenHandler): monaco.IDisposable {
+    this.handlers.push(handler)
+
+    return {
+      dispose: () => {
+        const index = this.handlers.indexOf(handler)
+        if (index >= 0) {
+          this.handlers.splice(index, 1)
+        }
+      }
+    }
+  }
+
+  override async openCodeEditor (input: monaco.extra.IResourceEditorInput, editor: monaco.editor.ICodeEditor, sideBySide?: boolean): Promise<monaco.editor.ICodeEditor | null> {
     const existingModel = monaco.editor.getModel(input.resource)
     let model = existingModel
     if (model == null) {
@@ -83,6 +98,15 @@ export default class MultiEditorStandaloneCodeEditorServiceImpl extends monaco.e
     if (modelEditor == null) {
       const codeEditors = monaco.editor.StaticServices.codeEditorService.get().listCodeEditors()
       modelEditor = codeEditors.find(editor => editor.getModel() === model)
+    }
+    if (modelEditor == null) {
+      for (const handler of this.handlers) {
+        const handlerEditor = await handler(model, input, editor, sideBySide)
+        if (handlerEditor != null) {
+          modelEditor = handlerEditor
+          break
+        }
+      }
     }
     if (modelEditor == null) {
       modelEditor = openNewCodeEditor(model)
