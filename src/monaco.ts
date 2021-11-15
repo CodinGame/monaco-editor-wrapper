@@ -2,7 +2,7 @@ import * as monaco from 'monaco-editor'
 import './hacks'
 import './languages'
 import './theme'
-import MultiEditorStandaloneCodeEditorServiceImpl from './services/MultiEditorStandaloneCodeEditorService'
+import MultiEditorStandaloneCodeEditorServiceImpl, { EditorOpenHandler } from './services/MultiEditorStandaloneCodeEditorService'
 import EditorModelResolverService from './services/EditorModelResolverService'
 import './worker'
 import setupExtensions from './extensions'
@@ -38,7 +38,12 @@ function registerTextModelContentProvider (scheme: string, provider: monaco.extr
   return editorModelResolverService.registerTextModelContentProvider(scheme, provider)
 }
 
+function registerEditorOpenHandler (handler: EditorOpenHandler): monaco.IDisposable {
+  return multiEditorStandaloneCodeEditorServiceImpl.registerEditorOpenHandler(handler)
+}
+
 export {
   createEditor,
-  registerTextModelContentProvider
+  registerTextModelContentProvider,
+  registerEditorOpenHandler
 }

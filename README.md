@@ -15,7 +15,7 @@ Monaco editor wrapper that adds some features and improvements to it:
 - It adds some features:
   - Smart tabs in Cobol
   - `editor.foldAllAutofoldRegions` action
-  - A way to register a text model content provider
+  - A way to register a text model content provider and a editor open handler
   - It allows the opening of an overlay editor when navigating to an external file
   - It adds some language aliases
 
