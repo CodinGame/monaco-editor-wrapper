@@ -1,6 +1,7 @@
 import * as monaco from 'monaco-editor'
 import EditorModelResolverService from './EditorModelResolverService'
 import { createEditor } from '../monaco'
+import { getConfiguration } from '../configuration'
 
 let popupEditorDisposable: monaco.IDisposable | null = null
 function openNewCodeEditor (model: monaco.editor.ITextModel) {
@@ -30,7 +31,8 @@ function openNewCodeEditor (model: monaco.editor.ITextModel) {
     {
       model,
       readOnly: true,
-      automaticLayout: true
+      automaticLayout: true,
+      ...getConfiguration(model.getLanguageId(), 'editor')
     }
   )
 
