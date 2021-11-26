@@ -5,7 +5,8 @@ const configuration = monaco.extra.Registry.as<monaco.extra.IConfigurationRegist
 configuration.registerDefaultConfigurations([{
   'editor.codeLens': false,
   'editor.fontSize': 12,
-  'editor.maxTokenizationLineLength': 1000
+  'editor.maxTokenizationLineLength': 1000,
+  'editor.quickSuggestions': false
 }])
 configuration.registerDefaultConfigurations([configurationDefaults])
 
