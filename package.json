@@ -25,7 +25,6 @@
     "monaco-editor": "npm:@codingame/monaco-editor@>=0.30.6",
     "monaco-emacs": "^0.2.2",
     "monaco-vim": "^0.1.19",
-    "sweetalert": "^2.1.2",
     "vscode-oniguruma": "^1.5.1"
   },
   "devDependencies": {
