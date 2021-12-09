@@ -1,11 +1,5 @@
 
 import * as monaco from 'monaco-editor'
-import { ModelSemanticColoring } from 'monaco-editor/esm/vs/editor/common/services/modelServiceImpl'
-
-ModelSemanticColoring.FETCH_DOCUMENT_SEMANTIC_TOKENS_DELAY = Math.max(
-  ModelSemanticColoring.FETCH_DOCUMENT_SEMANTIC_TOKENS_DELAY,
-  2000
-)
 
 monaco.errorHandler.setUnexpectedErrorHandler(error => {
   console.error('Unexpected error', error)
