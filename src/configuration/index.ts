@@ -1,5 +1,5 @@
 import * as monaco from 'monaco-editor'
-import configurationDefaults from '../languages/extensions/configurationDefaults.json'
+import extensions from '../languages/extensions/extensions.json'
 
 const configuration = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
 configuration.registerDefaultConfigurations([{
@@ -8,7 +8,8 @@ configuration.registerDefaultConfigurations([{
   'editor.maxTokenizationLineLength': 1000,
   'editor.quickSuggestions': false
 }])
-configuration.registerDefaultConfigurations([configurationDefaults])
+configuration.registerConfigurations(extensions.configurations as unknown as monaco.extra.IConfigurationNode[])
+configuration.registerDefaultConfigurations([extensions.configurationDefaults])
 
 const simpleConfigurationService = monaco.editor.StaticServices.configurationService.get() as monaco.extra.SimpleConfigurationService
 
