@@ -22,6 +22,10 @@ export function updateUserConfiguration (configurationJson: string): void {
   simpleConfigurationService.updateUserConfiguration(configurationJson)
 }
 
+export function registerConfigurations (configurations: monaco.extra.IConfigurationNode[], validate?: boolean): void {
+  configuration.registerConfigurations(configurations, validate)
+}
+
 export function registerDefaultConfigurations (defaultConfigurations: monaco.extra.IStringDictionary<unknown>[]): void {
   configuration.registerDefaultConfigurations(defaultConfigurations)
 }
