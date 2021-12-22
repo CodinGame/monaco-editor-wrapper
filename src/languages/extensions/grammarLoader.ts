@@ -31,7 +31,7 @@ export default {
   'source.powershell': async () => (await import(/* webpackChunkName: "grammar-source-powershell" */ './grammars/powershell/powershell.tmLanguage.json')).default,
   'source.python': async () => (await import(/* webpackChunkName: "grammar-source-python" */ './grammars/python/MagicPython.tmLanguage.json')).default,
   'source.regexp.python': async () => (await import(/* webpackChunkName: "grammar-source-regexp-python" */ './grammars/python/MagicRegExp.tmLanguage.json')).default,
-  'source.r': async () => (await import(/* webpackChunkName: "grammar-source-r" */ './grammars/r/r.tmLanguage.json')).default,
+  'source.r': async () => (await import(/* webpackChunkName: "grammar-source-r" */ './grammars/vscode-R/r.json')).default,
   'source.ruby': async () => (await import(/* webpackChunkName: "grammar-source-ruby" */ './grammars/ruby/ruby.tmLanguage.json')).default,
   'source.rust': async () => (await import(/* webpackChunkName: "grammar-source-rust" */ './grammars/rust/rust.tmLanguage.json')).default,
   'source.css.scss': async () => (await import(/* webpackChunkName: "grammar-source-css-scss" */ './grammars/scss/scss.tmLanguage.json')).default,
@@ -54,6 +54,7 @@ export default {
   'source.dml': async () => (await import(/* webpackChunkName: "grammar-source-dml" */ './grammars/d/dml.json')).default,
   'source.sdl': async () => (await import(/* webpackChunkName: "grammar-source-sdl" */ './grammars/d/sdl.json')).default,
   'source.diet': async () => (await import(/* webpackChunkName: "grammar-source-diet" */ './grammars/d/diet.json')).default,
+  'markdown.d.codeblock': async () => (await import(/* webpackChunkName: "grammar-markdown-d-codeblock" */ './grammars/d/codeblock.json')).default,
   'source.dart': async () => (await import(/* webpackChunkName: "grammar-source-dart" */ './grammars/dart/dart.json')).default,
   'source.haskell': async () => (await import(/* webpackChunkName: "grammar-source-haskell" */ './grammars/haskell/haskell.tmLanguage.json')).default,
   'source.cabal': async () => (await import(/* webpackChunkName: "grammar-source-cabal" */ './grammars/haskell/cabal.tmLanguage.json')).default,
@@ -89,6 +90,13 @@ export default {
   'source.ucfconstraints': async () => (await import(/* webpackChunkName: "grammar-source-ucfconstraints" */ './grammars/verilog/ucf.tmLanguage.json')).default,
   'source.sdc': async () => (await import(/* webpackChunkName: "grammar-source-sdc" */ './grammars/verilog/sdc.tmLanguage.json')).default,
   'markdown.verilog.codeblock': async () => (await import(/* webpackChunkName: "grammar-markdown-verilog-codeblock" */ './grammars/verilog/codeblock.json')).default,
-  'source.pgsql': async () => (await import(/* webpackChunkName: "grammar-source-pgsql" */ './grammars/postgresql/pgsql.tmLanguage.json')).default
+  'source.pgsql': async () => (await import(/* webpackChunkName: "grammar-source-pgsql" */ './grammars/postgresql/pgsql.tmLanguage.json')).default,
+  'text.aspnetcorerazor': async () => (await import(/* webpackChunkName: "grammar-text-aspnetcorerazor" */ './grammars/omnisharp/aspnetcorerazor.tmLanguage.json')).default,
+  'source.pip-requirements': async () => (await import(/* webpackChunkName: "grammar-source-pip-requirements" */ './grammars/vscode-python/pip-requirements.tmLanguage.json')).default,
+  'text.tex.latex.rd': async () => (await import(/* webpackChunkName: "grammar-text-tex-latex-rd" */ './grammars/vscode-R/Rd (R Documentation).json')).default,
+  'debian-control.r': async () => (await import(/* webpackChunkName: "grammar-debian-control-r" */ './grammars/vscode-R/dcf.json')).default,
+  'text.html.rmarkdown': async () => (await import(/* webpackChunkName: "grammar-text-html-rmarkdown" */ './grammars/vscode-R/RMarkdown.json')).default,
+  'text.html.markdown.redcarpet': async () => (await import(/* webpackChunkName: "grammar-text-html-markdown-redcarpet" */ './grammars/vscode-R/Markdown Redcarpet.json')).default,
+  'comment.block.r': async () => (await import(/* webpackChunkName: "grammar-comment-block-r" */ './grammars/vscode-R/Rcpp.json')).default
 }
 
