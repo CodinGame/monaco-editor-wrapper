@@ -22,7 +22,8 @@ export default rollup.defineConfig({
     jsonContribution: 'src/features/jsonContribution.ts',
     typescriptContribution: 'src/features/typescriptContribution.ts',
     htmlContribution: 'src/features/htmlContribution.ts',
-    cssContribution: 'src/features/cssContribution.ts'
+    cssContribution: 'src/features/cssContribution.ts',
+    extensionConfigurations: 'src/features/extensionConfigurations.ts'
   },
   external: function isExternal (source, importer, isResolved) {
     if (isResolved) {
