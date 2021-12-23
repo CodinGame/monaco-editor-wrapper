@@ -1,14 +1,15 @@
 import * as monaco from 'monaco-editor'
 import configurationDefaults from '../languages/extensions/configurationDefaults.json'
 
-const configuration = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
-configuration.registerDefaultConfigurations([{
+const configurationRegistry = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
+configurationRegistry.registerDefaultConfigurations([{
   'editor.codeLens': false,
   'editor.fontSize': 12,
   'editor.maxTokenizationLineLength': 1000,
   'editor.quickSuggestions': false
 }])
-configuration.registerDefaultConfigurations([configurationDefaults])
+
+configurationRegistry.registerDefaultConfigurations([extensions.configurationDefaults])
 
 const simpleConfigurationService = monaco.editor.StaticServices.configurationService.get() as monaco.extra.SimpleConfigurationService
 
@@ -23,5 +24,5 @@ export function updateUserConfiguration (configurationJson: string): void {
 }
 
 export function registerDefaultConfigurations (defaultConfigurations: monaco.extra.IStringDictionary<unknown>[]): void {
-  configuration.registerDefaultConfigurations(defaultConfigurations)
+  configurationRegistry.registerDefaultConfigurations(defaultConfigurations)
 }
