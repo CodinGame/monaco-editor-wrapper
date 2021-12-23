@@ -54,8 +54,7 @@ modeService.onDidEncounterLanguage(async (languageId) => {
     })
   }
 
-  const textMateTokenProviderPromise = createTextMateTokensProvider(languageId)
-  textMateTokenProviderPromise.catch(err => {
+  const textMateTokenProviderPromise = createTextMateTokensProvider(languageId).catch(err => {
     const monarchLoader = monarchLanguageLoader[languageId]
     if (monarchLoader != null) {
       console.warn(`Failed to load TextMate grammar for language ${languageId}, fallback to monarch`, err)
@@ -63,6 +62,7 @@ modeService.onDidEncounterLanguage(async (languageId) => {
     } else {
       console.error(`Failed to load TextMate grammar for language ${languageId} and no fallback monarch`, err)
     }
+    return null
   })
   monaco.languages.setTokenizationSupport(languageId, textMateTokenProviderPromise)
 })
