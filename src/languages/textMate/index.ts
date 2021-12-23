@@ -4,6 +4,7 @@ import CGTMGrammarFactory from './CGTMGrammarFactory'
 import CGTMTokenizationSupport from './CGTMTokenizationSupport'
 import rawGrammars from '../extensions/grammars.json'
 import grammarLoader from '../extensions/grammarLoader'
+import './semanticTokens'
 
 function createGrammarFactory (): CGTMGrammarFactory {
   const modeService = monaco.editor.StaticServices.modeService.get()
