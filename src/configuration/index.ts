@@ -1,5 +1,5 @@
 import * as monaco from 'monaco-editor'
-import configurationDefaults from '../languages/extensions/configurationDefaults.json'
+import extensions from '../languages/extensions/extensions.json'
 
 const configurationRegistry = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
 configurationRegistry.registerDefaultConfigurations([{
@@ -12,7 +12,7 @@ configurationRegistry.registerDefaultConfigurations([{
 }])
 
 configurationRegistry.registerDefaultConfigurations([{
-  overrides: configurationDefaults
+  overrides: extensions.configurationDefaults
 }])
 
 const simpleConfigurationService = monaco.editor.StaticServices.configurationService.get() as monaco.extra.SimpleConfigurationService
