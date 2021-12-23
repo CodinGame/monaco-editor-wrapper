@@ -1,8 +1,8 @@
 import * as monaco from 'monaco-editor'
 import configurationDefaults from '../languages/extensions/configurationDefaults.json'
 
-const configuration = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
-configuration.registerDefaultConfigurations([{
+const configurationRegistry = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
+configurationRegistry.registerDefaultConfigurations([{
   overrides: {
     'editor.codeLens': false,
     'editor.fontSize': 12,
@@ -11,7 +11,7 @@ configuration.registerDefaultConfigurations([{
   }
 }])
 
-configuration.registerDefaultConfigurations([{
+configurationRegistry.registerDefaultConfigurations([{
   overrides: configurationDefaults
 }])
 
@@ -28,5 +28,5 @@ export function updateUserConfiguration (configurationJson: string): void {
 }
 
 export function registerDefaultConfigurations (defaultConfigurations: monaco.extra.IStringDictionary<unknown>[]): void {
-  configuration.registerDefaultConfigurations(defaultConfigurations.map(overrides => ({ overrides })))
+  configurationRegistry.registerDefaultConfigurations(defaultConfigurations.map(overrides => ({ overrides })))
 }
