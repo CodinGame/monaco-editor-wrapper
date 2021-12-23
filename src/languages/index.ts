@@ -60,7 +60,7 @@ modeService.onDidEncounterLanguage(async (languageId) => {
       console.warn(`Failed to load TextMate grammar for language ${languageId}, fallback to monarch`, err)
       monaco.languages.setMonarchTokensProvider(languageId, monarchLoader().then(lang => lang.language))
     } else {
-      console.error(`Failed to load TextMate grammar for language ${languageId} and no fallback monarch`, err)
+      console.warn(`Failed to load TextMate grammar for language ${languageId} and no fallback monarch`, err)
     }
     return null
   })
