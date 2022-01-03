@@ -3,12 +3,17 @@ import configurationDefaults from '../languages/extensions/configurationDefaults
 
 const configuration = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
 configuration.registerDefaultConfigurations([{
-  'editor.codeLens': false,
-  'editor.fontSize': 12,
-  'editor.maxTokenizationLineLength': 1000,
-  'editor.quickSuggestions': false
+  overrides: {
+    'editor.codeLens': false,
+    'editor.fontSize': 12,
+    'editor.maxTokenizationLineLength': 1000,
+    'editor.quickSuggestions': false
+  }
 }])
-configuration.registerDefaultConfigurations([configurationDefaults])
+
+configuration.registerDefaultConfigurations([{
+  overrides: configurationDefaults
+}])
 
 const simpleConfigurationService = monaco.editor.StaticServices.configurationService.get() as monaco.extra.SimpleConfigurationService
 
@@ -23,5 +28,5 @@ export function updateUserConfiguration (configurationJson: string): void {
 }
 
 export function registerDefaultConfigurations (defaultConfigurations: monaco.extra.IStringDictionary<unknown>[]): void {
-  configuration.registerDefaultConfigurations(defaultConfigurations)
+  configuration.registerDefaultConfigurations(defaultConfigurations.map(overrides => ({ overrides })))
 }

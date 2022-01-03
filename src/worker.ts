@@ -1,3 +1,4 @@
+import * as monaco from 'monaco-editor'
 import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
 interface WrappedWorker {
   new (): Worker
@@ -10,6 +11,11 @@ const workerLoaders: Partial<Record<string, WorkerLoader>> = {
 }
 export function registerWorkerLoader (label: string, workerLoader: WorkerLoader): void {
   workerLoaders[label] = workerLoader
+}
+
+declare global {
+  interface Window extends monaco.Window {
+  }
 }
 
 // Do not use monaco-editor-webpack-plugin because it doesn't handle properly cross origin workers
