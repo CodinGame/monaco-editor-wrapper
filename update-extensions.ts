@@ -275,8 +275,8 @@ async function fetchExtensions () {
 
     const packageJsonContent = (await download(resolve('package.json')))!
     let packageJson = JSON.parse(packageJsonContent) as {
-        contributes: PackageJsonContributes
-      }
+      contributes: PackageJsonContributes
+    }
 
     // Only use the default i18n, can be improved
     const packageNlsJsonContent = await download(resolve('package.nls.json'))

@@ -10,10 +10,10 @@ function toMonacoToken (token: IToken) {
 
 export default class CGTMTokenizationSupport extends monaco.extra.TMTokenizationSupport {
   constructor (
-      private languageId: string,
-      encodedLanguageId: monaco.languages.LanguageId,
-      actual: monaco.extra.TMTokenization,
-      private grammar: IGrammar
+    private languageId: string,
+    encodedLanguageId: monaco.languages.LanguageId,
+    actual: monaco.extra.TMTokenization,
+    private grammar: IGrammar
   ) {
     super(languageId, encodedLanguageId, actual, monaco.editor.StaticServices.configurationService.get())
   }
