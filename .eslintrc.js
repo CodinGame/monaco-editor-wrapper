@@ -102,6 +102,8 @@ module.exports = {
       {
         allowAsStatement: true
       }
-    ]
+    ],
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2]
   }
 }

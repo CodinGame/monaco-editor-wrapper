@@ -84,15 +84,8 @@ export default class MultiEditorStandaloneCodeEditorServiceImpl extends monaco.e
   }
 
   override async openCodeEditor (input: monaco.extra.IResourceEditorInput, editor: monaco.editor.ICodeEditor, sideBySide?: boolean): Promise<monaco.editor.ICodeEditor | null> {
-    const existingModel = monaco.editor.getModel(input.resource)
-    let model = existingModel
-    if (model == null) {
-      model = await this.modelResolverService.fetchModel(input.resource)
-    }
-    if (model == null) {
-      console.error('Unable to find model', input.resource)
-      return null
-    }
+    const reference = await this.modelResolverService.createModelReference(input.resource)
+    const model = reference.object.textEditorModel
     let modelEditor: monaco.editor.ICodeEditor | undefined
     if (editor.getModel() === model) {
       modelEditor = editor
@@ -112,12 +105,6 @@ export default class MultiEditorStandaloneCodeEditorServiceImpl extends monaco.e
     }
     if (modelEditor == null) {
       modelEditor = openNewCodeEditor(model)
-      if (existingModel == null) {
-        // If we just created this method, dispose it
-        modelEditor.onDidDispose(() => {
-          model?.dispose()
-        })
-      }
     }
 
     super.doOpenEditor(modelEditor, input)
@@ -129,6 +116,20 @@ export default class MultiEditorStandaloneCodeEditorServiceImpl extends monaco.e
         inline: 'nearest'
       })
     }
+
+    const onModelUnmount = () => {
+      reference.dispose()
+    }
+    const onDidDisposeDisposable = modelEditor.onDidDispose(() => {
+      onModelUnmount()
+    })
+    const onDidChangeModelDisposable = modelEditor.onDidChangeModel((e) => {
+      if (e.newModelUrl == null || e.newModelUrl.toString() !== model.uri.toString()) {
+        onModelUnmount()
+        onDidDisposeDisposable.dispose()
+        onDidChangeModelDisposable.dispose()
+      }
+    })
 
     return modelEditor
   }

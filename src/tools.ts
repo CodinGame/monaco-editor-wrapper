@@ -159,22 +159,22 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.IStandaloneCode
       .sort((a, b) => a.startLineNumber - b.startLineNumber)
       // merge ranges
       .reduce<monaco.Range[]>((acc, range) => {
-        if (acc.length === 0) {
-          return [range]
-        }
-        const lastRange = acc[acc.length - 1]
-        if (range.getStartPosition().isBeforeOrEqual(lastRange.getEndPosition())) {
-          return [
-            ...acc.slice(0, -1),
-            monaco.Range.fromPositions(lastRange.getStartPosition(), range.getEndPosition())
-          ]
-        } else {
-          return [
-            ...acc,
-            range
-          ]
-        }
-      }, [])
+      if (acc.length === 0) {
+        return [range]
+      }
+      const lastRange = acc[acc.length - 1]
+      if (range.getStartPosition().isBeforeOrEqual(lastRange.getEndPosition())) {
+        return [
+          ...acc.slice(0, -1),
+          monaco.Range.fromPositions(lastRange.getStartPosition(), range.getEndPosition())
+        ]
+      } else {
+        return [
+          ...acc,
+          range
+        ]
+      }
+    }, [])
 
     let hiddenAreas: monaco.IRange[] = [...otherHiddenAreas]
     let position = new monaco.Position(1, 1)

@@ -1,14 +1,19 @@
 import * as monaco from 'monaco-editor'
-import configurationDefaults from '../languages/extensions/configurationDefaults.json'
+import extensions from '../languages/extensions/extensions.json'
 
-const configuration = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
-configuration.registerDefaultConfigurations([{
-  'editor.codeLens': false,
-  'editor.fontSize': 12,
-  'editor.maxTokenizationLineLength': 1000,
-  'editor.quickSuggestions': false
+const configurationRegistry = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
+configurationRegistry.registerDefaultConfigurations([{
+  overrides: {
+    'editor.codeLens': false,
+    'editor.fontSize': 12,
+    'editor.maxTokenizationLineLength': 1000,
+    'editor.quickSuggestions': false
+  }
 }])
-configuration.registerDefaultConfigurations([configurationDefaults])
+
+configurationRegistry.registerDefaultConfigurations([{
+  overrides: extensions.configurationDefaults
+}])
 
 const simpleConfigurationService = monaco.editor.StaticServices.configurationService.get() as monaco.extra.SimpleConfigurationService
 
@@ -22,6 +27,10 @@ export function updateUserConfiguration (configurationJson: string): void {
   simpleConfigurationService.updateUserConfiguration(configurationJson)
 }
 
+export function registerConfigurations (configurations: monaco.extra.IConfigurationNode[], validate?: boolean): void {
+  configurationRegistry.registerConfigurations(configurations, validate)
+}
+
 export function registerDefaultConfigurations (defaultConfigurations: monaco.extra.IStringDictionary<unknown>[]): void {
-  configuration.registerDefaultConfigurations(defaultConfigurations)
+  configurationRegistry.registerDefaultConfigurations(defaultConfigurations.map(overrides => ({ overrides })))
 }

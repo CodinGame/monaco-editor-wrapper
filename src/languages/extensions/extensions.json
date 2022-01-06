@@ -1,0 +1,1107 @@
+{
+  "configurationDefaults": {
+    "[go]": {
+      "editor.insertSpaces": false
+    },
+    "[javascript]": {
+      "editor.maxTokenizationLineLength": 2500
+    },
+    "[markdown]": {
+      "editor.unicodeHighlight.ambiguousCharacters": false
+    },
+    "[shellscript]": {
+      "files.eol": "\n"
+    },
+    "[yaml]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2,
+      "editor.autoIndent": "advanced"
+    },
+    "[dockercompose]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2,
+      "editor.autoIndent": "advanced"
+    },
+    "[dart]": {
+      "editor.tabSize": 2,
+      "editor.insertSpaces": true,
+      "editor.detectIndentation": false,
+      "editor.suggest.insertMode": "replace"
+    },
+    "files.watcherExclude": {
+      "**/.dart_tool": true
+    },
+    "[COBOL]": {
+      "editor.renderIndentGuides": false,
+      "editor.rulers": [
+        7,
+        11,
+        72,
+        80
+      ]
+    },
+    "[java]": {
+      "editor.suggest.snippetsPreventQuickSuggestions": false
+    },
+    "[cpp]": {
+      "editor.wordBasedSuggestions": false,
+      "editor.suggest.insertMode": "replace",
+      "editor.semanticHighlighting.enabled": true
+    },
+    "[cuda-cpp]": {
+      "editor.wordBasedSuggestions": false,
+      "editor.suggest.insertMode": "replace",
+      "editor.semanticHighlighting.enabled": true
+    },
+    "[c]": {
+      "editor.wordBasedSuggestions": false,
+      "editor.suggest.insertMode": "replace",
+      "editor.semanticHighlighting.enabled": true
+    },
+    "[Log]": {
+      "editor.wordWrap": "off"
+    }
+  },
+  "semanticTokenTypes": [
+    {
+      "id": "annotation",
+      "superType": "type",
+      "description": "Style for annotations."
+    },
+    {
+      "id": "annotationMember",
+      "superType": "method",
+      "description": "Style for annotation members."
+    },
+    {
+      "id": "modifier",
+      "superType": "keyword",
+      "description": "Style for modifier keywords."
+    },
+    {
+      "id": "record",
+      "superType": "class",
+      "description": "Style for records."
+    },
+    {
+      "id": "recordComponent",
+      "superType": "parameter",
+      "description": "Style for record components."
+    },
+    {
+      "id": "referenceType",
+      "superType": "class",
+      "description": "Style for C++/CLI reference types."
+    },
+    {
+      "id": "cliProperty",
+      "superType": "property",
+      "description": "Style for C++/CLI properties."
+    },
+    {
+      "id": "genericType",
+      "superType": "class",
+      "description": "Style for C++/CLI generic types."
+    },
+    {
+      "id": "valueType",
+      "superType": "class",
+      "description": "Style for C++/CLI value types."
+    },
+    {
+      "id": "templateFunction",
+      "superType": "function",
+      "description": "Style for C++ template functions."
+    },
+    {
+      "id": "templateType",
+      "superType": "class",
+      "description": "Style for C++ template types."
+    },
+    {
+      "id": "operatorOverload",
+      "superType": "operator",
+      "description": "Style for C++ overloaded operators."
+    },
+    {
+      "id": "memberOperatorOverload",
+      "superType": "operator",
+      "description": "Style for C++ overloaded operator member functions."
+    },
+    {
+      "id": "newOperator",
+      "superType": "operator",
+      "description": "Style for C++ `new` or `delete` operators."
+    },
+    {
+      "id": "customLiteral",
+      "superType": "number",
+      "description": "Style for C++ user-defined literals."
+    },
+    {
+      "id": "numberLiteral",
+      "superType": "number",
+      "description": "Style for C++ user-defined literal numbers."
+    },
+    {
+      "id": "stringLiteral",
+      "superType": "string",
+      "description": "Style for C++ user-defined literal strings."
+    },
+    {
+      "id": "razorTagHelperElement",
+      "description": "A Razor TagHelper Element"
+    },
+    {
+      "id": "razorTagHelperAttribute",
+      "description": "A Razor TagHelper Attribute"
+    },
+    {
+      "id": "razorTransition",
+      "description": "A Razor transition"
+    },
+    {
+      "id": "razorDirectiveAttribute",
+      "description": "A Razor Directive Attribute"
+    },
+    {
+      "id": "razorDirectiveColon",
+      "description": "A colon between directive attribute parameters"
+    },
+    {
+      "id": "razorDirective",
+      "description": "A Razor directive such as 'code' or 'function'"
+    },
+    {
+      "id": "razorComment",
+      "description": "A Razor comment"
+    },
+    {
+      "id": "markupCommentPunctuation",
+      "description": "The '@' or '*' of a Razor comment."
+    },
+    {
+      "id": "markupTagDelimiter",
+      "description": "Markup delimiters like '<', '>', and '/'."
+    },
+    {
+      "id": "markupOperator",
+      "description": "Delimiter for Markup Attribute Key-Value pairs."
+    },
+    {
+      "id": "markupElement",
+      "description": "The name of a Markup element."
+    },
+    {
+      "id": "markupAttribute",
+      "description": "The name of a Markup attribute."
+    },
+    {
+      "id": "markupComment",
+      "description": "The contents of a Markup comment."
+    },
+    {
+      "id": "markupCommentPunctuation",
+      "description": "The begining or ending punctuation of a Markup comment."
+    },
+    {
+      "id": "plainKeyword",
+      "description": "Represents a keyword"
+    },
+    {
+      "id": "controlKeyword",
+      "description": "Represents a control-flow keyword"
+    },
+    {
+      "id": "operatorOverloaded",
+      "description": "Represents a custom implementation of an operator"
+    },
+    {
+      "id": "preprocessorKeyword",
+      "description": "Represents"
+    },
+    {
+      "id": "preprocessorText",
+      "description": "Represents"
+    },
+    {
+      "id": "excludedCode",
+      "description": ""
+    },
+    {
+      "id": "punctuation",
+      "description": ""
+    },
+    {
+      "id": "stringVerbatim",
+      "description": ""
+    },
+    {
+      "id": "stringEscapeCharacter",
+      "description": ""
+    },
+    {
+      "id": "delegate",
+      "description": ""
+    },
+    {
+      "id": "module",
+      "description": ""
+    },
+    {
+      "id": "extensionMethod",
+      "description": ""
+    },
+    {
+      "id": "field",
+      "description": ""
+    },
+    {
+      "id": "local",
+      "description": ""
+    },
+    {
+      "id": "xmlDocCommentAttributeName",
+      "description": ""
+    },
+    {
+      "id": "xmlDocCommentAttributeQuotes",
+      "description": ""
+    },
+    {
+      "id": "xmlDocCommentAttributeValue",
+      "description": ""
+    },
+    {
+      "id": "xmlDocCommentCDataSection",
+      "description": ""
+    },
+    {
+      "id": "xmlDocCommentComment",
+      "description": ""
+    },
+    {
+      "id": "xmlDocCommentDelimiter",
+      "description": ""
+    },
+    {
+      "id": "xmlDocCommentEntityReference",
+      "description": ""
+    },
+    {
+      "id": "xmlDocCommentName",
+      "description": ""
+    },
+    {
+      "id": "xmlDocCommentProcessingInstruction",
+      "description": ""
+    },
+    {
+      "id": "xmlDocCommentText",
+      "description": ""
+    },
+    {
+      "id": "regexComment",
+      "description": ""
+    },
+    {
+      "id": "regexCharacterClass",
+      "description": ""
+    },
+    {
+      "id": "regexAnchor",
+      "description": ""
+    },
+    {
+      "id": "regexQuantifier",
+      "description": ""
+    },
+    {
+      "id": "regexGrouping",
+      "description": ""
+    },
+    {
+      "id": "regexAlternation",
+      "description": ""
+    },
+    {
+      "id": "regexSelfEscapedCharacter",
+      "description": ""
+    },
+    {
+      "id": "regexOtherEscape",
+      "description": ""
+    }
+  ],
+  "semanticTokenScopes": [
+    {
+      "language": "javascript",
+      "scopes": {
+        "property": [
+          "variable.other.property.js"
+        ],
+        "property.readonly": [
+          "variable.other.constant.property.js"
+        ],
+        "variable": [
+          "variable.other.readwrite.js"
+        ],
+        "variable.readonly": [
+          "variable.other.constant.object.js"
+        ],
+        "function": [
+          "entity.name.function.js"
+        ],
+        "namespace": [
+          "entity.name.type.module.js"
+        ],
+        "variable.defaultLibrary": [
+          "support.variable.js"
+        ],
+        "function.defaultLibrary": [
+          "support.function.js"
+        ]
+      }
+    },
+    {
+      "language": "javascriptreact",
+      "scopes": {
+        "property": [
+          "variable.other.property.jsx"
+        ],
+        "property.readonly": [
+          "variable.other.constant.property.jsx"
+        ],
+        "variable": [
+          "variable.other.readwrite.jsx"
+        ],
+        "variable.readonly": [
+          "variable.other.constant.object.jsx"
+        ],
+        "function": [
+          "entity.name.function.jsx"
+        ],
+        "namespace": [
+          "entity.name.type.module.jsx"
+        ],
+        "variable.defaultLibrary": [
+          "support.variable.js"
+        ],
+        "function.defaultLibrary": [
+          "support.function.js"
+        ]
+      }
+    },
+    {
+      "language": "typescript",
+      "scopes": {
+        "property": [
+          "variable.other.property.ts"
+        ],
+        "property.readonly": [
+          "variable.other.constant.property.ts"
+        ],
+        "variable": [
+          "variable.other.readwrite.ts"
+        ],
+        "variable.readonly": [
+          "variable.other.constant.object.ts"
+        ],
+        "function": [
+          "entity.name.function.ts"
+        ],
+        "namespace": [
+          "entity.name.type.module.ts"
+        ],
+        "variable.defaultLibrary": [
+          "support.variable.ts"
+        ],
+        "function.defaultLibrary": [
+          "support.function.ts"
+        ]
+      }
+    },
+    {
+      "language": "typescriptreact",
+      "scopes": {
+        "property": [
+          "variable.other.property.tsx"
+        ],
+        "property.readonly": [
+          "variable.other.constant.property.tsx"
+        ],
+        "variable": [
+          "variable.other.readwrite.tsx"
+        ],
+        "variable.readonly": [
+          "variable.other.constant.object.tsx"
+        ],
+        "function": [
+          "entity.name.function.tsx"
+        ],
+        "namespace": [
+          "entity.name.type.module.tsx"
+        ],
+        "variable.defaultLibrary": [
+          "support.variable.tsx"
+        ],
+        "function.defaultLibrary": [
+          "support.function.tsx"
+        ]
+      }
+    },
+    {
+      "language": "dart",
+      "scopes": {
+        "annotation": [
+          "variable"
+        ],
+        "keyword": [
+          "keyword"
+        ],
+        "keyword.control": [
+          "keyword.control"
+        ],
+        "property.declaration": [
+          "entity.name.function.member"
+        ],
+        "string.escape": [
+          "constant.character.escape"
+        ],
+        "source": [
+          "meta.embedded"
+        ]
+      }
+    },
+    {
+      "language": "java",
+      "scopes": {
+        "annotation": [
+          "storage.type.annotation.java"
+        ],
+        "annotationMember": [
+          "entity.name.annotationMember.java",
+          "constant.other.key.java"
+        ],
+        "modifier": [
+          "storage.modifier.java"
+        ],
+        "keyword.documentation": [
+          "keyword.other.documentation.javadoc.java"
+        ],
+        "*.constructor": [
+          "entity.name.function.java"
+        ]
+      }
+    },
+    {
+      "language": "lua",
+      "scopes": {
+        "function": [
+          "variable.function.lua"
+        ],
+        "function.declaration": [
+          "entity.name.function.lua"
+        ],
+        "function.defaultLibrary": [
+          "support.function.lua"
+        ],
+        "function.static": [
+          "entity.name.function.lua"
+        ],
+        "method": [
+          "entity.name.function.lua"
+        ],
+        "method.declaration": [
+          "entity.name.function.lua"
+        ],
+        "parameter.declaration": [
+          "variable.parameter.lua"
+        ],
+        "property": [
+          "entity.other.attribute.lua"
+        ],
+        "property.declaration": [
+          "entity.other.property.lua"
+        ],
+        "variable": [
+          "variable.other.lua"
+        ],
+        "variable.abstract": [
+          "variable.other.constant.lua"
+        ],
+        "variable.declaration": [
+          "variable.other.lua"
+        ],
+        "variable.defaultLibrary": [
+          "support.constant.lua"
+        ],
+        "variable.local": [
+          "variable.other.lua"
+        ],
+        "variable.readonly": [
+          "variable.other.constant.lua"
+        ],
+        "variable.static": [
+          "variable.other.lua"
+        ]
+      }
+    },
+    {
+      "language": "c",
+      "scopes": {
+        "namespace": [
+          "entity.name.namespace.c"
+        ],
+        "type": [
+          "entity.name.type.c"
+        ],
+        "type.defaultLibrary": [
+          "support.type.c"
+        ],
+        "struct": [
+          "storage.type.struct.c"
+        ],
+        "class": [
+          "entity.name.type.class.c"
+        ],
+        "class.defaultLibrary": [
+          "support.class.c"
+        ],
+        "interface": [
+          "entity.name.type.interface.c"
+        ],
+        "enum": [
+          "entity.name.type.enum.c"
+        ],
+        "function": [
+          "entity.name.function.c"
+        ],
+        "function.defaultLibrary": [
+          "support.function.c"
+        ],
+        "method": [
+          "entity.name.function.member.c"
+        ],
+        "variable": [
+          "variable.other.readwrite.c",
+          "entity.name.variable.c"
+        ],
+        "variable.readonly": [
+          "variable.other.constant.c"
+        ],
+        "variable.readonly.defaultLibrary": [
+          "support.constant.c"
+        ],
+        "parameter": [
+          "variable.parameter.c"
+        ],
+        "property": [
+          "variable.other.property.c"
+        ],
+        "property.readonly": [
+          "variable.other.constant.property.c"
+        ],
+        "enumMember": [
+          "variable.other.enummember.c"
+        ],
+        "event": [
+          "variable.other.event.c"
+        ],
+        "label": [
+          "entity.name.label.c"
+        ],
+        "variable.global": [
+          "variable.other.global.c"
+        ],
+        "variable.local": [
+          "variable.other.local.c"
+        ],
+        "property.static": [
+          "variable.other.property.static.c"
+        ],
+        "method.static": [
+          "entity.name.function.member.static.c"
+        ],
+        "macro": [
+          "entity.name.function.preprocessor.c",
+          "entity.name.function.macro.c"
+        ],
+        "referenceType": [
+          "entity.name.type.class.reference.c"
+        ],
+        "cliProperty": [
+          "variable.other.property.cli.c"
+        ],
+        "genericType": [
+          "entity.name.type.class.generic.c"
+        ],
+        "valueType": [
+          "entity.name.type.class.value.c"
+        ],
+        "templateFunction": [
+          "entity.name.function.templated.c"
+        ],
+        "templateType": [
+          "entity.name.type.class.templated.c"
+        ],
+        "operatorOverload": [
+          "entity.name.function.operator.c"
+        ],
+        "memberOperatorOverload": [
+          "entity.name.function.operator.member.c"
+        ],
+        "newOperator": [
+          "keyword.operator.new.c"
+        ],
+        "numberLiteral": [
+          "entity.name.operator.custom-literal.number.c"
+        ],
+        "customLiteral": [
+          "entity.name.operator.custom-literal.c"
+        ],
+        "stringLiteral": [
+          "entity.name.operator.custom-literal.string.c"
+        ]
+      }
+    },
+    {
+      "language": "cpp",
+      "scopes": {
+        "namespace": [
+          "entity.name.namespace.cpp"
+        ],
+        "type": [
+          "entity.name.type.cpp"
+        ],
+        "type.defaultLibrary": [
+          "support.type.cpp"
+        ],
+        "struct": [
+          "storage.type.struct.cpp"
+        ],
+        "class": [
+          "entity.name.type.class.cpp"
+        ],
+        "class.defaultLibrary": [
+          "support.class.cpp"
+        ],
+        "interface": [
+          "entity.name.type.interface.cpp"
+        ],
+        "enum": [
+          "entity.name.type.enum.cpp"
+        ],
+        "function": [
+          "entity.name.function.cpp"
+        ],
+        "function.defaultLibrary": [
+          "support.function.cpp"
+        ],
+        "method": [
+          "entity.name.function.member.cpp"
+        ],
+        "variable": [
+          "variable.other.readwrite.cpp",
+          "entity.name.variable.cpp"
+        ],
+        "variable.readonly": [
+          "variable.other.constant.cpp"
+        ],
+        "variable.readonly.defaultLibrary": [
+          "support.constant.cpp"
+        ],
+        "parameter": [
+          "variable.parameter.cpp"
+        ],
+        "property": [
+          "variable.other.property.cpp"
+        ],
+        "property.readonly": [
+          "variable.other.constant.property.cpp"
+        ],
+        "enumMember": [
+          "variable.other.enummember.cpp"
+        ],
+        "event": [
+          "variable.other.event.cpp"
+        ],
+        "label": [
+          "entity.name.label.cpp"
+        ],
+        "variable.global": [
+          "variable.other.global.cpp"
+        ],
+        "variable.local": [
+          "variable.other.local.cpp"
+        ],
+        "property.static": [
+          "variable.other.property.static.cpp"
+        ],
+        "method.static": [
+          "entity.name.function.member.static.cpp"
+        ],
+        "macro": [
+          "entity.name.function.preprocessor.cpp",
+          "entity.name.function.macro.cpp"
+        ],
+        "referenceType": [
+          "entity.name.type.class.reference.cpp"
+        ],
+        "cliProperty": [
+          "variable.other.property.cli.cpp"
+        ],
+        "genericType": [
+          "entity.name.type.class.generic.cpp"
+        ],
+        "valueType": [
+          "entity.name.type.class.value.cpp"
+        ],
+        "templateFunction": [
+          "entity.name.function.templated.cpp"
+        ],
+        "templateType": [
+          "entity.name.type.class.templated.cpp"
+        ],
+        "operatorOverload": [
+          "entity.name.function.operator.cpp"
+        ],
+        "memberOperatorOverload": [
+          "entity.name.function.operator.member.cpp"
+        ],
+        "newOperator": [
+          "keyword.operator.new.cpp"
+        ],
+        "numberLiteral": [
+          "entity.name.operator.custom-literal.number.cpp"
+        ],
+        "customLiteral": [
+          "entity.name.operator.custom-literal.cpp"
+        ],
+        "stringLiteral": [
+          "entity.name.operator.custom-literal.string.cpp"
+        ]
+      }
+    },
+    {
+      "language": "cuda-cpp",
+      "scopes": {
+        "namespace": [
+          "entity.name.namespace.cuda-cpp"
+        ],
+        "type": [
+          "entity.name.type.cuda-cpp"
+        ],
+        "type.defaultLibrary": [
+          "support.type.cuda-cpp"
+        ],
+        "struct": [
+          "storage.type.struct.cuda-cpp"
+        ],
+        "class": [
+          "entity.name.type.class.cuda-cpp"
+        ],
+        "class.defaultLibrary": [
+          "support.class.cuda-cpp"
+        ],
+        "interface": [
+          "entity.name.type.interface.cuda-cpp"
+        ],
+        "enum": [
+          "entity.name.type.enum.cuda-cpp"
+        ],
+        "function": [
+          "entity.name.function.cuda-cpp"
+        ],
+        "function.defaultLibrary": [
+          "support.function.cuda-cpp"
+        ],
+        "method": [
+          "entity.name.function.member.cuda-cpp"
+        ],
+        "variable": [
+          "variable.other.readwrite.cuda-cpp",
+          "entity.name.variable.cuda-cpp"
+        ],
+        "variable.readonly": [
+          "variable.other.constant.cuda-cpp"
+        ],
+        "variable.readonly.defaultLibrary": [
+          "support.constant.cuda-cpp"
+        ],
+        "parameter": [
+          "variable.parameter.cuda-cpp"
+        ],
+        "property": [
+          "variable.other.property.cuda-cpp"
+        ],
+        "property.readonly": [
+          "variable.other.constant.property.cuda-cpp"
+        ],
+        "enumMember": [
+          "variable.other.enummember.cuda-cpp"
+        ],
+        "event": [
+          "variable.other.event.cuda-cpp"
+        ],
+        "label": [
+          "entity.name.label.cuda-cpp"
+        ],
+        "variable.global": [
+          "variable.other.global.cuda-cpp"
+        ],
+        "variable.local": [
+          "variable.other.local.cuda-cpp"
+        ],
+        "property.static": [
+          "variable.other.property.static.cuda-cpp"
+        ],
+        "method.static": [
+          "entity.name.function.member.static.cuda-cpp"
+        ],
+        "macro": [
+          "entity.name.function.preprocessor.cuda-cpp",
+          "entity.name.function.macro.cuda-cpp"
+        ],
+        "referenceType": [
+          "entity.name.type.class.reference.cuda-cpp"
+        ],
+        "cliProperty": [
+          "variable.other.property.cli.cuda-cpp"
+        ],
+        "genericType": [
+          "entity.name.type.class.generic.cuda-cpp"
+        ],
+        "valueType": [
+          "entity.name.type.class.value.cuda-cpp"
+        ],
+        "templateFunction": [
+          "entity.name.function.templated.cuda-cpp"
+        ],
+        "templateType": [
+          "entity.name.type.class.templated.cuda-cpp"
+        ],
+        "operatorOverload": [
+          "entity.name.function.operator.cuda-cpp"
+        ],
+        "memberOperatorOverload": [
+          "entity.name.function.operator.member.cuda-cpp"
+        ],
+        "newOperator": [
+          "keyword.operator.new.cuda-cpp"
+        ],
+        "numberLiteral": [
+          "entity.name.operator.custom-literal.number.cuda-cpp"
+        ],
+        "customLiteral": [
+          "entity.name.operator.custom-literal.cuda-cpp"
+        ],
+        "stringLiteral": [
+          "entity.name.operator.custom-literal.string.cuda-cpp"
+        ]
+      }
+    },
+    {
+      "language": "aspnetcorerazor",
+      "scopes": {
+        "razorTagHelperElement": [
+          "entity.name.class.element.taghelper"
+        ],
+        "razorTagHelperAttribute": [
+          "entity.name.class.attribute.taghelper"
+        ],
+        "razorTransition": [
+          "keyword.control.razor.transition"
+        ],
+        "razorDirectiveAttribute": [
+          "keyword.control.razor.directive.attribute",
+          "keyword.control.cshtml.directive.attribute"
+        ],
+        "razorDirectiveColon": [
+          "keyword.control.razor.directive.colon",
+          "keyword.control.cshtml.directive.colon"
+        ],
+        "razorDirective": [
+          "keyword.control.razor.directive",
+          "keyword.control.cshtml.directive"
+        ],
+        "razorComment": [
+          "comment.block.razor"
+        ],
+        "razorCommentTransition": [
+          "meta.comment.razor",
+          "keyword.control.cshtml.transition"
+        ],
+        "razorCommentStar": [
+          "keyword.control.razor.comment.star",
+          "meta.comment.razor"
+        ],
+        "angleBracket": [
+          "punctuation.definition.tag"
+        ],
+        "forwardSlash": [
+          "punctuation.definition.tag"
+        ],
+        "equals": [
+          "punctuation.separator.key-value.html"
+        ],
+        "markupElement": [
+          "entity.name.tag.html"
+        ],
+        "markupAttribute": [
+          "entity.other.attribute-name.html"
+        ],
+        "markupComment": [
+          "comment.block.html"
+        ],
+        "markupCommentPunctuation": [
+          "punctuation.definition.comment.html",
+          "comment.block.html"
+        ]
+      }
+    },
+    {
+      "language": "csharp",
+      "scopes": {
+        "plainKeyword": [
+          "keyword.cs"
+        ],
+        "controlKeyword": [
+          "keyword.control.cs"
+        ],
+        "operatorOverloaded": [
+          "entity.name.function.member.overload.cs"
+        ],
+        "preprocessorKeyword": [
+          "keyword.preprocessor.cs"
+        ],
+        "preprocessorText": [
+          "meta.preprocessor.string.cs"
+        ],
+        "excludedCode": [
+          "support.other.excluded.cs"
+        ],
+        "punctuation": [
+          "punctuation.cs"
+        ],
+        "stringVerbatim": [
+          "string.verbatim.cs"
+        ],
+        "stringEscapeCharacter": [
+          "constant.character.escape.cs"
+        ],
+        "delegate": [
+          "entity.name.type.delegate.cs"
+        ],
+        "module": [
+          "entity.name.type.module.cs"
+        ],
+        "extensionMethod": [
+          "entity.name.function.extension.cs"
+        ],
+        "field": [
+          "entity.name.variable.field.cs"
+        ],
+        "local": [
+          "entity.name.variable.local.cs"
+        ],
+        "xmlDocCommentAttributeName": [
+          "comment.documentation.attribute.name.cs"
+        ],
+        "xmlDocCommentAttributeQuotes": [
+          "comment.documentation.attribute.quotes.cs"
+        ],
+        "xmlDocCommentAttributeValue": [
+          "comment.documentation.attribute.value.cs"
+        ],
+        "xmlDocCommentCDataSection": [
+          "comment.documentation.cdata.cs"
+        ],
+        "xmlDocCommentComment": [
+          "comment.documentation.comment.cs"
+        ],
+        "xmlDocCommentDelimiter": [
+          "comment.documentation.delimiter.cs"
+        ],
+        "xmlDocCommentEntityReference": [
+          "comment.documentation.entityReference.cs"
+        ],
+        "xmlDocCommentName": [
+          "comment.documentation.name.cs"
+        ],
+        "xmlDocCommentProcessingInstruction": [
+          "comment.documentation.processingInstruction.cs"
+        ],
+        "xmlDocCommentText": [
+          "comment.documentation.cs"
+        ],
+        "regexComment": [
+          "string.regexp.comment.cs"
+        ],
+        "regexCharacterClass": [
+          "constant.character.character-class.regexp.cs"
+        ],
+        "regexAnchor": [
+          "keyword.control.anchor.regexp.cs"
+        ],
+        "regexQuantifier": [
+          "keyword.operator.quantifier.regexp.cs"
+        ],
+        "regexGrouping": [
+          "punctuation.definition.group.regexp.cs"
+        ],
+        "regexAlternation": [
+          "keyword.operator.or.regexp.cs"
+        ],
+        "regexSelfEscapedCharacter": [
+          "string.regexp.self-escaped-character.cs"
+        ],
+        "regexOtherEscape": [
+          "string.regexp.other-escape.cs"
+        ]
+      }
+    }
+  ],
+  "semanticTokenModifiers": [
+    {
+      "id": "public",
+      "description": "Style for symbols with the public access modifier."
+    },
+    {
+      "id": "private",
+      "description": "Style for symbols with the private access modifier."
+    },
+    {
+      "id": "protected",
+      "description": "Style for symbols with the protected access modifier."
+    },
+    {
+      "id": "native",
+      "description": "Style for symbols with the native modifier."
+    },
+    {
+      "id": "generic",
+      "description": "Style for symbols that are generic (have type parameters)."
+    },
+    {
+      "id": "typeArgument",
+      "description": "Style for symbols that are type arguments for a generic symbol."
+    },
+    {
+      "id": "importDeclaration",
+      "description": "Style for symbols that are part of an import declaration."
+    },
+    {
+      "id": "constructor",
+      "description": "Style for symbols that are constructors."
+    },
+    {
+      "id": "global",
+      "description": "Style to use for symbols that are global."
+    },
+    {
+      "id": "local",
+      "description": "Style to use for symbols that are local."
+    }
+  ]
+}

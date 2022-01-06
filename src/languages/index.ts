@@ -2,7 +2,7 @@ import * as monaco from 'monaco-editor'
 import { createTextMateTokensProvider } from './textMate'
 import textMateLanguages from './extensions/languages.json'
 import { languageLoader as monarchLanguageLoader } from './monarch'
-
+import configurationLoader from './extensions/configurationLoader'
 import './snippets'
 
 const customAliases: Partial<Record<string, string[]>> = {
@@ -24,7 +24,7 @@ const languagesIds = Array.from(new Set([
 ]))
 
 for (const languageId of languagesIds) {
-  const textMateLanguage = textMateLanguages.find(rawLanguage => rawLanguage.id === languageId)
+  const textMateLanguage: monaco.languages.ILanguageExtensionPoint | undefined = textMateLanguages.find(rawLanguage => rawLanguage.id === languageId)
   monaco.languages.register({
     id: languageId,
     extensions: textMateLanguage?.extensions,
@@ -34,27 +34,35 @@ for (const languageId of languagesIds) {
     aliases: [...(textMateLanguage?.aliases ?? []), ...(customAliases[languageId] ?? [])],
     mimetypes: textMateLanguage?.mimetypes
   })
-  if (textMateLanguage?.configuration != null) {
-    monaco.extra.handleLanguageConfiguration(
-      textMateLanguage.id,
-      textMateLanguage.configuration as monaco.extra.ILanguageConfiguration
-    )
-  }
 }
+type ConfigurationLoader = Partial<Record<string, () => Promise<Record<string, monaco.extra.ILanguageConfiguration>>>>
 
 modeService.onDidEncounterLanguage(async (languageId) => {
   if (languageId === 'plaintext') {
     return
   }
-  const textMateTokenProviderPromise = createTextMateTokensProvider(languageId)
-  textMateTokenProviderPromise.catch(err => {
+
+  const loader = (configurationLoader as unknown as ConfigurationLoader)[languageId]
+  if (loader != null) {
+    loader().then((configuration) => {
+      monaco.extra.handleLanguageConfiguration(
+        languageId,
+        configuration
+      )
+    }).catch(error => {
+      console.error('Unable to load language configuration', error)
+    })
+  }
+
+  const textMateTokenProviderPromise = createTextMateTokensProvider(languageId).catch(err => {
     const monarchLoader = monarchLanguageLoader[languageId]
     if (monarchLoader != null) {
       console.warn(`Failed to load TextMate grammar for language ${languageId}, fallback to monarch`, err)
       monaco.languages.setMonarchTokensProvider(languageId, monarchLoader().then(lang => lang.language))
     } else {
-      console.error(`Failed to load TextMate grammar for language ${languageId} and no fallback monarch`, err)
+      console.warn(`Failed to load TextMate grammar for language ${languageId} and no fallback monarch`, err)
     }
+    return null
   })
   monaco.languages.setTokenizationSupport(languageId, textMateTokenProviderPromise)
 })
