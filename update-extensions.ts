@@ -99,7 +99,7 @@ const extensions: Extension[] = [
   }
 ]
 
-const excludeScopeNames = ['source.tsx', 'source.js.jsx', 'source.objcpp', 'source.reason', 'source.cpp.embedded.macro']
+const excludeScopeNames = ['source.objcpp', 'source.reason', 'source.cpp.embedded.macro']
 
 const extensionsPath = path.resolve(__dirname, 'src/languages/extensions')
 
