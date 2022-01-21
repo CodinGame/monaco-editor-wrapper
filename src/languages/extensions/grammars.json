@@ -77,6 +77,25 @@
     "scopeName": "source.java"
   },
   {
+    "language": "javascriptreact",
+    "scopeName": "source.js.jsx",
+    "embeddedLanguages": {
+      "meta.tag.js": "jsx-tags",
+      "meta.tag.without-attributes.js": "jsx-tags",
+      "meta.tag.attributes.js.jsx": "javascriptreact",
+      "meta.embedded.expression.js": "javascriptreact"
+    },
+    "tokenTypes": {
+      "meta.template.expression": "other",
+      "meta.template.expression string": "string",
+      "meta.template.expression comment": "comment",
+      "entity.name.type.instance.jsdoc": "other",
+      "entity.name.function.tagged-template": "other",
+      "meta.import string.quoted": "other",
+      "variable.other.jsdoc": "other"
+    }
+  },
+  {
     "language": "javascript",
     "scopeName": "source.js",
     "embeddedLanguages": {
@@ -223,12 +242,35 @@
     "scopeName": "source.shell"
   },
   {
+    "language": "sql",
+    "scopeName": "source.sql"
+  },
+  {
     "language": "swift",
     "scopeName": "source.swift"
   },
   {
     "language": "typescript",
     "scopeName": "source.ts",
+    "tokenTypes": {
+      "meta.template.expression": "other",
+      "meta.template.expression string": "string",
+      "meta.template.expression comment": "comment",
+      "entity.name.type.instance.jsdoc": "other",
+      "entity.name.function.tagged-template": "other",
+      "meta.import string.quoted": "other",
+      "variable.other.jsdoc": "other"
+    }
+  },
+  {
+    "language": "typescriptreact",
+    "scopeName": "source.tsx",
+    "embeddedLanguages": {
+      "meta.tag.tsx": "jsx-tags",
+      "meta.tag.without-attributes.tsx": "jsx-tags",
+      "meta.tag.attributes.tsx": "typescriptreact",
+      "meta.embedded.expression.tsx": "typescriptreact"
+    },
     "tokenTypes": {
       "meta.template.expression": "other",
       "meta.template.expression string": "string",
@@ -456,10 +498,6 @@
     "scopeName": "source.pascal"
   },
   {
-    "language": "sql",
-    "scopeName": "source.sql"
-  },
-  {
     "language": "scala",
     "scopeName": "source.scala"
   },
@@ -539,7 +577,12 @@
   },
   {
     "language": "lua",
-    "scopeName": "source.lua"
+    "scopeName": "source.lua",
+    "tokenTypes": {
+      "comment.line.double-dash.doc.lua": "other",
+      "string.quoted.double.lua": "other",
+      "string.quoted.single.lua": "other"
+    }
   },
   {
     "language": "aspnetcorerazor",

@@ -21,7 +21,7 @@ const extensions: Extension[] = [
   ...['clojure', 'coffeescript', 'cpp', 'csharp', 'css', 'fsharp', 'go',
     'groovy', 'html', 'java', 'javascript', 'json', 'lua', 'markdown-basics',
     'objective-c', 'perl', 'php', 'powershell', 'python', 'r', 'ruby',
-    'rust', 'scss', 'shellscript', 'swift', 'typescript-basics', 'typescript-language-features',
+    'rust', 'scss', 'shellscript', 'sql', 'swift', 'typescript-basics', 'typescript-language-features',
     'vb', 'xml', 'yaml'].map(language => ({
     name: language,
     repository: 'microsoft/vscode',
@@ -48,9 +48,6 @@ const extensions: Extension[] = [
   }, {
     name: 'pascal',
     repository: 'alefragnani/vscode-language-pascal'
-  }, {
-    name: 'pgsql',
-    repository: 'microsoft/vscode-postgresql'
   }, {
     name: 'scala',
     repository: 'scala/vscode-scala-syntax'
@@ -102,7 +99,7 @@ const extensions: Extension[] = [
   }
 ]
 
-const excludeScopeNames = ['source.tsx', 'source.js.jsx', 'source.objcpp', 'source.reason', 'source.cpp.embedded.macro']
+const excludeScopeNames = ['source.objcpp', 'source.reason', 'source.cpp.embedded.macro']
 
 const extensionsPath = path.resolve(__dirname, 'src/languages/extensions')
 
@@ -197,7 +194,7 @@ interface PackageJsonContributes {
   semanticTokenTypes?: ITokenTypeExtensionPoint[]
   semanticTokenScopes?: ITokenStyleDefaultExtensionPoint[]
   semanticTokenModifiers?: ITokenModifierExtensionPoint[]
-  configuration?: monaco.extra.IConfigurationNode
+  configuration?: monaco.extra.IConfigurationNode | monaco.extra.IConfigurationNode[]
 }
 
 async function createRepositoryFileResolver (extension: Extension) {
@@ -412,7 +409,11 @@ async function fetchExtensions () {
     }
 
     if (configuration != null) {
-      extensionResult.configurations.push(overrideDefaultValue(configuration))
+      if (Array.isArray(configuration)) {
+        extensionResult.configurations.push(...configuration.map(overrideDefaultValue))
+      } else {
+        extensionResult.configurations.push(overrideDefaultValue(configuration))
+      }
     }
   }
 

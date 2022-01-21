@@ -24,7 +24,6 @@ export default {
   'kotlinscript': async () => (await import(/* webpackChunkName: "snippet-kotlinscript" */ './snippets/kotlin-kotlinscript.json')).default,
   'reason': async () => (await import(/* webpackChunkName: "snippet-reason" */ './snippets/ocaml-reason.json')).default,
   'pascal': async () => (await import(/* webpackChunkName: "snippet-pascal" */ './snippets/pascal-pascal.json')).default,
-  'sql': async () => (await import(/* webpackChunkName: "snippet-sql" */ './snippets/pgsql-sql.json')).default,
   'COBOL': async () => (await import(/* webpackChunkName: "snippet-COBOL" */ './snippets/cobol-COBOL.json')).default,
   'COBOL Copybook': async () => (await import(/* webpackChunkName: "snippet-COBOL Copybook" */ './snippets/cobol-COBOL Copybook.json')).default,
   'elixir': async () => (await import(/* webpackChunkName: "snippet-elixir" */ './snippets/elixir-elixir.json')).default,
