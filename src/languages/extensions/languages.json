@@ -546,6 +546,16 @@
     ]
   },
   {
+    "id": "sql",
+    "extensions": [
+      ".sql",
+      ".dsql"
+    ],
+    "aliases": [
+      "SQL"
+    ]
+  },
+  {
     "id": "swift",
     "aliases": [
       "Swift",
@@ -928,15 +938,6 @@
       ".lfm",
       ".dpr",
       ".lpr"
-    ]
-  },
-  {
-    "id": "sql",
-    "extensions": [
-      ".sql"
-    ],
-    "aliases": [
-      "SQL"
     ]
   },
   {
