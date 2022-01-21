@@ -21,7 +21,7 @@ const extensions: Extension[] = [
   ...['clojure', 'coffeescript', 'cpp', 'csharp', 'css', 'fsharp', 'go',
     'groovy', 'html', 'java', 'javascript', 'json', 'lua', 'markdown-basics',
     'objective-c', 'perl', 'php', 'powershell', 'python', 'r', 'ruby',
-    'rust', 'scss', 'shellscript', 'swift', 'typescript-basics', 'typescript-language-features',
+    'rust', 'scss', 'shellscript', 'sql', 'swift', 'typescript-basics', 'typescript-language-features',
     'vb', 'xml', 'yaml'].map(language => ({
     name: language,
     repository: 'microsoft/vscode',
