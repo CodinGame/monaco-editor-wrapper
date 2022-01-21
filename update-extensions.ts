@@ -49,9 +49,6 @@ const extensions: Extension[] = [
     name: 'pascal',
     repository: 'alefragnani/vscode-language-pascal'
   }, {
-    name: 'pgsql',
-    repository: 'microsoft/vscode-postgresql'
-  }, {
     name: 'scala',
     repository: 'scala/vscode-scala-syntax'
   }, {
