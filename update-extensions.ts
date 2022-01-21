@@ -194,7 +194,7 @@ interface PackageJsonContributes {
   semanticTokenTypes?: ITokenTypeExtensionPoint[]
   semanticTokenScopes?: ITokenStyleDefaultExtensionPoint[]
   semanticTokenModifiers?: ITokenModifierExtensionPoint[]
-  configuration?: monaco.extra.IConfigurationNode
+  configuration?: monaco.extra.IConfigurationNode | monaco.extra.IConfigurationNode[]
 }
 
 async function createRepositoryFileResolver (extension: Extension) {
@@ -409,7 +409,11 @@ async function fetchExtensions () {
     }
 
     if (configuration != null) {
-      extensionResult.configurations.push(overrideDefaultValue(configuration))
+      if (Array.isArray(configuration)) {
+        extensionResult.configurations.push(...configuration.map(overrideDefaultValue))
+      } else {
+        extensionResult.configurations.push(overrideDefaultValue(configuration))
+      }
     }
   }
 
