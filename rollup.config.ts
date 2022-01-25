@@ -9,6 +9,7 @@ import eslint from '@rollup/plugin-eslint'
 import { babel } from '@rollup/plugin-babel'
 import * as rollup from 'rollup'
 import builtins from 'rollup-plugin-node-builtins'
+import { uglify } from 'rollup-plugin-uglify'
 import pkg from './package.json'
 
 const externals = Object.keys(pkg.dependencies)
@@ -50,7 +51,8 @@ export default rollup.defineConfig({
     builtins() as rollup.Plugin,
     webWorkerLoader({
       targetPlatform: 'browser',
-      pattern: /(.+)\?worker$/
+      pattern: /(.+)\?worker$/,
+      plugins: [uglify()]
     }),
     eslint({
       throwOnError: true,
