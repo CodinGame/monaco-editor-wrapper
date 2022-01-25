@@ -1,6 +1,6 @@
 {
   "name": "@codingame/monaco-editor-wrapper",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": false,
   "description": "Enhanced Monaco editor with TextMate grammars and more",
   "scripts": {
