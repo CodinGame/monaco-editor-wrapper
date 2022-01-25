@@ -15,6 +15,6 @@ declare module 'rollup-plugin-web-worker-loader' {
     loadPath?: string
     plugins?: Plugin[]
     skipPlugins?: string[]
-}) => Plugin
+  }) => Plugin
   export default workerLoaderPlugin
 }

@@ -65,6 +65,7 @@
     "rollup-plugin-json5": "1.0.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-string": "^3.0.0",
+    "rollup-plugin-uglify": "^6.0.4",
     "rollup-plugin-visualizer": "5.5.2",
     "rollup-plugin-web-worker-loader": "1.6.1",
     "ts-node": "10.4.0",
