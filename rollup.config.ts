@@ -11,6 +11,7 @@ import * as rollup from 'rollup'
 import builtins from 'rollup-plugin-node-builtins'
 import { uglify } from 'rollup-plugin-uglify'
 import pkg from './package.json'
+import path from 'path'
 
 const externals = Object.keys(pkg.dependencies)
 
@@ -45,6 +46,18 @@ export default rollup.defineConfig({
     paths: {
       'monaco-editor': 'monaco-editor/esm/vs/editor/edcore.main',
       'monaco-editor-core': 'monaco-editor/esm/vs/editor/edcore.main'
+    },
+    entryFileNames: (module) => {
+      const name = path.join(
+        path.dirname(
+          path.relative(
+            path.join(__dirname, 'src'),
+            module.facadeModuleId!
+          )
+        ),
+        module.name
+      )
+      return `${name}.js`
     }
   }],
   plugins: [
