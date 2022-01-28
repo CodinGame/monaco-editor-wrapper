@@ -47,6 +47,42 @@ monaco.languages.typescript.javascriptDefaults.addExtraLib(typescriptGlobal, 'no
 monaco.languages.typescript.javascriptDefaults.addExtraLib(typescriptConsole, 'node/console.d.ts')
 monaco.languages.typescript.javascriptDefaults.addExtraLib(typescriptProcess, 'node/process.d.ts')
 
+const reactCompilerOptions: Parameters<typeof monaco.languages.typescript.typescriptDefaults.setCompilerOptions>[0] = {
+  ...compilerOptions,
+  jsx: monaco.languages.typescript.JsxEmit.React,
+  esModuleInterop: true
+}
+
+const typescriptReactDefaults = new monaco.languages.typescript.LanguageServiceDefaultsImpl(
+  reactCompilerOptions,
+  { noSemanticValidation: false, noSyntaxValidation: false, onlyVisible: false },
+  {},
+  {}
+)
+
+const javascriptReactDefaults = new monaco.languages.typescript.LanguageServiceDefaultsImpl(
+  reactCompilerOptions,
+  { noSemanticValidation: true, noSyntaxValidation: false, onlyVisible: false },
+  {},
+  {}
+)
+
 const workerLoader = async () => (await import(/* webpackChunkName: "MonacoTypescriptWorker" */'monaco-editor/esm/vs/language/typescript/ts.worker?worker')).default
 registerWorkerLoader('typescript', workerLoader)
 registerWorkerLoader('javascript', workerLoader)
+
+// Add support for typescriptreact/javascriptreact which don't come out of the box
+registerWorkerLoader('typescriptreact', workerLoader)
+registerWorkerLoader('javascriptreact', workerLoader)
+
+monaco.languages.onLanguage('typescriptreact', () => {
+  void monaco.languages.typescript.setupMode(typescriptReactDefaults, 'typescriptreact')
+})
+monaco.languages.onLanguage('javascriptreact', () => {
+  void monaco.languages.typescript.setupMode(javascriptReactDefaults, 'javascriptreact')
+})
+
+export {
+  typescriptReactDefaults,
+  javascriptReactDefaults
+}
