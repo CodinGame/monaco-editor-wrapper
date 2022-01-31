@@ -32,6 +32,11 @@
     "files.watcherExclude": {
       "**/.dart_tool": true
     },
+    "[scala]": {
+      "editor.suggestSelection": "first",
+      "editor.formatOnPaste": true,
+      "editor.formatOnType": true
+    },
     "[COBOL]": {
       "editor.renderIndentGuides": false,
       "editor.rulers": [
@@ -462,9 +467,6 @@
         ],
         "keyword.control": [
           "keyword.control"
-        ],
-        "property.declaration": [
-          "entity.name.function.member"
         ],
         "string.escape": [
           "constant.character.escape"

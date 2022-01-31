@@ -953,6 +953,34 @@
     ]
   },
   {
+    "id": "javap-verbose",
+    "extensions": [
+      ".javap-verbose"
+    ]
+  },
+  {
+    "id": "javap",
+    "extensions": [
+      ".javap"
+    ]
+  },
+  {
+    "id": "java",
+    "extensions": [
+      ".cfr"
+    ]
+  },
+  {
+    "id": "tasty",
+    "aliases": [
+      "TASTy",
+      "tasty"
+    ],
+    "extensions": [
+      ".tasty-decoded"
+    ]
+  },
+  {
     "id": "COBOL",
     "extensions": [
       ".cbl",

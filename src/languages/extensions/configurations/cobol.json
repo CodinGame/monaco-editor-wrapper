@@ -1,0 +1,78 @@
+[
+  {
+    "title": "COBOL Language Support",
+    "properties": {
+      "cobol-lsp.cpy-manager.profiles": {
+        "type": "string",
+        "description": "Current default profile for copybook downloader",
+        "scope": 3
+      },
+      "cobol-lsp.cpy-manager.paths-local": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Default list of relative local paths to search for copybooks",
+        "uniqueItems": true,
+        "scope": 3
+      },
+      "cobol-lsp.cpy-manager.paths-dsn": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Default list of datasets to search for copybooks",
+        "uniqueItems": true,
+        "scope": 3
+      },
+      "cobol-lsp.subroutine-manager.paths-local": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "List of relative local paths to search for subroutines",
+        "uniqueItems": true,
+        "scope": 3,
+        "default": [
+          "/tmp/project"
+        ]
+      },
+      "cobol-lsp.logging.level.root": {
+        "type": "string",
+        "default": "ERROR",
+        "enum": [
+          "ERROR",
+          "WARN",
+          "INFO",
+          "DEBUG",
+          "TRACE",
+          "ALL"
+        ],
+        "enumDescriptions": [
+          "ERROR level logs error events which may or not be fatal to the application",
+          "WARN level logs potentially harmful situations",
+          "INFO level logs informational messages highlighting overall progress of the application",
+          "DEBUG level logs informational events of very low importance",
+          "TRACE level logs informational events of very low importance",
+          "ALL level is used to turn on all logging"
+        ],
+        "description": "The logging level for COBOL LS backend",
+        "scope": 3
+      },
+      "cobol-lsp.target-sql-backend": {
+        "type": "string",
+        "default": "DB2_SERVER",
+        "enum": [
+          "DB2_SERVER",
+          "DATACOM_SERVER"
+        ],
+        "enumDescriptions": [
+          "DB2_SERVER  - IBM DB2 SQL Server",
+          "DATACOM_SERVER - CA DATACOM Server"
+        ],
+        "description": "The target SQL backend server which will be used in mainframe",
+        "scope": 3
+      }
+    }
+  }
+]

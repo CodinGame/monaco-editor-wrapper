@@ -1,0 +1,675 @@
+[
+  {
+    "properties": {
+      "python.autoComplete.extraPaths": {
+        "default": [],
+        "description": "List of paths to libraries and the like that need to be imported by auto complete engine. E.g. when using Google App SDK, the paths are not in system path, hence need to be added into this list.",
+        "scope": 4,
+        "type": "array"
+      },
+      "python.condaPath": {
+        "default": "",
+        "description": "Path to the conda executable to use for activation (version 4.4+).",
+        "scope": 2,
+        "type": "string"
+      },
+      "python.defaultInterpreterPath": {
+        "default": "python",
+        "description": "Path to default Python to use when extension loads up for the first time, no longer used once an interpreter is selected for the workspace. See https://aka.ms/AAfekmf to understand when this is used.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.diagnostics.sourceMapsEnabled": {
+        "default": false,
+        "description": "Enable source map support for meaningful stack traces in error logs.",
+        "scope": 1,
+        "type": "boolean"
+      },
+      "python.disableInstallationCheck": {
+        "default": false,
+        "description": "Whether to check if Python is installed (also warn when using the macOS-installed Python).",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.envFile": {
+        "default": "${workspaceFolder}/.env",
+        "description": "Absolute path to a file containing environment variable definitions.",
+        "scope": 4,
+        "type": "string"
+      },
+      "python.experiments.enabled": {
+        "default": true,
+        "description": "Enables A/B tests experiments in the Python extension. If enabled, you may get included in proposed enhancements and/or features.",
+        "scope": 2,
+        "type": "boolean"
+      },
+      "python.experiments.optInto": {
+        "default": [],
+        "description": "List of experiment to opt into. If empty, user is assigned the default experiment groups. See https://github.com/microsoft/vscode-python/wiki/Experiments for more details.",
+        "items": {
+          "enum": [
+            "All",
+            "pythonDeprecatePythonPath",
+            "pythonSurveyNotification",
+            "pythonInterpreterInfoPinned",
+            "pythonInterpreterInfoUnpinned"
+          ]
+        },
+        "scope": 2,
+        "type": "array"
+      },
+      "python.experiments.optOutFrom": {
+        "default": [],
+        "description": "List of experiment to opt out of. If empty, user is assigned the default experiment groups. See https://github.com/microsoft/vscode-python/wiki/Experiments for more details.",
+        "items": {
+          "enum": [
+            "All",
+            "pythonDeprecatePythonPath",
+            "pythonSurveyNotification",
+            "pythonInterpreterInfoPinned",
+            "pythonInterpreterInfoUnpinned"
+          ]
+        },
+        "scope": 2,
+        "type": "array"
+      },
+      "python.formatting.autopep8Args": {
+        "default": [],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.formatting.autopep8Path": {
+        "default": "autopep8",
+        "description": "Path to autopep8, you can use a custom version of autopep8 by modifying this setting to include the full path.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.formatting.blackArgs": {
+        "default": [],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.formatting.blackPath": {
+        "default": "black",
+        "description": "Path to Black, you can use a custom version of Black by modifying this setting to include the full path.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.formatting.provider": {
+        "default": "autopep8",
+        "description": "Provider for formatting. Possible options include 'autopep8', 'black', and 'yapf'.",
+        "enum": [
+          "autopep8",
+          "black",
+          "none",
+          "yapf"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "python.formatting.yapfArgs": {
+        "default": [],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.formatting.yapfPath": {
+        "default": "yapf",
+        "description": "Path to yapf, you can use a custom version of yapf by modifying this setting to include the full path.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.globalModuleInstallation": {
+        "default": false,
+        "description": "Whether to install Python modules globally when not using an environment.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.insidersChannel": {
+        "default": "off",
+        "description": "Set to \"weekly\" or \"daily\" to automatically download and install the latest Insiders builds of the python extension, which include upcoming features and bug fixes.",
+        "enum": [
+          "daily",
+          "off",
+          "weekly"
+        ],
+        "scope": 2,
+        "type": "string"
+      },
+      "python.languageServer": {
+        "default": "Default",
+        "description": "Defines type of the language server.",
+        "enum": [
+          "Default",
+          "Jedi",
+          "Pylance",
+          "None"
+        ],
+        "enumDescriptions": [
+          "Automatically select a language server: Pylance if installed and available, otherwise fallback to Jedi.",
+          "Use Jedi behind the Language Server Protocol (LSP) as a language server.",
+          "Use Pylance as a language server.",
+          "Disable language server capabilities."
+        ],
+        "scope": 3,
+        "type": "string"
+      },
+      "python.linting.banditArgs": {
+        "default": [],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.linting.banditEnabled": {
+        "default": false,
+        "description": "Whether to lint Python files using bandit.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.linting.banditPath": {
+        "default": "bandit",
+        "description": "Path to bandit, you can use a custom version of bandit by modifying this setting to include the full path.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.linting.cwd": {
+        "default": null,
+        "description": "Optional working directory for linters.",
+        "scope": 4,
+        "type": "string"
+      },
+      "python.linting.enabled": {
+        "default": true,
+        "description": "Whether to lint Python files.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.linting.flake8Args": {
+        "default": [],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.linting.flake8CategorySeverity.E": {
+        "default": "Error",
+        "description": "Severity of Flake8 message type 'E'.",
+        "enum": [
+          "Error",
+          "Hint",
+          "Information",
+          "Warning"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "python.linting.flake8CategorySeverity.F": {
+        "default": "Error",
+        "description": "Severity of Flake8 message type 'F'.",
+        "enum": [
+          "Error",
+          "Hint",
+          "Information",
+          "Warning"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "python.linting.flake8CategorySeverity.W": {
+        "default": "Warning",
+        "description": "Severity of Flake8 message type 'W'.",
+        "enum": [
+          "Error",
+          "Hint",
+          "Information",
+          "Warning"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "python.linting.flake8Enabled": {
+        "default": false,
+        "description": "Whether to lint Python files using flake8",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.linting.flake8Path": {
+        "default": "flake8",
+        "description": "Path to flake8, you can use a custom version of flake8 by modifying this setting to include the full path.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.linting.ignorePatterns": {
+        "default": [
+          "**/site-packages/**/*.py",
+          ".vscode/*.py"
+        ],
+        "description": "Patterns used to exclude files or folders from being linted.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.linting.lintOnSave": {
+        "default": true,
+        "description": "Whether to lint Python files when saved.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.linting.maxNumberOfProblems": {
+        "default": 100,
+        "description": "Controls the maximum number of problems produced by the server.",
+        "scope": 4,
+        "type": "number"
+      },
+      "python.linting.mypyArgs": {
+        "default": [
+          "--follow-imports=silent",
+          "--ignore-missing-imports",
+          "--show-column-numbers",
+          "--no-pretty"
+        ],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.linting.mypyCategorySeverity.error": {
+        "default": "Error",
+        "description": "Severity of Mypy message type 'Error'.",
+        "enum": [
+          "Error",
+          "Hint",
+          "Information",
+          "Warning"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "python.linting.mypyCategorySeverity.note": {
+        "default": "Information",
+        "description": "Severity of Mypy message type 'Note'.",
+        "enum": [
+          "Error",
+          "Hint",
+          "Information",
+          "Warning"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "python.linting.mypyEnabled": {
+        "default": false,
+        "description": "Whether to lint Python files using mypy.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.linting.mypyPath": {
+        "default": "mypy",
+        "description": "Path to mypy, you can use a custom version of mypy by modifying this setting to include the full path.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.linting.prospectorArgs": {
+        "default": [],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.linting.prospectorEnabled": {
+        "default": false,
+        "description": "Whether to lint Python files using prospector.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.linting.prospectorPath": {
+        "default": "prospector",
+        "description": "Path to Prospector, you can use a custom version of prospector by modifying this setting to include the full path.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.linting.pycodestyleArgs": {
+        "default": [],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.linting.pycodestyleCategorySeverity.E": {
+        "default": "Error",
+        "description": "Severity of pycodestyle message type 'E'.",
+        "enum": [
+          "Error",
+          "Hint",
+          "Information",
+          "Warning"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "python.linting.pycodestyleCategorySeverity.W": {
+        "default": "Warning",
+        "description": "Severity of pycodestyle message type 'W'.",
+        "enum": [
+          "Error",
+          "Hint",
+          "Information",
+          "Warning"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "python.linting.pycodestyleEnabled": {
+        "default": false,
+        "description": "Whether to lint Python files using pycodestyle",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.linting.pycodestylePath": {
+        "default": "pycodestyle",
+        "description": "Path to pycodestyle, you can use a custom version of pycodestyle by modifying this setting to include the full path.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.linting.pydocstyleArgs": {
+        "default": [],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.linting.pydocstyleEnabled": {
+        "default": false,
+        "description": "Whether to lint Python files using pydocstyle",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.linting.pydocstylePath": {
+        "default": "pydocstyle",
+        "description": "Path to pydocstyle, you can use a custom version of pydocstyle by modifying this setting to include the full path.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.linting.pylamaArgs": {
+        "default": [],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.linting.pylamaEnabled": {
+        "default": false,
+        "description": "Whether to lint Python files using pylama.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.linting.pylamaPath": {
+        "default": "pylama",
+        "description": "Path to pylama, you can use a custom version of pylama by modifying this setting to include the full path.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.linting.pylintArgs": {
+        "default": [],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.linting.pylintCategorySeverity.convention": {
+        "default": "Information",
+        "description": "Severity of Pylint message type 'Convention/C'.",
+        "enum": [
+          "Error",
+          "Hint",
+          "Information",
+          "Warning"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "python.linting.pylintCategorySeverity.error": {
+        "default": "Error",
+        "description": "Severity of Pylint message type 'Error/E'.",
+        "enum": [
+          "Error",
+          "Hint",
+          "Information",
+          "Warning"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "python.linting.pylintCategorySeverity.fatal": {
+        "default": "Error",
+        "description": "Severity of Pylint message type 'Fatal/F'.",
+        "enum": [
+          "Error",
+          "Hint",
+          "Information",
+          "Warning"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "python.linting.pylintCategorySeverity.refactor": {
+        "default": "Hint",
+        "description": "Severity of Pylint message type 'Refactor/R'.",
+        "enum": [
+          "Error",
+          "Hint",
+          "Information",
+          "Warning"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "python.linting.pylintCategorySeverity.warning": {
+        "default": "Warning",
+        "description": "Severity of Pylint message type 'Warning/W'.",
+        "enum": [
+          "Error",
+          "Hint",
+          "Information",
+          "Warning"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "python.linting.pylintEnabled": {
+        "default": false,
+        "description": "Whether to lint Python files using pylint.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.linting.pylintPath": {
+        "default": "pylint",
+        "description": "Path to Pylint, you can use a custom version of pylint by modifying this setting to include the full path.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.logging.level": {
+        "default": "error",
+        "description": "The logging level the extension logs at, defaults to 'error'",
+        "enum": [
+          "debug",
+          "error",
+          "info",
+          "off",
+          "warn"
+        ],
+        "scope": 2,
+        "type": "string"
+      },
+      "python.pipenvPath": {
+        "default": "pipenv",
+        "description": "Path to the pipenv executable to use for activation.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.poetryPath": {
+        "default": "poetry",
+        "description": "Path to the poetry executable.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.sortImports.args": {
+        "default": [],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.sortImports.path": {
+        "default": "",
+        "description": "Path to isort script, default using inner version",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.tensorBoard.logDirectory": {
+        "description": "Set this setting to your preferred TensorBoard log directory to skip log directory prompt when starting TensorBoard.",
+        "scope": 1,
+        "type": "string"
+      },
+      "python.terminal.activateEnvInCurrentTerminal": {
+        "default": false,
+        "description": "Activate Python Environment in the current Terminal on load of the Extension.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.terminal.activateEnvironment": {
+        "default": true,
+        "description": "Activate Python Environment in Terminal created using the Extension.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.terminal.executeInFileDir": {
+        "default": false,
+        "description": "When executing a file in the terminal, whether to use execute in the file's directory, instead of the current open folder.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.terminal.launchArgs": {
+        "default": [],
+        "description": "Python launch arguments to use when executing a file in the terminal.",
+        "scope": 4,
+        "type": "array"
+      },
+      "python.testing.autoTestDiscoverOnSaveEnabled": {
+        "default": true,
+        "description": "Enable auto run test discovery when saving a test file.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.testing.cwd": {
+        "default": null,
+        "description": "Optional working directory for tests.",
+        "scope": 4,
+        "type": "string"
+      },
+      "python.testing.debugPort": {
+        "default": 3000,
+        "description": "Port number used for debugging of tests.",
+        "scope": 4,
+        "type": "number"
+      },
+      "python.testing.promptToConfigure": {
+        "default": true,
+        "description": "Prompt to configure a test framework if potential tests directories are discovered.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.testing.pytestArgs": {
+        "default": [],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.testing.pytestEnabled": {
+        "default": false,
+        "description": "Enable testing using pytest.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.testing.pytestPath": {
+        "default": "pytest",
+        "description": "Path to pytest (pytest), you can use a custom version of pytest by modifying this setting to include the full path.",
+        "scope": 6,
+        "type": "string"
+      },
+      "python.testing.unittestArgs": {
+        "default": [
+          "-v",
+          "-s",
+          ".",
+          "-p",
+          "*test*.py"
+        ],
+        "description": "Arguments passed in. Each argument is a separate item in the array.",
+        "items": {
+          "type": "string"
+        },
+        "scope": 4,
+        "type": "array"
+      },
+      "python.testing.unittestEnabled": {
+        "default": false,
+        "description": "Enable testing using unittest.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.venvFolders": {
+        "default": [],
+        "description": "Folders in your home directory to look into for virtual environments (supports pyenv, direnv and virtualenvwrapper by default).",
+        "items": {
+          "type": "string"
+        },
+        "scope": 2,
+        "type": "array"
+      },
+      "python.venvPath": {
+        "default": "",
+        "description": "Path to folder with a list of Virtual Environments (e.g. ~/.pyenv, ~/Envs, ~/.virtualenvs).",
+        "scope": 2,
+        "type": "string"
+      }
+    },
+    "title": "Python",
+    "type": "object"
+  }
+]

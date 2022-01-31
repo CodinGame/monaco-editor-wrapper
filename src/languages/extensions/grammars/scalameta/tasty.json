@@ -1,0 +1,63 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "TASTy",
+  "extensions": [
+    ".tasty-decoded"
+  ],
+  "scopeName": "source.tasty",
+  "patterns": [
+    {
+      "include": "#trees"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#lines"
+    }
+  ],
+  "repository": {
+    "trees": {
+      "patterns": [
+        {
+          "name": "constant.language.tasty",
+          "match": "\\b(UNITconst|FALSEconst|TRUEconst|NULLconst|BYTEconst|SHORTconst|CHARconst|INTconst|LONGconst|FLOATconst|DOUBLEconst|STRINGconst)\\b"
+        },
+        {
+          "name": "keyword.control.tasty",
+          "match": "\\b(IF|WHILE|TRY|RETURN|THROW|NEW)\\b"
+        },
+        {
+          "name": "support.function",
+          "match": "\\b(VALDEF|DEFDEF|TYPEDEF)\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "constant.language",
+          "match": "\\b(Names|Trees)\\b"
+        },
+        {
+          "name": "entity.name.type",
+          "match": "\\b[A-Z]+[a-z]*\\b"
+        }
+      ]
+    },
+    "lines": {
+      "patterns": [
+        {
+          "comment": "Position indicator",
+          "name": "comment.line",
+          "match": "[0-9]+:"
+        }
+      ]
+    }
+  },
+  "information_for_contributors": [
+    "This file has been converted from https://github.com/scalameta/metals-vscode/blob/master/",
+    "If you want to provide a fix or improvement, please create a pull request against the original repository.",
+    "Once accepted there, we are happy to receive an update request."
+  ]
+}

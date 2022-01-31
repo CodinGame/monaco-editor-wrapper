@@ -1,0 +1,92 @@
+[
+  {
+    "title": "Verilog configuration",
+    "properties": {
+      "verilog.linting.linter": {
+        "scope": 3,
+        "type": "string",
+        "enum": [
+          "xvlog",
+          "iverilog",
+          "verilator",
+          "modelsim",
+          "none"
+        ],
+        "default": "none",
+        "description": "Select the verilog linter. Possible values are 'iverilog', 'verilator', xvlog' or 'none'."
+      },
+      "verilog.linting.xvlog.arguments": {
+        "scope": 3,
+        "type": "string",
+        "default": "",
+        "description": "Add xvlog arguments here. They will be added to xvlog while linting."
+      },
+      "verilog.linting.iverilog.arguments": {
+        "scope": 3,
+        "type": "string",
+        "default": "",
+        "description": "Add Icarus Verilog arguments here (like macros). They will be added to Icarus Verilog while linting (The command \"-t null\" will be added by the linter by default)."
+      },
+      "verilog.linting.iverilog.runAtFileLocation": {
+        "scope": 3,
+        "type": "boolean",
+        "default": false,
+        "description": "If enabled, Icarus Verilog will be run at the file location for linting. Else it will be run at workspace folder. Disabled by default."
+      },
+      "verilog.linting.modelsim.runAtFileLocation": {
+        "scope": 3,
+        "type": "boolean",
+        "default": false,
+        "description": "If enabled, Modelsim will be run at the file location for linting. Else it will be run at workspace folder. Disabled by default."
+      },
+      "verilog.linting.modelsim.arguments": {
+        "scope": 3,
+        "type": "string",
+        "default": "",
+        "description": "Add Modelsim arguments here. They will be added to Modelsim while linting."
+      },
+      "verilog.linting.modelsim.work": {
+        "scope": 3,
+        "type": "string",
+        "default": "",
+        "description": "Add Modelsim work library here."
+      },
+      "verilog.linting.verilator.arguments": {
+        "scope": 3,
+        "type": "string",
+        "default": "",
+        "description": "Add Verilator arguments here (like macros). They will be added to Verilator while linting (The command \"--lint-only -I<document folder>\" will be added by the linter by default)."
+      },
+      "verilog.linting.verilator.runAtFileLocation": {
+        "scope": 3,
+        "type": "boolean",
+        "default": false,
+        "description": "If enabled, Verilator will be run at the file location for linting. Else it will be run at workspace folder. Disabled by default."
+      },
+      "verilog.linting.verilator.useWSL": {
+        "scope": 3,
+        "type": "boolean",
+        "default": false,
+        "description": "If enabled, run verilator in WSL."
+      },
+      "verilog.ctags.path": {
+        "scope": 3,
+        "type": "string",
+        "default": "ctags",
+        "description": "A path to the installation of Universal Ctags."
+      },
+      "verilog.languageServer": {
+        "scope": 3,
+        "type": "string",
+        "default": "none",
+        "description": "Select the Language Server. Currently supports `svls`."
+      },
+      "verilog.logging.enabled": {
+        "scope": 3,
+        "type": "boolean",
+        "default": false,
+        "description": "Enable logging for this extension."
+      }
+    }
+  }
+]
