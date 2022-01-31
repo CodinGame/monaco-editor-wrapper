@@ -17,6 +17,14 @@ const overrideConfigurationDefaultValue = new Map<string, unknown>(Object.entrie
   'r.lsp.diagnostics': false
 }))
 
+interface Extension {
+  name: string
+  repository: string
+  path?: string
+  version?: string
+  mapping?: Record<string, string>
+}
+
 const extensions: Extension[] = [
   ...['clojure', 'coffeescript', 'cpp', 'csharp', 'css', 'fsharp', 'go',
     'groovy', 'html', 'java', 'javascript', 'json', 'lua', 'markdown-basics',
@@ -116,11 +124,11 @@ function overrideDefaultValue (configuration: monaco.extra.IConfigurationNode) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function applyI18n (object: any, i18n: Partial<Record<string, string>>): any {
+function applyI18n (object: any, i18n: Partial<Record<string, string | { message: string }>>): any {
   if (object === null) {
     return object
   } else if (typeof object === 'string') {
-    return object.replace(/^%(.*)%$/g, (g, g1) => i18n[g1] ?? g1)
+    return object.replace(/^%(.*)%$/g, (g, g1) => (i18n[g1] as { message?: string } | undefined)?.message ?? i18n[g1] ?? g1)
   } else if (Array.isArray(object)) {
     return object.map(item => applyI18n(item, i18n))
   } else if (typeof object === 'object') {
@@ -128,14 +136,6 @@ function applyI18n (object: any, i18n: Partial<Record<string, string>>): any {
   } else {
     return object
   }
-}
-
-interface Extension {
-  name: string
-  repository: string
-  path?: string
-  version?: string
-  mapping?: Record<string, string>
 }
 
 function download (url: string, redirectCount?: number): Promise<string | null> {
