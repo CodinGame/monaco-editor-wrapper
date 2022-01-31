@@ -1,9 +1,16 @@
 import * as monaco from 'monaco-editor'
-import extensionConfigurations from '../languages/extensions/extensionConfigurations.json'
+import extensionConfigurationLoader from '../languages/extensions/extensionConfigurationLoader'
 
 const configurationRegistry = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
 
-configurationRegistry.registerConfigurations(extensionConfigurations as unknown as monaco.extra.IConfigurationNode[])
+export async function loadConfigurationForExtension (extensionId: string): Promise<void> {
+  const loader = extensionConfigurationLoader[extensionId]
+  if (loader == null) {
+    throw new Error(`Unknown extension ${extensionId}`)
+  }
+  const configuration = await loader()
+  configurationRegistry.registerConfigurations(configuration)
+}
 
 /**
  * comes from https://github.com/microsoft/vscode/blob/16d0a319b28caa4b6cf4e6801fd508282b7533e0/src/vs/workbench/contrib/files/browser/files.contribution.ts#L132
