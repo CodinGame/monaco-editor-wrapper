@@ -10,8 +10,8 @@ import { babel } from '@rollup/plugin-babel'
 import * as rollup from 'rollup'
 import builtins from 'rollup-plugin-node-builtins'
 import { uglify } from 'rollup-plugin-uglify'
-import pkg from './package.json'
 import path from 'path'
+import pkg from './package.json'
 
 const externals = Object.keys(pkg.dependencies)
 
