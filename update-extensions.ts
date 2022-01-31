@@ -126,10 +126,9 @@ function overrideDefaultValue (configuration: monaco.extra.IConfigurationNode) {
   }
 }
 
-interface MessageBag {
-  [key: string]: string | { message: string, comment: string[] } | undefined
-}
-
+/**
+ * There 3 functions come from https://github.com/CodinGame/vscode/blob/standalone/0.31.x/src/vs/base/common/objects.ts
+ */
 function isString (value: unknown): value is string {
   return Object.prototype.toString.call(value) === '[object String]'
 }
@@ -144,7 +143,36 @@ function isObject (obj: unknown): obj is Object {
     !(obj instanceof Date)
 }
 
+function deepClone<T> (obj: T): T {
+  if (obj == null || typeof obj !== 'object') {
+    return obj
+  }
+  if (obj instanceof RegExp) {
+    // See https://github.com/microsoft/TypeScript/issues/10990
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return obj as any
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result: any = Array.isArray(obj) ? [] : {}
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Object.keys(<any>obj).forEach((key: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if ((<any>obj)[key] != null && typeof (<any>obj)[key] === 'object') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      result[key] = deepClone((<any>obj)[key])
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      result[key] = (<any>obj)[key]
+    }
+  })
+  return result
+}
+
 /** Comes from https://github.com/microsoft/vscode/blob/301cca6218a4f7b56d10d918d8638323a78899a7/src/vs/workbench/services/extensions/node/extensionPoints.ts#L250 */
+interface MessageBag {
+  [key: string]: string | { message: string, comment: string[] } | undefined
+}
+
 function replaceNLStrings<T extends object> (literal: T, messages: MessageBag): void {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function processEntry (obj: any, key: string | number) {
@@ -178,6 +206,81 @@ function replaceNLStrings<T extends object> (literal: T, messages: MessageBag): 
   for (const key in literal) {
     if (Object.prototype.hasOwnProperty.call(literal, key)) {
       processEntry(literal, key)
+    }
+  }
+}
+
+/**
+ * These 2 methods come from https://github.com/CodinGame/vscode/blob/ebf697cb9dae96a2f6d2f6ca750173ddf4a7db82/src/vs/workbench/api/common/configurationExtensionPoint.ts#L181
+ */
+function handleConfiguration (node: monaco.extra.IConfigurationNode): monaco.extra.IConfigurationNode[] {
+  const configurations: monaco.extra.IConfigurationNode[] = []
+  const configuration = deepClone(node)
+
+  if (configuration.title != null && (typeof configuration.title !== 'string')) {
+    console.error('\'configuration.title\' must be a string')
+  }
+
+  validateProperties(configuration)
+
+  configurations.push(configuration)
+  return configurations
+}
+
+enum ConfigurationScope {
+  APPLICATION = 1,
+  MACHINE = 2,
+  WINDOW = 3,
+  RESOURCE = 4,
+  LANGUAGE_OVERRIDABLE = 5,
+  MACHINE_OVERRIDABLE = 6
+}
+
+const seenProperties = new Set<string>()
+function validateProperties (configuration: monaco.extra.IConfigurationNode): void {
+  const properties = configuration.properties
+  if (properties != null) {
+    if (typeof properties !== 'object') {
+      console.error('\'configuration.properties\' must be an object')
+      configuration.properties = {}
+    }
+    for (const key in properties) {
+      if (seenProperties.has(key)) {
+        delete properties[key]
+        console.error(`Cannot register '${key}'. This property is already registered.`)
+        continue
+      }
+      const propertyConfiguration = properties[key]
+      if (!isObject(propertyConfiguration)) {
+        delete properties[key]
+        console.error(`configuration.properties property '${key}' must be an object`)
+        continue
+      }
+      seenProperties.add(key)
+      if (propertyConfiguration.scope != null) {
+        if (propertyConfiguration.scope.toString() === 'application') {
+          propertyConfiguration.scope = ConfigurationScope.APPLICATION
+        } else if (propertyConfiguration.scope.toString() === 'machine') {
+          propertyConfiguration.scope = ConfigurationScope.MACHINE
+        } else if (propertyConfiguration.scope.toString() === 'resource') {
+          propertyConfiguration.scope = ConfigurationScope.RESOURCE
+        } else if (propertyConfiguration.scope.toString() === 'machine-overridable') {
+          propertyConfiguration.scope = ConfigurationScope.MACHINE_OVERRIDABLE
+        } else if (propertyConfiguration.scope.toString() === 'language-overridable') {
+          propertyConfiguration.scope = ConfigurationScope.LANGUAGE_OVERRIDABLE
+        } else {
+          propertyConfiguration.scope = ConfigurationScope.WINDOW
+        }
+      } else {
+        propertyConfiguration.scope = ConfigurationScope.WINDOW
+      }
+    }
+  }
+  const subNodes = configuration.allOf
+  if (subNodes != null) {
+    console.error('\'configuration.allOf\' is deprecated and should no longer be used. Instead, pass multiple configuration sections as an array to the \'configuration\' contribution point.')
+    for (const node of subNodes) {
+      validateProperties(node)
     }
   }
 }
@@ -454,9 +557,9 @@ async function fetchExtensions () {
 
     if (configuration != null) {
       if (Array.isArray(configuration)) {
-        extensionResult.configurations.push(...configuration.map(overrideDefaultValue))
+        extensionResult.configurations.push(...configuration.flatMap(handleConfiguration).map(overrideDefaultValue))
       } else {
-        extensionResult.configurations.push(overrideDefaultValue(configuration))
+        extensionResult.configurations.push(...handleConfiguration(overrideDefaultValue(configuration)))
       }
     }
   }
