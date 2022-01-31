@@ -1,4 +1,4 @@
-// Inspired by https://github.com/microsoft/vscode/blob/master/build/npm/update-grammar.js
+// Inspired by https://github.com/microsoft/vscode/blob/main/build/npm/update-all-grammars.js
 import JSON5 from 'json5'
 import ini from 'ini'
 import cson from 'cson-parser'
