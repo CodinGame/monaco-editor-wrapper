@@ -387,6 +387,7 @@ async function fetchExtensions () {
   let grammarPaths: Record<string, string> = {}
   let snippetPaths: Record<string, string> = {}
   let languageConfigurationPaths: Record<string, string> = {}
+  let extensionConfigurationRegistrationPaths: Record<string, string> = {}
   let languageResult: Omit<monaco.languages.ILanguageExtensionPoint, 'configuration'>[] = []
 
   const grammarsPath = path.resolve(extensionsPath, 'grammars')
@@ -398,18 +399,19 @@ async function fetchExtensions () {
   const languageConfigurationsPath = path.resolve(extensionsPath, 'languageConfigurations')
   await fs.mkdir(languageConfigurationsPath, { recursive: true })
 
+  const extensionConfigurationRegistrationsPath = path.resolve(extensionsPath, 'configurations')
+  await fs.mkdir(extensionConfigurationRegistrationsPath, { recursive: true })
+
   const extensionResult: {
     configurationDefaults: Record<string, unknown>
     semanticTokenTypes: ITokenTypeExtensionPoint[]
     semanticTokenScopes: ITokenStyleDefaultExtensionPoint[]
     semanticTokenModifiers: ITokenModifierExtensionPoint[]
-    configurations: monaco.extra.IConfigurationNode[]
   } = {
     configurationDefaults: {},
     semanticTokenTypes: [],
     semanticTokenScopes: [],
-    semanticTokenModifiers: [],
-    configurations: []
+    semanticTokenModifiers: []
   }
 
   let i = 0
@@ -556,10 +558,13 @@ async function fetchExtensions () {
     }
 
     if (configuration != null) {
-      if (Array.isArray(configuration)) {
-        extensionResult.configurations.push(...configuration.flatMap(handleConfiguration).map(overrideDefaultValue))
-      } else {
-        extensionResult.configurations.push(...handleConfiguration(overrideDefaultValue(configuration)))
+      const filePath = `${extension.name}.json`
+      const configurations = (Array.isArray(configuration) ? configuration : [configuration]).flatMap(handleConfiguration).map(overrideDefaultValue)
+      await fs.writeFile(path.resolve(extensionConfigurationRegistrationsPath, filePath), JSON.stringify(configurations, null, 2))
+
+      extensionConfigurationRegistrationPaths = {
+        ...extensionConfigurationRegistrationPaths,
+        [extension.name]: path.join('configurations', filePath)
       }
     }
   }
@@ -570,7 +575,8 @@ async function fetchExtensions () {
     extensions: extensionResult,
     grammarPaths,
     snippetPaths,
-    languageConfigurationPaths
+    languageConfigurationPaths,
+    extensionConfigurationRegistrationPaths
   }
 }
 
@@ -587,7 +593,8 @@ function generateSnippetLoaderLine ([language, path]: [string, string]) {
 }
 
 function generateLanguageConfigurationLoaderLine ([language, path]: [string, string]) {
-  return generateLoaderLine(language, `configuration-${language}`, path)
+function generateConfigurationRegistrationLoaderLine ([extensionId, path]: [string, string]) {
+  return generateLoaderLine(extensionId, `configuration-registration-${extensionId}`, path)
 }
 
 async function main () {
@@ -597,7 +604,8 @@ async function main () {
     extensions,
     snippetPaths,
     grammarPaths,
-    languageConfigurationPaths
+    languageConfigurationPaths,
+    extensionConfigurationRegistrationPaths
   } = await fetchExtensions()
 
   await fs.mkdir(path.dirname(extensionsPath), { recursive: true })
@@ -605,9 +613,7 @@ async function main () {
 
   await fs.writeFile(path.resolve(extensionsPath, 'grammars.json'), JSON.stringify(grammars, null, 2))
 
-  const { configurations, ...extensionsWithoutConfiguration } = extensions
-  await fs.writeFile(path.resolve(extensionsPath, 'extensions.json'), JSON.stringify(extensionsWithoutConfiguration, null, 2))
-  await fs.writeFile(path.resolve(extensionsPath, 'extensionConfigurations.json'), JSON.stringify(configurations, null, 2))
+  await fs.writeFile(path.resolve(extensionsPath, 'extensions.json'), JSON.stringify(extensions, null, 2))
 
   const grammarLoaders = `{\n${Object.entries(grammarPaths).map(generateGrammarLoaderLine).join(',\n')}\n}`
 
@@ -640,6 +646,18 @@ import * as monaco from 'monaco-editor'
 
 /* eslint-disable */
 const loader = ${configurationLoader} as Partial<Record<string, () => Promise<Record<string, monaco.extra.ILanguageConfiguration>>>>
+
+export default loader
+  `)
+
+  const configurationRegistrationLoader = `{\n${Object.entries(extensionConfigurationRegistrationPaths).map(generateConfigurationRegistrationLoaderLine).join(',\n')}\n}`
+
+  await fs.writeFile(path.resolve(extensionsPath, 'extensionConfigurationLoader.ts'), `
+// Generated file, do not modify
+import * as monaco from 'monaco-editor'
+
+/* eslint-disable */
+const loader = ${configurationRegistrationLoader} as unknown as Partial<Record<string, () => Promise<monaco.extra.IConfigurationNode[]>>>
 
 export default loader
   `)
