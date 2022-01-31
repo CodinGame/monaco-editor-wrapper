@@ -60,6 +60,9 @@ const extensions: Extension[] = [
     name: 'scala',
     repository: 'scala/vscode-scala-syntax'
   }, {
+    name: 'scalameta',
+    repository: 'scalameta/metals-vscode'
+  }, {
     name: 'cobol',
     repository: 'eclipse/che-che4z-lsp-for-cobol',
     path: 'clients/cobol-lsp-vscode-extension/'
