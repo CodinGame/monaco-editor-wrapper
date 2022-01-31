@@ -506,31 +506,39 @@ async function main () {
   await fs.writeFile(path.resolve(extensionsPath, 'extensions.json'), JSON.stringify(extensionsWithoutConfiguration, null, 2))
   await fs.writeFile(path.resolve(extensionsPath, 'extensionConfigurations.json'), JSON.stringify(configurations, null, 2))
 
-  const grammarLoaders = `{\n${Object.entries(grammarPaths).map(generateGrammarLoaderLine).join(',\n')}\n}\n`
+  const grammarLoaders = `{\n${Object.entries(grammarPaths).map(generateGrammarLoaderLine).join(',\n')}\n}`
 
   await fs.writeFile(path.resolve(extensionsPath, 'grammarLoader.ts'), `
 // Generated file, do not modify
 
 /* eslint-disable */
-export default ${grammarLoaders}
+const loader = ${grammarLoaders} as Partial<Record<string, () => Promise<object>>>
+
+export default loader
 `)
 
-  const snippetLoaders = `{\n${Object.entries(snippetPaths).map(generateSnippetLoaderLine).join(',\n')}\n}\n`
+  const snippetLoaders = `{\n${Object.entries(snippetPaths).map(generateSnippetLoaderLine).join(',\n')}\n}`
 
   await fs.writeFile(path.resolve(extensionsPath, 'snippetLoader.ts'), `
 // Generated file, do not modify
+import * as monaco from 'monaco-editor'
 
 /* eslint-disable */
-export default ${snippetLoaders}
+const loader = ${snippetLoaders} as unknown as Partial<Record<string, () => Promise<Record<string, monaco.extra.JsonSerializedSnippet>>>>
+
+export default loader
   `)
 
-  const configurationLoader = `{\n${Object.entries(languageConfigurationPaths).map(generateLanguageConfigurationLoaderLine).join(',\n')}\n}\n`
+  const configurationLoader = `{\n${Object.entries(languageConfigurationPaths).map(generateLanguageConfigurationLoaderLine).join(',\n')}\n}`
 
-  await fs.writeFile(path.resolve(extensionsPath, 'configurationLoader.ts'), `
+  await fs.writeFile(path.resolve(extensionsPath, 'languageConfigurationLoader.ts'), `
 // Generated file, do not modify
+import * as monaco from 'monaco-editor'
 
 /* eslint-disable */
-export default ${configurationLoader}
+const loader = ${configurationLoader} as Partial<Record<string, () => Promise<Record<string, monaco.extra.ILanguageConfiguration>>>>
+
+export default loader
   `)
 }
 

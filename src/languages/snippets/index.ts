@@ -1,7 +1,6 @@
 import * as monaco from 'monaco-editor'
 import snippetLoader from '../extensions/snippetLoader'
 
-type SnippetLoader = Partial<Record<string, () => Promise<Record<string, monaco.extra.JsonSerializedSnippet>>>>
 class SimpleSnippetService implements monaco.extra.ISnippetsService {
   _serviceBrand: undefined
 
@@ -15,7 +14,7 @@ class SimpleSnippetService implements monaco.extra.ISnippetsService {
 
   async getSnippets (languageId: string, opt?: monaco.extra.ISnippetGetOptions): Promise<monaco.extra.Snippet[]> {
     const result: monaco.extra.Snippet[] = []
-    const loader = (snippetLoader as unknown as SnippetLoader)[languageId]
+    const loader = snippetLoader[languageId]
     if (loader != null) {
       const rawSnippets = await loader()
       const snippets = Object.entries(rawSnippets)

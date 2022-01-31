@@ -2,7 +2,7 @@ import * as monaco from 'monaco-editor'
 import { createTextMateTokensProvider } from './textMate'
 import textMateLanguages from './extensions/languages.json'
 import { languageLoader as monarchLanguageLoader } from './monarch'
-import configurationLoader from './extensions/configurationLoader'
+import languageConfigurationLoader from './extensions/languageConfigurationLoader'
 import './snippets'
 
 const customAliases: Partial<Record<string, string[]>> = {
@@ -36,14 +36,13 @@ for (const languageId of languagesIds) {
     mimetypes: textMateLanguage?.mimetypes
   })
 }
-type ConfigurationLoader = Partial<Record<string, () => Promise<Record<string, monaco.extra.ILanguageConfiguration>>>>
 
 modeService.onDidEncounterLanguage(async (languageId) => {
   if (languageId === 'plaintext') {
     return
   }
 
-  const loader = (configurationLoader as unknown as ConfigurationLoader)[languageId]
+  const loader = languageConfigurationLoader[languageId]
   if (loader != null) {
     loader().then((configuration) => {
       monaco.extra.handleLanguageConfiguration(
