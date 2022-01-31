@@ -126,18 +126,59 @@ function overrideDefaultValue (configuration: monaco.extra.IConfigurationNode) {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function applyI18n (object: any, i18n: Partial<Record<string, string | { message: string }>>): any {
-  if (object === null) {
-    return object
-  } else if (typeof object === 'string') {
-    return object.replace(/^%(.*)%$/g, (g, g1) => (i18n[g1] as { message?: string } | undefined)?.message ?? i18n[g1] ?? g1)
-  } else if (Array.isArray(object)) {
-    return object.map(item => applyI18n(item, i18n))
-  } else if (typeof object === 'object') {
-    return Object.fromEntries(Object.entries(object).map(([key, value]) => [key, applyI18n(value, i18n)]))
-  } else {
-    return object
+interface MessageBag {
+  [key: string]: string | { message: string, comment: string[] } | undefined
+}
+
+function isString (value: unknown): value is string {
+  return Object.prototype.toString.call(value) === '[object String]'
+}
+function isObject (obj: unknown): obj is Object {
+  // The method can't do a type cast since there are type (like strings) which
+  // are subclasses of any put not positvely matched by the function. Hence type
+  // narrowing results in wrong results.
+  return typeof obj === 'object' &&
+    obj !== null &&
+    !Array.isArray(obj) &&
+    !(obj instanceof RegExp) &&
+    !(obj instanceof Date)
+}
+
+/** Comes from https://github.com/microsoft/vscode/blob/301cca6218a4f7b56d10d918d8638323a78899a7/src/vs/workbench/services/extensions/node/extensionPoints.ts#L250 */
+function replaceNLStrings<T extends object> (literal: T, messages: MessageBag): void {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function processEntry (obj: any, key: string | number) {
+    const value = obj[key]
+    if (isString(value)) {
+      const str = value
+      const length = str.length
+      if (length > 1 && str[0] === '%' && str[length - 1] === '%') {
+        const messageKey = str.slice(1, length - 1)
+        const translated = messages[messageKey]
+        const message: string | undefined = typeof translated === 'string' || translated == null ? translated : (typeof translated.message === 'string' ? translated.message : undefined)
+        if (message !== undefined) {
+          obj[key] = message
+        } else {
+          console.warn(`Couldn't find message for key ${messageKey}.`)
+        }
+      }
+    } else if (isObject(value)) {
+      for (const k in value) {
+        if (Object.prototype.hasOwnProperty.call(value, k)) {
+          processEntry(value, k)
+        }
+      }
+    } else if (Array.isArray(value)) {
+      for (let i = 0; i < value.length; i++) {
+        processEntry(value, i)
+      }
+    }
+  }
+
+  for (const key in literal) {
+    if (Object.prototype.hasOwnProperty.call(literal, key)) {
+      processEntry(literal, key)
+    }
   }
 }
 
@@ -274,14 +315,14 @@ async function fetchExtensions () {
     const resolve = await createRepositoryFileResolver(extension)
 
     const packageJsonContent = (await download(resolve('package.json')))!
-    let packageJson = JSON.parse(packageJsonContent) as {
+    const packageJson = JSON.parse(packageJsonContent) as {
       contributes: PackageJsonContributes
     }
 
     // Only use the default i18n, can be improved
     const packageNlsJsonContent = await download(resolve('package.nls.json'))
     if (packageNlsJsonContent != null) {
-      packageJson = applyI18n(packageJson, JSON.parse(packageNlsJsonContent))
+      replaceNLStrings(packageJson, JSON.parse(packageNlsJsonContent))
     }
 
     const {
