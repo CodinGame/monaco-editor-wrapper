@@ -1,8 +1,15 @@
 {
   "comments": {
-    "lineComment": "#"
+    "blockComment": [
+      "<!--",
+      "-->"
+    ]
   },
   "brackets": [
+    [
+      "<!--",
+      "-->"
+    ],
     [
       "{",
       "}"

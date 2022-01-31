@@ -141,43 +141,43 @@
           "Enable parameter name hints for literal and non-literal arguments."
         ],
         "default": "none",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Enable/disable inlay hints for parameter names:\n```typescript\n\nparseInt(/* str: */ '123', /* radix: */ 8)\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
         "scope": "resource"
       },
       "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Suppress parameter name hints on arguments whose text is identical to the parameter name.",
         "scope": "resource"
       },
       "typescript.inlayHints.parameterTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Enable/disable inlay hints for implicit parameter types:\n```typescript\n\nel.addEventListener('click', e /* :MouseEvent */ => ...)\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
         "scope": "resource"
       },
       "typescript.inlayHints.variableTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Enable/disable inlay hints for implicit variable types:\n```typescript\n\nconst foo /* :number */ = Date.now();\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
         "scope": "resource"
       },
       "typescript.inlayHints.propertyDeclarationTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Enable/disable inlay hints for implicit types on property declarations:\n```typescript\n\nclass Foo {\n\tprop /* :number */ = Date.now();\n}\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
         "scope": "resource"
       },
       "typescript.inlayHints.functionLikeReturnTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Enable/disable inlay hints for implicit return types on function signatures:\n```typescript\n\nfunction foo() /* :number */ {\n\treturn Date.now();\n} \n \n```\nRequires using TypeScript 4.4+ in the workspace.",
         "scope": "resource"
       },
       "typescript.inlayHints.enumMemberValues.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Enable/disable inlay hints for member values in enum declarations:\n```typescript\n\nenum MyValue {\n\tA /* = 0 */;\n\tB /* = 1 */;\n}\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
         "scope": "resource"
       },
       "javascript.inlayHints.parameterNames.enabled": {
@@ -193,43 +193,43 @@
           "Enable parameter name hints for literal and non-literal arguments."
         ],
         "default": "none",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Enable/disable inlay hints for parameter names:\n```typescript\n\nparseInt(/* str: */ '123', /* radix: */ 8)\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
         "scope": "resource"
       },
       "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Suppress parameter name hints on arguments whose text is identical to the parameter name.",
         "scope": "resource"
       },
       "javascript.inlayHints.parameterTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Enable/disable inlay hints for implicit parameter types:\n```typescript\n\nel.addEventListener('click', e /* :MouseEvent */ => ...)\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
         "scope": "resource"
       },
       "javascript.inlayHints.variableTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Enable/disable inlay hints for implicit variable types:\n```typescript\n\nconst foo /* :number */ = Date.now();\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
         "scope": "resource"
       },
       "javascript.inlayHints.propertyDeclarationTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Enable/disable inlay hints for implicit types on property declarations:\n```typescript\n\nclass Foo {\n\tprop /* :number */ = Date.now();\n}\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
         "scope": "resource"
       },
       "javascript.inlayHints.functionLikeReturnTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Enable/disable inlay hints for implicit return types on function signatures:\n```typescript\n\nfunction foo() /* :number */ {\n\treturn Date.now();\n} \n \n```\nRequires using TypeScript 4.4+ in the workspace.",
         "scope": "resource"
       },
       "javascript.inlayHints.enumMemberValues.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Enable/disable inlay hints for member values in enum declarations:\n```typescript\n\nenum MyValue {\n\tA /* = 0 */;\n\tB /* = 1 */;\n}\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
         "scope": "resource"
       },
       "javascript.suggest.includeCompletionsForImportStatements": {
@@ -4740,7 +4740,7 @@
         "type": "object"
       },
       "Lua.diagnostics.workspaceDelay": {
-        "default": 0,
+        "default": 3,
         "markdownDescription": "Latency (milliseconds) for workspace diagnostics. When you start the workspace, or edit any file, the entire workspace will be re-diagnosed in the background. Set to negative to disable workspace diagnostics.",
         "scope": "resource",
         "type": "integer"
@@ -5186,13 +5186,13 @@
         "type": "array"
       },
       "Lua.workspace.maxPreload": {
-        "default": 1000,
+        "default": 5000,
         "markdownDescription": "Max preloaded files.",
         "scope": "resource",
         "type": "integer"
       },
       "Lua.workspace.preloadFileSize": {
-        "default": 100,
+        "default": 500,
         "markdownDescription": "Skip files larger than this value (KB) when preloading.",
         "scope": "resource",
         "type": "integer"
@@ -5224,7 +5224,7 @@
           "integer",
           "null"
         ],
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The maximum number of concurrent threads to use for language service processing. The value is a hint and may not always be used. The default of `null` (empty) uses the number of logical processors available.",
         "default": null,
         "minimum": 1,
         "maximum": 32,
@@ -5235,7 +5235,7 @@
           "integer",
           "null"
         ],
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The maximum number of cached processes to use for language service processing. The default of `null` (empty) uses twice the number of logical processors available.",
         "default": null,
         "minimum": 0,
         "maximum": 256,
@@ -5246,7 +5246,7 @@
           "integer",
           "null"
         ],
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The maximum memory (in MB) available for language service processing. Fewer processes will be cached and run concurrently after this memory usage is exceeded. The default of `null` (empty) uses the system's free memory.",
         "default": null,
         "minimum": 256,
         "maximum": 65536,
@@ -5257,7 +5257,7 @@
           "integer",
           "null"
         ],
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The maximum number of IntelliSense processes to keep running. The default of `null` (empty) uses value inherited from `#C_Cpp.maxCachedProcesses#`.",
         "default": null,
         "minimum": 2,
         "maximum": 128,
@@ -5268,7 +5268,7 @@
           "integer",
           "null"
         ],
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Older IntelliSense processes will shut down before new processes are created after this memory usage (in MB) is exceeded. The default of `null` (empty) uses the value inherited from `#C_Cpp.maxMemory#`.",
         "default": null,
         "minimum": 256,
         "maximum": 65536,
@@ -5279,7 +5279,7 @@
           "integer",
           "null"
         ],
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The maximum number of concurrent threads to use for 'Find All References' and 'Rename'. The default of `null` (empty) uses the value inherited from `#C_Cpp.maxConcurrentThreads#`.",
         "default": null,
         "minimum": 1,
         "maximum": 32,
@@ -5290,7 +5290,7 @@
           "integer",
           "null"
         ],
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The maximum number of processes to keep in memory for 'Find All References' and 'Rename'. The default of `0` disables this feature. The value of `null` (empty) uses the value inherited from `#C_Cpp.maxCachedProcesses#`.",
         "default": 0,
         "minimum": 0,
         "maximum": 32,
@@ -5301,7 +5301,7 @@
           "integer",
           "null"
         ],
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Fewer 'Find All References' and 'Rename' processes will be cached and run concurrently after this memory usage (in MB) is exceeded. The default of `null` (empty) uses the value inherited from `#C_Cpp.maxMemory#`.",
         "default": null,
         "minimum": 256,
         "maximum": 65536,
@@ -5312,7 +5312,7 @@
           "integer",
           "null"
         ],
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The maximum number of concurrent threads to use for code analysis. The default of `null` (empty) uses half the value inherited from `#C_Cpp.maxConcurrentThreads#`.",
         "default": null,
         "minimum": 1,
         "maximum": 32,
@@ -5323,7 +5323,7 @@
           "integer",
           "null"
         ],
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Fewer code analysis processes will run concurrently after this memory usage (in MB) is exceeded. The default of `null` (empty) uses the value inherited from `#C_Cpp.maxMemory#`.",
         "default": null,
         "minimum": 256,
         "maximum": 65536,
@@ -5332,20 +5332,20 @@
       "C_Cpp.codeAnalysis.updateDelay": {
         "type": "number",
         "default": 2000,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Controls the delay in milliseconds before code analysis starts processing after a save is triggered from an edit when `#files.autoSave#` is `afterDelay` and `#C_Cpp.codeAnalysis.runAutomatically#` is `true`.",
         "scope": "application",
         "minimum": 0,
         "maximum": 6000
       },
       "C_Cpp.codeAnalysis.exclude": {
         "type": "object",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Configure glob patterns for excluding folders and files for code analysis. Files not under the workspace folder are always excluded. Inherits values from `#files.exclude#` and `#C_Cpp.files.exclude#`. Read more about glob patterns [here](https://code.visualstudio.com/docs/editor/codebasics#_advanced-search-options).",
         "default": {},
         "additionalProperties": {
           "anyOf": [
             {
               "type": "boolean",
-              "markdownDescription": "[object Object]"
+              "markdownDescription": "The glob pattern to match file paths against. Set to `true` or `false` to enable or disable the pattern."
             },
             {
               "type": "object",
@@ -5354,7 +5354,7 @@
                   "type": "string",
                   "pattern": "\\w*\\$\\(basename\\)\\w*",
                   "default": "$(basename).ext",
-                  "markdownDescription": "[object Object]"
+                  "markdownDescription": "Additional check on the siblings of a matching file. Use `$(basename)` as variable for the matching file name."
                 }
               }
             }
@@ -5364,29 +5364,29 @@
       },
       "C_Cpp.codeAnalysis.runAutomatically": {
         "type": "boolean",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "If `true`, code analysis will run automatically on a file after it is opened or saved.",
         "default": true,
         "scope": "resource"
       },
       "C_Cpp.codeAnalysis.clangTidy.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "If `true`, code analysis using `clang-tidy` will be enabled and run automatically if `#C_Cpp.codeAnalysis.runAutomatically#` is `true` (the default).",
         "scope": "resource"
       },
       "C_Cpp.codeAnalysis.clangTidy.path": {
         "type": "string",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The full path of the `clang-tidy` executable. If not specified, and `clang-tidy` is available in the environment path, that is used. If not found in the environment path, the `clang-tidy` bundled with the extension will be used.",
         "scope": "machine-overridable"
       },
       "C_Cpp.codeAnalysis.clangTidy.config": {
         "type": "string",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Specifies a `clang-tidy` configuration in YAML/JSON format: `{Checks: '-*,clang-analyzer-*', CheckOptions: [{key: x, value: y}]}`. When the value is empty, `clang-tidy` will attempt to find a file named `.clang-tidy` for each source file in its parent directories.",
         "scope": "resource"
       },
       "C_Cpp.codeAnalysis.clangTidy.fallbackConfig": {
         "type": "string",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Specifies a `clang-tidy` configuration in YAML/JSON format to be used as a fallback when `#C_Cpp.codeAnalysis.clangTidy.config#` is not set and no `.clang-tidy` file is found: `{Checks: '-*,clang-analyzer-*', CheckOptions: [{key: x, value: y}]}`.",
         "scope": "resource"
       },
       "C_Cpp.codeAnalysis.clangTidy.headerFilter": {
@@ -5395,7 +5395,7 @@
           "null"
         ],
         "default": null,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "A POSIX extended regular expression (ERE) matching the names of the headers to output diagnostics from. Diagnostics from the main file of each translation unit are always displayed. The `${workspaceFolder}` variable is supported (and is used as the default fallback value if no `.clang-tidy` file exists). If this option is not `null` (empty), it overrides the `HeaderFilterRegex` option in a `.clang-tidy` file, if any.",
         "scope": "resource"
       },
       "C_Cpp.codeAnalysis.clangTidy.args": {
@@ -5403,7 +5403,7 @@
         "items": {
           "type": "string"
         },
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Additional command line arguments to pass to `clang-tidy`. These take precedence over the equivalent `C_Cpp.codeAnalysis.clangTidy.*` settings.",
         "scope": "resource"
       },
       "C_Cpp.codeAnalysis.clangTidy.checks.enabled": {
@@ -5929,7 +5929,7 @@
             "zircon-temporary-objects"
           ]
         },
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "List of enabled `clang-tidy` checks. The values are appended to the `Checks` in a `.clang-tidy` file or `#C_Cpp.codeAnalysis.clangTidy.config#`, if any. The default check `clang-analyzer-*` is always used unless it is explicitly disabled.",
         "scope": "resource"
       },
       "C_Cpp.codeAnalysis.clangTidy.checks.disabled": {
@@ -6455,18 +6455,18 @@
             "zircon-temporary-objects"
           ]
         },
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "List of disabled `clang-tidy` checks. The values are appended to the `Checks` in a `.clang-tidy` file or `#C_Cpp.codeAnalysis.clangTidy.config#`, if any.",
         "scope": "resource"
       },
       "C_Cpp.clang_format_path": {
         "type": "string",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The full path of the `clang-format` executable. If not specified, and `clang-format` is available in the environment path, that is used. If not found in the environment path, the `clang-format` bundled with the extension will be used.",
         "scope": "machine-overridable"
       },
       "C_Cpp.clang_format_style": {
         "type": "string",
         "default": "file",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Coding style, currently supports: `Visual Studio`, `LLVM`, `Google`, `Chromium`, `Mozilla`, `WebKit`, `Microsoft`, `GNU`. Use `file` to load the style from a `.clang-format` file in the current or parent directory. Use `{key: value, ...}` to set specific parameters. For example, the `Visual Studio` style is similar to: `{ BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 0, AccessModifierOffset: -4, NamespaceIndentation: All, FixNamespaceComments: false }`.",
         "scope": "resource"
       },
       "C_Cpp.formatting": {
@@ -6478,10 +6478,10 @@
           "Disabled"
         ],
         "markdownEnumDescriptions": [
-          "[object Object]",
-          "[object Object]",
-          "[object Object]",
-          "[object Object]"
+          "`clang-format` will be used to format code.",
+          "The Visual C++ formatting engine will be used to format code.",
+          "By default, `clang-format` will be used to format the code. However, the Visual C++ formatting engine will be used if an `.editorconfig` file with relevant settings is found nearer to the code being formatted and `#C_Cpp.clang_format_style#` is the default value: `file`.",
+          "Code formatting will be disabled."
         ],
         "default": "Default",
         "description": "Configures the formatting engine.",
@@ -6490,7 +6490,7 @@
       "C_Cpp.vcFormat.indent.braces": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Braces are indented by the amount specified in the `#editor.tabSize#` setting.",
         "scope": "resource"
       },
       "C_Cpp.vcFormat.indent.multiLineRelativeTo": {
@@ -6516,11 +6516,11 @@
           "indent"
         ],
         "markdownEnumDescriptions": [
-          "[object Object]",
-          "[object Object]"
+          "New line is aligned under the opening parenthesis.",
+          "New line is indented based on `#C_Cpp.vcFormat.indent.multiLineRelativeTo#`."
         ],
         "default": "indent",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "When a new line is typed, it is aligned under the opening parenthesis or based on `#C_Cpp.vcFormat.indent.multiLineRelativeTo#`.",
         "scope": "resource"
       },
       "C_Cpp.vcFormat.indent.preserveWithinParentheses": {
@@ -6532,25 +6532,25 @@
       "C_Cpp.vcFormat.indent.caseLabels": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Labels are indented relative to switch statements by the amount specified in the `#editor.tabSize#` setting.",
         "scope": "resource"
       },
       "C_Cpp.vcFormat.indent.caseContents": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Code inside a `case` block is indented relative to its label by the amount specified in the `#editor.tabSize#` setting.",
         "scope": "resource"
       },
       "C_Cpp.vcFormat.indent.caseContentsWhenBlock": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Indent braces following a case statement by the amount specified in the `#editor.tabSize#` setting.",
         "scope": "resource"
       },
       "C_Cpp.vcFormat.indent.lambdaBracesWhenParameter": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Indent braces of lambdas used as function parameters relative to the start of the statement by the amount specified in the `#editor.tabSize#` setting.",
         "scope": "resource"
       },
       "C_Cpp.vcFormat.indent.gotoLabels": {
@@ -6561,9 +6561,9 @@
           "none"
         ],
         "markdownEnumDescriptions": [
-          "[object Object]",
-          "[object Object]",
-          "[object Object]"
+          "Position goto labels to the left of the current code indentation, by the amount specified in the `#editor.tabSize#` setting.",
+          "Position goto labels at the leftmost edge of the code.",
+          "Goto labels will not be formatted."
         ],
         "default": "oneLeft",
         "description": "The position of goto labels.",
@@ -6577,9 +6577,9 @@
           "none"
         ],
         "markdownEnumDescriptions": [
-          "[object Object]",
-          "[object Object]",
-          "[object Object]"
+          "Preprocessor directives are positioned to the left of the current code indentation, by the amount specified in the `#editor.tabSize#` setting.",
+          "Preprocessor directives are positioned at the leftmost edge of the code.",
+          "Preprocessor directives will not be formatted."
         ],
         "default": "leftmostColumn",
         "description": "The position of preprocessor directives.",
@@ -6588,13 +6588,13 @@
       "C_Cpp.vcFormat.indent.accessSpecifiers": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Access specifiers are indented relative to class or struct definitions by the amount specified in the `#editor.tabSize#` setting.",
         "scope": "resource"
       },
       "C_Cpp.vcFormat.indent.namespaceContents": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Code is indented relative to its enclosing namespace by the amount specified in the `#editor.tabSize#` setting.",
         "scope": "resource"
       },
       "C_Cpp.vcFormat.indent.preserveComments": {
@@ -6703,19 +6703,19 @@
       "C_Cpp.vcFormat.newLine.beforeCatch": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Place `catch` and similar keywords on a new line.",
         "scope": "resource"
       },
       "C_Cpp.vcFormat.newLine.beforeElse": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Place `else` on a new line.",
         "scope": "resource"
       },
       "C_Cpp.vcFormat.newLine.beforeWhileInDoWhile": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Place `while` in a `do`-`while` loop on a new line.",
         "scope": "resource"
       },
       "C_Cpp.vcFormat.space.beforeFunctionOpenParenthesis": {
@@ -6976,9 +6976,9 @@
           "never"
         ],
         "markdownEnumDescriptions": [
-          "[object Object]",
-          "[object Object]",
-          "[object Object]"
+          "A complete code block that is entered on one line is kept on one line, regardless of the values of any of the `C_Cpp.vcFormat.newLine.*` settings.",
+          "Any code where the opening and closing brace is entered on one line is kept on one line, regardless of the values of any of the `C_Cpp.vcFormat.newLine.*` settings.",
+          "Code blocks are always formatted based on the values of the `C_Cpp.vcFormat.newLine.*` settings."
         ],
         "default": "oneLiners",
         "description": "Wrapping options for blocks.",
@@ -6987,7 +6987,7 @@
       "C_Cpp.clang_format_fallbackStyle": {
         "type": "string",
         "default": "Visual Studio",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Name of the predefined style used as a fallback in case `clang-format` is invoked with style `file` but the `.clang-format` file is not found. Possible values are `Visual Studio`, `LLVM`, `Google`, `Chromium`, `Mozilla`, `WebKit`, `Microsoft`, `GNU`, `none`, or use `{key: value, ...}` to set specific parameters. For example, the `Visual Studio` style is similar to: `{ BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 0, AccessModifierOffset: -4, NamespaceIndentation: All, FixNamespaceComments: false }`.",
         "scope": "resource"
       },
       "C_Cpp.clang_format_sortIncludes": {
@@ -7001,7 +7001,7 @@
           null
         ],
         "default": null,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "If set, overrides the include sorting behavior determined by the `SortIncludes` parameter.",
         "scope": "resource"
       },
       "C_Cpp.intelliSenseEngine": {
@@ -7027,7 +7027,7 @@
           "Disabled"
         ],
         "default": "Disabled",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Controls whether the IntelliSense engine will automatically switch to the Tag Parser for translation units containing `#include` errors.",
         "scope": "resource"
       },
       "C_Cpp.autocomplete": {
@@ -7037,7 +7037,7 @@
           "Disabled"
         ],
         "default": "Default",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Controls the auto-completion provider. If `Disabled` and you want word-based completion, you will also need to set `\"[cpp]\": {\"editor.wordBasedSuggestions\": true}` (and similarly for `c` and `cuda-cpp` languages).",
         "enumDescriptions": [
           "Uses the active IntelliSense engine.",
           "Uses the word-based completion provided by Visual Studio Code."
@@ -7064,7 +7064,7 @@
       "C_Cpp.inactiveRegionOpacity": {
         "type:": "number",
         "default": 0.55,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Controls the opacity of inactive preprocessor blocks. Scales between `0.1` and `1.0`. This setting only applies when inactive region dimming is enabled.",
         "scope": "resource",
         "minimum": 0.1,
         "maximum": 1
@@ -7089,13 +7089,13 @@
           "Debug"
         ],
         "default": "Error",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The verbosity of logging in the Output Panel. The order of levels from least verbose to most verbose is: `None` < `Error` < `Warning` < `Information` < `Debug`.",
         "scope": "window"
       },
       "C_Cpp.autoAddFileAssociations": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Controls whether files are automatically added to `#files.associations#` when they are the target of a navigation operation from a C/C++ file.",
         "scope": "window"
       },
       "C_Cpp.workspaceParsingPriority": {
@@ -7107,7 +7107,7 @@
           "low"
         ],
         "default": "highest",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Controls whether parsing of the non-active workspace files uses sleeps to avoid using 100% CPU. The values `highest`/`high`/`medium`/`low` correspond to approximately 100/75/50/25% CPU usage.",
         "scope": "window"
       },
       "C_Cpp.workspaceSymbols": {
@@ -7117,7 +7117,7 @@
           "Just My Code"
         ],
         "default": "Just My Code",
-        "description": "[object Object]",
+        "description": "The symbols to include in the query results when 'Go to Symbol in Workspace' is invoked.",
         "scope": "window"
       },
       "C_Cpp.exclusionPolicy": {
@@ -7127,7 +7127,7 @@
           "checkFilesAndFolders"
         ],
         "default": "checkFolders",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Instructs the extension when to use the `#files.exclude#` (and `#C_Cpp.files.exclude#`) setting when determining which files should be added to the code navigation database while traversing through the paths in the `browse.path` array. If your `#files.exclude#` setting only contains folders, then `checkFolders` is the best choice and will increase the speed at which the extension can initialize the code navigation database.",
         "enumDescriptions": [
           "The exclusion filters will only be evaluated once per folder (individual files are not checked).",
           "The exclusion filters will be evaluated against every file and folder encountered."
@@ -7141,13 +7141,13 @@
           "Backslash"
         ],
         "default": "Forward Slash",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The character used as a path separator for `#include` auto-completion results.",
         "scope": "machine-overridable"
       },
       "C_Cpp.simplifyStructuredComments": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "If `true`, tooltips of hover and auto-complete will only display certain labels of structured comments. Otherwise, all comments are displayed.",
         "scope": "application"
       },
       "C_Cpp.commentContinuationPatterns": {
@@ -7159,7 +7159,7 @@
           "anyOf": [
             {
               "type": "string",
-              "markdownDescription": "[object Object]"
+              "markdownDescription": "The pattern that begins a multiline or single line comment block. The continuation pattern defaults to ` * ` for multiline comment blocks or this string for single line comment blocks."
             },
             {
               "type": "object",
@@ -7191,20 +7191,20 @@
       },
       "C_Cpp.intelliSenseCachePath": {
         "type": "string",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Defines the folder path for cached precompiled headers used by IntelliSense. The default cache path is `%LocalAppData%/Microsoft/vscode-cpptools` on Windows, `$XDG_CACHE_HOME/vscode-cpptools/` on Linux (or `$HOME/.cache/vscode-cpptools/` if `XDG_CACHE_HOME` is not defined), and `$HOME/Library/Caches/vscode-cpptools/` on macOS. The default path will be used if no path is specified or if a specified path is invalid.",
         "scope": "machine-overridable"
       },
       "C_Cpp.intelliSenseCacheSize": {
         "type": "number",
         "default": 5120,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Maximum size of the per-workspace hard drive space in megabytes (MB) for cached precompiled headers; the actual usage may fluctuate around this value. The default size is `5120` MB. Precompiled header caching is disabled when the size is `0`.",
         "scope": "machine-overridable",
         "minimum": 0
       },
       "C_Cpp.intelliSenseMemoryLimit": {
         "type": "number",
         "default": 4096,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Memory usage limit in megabytes (MB) of an IntelliSense process. The default is `4096` and the maximum is `16384`. The extension will shutdown and restart an IntelliSense process when it exceeds the limit.",
         "scope": "machine-overridable",
         "minimum": 256,
         "maximum": 16384
@@ -7222,7 +7222,7 @@
         "items": {
           "type": "string"
         },
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `includePath` is not specified in `c_cpp_properties.json`. If `includePath` is specified, add `${default}` to the array to insert the values from this setting. Usually, this should not include system includes; instead, set `#C_Cpp.default.compilerPath#`.",
         "scope": "machine-overridable"
       },
       "C_Cpp.default.defines": {
@@ -7230,7 +7230,7 @@
         "items": {
           "type": "string"
         },
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `defines` is not specified, or the values to insert if `${default}` is present in `defines`.",
         "scope": "machine-overridable"
       },
       "C_Cpp.default.macFrameworkPath": {
@@ -7238,18 +7238,18 @@
         "items": {
           "type": "string"
         },
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `macFrameworkPath` is not specified, or the values to insert if `${default}` is present in `macFrameworkPath`.",
         "scope": "machine-overridable"
       },
       "C_Cpp.default.windowsSdkVersion": {
         "type": "string",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Version of the Windows SDK include path to use on Windows, e.g. `10.0.17134.0`.",
         "pattern": "^((\\d{2}\\.\\d{1}\\.\\d{5}\\.\\d{1}$|^8\\.1)|())$",
         "scope": "machine-overridable"
       },
       "C_Cpp.default.compileCommands": {
         "type": "string",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `compileCommands` is either not specified, or set to `${default}`.",
         "scope": "machine-overridable"
       },
       "C_Cpp.default.forcedInclude": {
@@ -7257,7 +7257,7 @@
         "items": {
           "type": "string"
         },
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `forcedInclude` is not specified, or the values to insert if `${default}` is present in `forcedInclude`.",
         "scope": "machine-overridable"
       },
       "C_Cpp.default.intelliSenseMode": {
@@ -7305,13 +7305,13 @@
           "msvc-arm",
           "msvc-arm64"
         ],
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `intelliSenseMode` is either not specified or set to `${default}`.",
         "scope": "machine-overridable"
       },
       "C_Cpp.default.compilerPath": {
         "type": "string",
         "default": null,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `compilerPath` is either not specified or set to `${default}`.",
         "scope": "machine-overridable"
       },
       "C_Cpp.default.compilerArgs": {
@@ -7319,7 +7319,7 @@
         "items": {
           "type": "string"
         },
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in configuration if `compilerArgs` is either not specified or set to `${default}`.",
         "scope": "machine-overridable"
       },
       "C_Cpp.default.cStandard": {
@@ -7335,7 +7335,7 @@
           "gnu11",
           "gnu17"
         ],
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `cStandard` is either not specified or set to `${default}`.",
         "scope": "resource"
       },
       "C_Cpp.default.cppStandard": {
@@ -7355,17 +7355,17 @@
           "gnu++17",
           "gnu++20"
         ],
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `cppStandard` is either not specified or set to `${default}`.",
         "scope": "resource"
       },
       "C_Cpp.default.configurationProvider": {
         "type": "string",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `configurationProvider` is either not specified or set to `${default}`.",
         "scope": "resource"
       },
       "C_Cpp.default.mergeConfigurations": {
         "type": "boolean",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Set to `true` to merge include paths, defines, and forced includes with those from a configuration provider.",
         "scope": "resource"
       },
       "C_Cpp.default.browse.path": {
@@ -7374,18 +7374,18 @@
           "type": "string"
         },
         "default": null,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `browse.path` is not specified, or the values to insert if `${default}` is present in `browse.path`.",
         "scope": "machine-overridable"
       },
       "C_Cpp.default.browse.databaseFilename": {
         "type": "string",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `browse.databaseFilename` is either not specified or set to `${default}`.",
         "scope": "machine-overridable"
       },
       "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `browse.limitSymbolsToIncludedHeaders` is either not specified or set to `${default}`.",
         "scope": "resource"
       },
       "C_Cpp.default.systemIncludePath": {
@@ -7393,7 +7393,7 @@
         "items": {
           "type": "string"
         },
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use for the system include path. If set, it overrides the system include path acquired via `compilerPath` and `compileCommands` settings.",
         "scope": "machine-overridable"
       },
       "C_Cpp.default.customConfigurationVariables": {
@@ -7407,13 +7407,13 @@
             "type": "string"
           }
         },
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "The value to use in a configuration if `customConfigurationVariables` is not set, or the values to insert if `${default}` is present as a key in `customConfigurationVariables`.",
         "scope": "machine-overridable"
       },
       "C_Cpp.default.enableConfigurationSquiggles": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Controls whether the extension will report errors detected in `c_cpp_properties.json`.",
         "scope": "resource"
       },
       "C_Cpp.updateChannel": {
@@ -7423,7 +7423,7 @@
           "Insiders"
         ],
         "default": "Default",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Set to `Insiders` to automatically download and install the latest Insiders builds of the extension, which include upcoming features and bug fixes.",
         "scope": "application",
         "deprecationMessage": "This setting is deprecated. Pre-release extensions are now available via the Marketplace."
       },
@@ -7440,7 +7440,7 @@
       "C_Cpp.suggestSnippets": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "If `true`, snippets are provided by the language server.",
         "scope": "resource"
       },
       "C_Cpp.enhancedColorization": {
@@ -7450,31 +7450,31 @@
           "Disabled"
         ],
         "default": "Enabled",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "If enabled, code is colorized based on IntelliSense. This setting only applies if `#C_Cpp.intelliSenseEngine#` is set to `Default`.",
         "scope": "window"
       },
       "C_Cpp.vcpkg.enabled": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Enable integration services for the [vcpkg dependency manager](https://aka.ms/vcpkg/).",
         "scope": "resource"
       },
       "C_Cpp.addNodeAddonIncludePaths": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Add include paths from `nan` and `node-addon-api` when they are dependencies.",
         "scope": "application"
       },
       "C_Cpp.renameRequiresIdentifier": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "If `true`, 'Rename Symbol' will require a valid C/C++ identifier.",
         "scope": "application"
       },
       "C_Cpp.debugger.useBacktickCommandSubstitution": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "If `true`, debugger shell command substitution will use obsolete backtick ``(`)``.",
         "scope": "window"
       },
       "C_Cpp.codeFolding": {
@@ -7490,12 +7490,12 @@
       "C_Cpp.autocompleteAddParentheses": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "If `true`, autocomplete will automatically add `(` after function calls, in which case `)` may also be added, depending on the value of the `#editor.autoClosingBrackets#` setting.",
         "scope": "resource"
       },
       "C_Cpp.files.exclude": {
         "type": "object",
-        "markdownDescription": "[object Object]",
+        "markdownDescription": "Configure glob patterns for excluding folders (and files if `#C_Cpp.exclusionPolicy#` is changed). These are specific to the C/C++ extension and are in addition to `#files.exclude#`, but unlike `#files.exclude#` they also apply to paths outside the current workspace folder and are not removed from the Explorer view. Read more about glob patterns [here](https://code.visualstudio.com/docs/editor/codebasics#_advanced-search-options).",
         "default": {
           "**/.vscode": true
         },
@@ -7503,7 +7503,7 @@
           "anyOf": [
             {
               "type": "boolean",
-              "markdownDescription": "[object Object]"
+              "markdownDescription": "The glob pattern to match file paths against. Set to `true` or `false` to enable or disable the pattern."
             },
             {
               "type": "object",
@@ -7512,7 +7512,7 @@
                   "type": "string",
                   "pattern": "\\w*\\$\\(basename\\)\\w*",
                   "default": "$(basename).ext",
-                  "markdownDescription": "[object Object]"
+                  "markdownDescription": "Additional check on the siblings of a matching file. Use `$(basename)` as variable for the matching file name."
                 }
               }
             }
@@ -8057,7 +8057,9 @@
           "enum": [
             "All",
             "pythonDeprecatePythonPath",
-            "pythonSurveyNotification"
+            "pythonSurveyNotification",
+            "pythonInterpreterInfoPinned",
+            "pythonInterpreterInfoUnpinned"
           ]
         },
         "scope": "machine",
@@ -8070,7 +8072,9 @@
           "enum": [
             "All",
             "pythonDeprecatePythonPath",
-            "pythonSurveyNotification"
+            "pythonSurveyNotification",
+            "pythonInterpreterInfoPinned",
+            "pythonInterpreterInfoUnpinned"
           ]
         },
         "scope": "machine",
@@ -8116,10 +8120,7 @@
           "yapf"
         ],
         "scope": "resource",
-        "type": "string",
-        "tags": [
-          "experimental"
-        ]
+        "type": "string"
       },
       "python.formatting.yapfArgs": {
         "default": [],
