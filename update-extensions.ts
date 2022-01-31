@@ -104,7 +104,7 @@ const extensions: Extension[] = [
     name: 'vscode-R',
     repository: 'REditorSupport/vscode-R'
   }, {
-    name: 'Groovy',
+    name: 'vscode-groovy',
     repository: 'GroovyLanguageServer/groovy-language-server',
     path: 'vscode-extension/'
   }
@@ -593,6 +593,9 @@ function generateSnippetLoaderLine ([language, path]: [string, string]) {
 }
 
 function generateLanguageConfigurationLoaderLine ([language, path]: [string, string]) {
+  return generateLoaderLine(language, `language-configuration-${language}`, path)
+}
+
 function generateConfigurationRegistrationLoaderLine ([extensionId, path]: [string, string]) {
   return generateLoaderLine(extensionId, `configuration-registration-${extensionId}`, path)
 }
