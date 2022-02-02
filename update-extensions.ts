@@ -127,10 +127,10 @@ function overrideDefaultValue (configuration: monaco.extra.IConfigurationNode) {
 }
 
 /**
- * There 3 functions come from https://github.com/CodinGame/vscode/blob/standalone/0.31.x/src/vs/base/common/objects.ts
+ * There 2 functions come from https://github.com/CodinGame/vscode/blob/standalone/0.31.x/src/vs/base/common/types.ts
  */
-function isString (value: unknown): value is string {
-  return Object.prototype.toString.call(value) === '[object String]'
+function isString (str: unknown): str is string {
+  return (typeof str === 'string')
 }
 function isObject (obj: unknown): obj is Object {
   // The method can't do a type cast since there are type (like strings) which
@@ -143,6 +143,9 @@ function isObject (obj: unknown): obj is Object {
     !(obj instanceof Date)
 }
 
+/**
+ * Comes from https://github.com/CodinGame/vscode/blob/standalone/0.31.x/src/vs/base/common/objects.ts
+ */
 function deepClone<T> (obj: T): T {
   if (obj == null || typeof obj !== 'object') {
     return obj
