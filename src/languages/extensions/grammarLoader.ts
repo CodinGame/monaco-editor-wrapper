@@ -2,7 +2,7 @@
 // Generated file, do not modify
 
 /* eslint-disable */
-export default {
+const loader = {
   'source.clojure': async () => (await import(/* webpackChunkName: "grammar-source-clojure" */ './grammars/clojure/clojure.tmLanguage.json')).default,
   'source.coffee': async () => (await import(/* webpackChunkName: "grammar-source-coffee" */ './grammars/coffeescript/coffeescript.tmLanguage.json')).default,
   'source.c': async () => (await import(/* webpackChunkName: "grammar-source-c" */ './grammars/cpp/c.tmLanguage.json')).default,
@@ -80,6 +80,9 @@ export default {
   'markdown.ocaml.codeblock': async () => (await import(/* webpackChunkName: "grammar-markdown-ocaml-codeblock" */ './grammars/ocaml/ocaml-markdown-codeblock.json')).default,
   'source.pascal': async () => (await import(/* webpackChunkName: "grammar-source-pascal" */ './grammars/pascal/pascal.tmLanguage.json')).default,
   'source.scala': async () => (await import(/* webpackChunkName: "grammar-source-scala" */ './grammars/scala/Scala.tmLanguage.json')).default,
+  'source.jvm-bytecode-verbose': async () => (await import(/* webpackChunkName: "grammar-source-jvm-bytecode-verbose" */ './grammars/scalameta/jvm-bytecode-verbose.json')).default,
+  'source.jvm-bytecode': async () => (await import(/* webpackChunkName: "grammar-source-jvm-bytecode" */ './grammars/scalameta/jvm-bytecode.json')).default,
+  'source.tasty': async () => (await import(/* webpackChunkName: "grammar-source-tasty" */ './grammars/scalameta/tasty.json')).default,
   'source.cobol': async () => (await import(/* webpackChunkName: "grammar-source-cobol" */ './grammars/cobol/COBOL.tmLanguage.json')).default,
   'source.elixir': async () => (await import(/* webpackChunkName: "grammar-source-elixir" */ './grammars/elixir/elixir.json')).default,
   'text.elixir': async () => (await import(/* webpackChunkName: "grammar-text-elixir" */ './grammars/elixir/eex.json')).default,
@@ -100,5 +103,6 @@ export default {
   'text.html.rmarkdown': async () => (await import(/* webpackChunkName: "grammar-text-html-rmarkdown" */ './grammars/vscode-R/RMarkdown.json')).default,
   'text.html.markdown.redcarpet': async () => (await import(/* webpackChunkName: "grammar-text-html-markdown-redcarpet" */ './grammars/vscode-R/Markdown Redcarpet.json')).default,
   'comment.block.r': async () => (await import(/* webpackChunkName: "grammar-comment-block-r" */ './grammars/vscode-R/Rcpp.json')).default
-}
+} as Partial<Record<string, () => Promise<object>>>
 
+export default loader

@@ -1,8 +1,9 @@
 
 // Generated file, do not modify
+import * as monaco from 'monaco-editor'
 
 /* eslint-disable */
-export default {
+const loader = {
   'coffeescript': async () => (await import(/* webpackChunkName: "snippet-coffeescript" */ './snippets/coffeescript-coffeescript.json')).default,
   'c': async () => (await import(/* webpackChunkName: "snippet-c" */ './snippets/cpp-c.json')).default,
   'cpp': async () => (await import(/* webpackChunkName: "snippet-cpp" */ './snippets/cpp-cpp.json')).default,
@@ -35,6 +36,7 @@ export default {
   'r': async () => (await import(/* webpackChunkName: "snippet-r" */ './snippets/vscode-R-r.json')).default,
   'rd': async () => (await import(/* webpackChunkName: "snippet-rd" */ './snippets/vscode-R-rd.json')).default,
   'rmd': async () => (await import(/* webpackChunkName: "snippet-rmd" */ './snippets/vscode-R-rmd.json')).default
-}
+} as unknown as Partial<Record<string, () => Promise<Record<string, monaco.extra.JsonSerializedSnippet>>>>
 
+export default loader
   

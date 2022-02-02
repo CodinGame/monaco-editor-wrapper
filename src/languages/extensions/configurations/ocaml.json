@@ -1,0 +1,143 @@
+[
+  {
+    "type": "object",
+    "title": "Reason configuration",
+    "properties": {
+      "reason.codelens.unicode": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enable the use of unicode symbols in codelens.",
+        "scope": 3
+      },
+      "reason.codelens.enabled": {
+        "type": "boolean",
+        "default": false,
+        "description": "Specifies whether the code lens is shown.",
+        "scope": 3
+      },
+      "reason.debounce.linter": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "enum": [
+              "Infinity"
+            ]
+          }
+        ],
+        "default": 500,
+        "description": "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly.",
+        "scope": 3
+      },
+      "reason.diagnostics.tools": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "merlin",
+            "bsb"
+          ]
+        },
+        "default": [
+          "merlin"
+        ],
+        "maxItems": 2,
+        "uniqueItems": true,
+        "description": "Specifies which tool or tools will be used to get diagnostics. If you choose both \"merlin\" and \"bsb\", merlin will be used while editing and bsb when saving.",
+        "scope": 3
+      },
+      "reason.format.width": {
+        "type": [
+          "number",
+          null
+        ],
+        "default": null,
+        "description": "Set the width of lines when formatting code with refmt",
+        "scope": 3
+      },
+      "reason.path.bsb": {
+        "type": "string",
+        "default": "./node_modules/bs-platform/lib/bsb.exe",
+        "description": "The path to the `bsb` binary.",
+        "scope": 3
+      },
+      "reason.path.ocamlfind": {
+        "type": "string",
+        "default": "ocamlfind",
+        "description": "The path to the `ocamlfind` binary.",
+        "scope": 3
+      },
+      "reason.path.esy": {
+        "type": "string",
+        "default": "esy",
+        "description": "The path to the `esy` binary.",
+        "scope": 3
+      },
+      "reason.path.env": {
+        "type": "string",
+        "default": "env",
+        "description": "The path to the `env` command which prints the language server environment for debugging editor issues.",
+        "scope": 3
+      },
+      "reason.path.ocamlmerlin": {
+        "type": "string",
+        "default": "ocamlmerlin",
+        "description": "The path to the `ocamlmerlin` binary.",
+        "scope": 3
+      },
+      "reason.path.ocpindent": {
+        "type": "string",
+        "default": "ocp-indent",
+        "description": "The path to the `ocp-indent` binary.",
+        "scope": 3
+      },
+      "reason.path.opam": {
+        "type": "string",
+        "default": "opam",
+        "description": "The path to the `opam` binary.",
+        "scope": 3
+      },
+      "reason.path.rebuild": {
+        "type": "string",
+        "default": "rebuild",
+        "description": "The path to the `rebuild` binary.",
+        "scope": 3
+      },
+      "reason.path.refmt": {
+        "type": "string",
+        "default": "refmt",
+        "description": "The path to the `refmt` binary.",
+        "scope": 3
+      },
+      "reason.path.refmterr": {
+        "type": "string",
+        "default": "refmterr",
+        "description": "The path to the `refmterr` binary.",
+        "scope": 3
+      },
+      "reason.path.rtop": {
+        "type": "string",
+        "default": "rtop",
+        "description": "The path to the `rtop` binary.",
+        "scope": 3
+      },
+      "reason.server.languages": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "ocaml",
+            "reason"
+          ]
+        },
+        "default": [
+          "ocaml",
+          "reason"
+        ],
+        "maxItems": 2,
+        "uniqueItems": true,
+        "description": "The list of languages enable support for in the language server.",
+        "scope": 3
+      }
+    }
+  }
+]

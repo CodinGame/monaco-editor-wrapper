@@ -1,0 +1,73 @@
+[
+  {
+    "type": "object",
+    "title": "PostgreSQL",
+    "properties": {
+      "vscode-postgres.defaultConnection": {
+        "type": "string",
+        "default": "",
+        "description": "The default connection to use",
+        "scope": 3
+      },
+      "vscode-postgres.defaultDatabase": {
+        "type": "string",
+        "default": "",
+        "description": "The default database on the default connection to use",
+        "scope": 3
+      },
+      "vscode-postgres.showExplorer": {
+        "type": "boolean",
+        "default": true,
+        "description": "Show or hide the database explorer.",
+        "scope": 3
+      },
+      "vscode-postgres.prettyPrintJSONfields": {
+        "type": "boolean",
+        "default": false,
+        "description": "Turns on/off pretty printing of JSON fields",
+        "scope": 3
+      },
+      "vscode-postgres.setConnectionFromExplorer": {
+        "type": "string",
+        "enum": [
+          "always",
+          "ifunset",
+          "never"
+        ],
+        "default": "always",
+        "description": "Controls whether selecting a database in explorer changes the current editor's connection",
+        "scope": 3
+      },
+      "vscode-postgres.tableColumnSortOrder": {
+        "type": "string",
+        "enum": [
+          "db-order",
+          "alpha",
+          "reverse-alpha"
+        ],
+        "default": "db-order",
+        "description": "Controls the order of the columns in the database explorer. Default is db-order which orders the columns as the were added to the table (how postgres reports them)",
+        "scope": 3
+      },
+      "vscode-postgres.intervalFormat": {
+        "type": "string",
+        "enum": [
+          "iso_8601",
+          "humanize",
+          "succinct"
+        ],
+        "default": "iso_8601",
+        "description": "Controls the display format for `interval` columns. Default is the iso_8601 standard which does not cover milliseconds.",
+        "scope": 3
+      },
+      "vscode-postgres.virtualFolders": {
+        "type": "array",
+        "default": [
+          "functions"
+        ],
+        "description": "Controls virtual folders that are shown under schema. Currently only functions are supported.",
+        "scope": 3
+      }
+    }
+  }
+]

@@ -1,0 +1,175 @@
+[
+  {
+    "title": "Metals",
+    "properties": {
+      "metals.serverVersion": {
+        "type": "string",
+        "default": "0.11.1",
+        "markdownDescription": "The version of the Metals server artifact. Requires reloading the window.\n\n**Change only if you know what you're doing**",
+        "scope": 3
+      },
+      "metals.serverProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "default": [
+          "-Xmx1G"
+        ],
+        "markdownDescription": "Optional list of properties to pass along to the Metals server. By default, the environment variable `JAVA_OPTS` and `.jvmopts` file are respected. Each property needs to be a separate item.\n\nExample: `-Dhttps.proxyHost=…`, `-Dhttps.proxyPort=…` or `-Dmetals.statistics=all`",
+        "scope": 3
+      },
+      "metals.ammoniteJvmProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "markdownDescription": "Optional list of JVM properties to pass along to the Ammonite server. Each property needs to be a separate item.\n\nExample: `-Xmx1G` or `-Xms100M`",
+        "scope": 3
+      },
+      "metals.excludedPackages": {
+        "type": "array",
+        "default": [],
+        "markdownDescription": "List of packages you'd like to be left out of completions, symbol searches, and code actions.\n\nEx. `akka.actor.typed.javadsl` will ensure nothing in the `javadsl` package gets recommended to you.\n\nYou can find the list of default exclusions [here on the Metals website](https://scalameta.org/metals/docs/editors/new-editor.html#excluded-packages).\n\nIf you need to remove one of the defaults, you can simply include it and preface it with `--`.",
+        "scope": 3
+      },
+      "metals.showInferredType": {
+        "type": "boolean",
+        "markdownDescription": "When this option is enabled, for each method that have inferred types that are not explicitely specified they are displayed as additional decorations.",
+        "scope": 3
+      },
+      "metals.showImplicitArguments": {
+        "type": "boolean",
+        "markdownDescription": "When this option is enabled, for each method that has implicit arguments they are displayed as additional decorations.",
+        "scope": 3
+      },
+      "metals.showImplicitConversionsAndClasses": {
+        "type": "boolean",
+        "markdownDescription": "When this option is enabled, each implicit method and class is displayed as additional decorations at the usage site.",
+        "scope": 3
+      },
+      "metals.javaHome": {
+        "type": "string",
+        "scope": 6,
+        "markdownDescription": "Optional path to the Java home directory. Requires reloading the window.\n\nDefaults to the most recent Java version between 8 and 11 (inclusive) computed by the `locate-java-home` npm package."
+      },
+      "metals.sbtScript": {
+        "type": "string",
+        "markdownDescription": "Optional absolute path to an `sbt` executable to use for running `sbt bloopInstall`.\n\nBy default, Metals uses `java -jar sbt-launch.jar` with an embedded launcher while respecting `.jvmopts` and `.sbtopts`.\n\nUpdate this setting if your `sbt` script requires more customizations like using environment variables.",
+        "scope": 3
+      },
+      "metals.millScript": {
+        "type": "string",
+        "markdownDescription": "Optional absolute path to a `mill` executable to use for running `mill mill.contrib.Bloop/install`.\n\nBy default, Metals uses an embedded `millw` script while respecting `.mill-version` file.\n\nUpdate this setting if your `mill` script requires more customizations.",
+        "scope": 3
+      },
+      "metals.mavenScript": {
+        "type": "string",
+        "markdownDescription": "Optional absolute path to a `mvn` executable to use for running `mvn ch.epfl.scala:maven-bloop_2.10:<bloop_version>:bloopInstall`.\n\nBy default, Metals uses an embedded `mvnw` script.\n\nUpdate this setting if your `mvn` script requires more customizations.",
+        "scope": 3
+      },
+      "metals.gradleScript": {
+        "type": "string",
+        "markdownDescription": "Optional absolute path to a `gradle` executable to use for running `gradle bloopInstall`.\n\nBy default, Metals uses an embedded `gradlew` script.\n\nUpdate this setting if your `gradle` script requires more customizations.",
+        "scope": 3
+      },
+      "metals.scalafmtConfigPath": {
+        "type": "string",
+        "markdownDescription": "Optional custom path to the .scalafmt.conf file.\n\nShould be an absolute path and use forward slashes `/` for file separators (even on Windows).",
+        "scope": 3
+      },
+      "metals.scalafixConfigPath": {
+        "type": "string",
+        "markdownDescription": "Optional custom path to the .scalafix.conf file.\n\nShould be an absolute path and use forward slashes `/` for file separators (even on Windows).",
+        "scope": 3
+      },
+      "metals.bloopVersion": {
+        "type": "string",
+        "markdownDescription": "This version will be used for the Bloop build tool plugin, for any supported build tool,while importing in Metals as well as for running the embedded server",
+        "scope": 3
+      },
+      "metals.bloopSbtAlreadyInstalled": {
+        "type": "boolean",
+        "markdownDescription": "If true, Metals will not generate a `project/metals.sbt` file under the assumption that sbt-bloop is already manually installed in the sbt build. Build import will fail with a 'not valid command bloopInstall' error in case Bloop is not manually installed in the build when using this option.",
+        "scope": 3
+      },
+      "metals.customRepositories": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "markdownDescription": "Optional list of custom resolvers passed to Coursier when fetching metals dependencies.\n\nFor documentation on accepted values see the [Coursier documentation](https://get-coursier.io/docs/other-repositories).\n\nThe extension will pass these to Coursier using the COURSIER_REPOSITORIES environment variable after joining the custom repositories with a pipe character (|).",
+        "scope": 3
+      },
+      "metals.superMethodLensesEnabled": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enable/disable goto super method code lens.",
+        "scope": 3
+      },
+      "metals.enableStripMarginOnTypeFormatting": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "When enabled, if you press the return key from the first line of a multiline string containing a pipe, it will automatically add `.stripMargin`.",
+        "scope": 3
+      },
+      "metals.enableIndentOnPaste": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "When this option is enabled, when user pastes any snippet into a Scala file, Metals will try to adjust the indentation to that of the current cursor.",
+        "scope": 3
+      },
+      "metals.testUserInterface": {
+        "type": "string",
+        "default": "Test Explorer",
+        "enum": [
+          "Test Explorer",
+          "Code Lenses"
+        ],
+        "markdownDescription": "Specifies which UI should be used for tests. `Code lenses` shows virtual text above test class, just like it was previously. `Test explorer` is a new option which shows gutter icons on the left of the file in a less intrusive way. Moreover, this option comes with a new panel called `Testing` which lists all test suites in your codebase and allows you to browse tests and navigate to the file which contains them.",
+        "scope": 3
+      },
+      "metals.fallbackScalaVersion": {
+        "type": "string",
+        "default": "automatic",
+        "enum": [
+          "automatic",
+          "2.13.8",
+          "2.13.7",
+          "2.13.6",
+          "2.13.5",
+          "2.13.4",
+          "2.13.3",
+          "2.13.2",
+          "2.13.1",
+          "2.12.15",
+          "2.12.14",
+          "2.12.13",
+          "2.12.12",
+          "2.12.11",
+          "2.12.10",
+          "2.12.9",
+          "2.12.8",
+          "2.11.12",
+          "3.1.1-RC1",
+          "3.1.0",
+          "3.0.2",
+          "3.0.1",
+          "3.0.0"
+        ],
+        "markdownDescription": "The Scala compiler version that is used as the default or fallback in case a file doesn't belong to any build target or the specified Scala version isn't supported by Metals.\n\nThis applies to standalone Scala files, worksheets, and Ammonite scripts.\n\n The `automatic` value means that the Scala version for these files will be inferred from the highest supported Scala version in your projects build definition",
+        "scope": 3
+      },
+      "metals.javaFormat.eclipseConfigPath": {
+        "type": "string",
+        "markdownDescription": "Optional custom path to the eclipse-formatter.xml file.\n\nShould be an absolute path and use forward slashes `/` for file separators (even on Windows).",
+        "scope": 3
+      },
+      "metals.javaFormat.eclipseProfile": {
+        "type": "string",
+        "markdownDescription": "Optional Eclipse format profile to use.",
+        "scope": 3
+      }
+    }
+  }
+]

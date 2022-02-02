@@ -502,6 +502,18 @@
     "scopeName": "source.scala"
   },
   {
+    "language": "javap-verbose",
+    "scopeName": "source.jvm-bytecode-verbose"
+  },
+  {
+    "language": "javap",
+    "scopeName": "source.jvm-bytecode"
+  },
+  {
+    "language": "tasty",
+    "scopeName": "source.tasty"
+  },
+  {
     "language": "COBOL",
     "scopeName": "source.cobol",
     "embeddedLanguages": {

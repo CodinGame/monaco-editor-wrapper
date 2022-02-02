@@ -1,4 +1,4 @@
-// Inspired by https://github.com/microsoft/vscode/blob/master/build/npm/update-grammar.js
+// Inspired by https://github.com/microsoft/vscode/blob/main/build/npm/update-all-grammars.js
 import JSON5 from 'json5'
 import ini from 'ini'
 import cson from 'cson-parser'
@@ -16,6 +16,14 @@ const overrideConfigurationDefaultValue = new Map<string, unknown>(Object.entrie
   'Lua.diagnostics.disable': ['lowercase-global'],
   'r.lsp.diagnostics': false
 }))
+
+interface Extension {
+  name: string
+  repository: string
+  path?: string
+  version?: string
+  mapping?: Record<string, string>
+}
 
 const extensions: Extension[] = [
   ...['clojure', 'coffeescript', 'cpp', 'csharp', 'css', 'fsharp', 'go',
@@ -51,6 +59,9 @@ const extensions: Extension[] = [
   }, {
     name: 'scala',
     repository: 'scala/vscode-scala-syntax'
+  }, {
+    name: 'scalameta',
+    repository: 'scalameta/metals-vscode'
   }, {
     name: 'cobol',
     repository: 'eclipse/che-che4z-lsp-for-cobol',
@@ -93,7 +104,7 @@ const extensions: Extension[] = [
     name: 'vscode-R',
     repository: 'REditorSupport/vscode-R'
   }, {
-    name: 'Groovy',
+    name: 'vscode-groovy',
     repository: 'GroovyLanguageServer/groovy-language-server',
     path: 'vscode-extension/'
   }
@@ -115,27 +126,166 @@ function overrideDefaultValue (configuration: monaco.extra.IConfigurationNode) {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function applyI18n (object: any, i18n: Partial<Record<string, string>>): any {
-  if (object === null) {
-    return object
-  } else if (typeof object === 'string') {
-    return object.replace(/^%(.*)%$/g, (g, g1) => i18n[g1] ?? g1)
-  } else if (Array.isArray(object)) {
-    return object.map(item => applyI18n(item, i18n))
-  } else if (typeof object === 'object') {
-    return Object.fromEntries(Object.entries(object).map(([key, value]) => [key, applyI18n(value, i18n)]))
-  } else {
-    return object
+/**
+ * There 2 functions come from https://github.com/CodinGame/vscode/blob/standalone/0.31.x/src/vs/base/common/types.ts
+ */
+function isString (str: unknown): str is string {
+  return (typeof str === 'string')
+}
+function isObject (obj: unknown): obj is Object {
+  // The method can't do a type cast since there are type (like strings) which
+  // are subclasses of any put not positvely matched by the function. Hence type
+  // narrowing results in wrong results.
+  return typeof obj === 'object' &&
+    obj !== null &&
+    !Array.isArray(obj) &&
+    !(obj instanceof RegExp) &&
+    !(obj instanceof Date)
+}
+
+/**
+ * Comes from https://github.com/CodinGame/vscode/blob/standalone/0.31.x/src/vs/base/common/objects.ts
+ */
+function deepClone<T> (obj: T): T {
+  if (obj == null || typeof obj !== 'object') {
+    return obj
+  }
+  if (obj instanceof RegExp) {
+    // See https://github.com/microsoft/TypeScript/issues/10990
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return obj as any
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result: any = Array.isArray(obj) ? [] : {}
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Object.keys(<any>obj).forEach((key: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if ((<any>obj)[key] != null && typeof (<any>obj)[key] === 'object') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      result[key] = deepClone((<any>obj)[key])
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      result[key] = (<any>obj)[key]
+    }
+  })
+  return result
+}
+
+/** Comes from https://github.com/microsoft/vscode/blob/301cca6218a4f7b56d10d918d8638323a78899a7/src/vs/workbench/services/extensions/node/extensionPoints.ts#L250 */
+interface MessageBag {
+  [key: string]: string | { message: string, comment: string[] } | undefined
+}
+
+function replaceNLStrings<T extends object> (literal: T, messages: MessageBag): void {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function processEntry (obj: any, key: string | number) {
+    const value = obj[key]
+    if (isString(value)) {
+      const str = value
+      const length = str.length
+      if (length > 1 && str[0] === '%' && str[length - 1] === '%') {
+        const messageKey = str.slice(1, length - 1)
+        const translated = messages[messageKey]
+        const message: string | undefined = typeof translated === 'string' || translated == null ? translated : (typeof translated.message === 'string' ? translated.message : undefined)
+        if (message !== undefined) {
+          obj[key] = message
+        } else {
+          console.warn(`Couldn't find message for key ${messageKey}.`)
+        }
+      }
+    } else if (isObject(value)) {
+      for (const k in value) {
+        if (Object.prototype.hasOwnProperty.call(value, k)) {
+          processEntry(value, k)
+        }
+      }
+    } else if (Array.isArray(value)) {
+      for (let i = 0; i < value.length; i++) {
+        processEntry(value, i)
+      }
+    }
+  }
+
+  for (const key in literal) {
+    if (Object.prototype.hasOwnProperty.call(literal, key)) {
+      processEntry(literal, key)
+    }
   }
 }
 
-interface Extension {
-  name: string
-  repository: string
-  path?: string
-  version?: string
-  mapping?: Record<string, string>
+/**
+ * These 2 methods come from https://github.com/CodinGame/vscode/blob/ebf697cb9dae96a2f6d2f6ca750173ddf4a7db82/src/vs/workbench/api/common/configurationExtensionPoint.ts#L181
+ */
+function handleConfiguration (node: monaco.extra.IConfigurationNode): monaco.extra.IConfigurationNode[] {
+  const configurations: monaco.extra.IConfigurationNode[] = []
+  const configuration = deepClone(node)
+
+  if (configuration.title != null && (typeof configuration.title !== 'string')) {
+    console.error('\'configuration.title\' must be a string')
+  }
+
+  validateProperties(configuration)
+
+  configurations.push(configuration)
+  return configurations
+}
+
+enum ConfigurationScope {
+  APPLICATION = 1,
+  MACHINE = 2,
+  WINDOW = 3,
+  RESOURCE = 4,
+  LANGUAGE_OVERRIDABLE = 5,
+  MACHINE_OVERRIDABLE = 6
+}
+
+const seenProperties = new Set<string>()
+function validateProperties (configuration: monaco.extra.IConfigurationNode): void {
+  const properties = configuration.properties
+  if (properties != null) {
+    if (typeof properties !== 'object') {
+      console.error('\'configuration.properties\' must be an object')
+      configuration.properties = {}
+    }
+    for (const key in properties) {
+      if (seenProperties.has(key)) {
+        delete properties[key]
+        console.error(`Cannot register '${key}'. This property is already registered.`)
+        continue
+      }
+      const propertyConfiguration = properties[key]
+      if (!isObject(propertyConfiguration)) {
+        delete properties[key]
+        console.error(`configuration.properties property '${key}' must be an object`)
+        continue
+      }
+      seenProperties.add(key)
+      if (propertyConfiguration.scope != null) {
+        if (propertyConfiguration.scope.toString() === 'application') {
+          propertyConfiguration.scope = ConfigurationScope.APPLICATION
+        } else if (propertyConfiguration.scope.toString() === 'machine') {
+          propertyConfiguration.scope = ConfigurationScope.MACHINE
+        } else if (propertyConfiguration.scope.toString() === 'resource') {
+          propertyConfiguration.scope = ConfigurationScope.RESOURCE
+        } else if (propertyConfiguration.scope.toString() === 'machine-overridable') {
+          propertyConfiguration.scope = ConfigurationScope.MACHINE_OVERRIDABLE
+        } else if (propertyConfiguration.scope.toString() === 'language-overridable') {
+          propertyConfiguration.scope = ConfigurationScope.LANGUAGE_OVERRIDABLE
+        } else {
+          propertyConfiguration.scope = ConfigurationScope.WINDOW
+        }
+      } else {
+        propertyConfiguration.scope = ConfigurationScope.WINDOW
+      }
+    }
+  }
+  const subNodes = configuration.allOf
+  if (subNodes != null) {
+    console.error('\'configuration.allOf\' is deprecated and should no longer be used. Instead, pass multiple configuration sections as an array to the \'configuration\' contribution point.')
+    for (const node of subNodes) {
+      validateProperties(node)
+    }
+  }
 }
 
 function download (url: string, redirectCount?: number): Promise<string | null> {
@@ -240,6 +390,7 @@ async function fetchExtensions () {
   let grammarPaths: Record<string, string> = {}
   let snippetPaths: Record<string, string> = {}
   let languageConfigurationPaths: Record<string, string> = {}
+  let extensionConfigurationRegistrationPaths: Record<string, string> = {}
   let languageResult: Omit<monaco.languages.ILanguageExtensionPoint, 'configuration'>[] = []
 
   const grammarsPath = path.resolve(extensionsPath, 'grammars')
@@ -251,18 +402,19 @@ async function fetchExtensions () {
   const languageConfigurationsPath = path.resolve(extensionsPath, 'languageConfigurations')
   await fs.mkdir(languageConfigurationsPath, { recursive: true })
 
+  const extensionConfigurationRegistrationsPath = path.resolve(extensionsPath, 'configurations')
+  await fs.mkdir(extensionConfigurationRegistrationsPath, { recursive: true })
+
   const extensionResult: {
     configurationDefaults: Record<string, unknown>
     semanticTokenTypes: ITokenTypeExtensionPoint[]
     semanticTokenScopes: ITokenStyleDefaultExtensionPoint[]
     semanticTokenModifiers: ITokenModifierExtensionPoint[]
-    configurations: monaco.extra.IConfigurationNode[]
   } = {
     configurationDefaults: {},
     semanticTokenTypes: [],
     semanticTokenScopes: [],
-    semanticTokenModifiers: [],
-    configurations: []
+    semanticTokenModifiers: []
   }
 
   let i = 0
@@ -271,14 +423,14 @@ async function fetchExtensions () {
     const resolve = await createRepositoryFileResolver(extension)
 
     const packageJsonContent = (await download(resolve('package.json')))!
-    let packageJson = JSON.parse(packageJsonContent) as {
+    const packageJson = JSON.parse(packageJsonContent) as {
       contributes: PackageJsonContributes
     }
 
     // Only use the default i18n, can be improved
     const packageNlsJsonContent = await download(resolve('package.nls.json'))
     if (packageNlsJsonContent != null) {
-      packageJson = applyI18n(packageJson, JSON.parse(packageNlsJsonContent))
+      replaceNLStrings(packageJson, JSON.parse(packageNlsJsonContent))
     }
 
     const {
@@ -409,10 +561,13 @@ async function fetchExtensions () {
     }
 
     if (configuration != null) {
-      if (Array.isArray(configuration)) {
-        extensionResult.configurations.push(...configuration.map(overrideDefaultValue))
-      } else {
-        extensionResult.configurations.push(overrideDefaultValue(configuration))
+      const filePath = `${extension.name}.json`
+      const configurations = (Array.isArray(configuration) ? configuration : [configuration]).flatMap(handleConfiguration).map(overrideDefaultValue)
+      await fs.writeFile(path.resolve(extensionConfigurationRegistrationsPath, filePath), JSON.stringify(configurations, null, 2))
+
+      extensionConfigurationRegistrationPaths = {
+        ...extensionConfigurationRegistrationPaths,
+        [extension.name]: path.join('configurations', filePath)
       }
     }
   }
@@ -423,7 +578,8 @@ async function fetchExtensions () {
     extensions: extensionResult,
     grammarPaths,
     snippetPaths,
-    languageConfigurationPaths
+    languageConfigurationPaths,
+    extensionConfigurationRegistrationPaths
   }
 }
 
@@ -440,7 +596,11 @@ function generateSnippetLoaderLine ([language, path]: [string, string]) {
 }
 
 function generateLanguageConfigurationLoaderLine ([language, path]: [string, string]) {
-  return generateLoaderLine(language, `configuration-${language}`, path)
+  return generateLoaderLine(language, `language-configuration-${language}`, path)
+}
+
+function generateConfigurationRegistrationLoaderLine ([extensionId, path]: [string, string]) {
+  return generateLoaderLine(extensionId, `configuration-registration-${extensionId}`, path)
 }
 
 async function main () {
@@ -450,7 +610,8 @@ async function main () {
     extensions,
     snippetPaths,
     grammarPaths,
-    languageConfigurationPaths
+    languageConfigurationPaths,
+    extensionConfigurationRegistrationPaths
   } = await fetchExtensions()
 
   await fs.mkdir(path.dirname(extensionsPath), { recursive: true })
@@ -458,35 +619,53 @@ async function main () {
 
   await fs.writeFile(path.resolve(extensionsPath, 'grammars.json'), JSON.stringify(grammars, null, 2))
 
-  const { configurations, ...extensionsWithoutConfiguration } = extensions
-  await fs.writeFile(path.resolve(extensionsPath, 'extensions.json'), JSON.stringify(extensionsWithoutConfiguration, null, 2))
-  await fs.writeFile(path.resolve(extensionsPath, 'extensionConfigurations.json'), JSON.stringify(configurations, null, 2))
+  await fs.writeFile(path.resolve(extensionsPath, 'extensions.json'), JSON.stringify(extensions, null, 2))
 
-  const grammarLoaders = `{\n${Object.entries(grammarPaths).map(generateGrammarLoaderLine).join(',\n')}\n}\n`
+  const grammarLoaders = `{\n${Object.entries(grammarPaths).map(generateGrammarLoaderLine).join(',\n')}\n}`
 
   await fs.writeFile(path.resolve(extensionsPath, 'grammarLoader.ts'), `
 // Generated file, do not modify
 
 /* eslint-disable */
-export default ${grammarLoaders}
+const loader = ${grammarLoaders} as Partial<Record<string, () => Promise<object>>>
+
+export default loader
 `)
 
-  const snippetLoaders = `{\n${Object.entries(snippetPaths).map(generateSnippetLoaderLine).join(',\n')}\n}\n`
+  const snippetLoaders = `{\n${Object.entries(snippetPaths).map(generateSnippetLoaderLine).join(',\n')}\n}`
 
   await fs.writeFile(path.resolve(extensionsPath, 'snippetLoader.ts'), `
 // Generated file, do not modify
+import * as monaco from 'monaco-editor'
 
 /* eslint-disable */
-export default ${snippetLoaders}
+const loader = ${snippetLoaders} as unknown as Partial<Record<string, () => Promise<Record<string, monaco.extra.JsonSerializedSnippet>>>>
+
+export default loader
   `)
 
-  const configurationLoader = `{\n${Object.entries(languageConfigurationPaths).map(generateLanguageConfigurationLoaderLine).join(',\n')}\n}\n`
+  const configurationLoader = `{\n${Object.entries(languageConfigurationPaths).map(generateLanguageConfigurationLoaderLine).join(',\n')}\n}`
 
-  await fs.writeFile(path.resolve(extensionsPath, 'configurationLoader.ts'), `
+  await fs.writeFile(path.resolve(extensionsPath, 'languageConfigurationLoader.ts'), `
 // Generated file, do not modify
+import * as monaco from 'monaco-editor'
 
 /* eslint-disable */
-export default ${configurationLoader}
+const loader = ${configurationLoader} as Partial<Record<string, () => Promise<Record<string, monaco.extra.ILanguageConfiguration>>>>
+
+export default loader
+  `)
+
+  const configurationRegistrationLoader = `{\n${Object.entries(extensionConfigurationRegistrationPaths).map(generateConfigurationRegistrationLoaderLine).join(',\n')}\n}`
+
+  await fs.writeFile(path.resolve(extensionsPath, 'extensionConfigurationLoader.ts'), `
+// Generated file, do not modify
+import * as monaco from 'monaco-editor'
+
+/* eslint-disable */
+const loader = ${configurationRegistrationLoader} as unknown as Partial<Record<string, () => Promise<monaco.extra.IConfigurationNode[]>>>
+
+export default loader
   `)
 }
 
