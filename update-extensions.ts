@@ -14,7 +14,8 @@ const overrideConfigurationDefaultValue = new Map<string, unknown>(Object.entrie
   'Lua.runtime.version': 'Lua 5.4',
   'Lua.diagnostics.enable': true,
   'Lua.diagnostics.disable': ['lowercase-global'],
-  'r.lsp.diagnostics': false
+  'r.lsp.diagnostics': false,
+  'solargraph.diagnostics': true
 }))
 
 interface Extension {
@@ -107,6 +108,9 @@ const extensions: Extension[] = [
     name: 'vscode-groovy',
     repository: 'GroovyLanguageServer/groovy-language-server',
     path: 'vscode-extension/'
+  }, {
+    name: 'solargraph',
+    repository: 'castwide/vscode-solargraph'
   }
 ]
 
