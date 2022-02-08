@@ -23,7 +23,8 @@ const loader = {
   'omnisharp': async () => (await import(/* webpackChunkName: "configuration-registration-omnisharp" */ './configurations/omnisharp.json')).default,
   'vscode-python': async () => (await import(/* webpackChunkName: "configuration-registration-vscode-python" */ './configurations/vscode-python.json')).default,
   'vscode-R': async () => (await import(/* webpackChunkName: "configuration-registration-vscode-R" */ './configurations/vscode-R.json')).default,
-  'vscode-groovy': async () => (await import(/* webpackChunkName: "configuration-registration-vscode-groovy" */ './configurations/vscode-groovy.json')).default
+  'vscode-groovy': async () => (await import(/* webpackChunkName: "configuration-registration-vscode-groovy" */ './configurations/vscode-groovy.json')).default,
+  'solargraph': async () => (await import(/* webpackChunkName: "configuration-registration-solargraph" */ './configurations/solargraph.json')).default
 } as unknown as Partial<Record<string, () => Promise<monaco.extra.IConfigurationNode[]>>>
 
 export default loader

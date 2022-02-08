@@ -4,7 +4,7 @@
     "properties": {
       "metals.serverVersion": {
         "type": "string",
-        "default": "0.11.1",
+        "default": "0.11.1+97-0ef9a93b-SNAPSHOT",
         "markdownDescription": "The version of the Metals server artifact. Requires reloading the window.\n\n**Change only if you know what you're doing**",
         "scope": 3
       },
@@ -51,7 +51,7 @@
       "metals.javaHome": {
         "type": "string",
         "scope": 6,
-        "markdownDescription": "Optional path to the Java home directory. Requires reloading the window.\n\nDefaults to the most recent Java version between 8 and 11 (inclusive) computed by the `locate-java-home` npm package."
+        "markdownDescription": "Optional path to the Java home directory. Requires reloading the window.\n\nDefaults to the most recent Java version between 8 and 17 (inclusive) computed by the `locate-java-home` npm package."
       },
       "metals.sbtScript": {
         "type": "string",

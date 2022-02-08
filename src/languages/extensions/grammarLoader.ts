@@ -83,6 +83,7 @@ const loader = {
   'source.jvm-bytecode-verbose': async () => (await import(/* webpackChunkName: "grammar-source-jvm-bytecode-verbose" */ './grammars/scalameta/jvm-bytecode-verbose.json')).default,
   'source.jvm-bytecode': async () => (await import(/* webpackChunkName: "grammar-source-jvm-bytecode" */ './grammars/scalameta/jvm-bytecode.json')).default,
   'source.tasty': async () => (await import(/* webpackChunkName: "grammar-source-tasty" */ './grammars/scalameta/tasty.json')).default,
+  'source.buildtarget': async () => (await import(/* webpackChunkName: "grammar-source-buildtarget" */ './grammars/scalameta/buildtarget.json')).default,
   'source.cobol': async () => (await import(/* webpackChunkName: "grammar-source-cobol" */ './grammars/cobol/COBOL.tmLanguage.json')).default,
   'source.elixir': async () => (await import(/* webpackChunkName: "grammar-source-elixir" */ './grammars/elixir/elixir.json')).default,
   'text.elixir': async () => (await import(/* webpackChunkName: "grammar-text-elixir" */ './grammars/elixir/eex.json')).default,

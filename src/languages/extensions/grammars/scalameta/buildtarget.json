@@ -1,0 +1,44 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "build-target",
+  "scopeName": "source.buildtarget",
+  "extensions": [
+    ".metals-buildtarget"
+  ],
+  "patterns": [
+    {
+      "include": "#general"
+    }
+  ],
+  "repository": {
+    "general": {
+      "patterns": [
+        {
+          "name": "strong",
+          "match": "^\\S.*$"
+        },
+        {
+          "name": "invalid.illegal",
+          "match": "  .*NO SOURCE.*"
+        },
+        {
+          "name": "invalid.illegal",
+          "match": "  .*MISSING.*"
+        },
+        {
+          "name": "invalid.illegal",
+          "match": "  .* NOT SUPPORTED"
+        },
+        {
+          "name": "entity.other",
+          "match": "  .*"
+        }
+      ]
+    }
+  },
+  "information_for_contributors": [
+    "This file has been converted from https://github.com/scalameta/metals-vscode/blob/master/",
+    "If you want to provide a fix or improvement, please create a pull request against the original repository.",
+    "Once accepted there, we are happy to receive an update request."
+  ]
+}
