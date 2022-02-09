@@ -981,6 +981,12 @@
     ]
   },
   {
+    "id": "buildtarget",
+    "extensions": [
+      ".metals-buildtarget"
+    ]
+  },
+  {
     "id": "COBOL",
     "extensions": [
       ".cbl",
@@ -1247,7 +1253,8 @@
       "R DCF"
     ],
     "filenames": [
-      "DESCRIPTION"
+      "DESCRIPTION",
+      ".lintr"
     ]
   },
   {

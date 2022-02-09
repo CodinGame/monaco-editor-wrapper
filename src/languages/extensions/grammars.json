@@ -514,6 +514,10 @@
     "scopeName": "source.tasty"
   },
   {
+    "language": "buildtarget",
+    "scopeName": "source.buildtarget"
+  },
+  {
     "language": "COBOL",
     "scopeName": "source.cobol",
     "embeddedLanguages": {
