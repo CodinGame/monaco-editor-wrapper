@@ -2311,7 +2311,7 @@
           "experimental"
         ],
         "description": "Show icon for 'Debug and Run' in shortcut menu bar",
-        "scope": 3
+        "scope": 1
       }
     }
   }

@@ -1031,7 +1031,7 @@
         "type": "object"
       },
       "Lua.diagnostics.workspaceDelay": {
-        "default": 3,
+        "default": 3000,
         "markdownDescription": "Latency (milliseconds) for workspace diagnostics. When you start the workspace, or edit any file, the entire workspace will be re-diagnosed in the background. Set to negative to disable workspace diagnostics.",
         "scope": 4,
         "type": "integer"
