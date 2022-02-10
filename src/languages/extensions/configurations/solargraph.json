@@ -117,7 +117,7 @@
           true,
           false
         ],
-        "default": false,
+        "default": true,
         "scope": 3
       },
       "solargraph.symbols": {

@@ -15,7 +15,8 @@ const overrideConfigurationDefaultValue = new Map<string, unknown>(Object.entrie
   'Lua.diagnostics.enable': true,
   'Lua.diagnostics.disable': ['lowercase-global'],
   'r.lsp.diagnostics': false,
-  'solargraph.diagnostics': true
+  'solargraph.diagnostics': true,
+  'solargraph.formatting': true
 }))
 
 interface Extension {
