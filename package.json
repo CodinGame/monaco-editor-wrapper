@@ -21,9 +21,9 @@
   ],
   "types": "dist/index.d.ts",
   "dependencies": {
+    "@codingame/monaco-emacs": "^0.2.2",
     "delay": ">=5.0.0",
     "monaco-editor": "npm:@codingame/monaco-editor@^0.31.8",
-    "monaco-emacs": "^0.2.2",
     "monaco-vim": "^0.1.19",
     "vscode-oniguruma": "^1.6.1"
   },
