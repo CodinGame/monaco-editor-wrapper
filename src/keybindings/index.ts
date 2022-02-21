@@ -1,5 +1,5 @@
 import * as monaco from 'monaco-editor'
-import EmacsExtension from 'monaco-emacs'
+import EmacsExtension from '@codingame/monaco-emacs'
 import { updateKeybindings } from './keybindingHelper'
 import { initVimMode } from './vim'
 

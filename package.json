@@ -5,6 +5,7 @@
   "description": "Enhanced Monaco editor with TextMate grammars and more",
   "scripts": {
     "build": "rollup --config rollup.config.ts --configPlugin typescript && npm run generate-types",
+    "prepublishOnly": "npm run build",
     "generate-types": "tsc --project tsconfig.types.json",
     "update-extensions": "ts-node update-extensions.ts"
   },
@@ -21,9 +22,9 @@
   ],
   "types": "dist/index.d.ts",
   "dependencies": {
+    "@codingame/monaco-emacs": "^0.2.2",
     "delay": ">=5.0.0",
     "monaco-editor": "npm:@codingame/monaco-editor@^0.31.8",
-    "monaco-emacs": "^0.2.2",
     "monaco-vim": "^0.1.19",
     "vscode-oniguruma": "^1.6.1"
   },
