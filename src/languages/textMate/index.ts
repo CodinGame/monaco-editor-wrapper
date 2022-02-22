@@ -39,7 +39,8 @@ export async function createTextMateTokensProvider (languageId: string): Promise
   }
   const tokenization = new monaco.extra.TMTokenization(grammar, initialState, containsEmbeddedLanguages)
   tokenization.onDidEncounterLanguage((encodedLanguageId) => {
-    modeService.triggerMode(modeService.languageIdCodec.decodeLanguageId(encodedLanguageId))
+    // Force monaco to load this language and trigger the global `onDidEncounterLanguage`
+    languageService.createById(languageService.languageIdCodec.decodeLanguageId(encodedLanguageId))
   })
   return new CGTMTokenizationSupport(languageId, encodedLanguageId, tokenization, grammar)
 }

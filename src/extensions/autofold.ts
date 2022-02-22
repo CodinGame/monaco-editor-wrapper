@@ -6,7 +6,7 @@ export default function setup (editor: monaco.editor.IStandaloneCodeEditor): voi
     label: 'Fold all autofold regions',
     run: async (editor: monaco.editor.ICodeEditor) => {
       const foldingController = monaco.extra.FoldingController.get(editor)
-      const foldingModelPromise: Promise<monaco.extra.FoldingModel> | null = foldingController.getFoldingModel()
+      const foldingModelPromise: Promise<monaco.extra.FoldingModel> | null = foldingController?.getFoldingModel()
       if (foldingModelPromise != null) {
         return foldingModelPromise.then(foldingModel => {
           const editorModel = editor.getModel()
