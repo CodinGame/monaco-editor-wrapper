@@ -15,7 +15,7 @@ configurationRegistry.registerDefaultConfigurations([{
   overrides: extensions.configurationDefaults
 }])
 
-const simpleConfigurationService = monaco.editor.StaticServices.configurationService.get() as monaco.extra.SimpleConfigurationService
+const simpleConfigurationService = monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService) as monaco.extra.StandaloneConfigurationService
 
 export const onConfigurationChanged = simpleConfigurationService.onDidChangeConfiguration
 

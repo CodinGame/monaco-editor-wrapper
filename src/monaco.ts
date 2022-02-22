@@ -8,15 +8,15 @@ import './worker'
 import setupExtensions from './extensions'
 
 // Force EOL to be '\n' even on Windows
-monaco.editor.StaticServices.configurationService.get().updateValue('files.eol', '\n').catch(err => {
+const configurationService = monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService)
+configurationService.updateValue('files.eol', '\n').catch(err => {
   console.error('Unable to set file eol', err)
 })
 
 const editorModelResolverService = new EditorModelResolverService(monaco.editor.StaticServices.modelService.get())
 const multiEditorStandaloneCodeEditorServiceImpl = new MultiEditorStandaloneCodeEditorServiceImpl(
-  null,
-  monaco.editor.StaticServices.contextKeyService.get(),
-  monaco.editor.StaticServices.standaloneThemeService.get(),
+  monaco.extra.StandaloneServices.get(monaco.extra.IContextKeyService),
+  monaco.extra.StandaloneServices.get(monaco.editor.IStandaloneThemeService),
   editorModelResolverService
 )
 

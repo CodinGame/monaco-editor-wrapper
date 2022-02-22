@@ -18,7 +18,7 @@ const customAliases: Partial<Record<string, string[]>> = {
   postgres: ['postgresql', 'postgres', 'pg', 'postgre']
 }
 
-const modeService = monaco.editor.StaticServices.modeService.get()
+const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageService)
 const languagesIds = Array.from(new Set([
   ...Object.keys(monarchLanguageLoader),
   ...textMateLanguages.map(rawLanguage => rawLanguage.id)
@@ -68,14 +68,14 @@ modeService.onDidEncounterLanguage(async (languageId) => {
 })
 
 function getMonacoLanguage (languageOrModeId: string): string {
-  const modeId = modeService.getModeIdForLanguageName(languageOrModeId.toLowerCase())
+  const modeId = languageService.getLanguageIdByLanguageName(languageOrModeId.toLowerCase())
   if (modeId != null) {
     return modeId
   }
-  if (modeService.isRegisteredMode(languageOrModeId)) {
+  if (languageService.isRegisteredLanguageId(languageOrModeId)) {
     return languageOrModeId
   }
-  if (modeService.isRegisteredMode(languageOrModeId.toLowerCase())) {
+  if (languageService.isRegisteredLanguageId(languageOrModeId.toLowerCase())) {
     return languageOrModeId.toLowerCase()
   }
 

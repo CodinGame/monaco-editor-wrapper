@@ -15,7 +15,7 @@ export default class CGTMTokenizationSupport extends monaco.extra.TMTokenization
     actual: monaco.extra.TMTokenization,
     private grammar: IGrammar
   ) {
-    super(languageId, encodedLanguageId, actual, monaco.editor.StaticServices.configurationService.get())
+    super(languageId, encodedLanguageId, actual, monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService))
   }
 
   // To make "inspect tokens" work, default impl is `throw new Error('Not supported!');`

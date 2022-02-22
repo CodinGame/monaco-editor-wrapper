@@ -37,5 +37,6 @@ class SimpleSnippetService implements monaco.extra.ISnippetsService {
   }
 }
 
-const modeService = monaco.editor.StaticServices.modeService.get()
-monaco.extra.setSnippetSuggestSupport(new monaco.extra.SnippetCompletionProvider(modeService, new SimpleSnippetService()))
+const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageService)
+const languageConfigurationService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageConfigurationService)
+monaco.extra.setSnippetSuggestSupport(new monaco.extra.SnippetCompletionProvider(languageService, new SimpleSnippetService(), languageConfigurationService))

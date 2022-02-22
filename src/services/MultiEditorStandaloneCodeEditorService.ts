@@ -91,7 +91,7 @@ export default class MultiEditorStandaloneCodeEditorServiceImpl extends monaco.e
       modelEditor = editor
     }
     if (modelEditor == null) {
-      const codeEditors = monaco.editor.StaticServices.codeEditorService.get().listCodeEditors()
+      const codeEditors = monaco.extra.StandaloneServices.get(monaco.extra.ICodeEditorService).listCodeEditors()
       modelEditor = codeEditors.find(editor => editor.getModel() === model)
     }
     if (modelEditor == null) {
