@@ -13,7 +13,7 @@ configurationService.updateValue('files.eol', '\n').catch(err => {
 })
 
 monaco.errorHandler.setUnexpectedErrorHandler(error => {
-  console.error('Unexpected error', error)
+  console.warn('Unexpected error', error)
 })
 
 const textModelService = new TextModelService(monaco.extra.StandaloneServices.get(monaco.extra.IModelService))
