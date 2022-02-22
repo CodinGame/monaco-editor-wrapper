@@ -1,5 +1,4 @@
 import * as monaco from 'monaco-editor'
-import './hacks'
 import './languages'
 import './theme'
 import MultiEditorStandaloneCodeEditorServiceImpl, { EditorOpenHandler } from './services/MultiEditorStandaloneCodeEditorService'
@@ -11,6 +10,10 @@ import setupExtensions from './extensions'
 const configurationService = monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService)
 configurationService.updateValue('files.eol', '\n').catch(err => {
   console.error('Unable to set file eol', err)
+})
+
+monaco.errorHandler.setUnexpectedErrorHandler(error => {
+  console.error('Unexpected error', error)
 })
 
 const textModelService = new TextModelService(monaco.extra.StandaloneServices.get(monaco.extra.IModelService))

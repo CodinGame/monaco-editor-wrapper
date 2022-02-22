@@ -1,10 +1,6 @@
 
 import * as monaco from 'monaco-editor'
 
-monaco.errorHandler.setUnexpectedErrorHandler(error => {
-  console.error('Unexpected error', error)
-})
-
 /* Add custom blocks parsing (for tech.io):
 // { [autofold]
 //  custom block content
