@@ -83,5 +83,9 @@
     "safari >= 12",
     "not IE 11",
     "not IE_Mob 11"
-  ]
+  ],
+  "volta": {
+    "node": "16.14.0",
+    "npm": "8.5.0"
+  }
 }
