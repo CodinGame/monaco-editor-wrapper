@@ -3,7 +3,7 @@ import { createEditor, registerEditorOpenHandler, registerTextModelContentProvid
 import { addVSCodeTheme } from './theme'
 import { updateUserConfiguration, registerConfigurations, registerDefaultConfigurations, onConfigurationChanged, getConfiguration } from './configuration'
 import { getMonacoLanguage } from './languages'
-import { updateEditorKeybindings } from './keybindings'
+import { updateKeybindings, updateEditorKeybindingsMode } from './keybindings'
 import { getThemeData } from './theme/registry'
 import type { IVSCodeTheme } from './theme/tools'
 
@@ -21,7 +21,8 @@ export {
   updateUserConfiguration,
   getConfiguration,
   onConfigurationChanged,
-  updateEditorKeybindings,
+  updateEditorKeybindingsMode,
+  updateKeybindings,
 
   getMonacoLanguage,
   registerTextModelContentProvider,
