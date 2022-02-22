@@ -24,7 +24,7 @@
   "dependencies": {
     "@codingame/monaco-emacs": "^0.2.3",
     "delay": ">=5.0.0",
-    "monaco-editor": "npm:@codingame/monaco-editor@^0.32.0",
+    "monaco-editor": "npm:@codingame/monaco-editor@^0.32.1",
     "monaco-vim": "^0.2.0",
     "vscode-oniguruma": "^1.6.1"
   },
