@@ -41,7 +41,8 @@ export interface IVSCodeTheme {
   type: monaco.editor.ColorScheme
   colors: { [name: string]: string }
   tokenColors: monaco.extra.ITextMateThemingRule[]
-  semanticTokenColors: Record<string, monaco.extra.ITokenColorizationSetting>
+  semanticTokenColors?: Record<string, monaco.extra.ITokenColorizationSetting>
+  semanticHighlighting?: boolean
 }
 
 const getBase = (type: monaco.editor.ColorScheme) => {

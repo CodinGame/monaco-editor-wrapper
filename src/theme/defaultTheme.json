@@ -342,6 +342,7 @@
 		// "tree.indentGuidesStroke": "#a9a9a9",
 		//"widget.shadow": "#a8a8a8"
 	},
+	"semanticHighlighting": true,
 	"semanticTokenColors": {
 		"*.static":{
 			"fontStyle": "italic"

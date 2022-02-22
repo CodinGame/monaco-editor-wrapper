@@ -36,7 +36,7 @@ export async function addVSCodeTheme (name: string, vscodeTheme: IVSCodeTheme): 
     ...convertTheme(fixVSCodeThemeColors(vscodeTheme)),
     encodedTokensColors: themeData.tokenColorMap.slice(1)
   }
-  monaco.editor.defineTheme(name, monacoTheme)
+  monaco.editor.defineTheme(name, monacoTheme, vscodeTheme.semanticHighlighting)
 }
 
 export function getThemeData (themeName: string): monaco.extra.ColorThemeData | null {
