@@ -23,14 +23,13 @@ const multiEditorStandaloneCodeEditorServiceImpl = new MultiEditorStandaloneCode
   textModelService
 )
 
-function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandaloneEditorConstructionOptions, override?: monaco.editor.IEditorOverrideServices): monaco.editor.IStandaloneCodeEditor {
-  const editor = monaco.editor.create(domElement, options, {
-    codeEditorService: multiEditorStandaloneCodeEditorServiceImpl,
-    textModelService: editorModelResolverService,
-    ...override
-  })
+monaco.extra.StandaloneServices.initialize({
+  codeEditorService: multiEditorStandaloneCodeEditorServiceImpl,
+  textModelService
+})
 
-  editorModelResolverService.setEditor(editor)
+function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandaloneEditorConstructionOptions, override?: monaco.editor.IEditorOverrideServices): monaco.editor.IStandaloneCodeEditor {
+  const editor = monaco.editor.create(domElement, options, override)
 
   setupExtensions(editor)
 
