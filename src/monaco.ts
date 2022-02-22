@@ -3,7 +3,7 @@ import './hacks'
 import './languages'
 import './theme'
 import MultiEditorStandaloneCodeEditorServiceImpl, { EditorOpenHandler } from './services/MultiEditorStandaloneCodeEditorService'
-import EditorModelResolverService from './services/EditorModelResolverService'
+import TextModelService from './services/TextModelService'
 import './worker'
 import setupExtensions from './extensions'
 
@@ -13,11 +13,11 @@ configurationService.updateValue('files.eol', '\n').catch(err => {
   console.error('Unable to set file eol', err)
 })
 
-const editorModelResolverService = new EditorModelResolverService(monaco.editor.StaticServices.modelService.get())
+const textModelService = new TextModelService(monaco.extra.StandaloneServices.get(monaco.extra.IModelService))
 const multiEditorStandaloneCodeEditorServiceImpl = new MultiEditorStandaloneCodeEditorServiceImpl(
   monaco.extra.StandaloneServices.get(monaco.extra.IContextKeyService),
   monaco.extra.StandaloneServices.get(monaco.editor.IStandaloneThemeService),
-  editorModelResolverService
+  textModelService
 )
 
 function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandaloneEditorConstructionOptions, override?: monaco.editor.IEditorOverrideServices): monaco.editor.IStandaloneCodeEditor {
@@ -35,7 +35,7 @@ function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandal
 }
 
 function registerTextModelContentProvider (scheme: string, provider: monaco.extra.ITextModelContentProvider): monaco.IDisposable {
-  return editorModelResolverService.registerTextModelContentProvider(scheme, provider)
+  return textModelService.registerTextModelContentProvider(scheme, provider)
 }
 
 function registerEditorOpenHandler (handler: EditorOpenHandler): monaco.IDisposable {

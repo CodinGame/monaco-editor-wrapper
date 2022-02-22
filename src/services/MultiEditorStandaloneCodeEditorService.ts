@@ -1,5 +1,5 @@
 import * as monaco from 'monaco-editor'
-import EditorModelResolverService from './EditorModelResolverService'
+import TextModelService from './TextModelService'
 import { createEditor } from '../monaco'
 import { getConfiguration } from '../configuration'
 
@@ -57,15 +57,14 @@ function openNewCodeEditor (model: monaco.editor.ITextModel) {
 
 export type EditorOpenHandler = (model: monaco.editor.ITextModel, input: monaco.extra.IResourceEditorInput, editor: monaco.editor.ICodeEditor, sideBySide?: boolean) => Promise<monaco.editor.ICodeEditor | null>
 
-export default class MultiEditorStandaloneCodeEditorServiceImpl extends monaco.extra.StandaloneCodeEditorServiceImpl {
-  private modelResolverService: EditorModelResolverService
+export default class MultiEditorStandaloneCodeEditorServiceImpl extends monaco.extra.StandaloneCodeEditorService {
+  private modelResolverService: TextModelService
   constructor (
-    styleSheet: monaco.extra.GlobalStyleSheet | null,
     contextKeyService: monaco.extra.IContextKeyService,
     themeService: monaco.editor.IThemeService,
-    modelResolverService: EditorModelResolverService
+    modelResolverService: TextModelService
   ) {
-    super(styleSheet, contextKeyService, themeService)
+    super(contextKeyService, themeService)
     this.modelResolverService = modelResolverService
   }
 
