@@ -56,7 +56,7 @@ export default class CGTMGrammarFactory extends monaco.extra.TMGrammarFactory {
         settings: themeData.tokenColors
       }, themeData.tokenColorMap)
     }
-    const standaloneThemeService = monaco.editor.StaticServices.standaloneThemeService.get()
+    const standaloneThemeService = monaco.extra.StandaloneServices.get(monaco.editor.IStandaloneThemeService)
     this._register(standaloneThemeService.onDidColorThemeChange(updateTheme))
     updateTheme(standaloneThemeService.getColorTheme())
   }

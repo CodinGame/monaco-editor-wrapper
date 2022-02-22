@@ -8,18 +8,18 @@ function toMonacoToken (token: IToken) {
   }
 }
 
-export default class CGTMTokenizationSupport extends monaco.extra.TMTokenizationSupport {
+export default class CGTMTokenizationSupport extends monaco.extra.TMTokenizationSupportWithLineLimit {
   constructor (
     private languageId: string,
     encodedLanguageId: monaco.languages.LanguageId,
     actual: monaco.extra.TMTokenization,
     private grammar: IGrammar
   ) {
-    super(languageId, encodedLanguageId, actual, monaco.editor.StaticServices.configurationService.get())
+    super(languageId, encodedLanguageId, actual, monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService))
   }
 
   // To make "inspect tokens" work, default impl is `throw new Error('Not supported!');`
-  tokenize (line: string, hasEOL: boolean, state: monaco.languages.IState, offsetDelta: number): monaco.TokenizationResult {
+  tokenize (line: string, hasEOL: boolean, state: monaco.languages.IState): monaco.TokenizationResult {
     return monaco.languages.adaptTokenize(this.languageId, {
       tokenize: (line: string, state: monaco.languages.IState) => {
         const actualResult = this.grammar.tokenizeLine(line, state as StackElement)
@@ -28,6 +28,6 @@ export default class CGTMTokenizationSupport extends monaco.extra.TMTokenization
           endState: actualResult.ruleStack
         }
       }
-    }, line, state, offsetDelta)
+    }, line, state)
   }
 }

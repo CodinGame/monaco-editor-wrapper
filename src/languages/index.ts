@@ -2,8 +2,9 @@ import * as monaco from 'monaco-editor'
 import { createTextMateTokensProvider } from './textMate'
 import textMateLanguages from './extensions/languages.json'
 import { languageLoader as monarchLanguageLoader } from './monarch'
-import languageConfigurationLoader from './extensions/languageConfigurationLoader'
+import languageConfigurationLoader, { RawLanguageConfiguration } from './extensions/languageConfigurationLoader'
 import './snippets'
+import { addCustomFoldingMarkers } from '../hacks'
 
 const customAliases: Partial<Record<string, string[]>> = {
   csharp: ['c#'],
@@ -18,7 +19,7 @@ const customAliases: Partial<Record<string, string[]>> = {
   postgres: ['postgresql', 'postgres', 'pg', 'postgre']
 }
 
-const modeService = monaco.editor.StaticServices.modeService.get()
+const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageService)
 const languagesIds = Array.from(new Set([
   ...Object.keys(monarchLanguageLoader),
   ...textMateLanguages.map(rawLanguage => rawLanguage.id)
@@ -35,9 +36,41 @@ for (const languageId of languagesIds) {
     aliases: [...(textMateLanguage?.aliases ?? []), ...(customAliases[languageId] ?? [])],
     mimetypes: textMateLanguage?.mimetypes
   })
+
+  monaco.languages.setTokenizationSupportFactory(languageId, {
+    createTokenizationSupport: async () => {
+      return createTextMateTokensProvider(languageId).catch(err => {
+        const monarchLoader = monarchLanguageLoader[languageId]
+        if (monarchLoader != null) {
+          console.warn(`Failed to load TextMate grammar for language ${languageId}, fallback to monarch`, err)
+          monaco.languages.setMonarchTokensProvider(languageId, monarchLoader().then(lang => lang.language))
+        } else {
+          console.warn(`Failed to load TextMate grammar for language ${languageId} and no fallback monarch`, err)
+        }
+        return null
+      })
+    }
+  })
 }
 
-modeService.onDidEncounterLanguage(async (languageId) => {
+/**
+ * Type is wrong
+ * see https://github.com/microsoft/vscode/blob/cfad2543487c4a8e8f53b4451dbccdc1c2036f41/src/vs/workbench/contrib/codeEditor/browser/languageConfigurationExtensionPoint.ts#L381
+ */
+function parseLanguageConfiguration (config: RawLanguageConfiguration): monaco.extra.ILanguageConfiguration {
+  const markers = config.folding?.markers
+  return {
+    ...config,
+    folding: config.folding != null
+      ? {
+        ...config.folding,
+        markers: (markers != null) ? { start: new RegExp(markers.start), end: new RegExp(markers.end) } : undefined
+      }
+      : undefined
+  }
+}
+
+languageService.onDidEncounterLanguage(async (languageId) => {
   if (languageId === 'plaintext') {
     return
   }
@@ -47,35 +80,23 @@ modeService.onDidEncounterLanguage(async (languageId) => {
     loader().then((configuration) => {
       monaco.extra.handleLanguageConfiguration(
         languageId,
-        configuration
+        addCustomFoldingMarkers(parseLanguageConfiguration(configuration))
       )
     }).catch(error => {
       console.error('Unable to load language configuration', error)
     })
   }
-
-  const textMateTokenProviderPromise = createTextMateTokensProvider(languageId).catch(err => {
-    const monarchLoader = monarchLanguageLoader[languageId]
-    if (monarchLoader != null) {
-      console.warn(`Failed to load TextMate grammar for language ${languageId}, fallback to monarch`, err)
-      monaco.languages.setMonarchTokensProvider(languageId, monarchLoader().then(lang => lang.language))
-    } else {
-      console.warn(`Failed to load TextMate grammar for language ${languageId} and no fallback monarch`, err)
-    }
-    return null
-  })
-  monaco.languages.setTokenizationSupport(languageId, textMateTokenProviderPromise)
 })
 
 function getMonacoLanguage (languageOrModeId: string): string {
-  const modeId = modeService.getModeIdForLanguageName(languageOrModeId.toLowerCase())
+  const modeId = languageService.getLanguageIdByLanguageName(languageOrModeId.toLowerCase())
   if (modeId != null) {
     return modeId
   }
-  if (modeService.isRegisteredMode(languageOrModeId)) {
+  if (languageService.isRegisteredLanguageId(languageOrModeId)) {
     return languageOrModeId
   }
-  if (modeService.isRegisteredMode(languageOrModeId.toLowerCase())) {
+  if (languageService.isRegisteredLanguageId(languageOrModeId.toLowerCase())) {
     return languageOrModeId.toLowerCase()
   }
 

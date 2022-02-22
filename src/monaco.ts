@@ -1,33 +1,35 @@
 import * as monaco from 'monaco-editor'
-import './hacks'
 import './languages'
 import './theme'
 import MultiEditorStandaloneCodeEditorServiceImpl, { EditorOpenHandler } from './services/MultiEditorStandaloneCodeEditorService'
-import EditorModelResolverService from './services/EditorModelResolverService'
+import TextModelService from './services/TextModelService'
 import './worker'
 import setupExtensions from './extensions'
 
 // Force EOL to be '\n' even on Windows
-monaco.editor.StaticServices.configurationService.get().updateValue('files.eol', '\n').catch(err => {
+const configurationService = monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService)
+configurationService.updateValue('files.eol', '\n').catch(err => {
   console.error('Unable to set file eol', err)
 })
 
-const editorModelResolverService = new EditorModelResolverService(monaco.editor.StaticServices.modelService.get())
+monaco.errorHandler.setUnexpectedErrorHandler(error => {
+  console.warn('Unexpected error', error)
+})
+
+const textModelService = new TextModelService(monaco.extra.StandaloneServices.get(monaco.extra.IModelService))
 const multiEditorStandaloneCodeEditorServiceImpl = new MultiEditorStandaloneCodeEditorServiceImpl(
-  null,
-  monaco.editor.StaticServices.contextKeyService.get(),
-  monaco.editor.StaticServices.standaloneThemeService.get(),
-  editorModelResolverService
+  monaco.extra.StandaloneServices.get(monaco.extra.IContextKeyService),
+  monaco.extra.StandaloneServices.get(monaco.editor.IStandaloneThemeService),
+  textModelService
 )
 
-function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandaloneEditorConstructionOptions, override?: monaco.editor.IEditorOverrideServices): monaco.editor.IStandaloneCodeEditor {
-  const editor = monaco.editor.create(domElement, options, {
-    codeEditorService: multiEditorStandaloneCodeEditorServiceImpl,
-    textModelService: editorModelResolverService,
-    ...override
-  })
+monaco.extra.StandaloneServices.initialize({
+  codeEditorService: multiEditorStandaloneCodeEditorServiceImpl,
+  textModelService
+})
 
-  editorModelResolverService.setEditor(editor)
+function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandaloneEditorConstructionOptions, override?: monaco.editor.IEditorOverrideServices): monaco.editor.IStandaloneCodeEditor {
+  const editor = monaco.editor.create(domElement, options, override)
 
   setupExtensions(editor)
 
@@ -35,7 +37,7 @@ function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandal
 }
 
 function registerTextModelContentProvider (scheme: string, provider: monaco.extra.ITextModelContentProvider): monaco.IDisposable {
-  return editorModelResolverService.registerTextModelContentProvider(scheme, provider)
+  return textModelService.registerTextModelContentProvider(scheme, provider)
 }
 
 function registerEditorOpenHandler (handler: EditorOpenHandler): monaco.IDisposable {

@@ -7,10 +7,10 @@ import grammarLoader from '../extensions/grammarLoader'
 import './semanticTokens'
 
 function createGrammarFactory (): CGTMGrammarFactory {
-  const modeService = monaco.editor.StaticServices.modeService.get()
+  const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageService)
   const parsedGrammars = (rawGrammars as unknown as Omit<monaco.extra.ITMSyntaxExtensionPoint, 'path'>[])
     .map(grammar => ({
-      ...monaco.extra.parseTextMateGrammar(grammar as monaco.extra.ITMSyntaxExtensionPoint, modeService),
+      ...monaco.extra.parseTextMateGrammar(grammar as monaco.extra.ITMSyntaxExtensionPoint, languageService),
       location: monaco.Uri.file(grammar.scopeName + '.json')
     }))
 
@@ -29,17 +29,18 @@ function getOrCreateGrammarFactory (): CGTMGrammarFactory {
   return textMateGrammarFactory
 }
 
-const modeService = monaco.editor.StaticServices.modeService.get()
+const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageService)
 export async function createTextMateTokensProvider (languageId: string): Promise<monaco.languages.ITokenizationSupport> {
   const grammarFactory = getOrCreateGrammarFactory()
-  const encodedLanguageId = modeService.languageIdCodec.encodeLanguageId(languageId)
+  const encodedLanguageId = languageService.languageIdCodec.encodeLanguageId(languageId)
   const { grammar, initialState, containsEmbeddedLanguages } = await grammarFactory.createGrammar(languageId, encodedLanguageId)
   if (grammar == null) {
     throw new Error(`No grammar found for language ${languageId}`)
   }
   const tokenization = new monaco.extra.TMTokenization(grammar, initialState, containsEmbeddedLanguages)
   tokenization.onDidEncounterLanguage((encodedLanguageId) => {
-    modeService.triggerMode(modeService.languageIdCodec.decodeLanguageId(encodedLanguageId))
+    // Force monaco to load this language and trigger the global `onDidEncounterLanguage`
+    languageService.createById(languageService.languageIdCodec.decodeLanguageId(encodedLanguageId))
   })
   return new CGTMTokenizationSupport(languageId, encodedLanguageId, tokenization, grammar)
 }

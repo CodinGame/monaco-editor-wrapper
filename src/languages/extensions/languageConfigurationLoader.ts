@@ -2,6 +2,15 @@
 // Generated file, do not modify
 import * as monaco from 'monaco-editor'
 
+export interface RawLanguageConfiguration extends Omit<monaco.extra.ILanguageConfiguration, 'folding'> {
+  folding?: Omit<monaco.extra.ILanguageConfiguration['folding'], 'markers'> & {
+    markers?: {
+      start: string
+      end: string
+    }
+  }
+}
+
 /* eslint-disable */
 const loader = {
   'clojure': async () => (await import(/* webpackChunkName: "language-configuration-clojure" */ './languageConfigurations/clojure.json')).default,
@@ -78,7 +87,7 @@ const loader = {
   'rd': async () => (await import(/* webpackChunkName: "language-configuration-rd" */ './languageConfigurations/rd.json')).default,
   'rmd': async () => (await import(/* webpackChunkName: "language-configuration-rmd" */ './languageConfigurations/rmd.json')).default,
   'debian-control.r': async () => (await import(/* webpackChunkName: "language-configuration-debian-control.r" */ './languageConfigurations/debian-control.r.json')).default
-} as Partial<Record<string, () => Promise<Record<string, monaco.extra.ILanguageConfiguration>>>>
+} as unknown as Partial<Record<string, () => Promise<RawLanguageConfiguration>>>
 
 export default loader
   

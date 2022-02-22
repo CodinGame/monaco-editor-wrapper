@@ -11,6 +11,10 @@ export class SimpleResolvedModel implements monaco.extra.IResolvedTextEditorMode
     this._onWillDispose = new monaco.Emitter<void>()
   }
 
+  getLanguageId (): string | undefined {
+    return this.model.getLanguageId()
+  }
+
   public get onWillDispose (): monaco.IEvent<void> {
     return this._onWillDispose.event
   }
@@ -155,7 +159,7 @@ class ResourceModelCollection extends monaco.extra.ReferenceCollection<Promise<S
   }
 }
 
-export default class EditorModelResolverService extends monaco.extra.SimpleEditorModelResolverService {
+export default class TextModelService extends monaco.extra.StandaloneTextModelService {
   private readonly resourceModelCollection = new ResourceModelCollection()
   private readonly asyncModelCollection = new monaco.extra.AsyncReferenceCollection(this.resourceModelCollection)
 
