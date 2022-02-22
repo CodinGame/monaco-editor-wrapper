@@ -655,8 +655,17 @@ export default loader
 // Generated file, do not modify
 import * as monaco from 'monaco-editor'
 
+export interface RawLanguageConfiguration extends Omit<monaco.extra.ILanguageConfiguration, 'folding'> {
+  folding?: Omit<monaco.extra.ILanguageConfiguration['folding'], 'markers'> & {
+    markers?: {
+      start: string
+      end: string
+    }
+  }
+}
+
 /* eslint-disable */
-const loader = ${configurationLoader} as Partial<Record<string, () => Promise<Record<string, monaco.extra.ILanguageConfiguration>>>>
+const loader = ${configurationLoader} as unknown as Partial<Record<string, () => Promise<RawLanguageConfiguration>>>
 
 export default loader
   `)
