@@ -4,7 +4,7 @@
     "properties": {
       "metals.serverVersion": {
         "type": "string",
-        "default": "0.11.1+97-0ef9a93b-SNAPSHOT",
+        "default": "0.11.1+114-58f06ff8-SNAPSHOT",
         "markdownDescription": "The version of the Metals server artifact. Requires reloading the window.\n\n**Change only if you know what you're doing**",
         "scope": 3
       },
@@ -168,6 +168,12 @@
       "metals.javaFormat.eclipseProfile": {
         "type": "string",
         "markdownDescription": "Optional Eclipse format profile to use.",
+        "scope": 3
+      },
+      "metals.suggestLatestUpgrade": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Once in a day, notify if there are new server releases (including snapshots)",
         "scope": 3
       }
     }

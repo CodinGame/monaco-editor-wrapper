@@ -226,6 +226,16 @@
             ],
             "type": "string"
           },
+          "codestyle-check": {
+            "default": "None",
+            "description": "%config.diagnostics.codestyle-check%",
+            "enum": [
+              "Any",
+              "Opened",
+              "None"
+            ],
+            "type": "string"
+          },
           "count-down-loop": {
             "default": "Any",
             "description": "%config.diagnostics.count-down-loop%",
@@ -640,6 +650,17 @@
             ],
             "type": "string"
           },
+          "codestyle-check": {
+            "default": "Warning",
+            "description": "%config.diagnostics.codestyle-check%",
+            "enum": [
+              "Error",
+              "Warning",
+              "Information",
+              "Hint"
+            ],
+            "type": "string"
+          },
           "count-down-loop": {
             "default": "Warning",
             "description": "%config.diagnostics.count-down-loop%",
@@ -1042,6 +1063,17 @@
         "scope": 4,
         "type": "integer"
       },
+      "Lua.format.defaultConfig": {
+        "markdownDescription": "%config.format.defaultConfig%",
+        "scope": 4,
+        "type": "object"
+      },
+      "Lua.format.enable": {
+        "default": "true",
+        "markdownDescription": "Enable code formatter.",
+        "scope": 4,
+        "type": "boolean"
+      },
       "Lua.hint.arrayIndex": {
         "default": "Auto",
         "enum": [
@@ -1428,6 +1460,9 @@
         "default": null,
         "markdownDescription": "Enable telemetry to send your editor information and error logs over the network. Read our privacy policy [here](https://github.com/sumneko/lua-language-server/wiki/Privacy-Policy).\n",
         "scope": 4,
+        "tags": [
+          "telemetry"
+        ],
         "type": [
           "boolean",
           "null"

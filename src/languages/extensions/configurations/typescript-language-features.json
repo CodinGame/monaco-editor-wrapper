@@ -645,7 +645,12 @@
           "double"
         ],
         "default": "auto",
-        "markdownDescription": "Preferred quote style to use for quick fixes: `single` quotes, `double` quotes, or `auto` infer quote type from existing imports.",
+        "markdownDescription": "Preferred quote style to use for quick fixes.",
+        "markdownEnumDescriptions": [
+          "Infer quote type from existing code",
+          "Always use single quotes: `'`",
+          "Always use double quotes: `\"`"
+        ],
         "scope": 5
       },
       "typescript.preferences.quoteStyle": {
@@ -656,7 +661,12 @@
           "double"
         ],
         "default": "auto",
-        "markdownDescription": "Preferred quote style to use for quick fixes: `single` quotes, `double` quotes, or `auto` infer quote type from existing imports.",
+        "markdownDescription": "Preferred quote style to use for quick fixes.",
+        "markdownEnumDescriptions": [
+          "Infer quote type from existing code",
+          "Always use single quotes: `'`",
+          "Always use double quotes: `\"`"
+        ],
         "scope": 5
       },
       "javascript.preferences.importModuleSpecifier": {
@@ -739,7 +749,7 @@
           "none"
         ],
         "markdownEnumDescriptions": [
-          "Insert `={}` or `=\"\"` after attribute names based on the prop type.",
+          "Insert `={}` or `=\"\"` after attribute names based on the prop type. See `javascript.preferences.quoteStyle` to control the type of quotes used for string attributes.",
           "Insert `={}` after attribute names.",
           "Only insert attribute names."
         ],
@@ -755,7 +765,7 @@
           "none"
         ],
         "markdownEnumDescriptions": [
-          "Insert `={}` or `=\"\"` after attribute names based on the prop type.",
+          "Insert `={}` or `=\"\"` after attribute names based on the prop type. See `typescript.preferences.quoteStyle` to control the type of quotes used for string attributes.",
           "Insert `={}` after attribute names.",
           "Only insert attribute names."
         ],
