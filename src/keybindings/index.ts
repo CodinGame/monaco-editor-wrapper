@@ -1,13 +1,17 @@
 import * as monaco from 'monaco-editor'
 import EmacsExtension from '@codingame/monaco-emacs'
-import { updateKeybindings } from './keybindingHelper'
 import { initVimMode } from './vim'
 
-export function updateEditorKeybindings (
+const keybindingService = monaco.extra.StandaloneServices.get(monaco.extra.IKeybindingService) as monaco.extra.StandaloneKeybindingService
+
+export function updateKeybindings (bindings: monaco.extra.IUserFriendlyKeybinding[]): void {
+  keybindingService.setUserKeybindings(bindings)
+}
+
+export function updateEditorKeybindingsMode (
   editor: monaco.editor.IStandaloneCodeEditor,
   keyBindingsMode: 'classic' | 'vim' | 'emacs' = 'classic',
-  statusBarElement: Element,
-  keyBindings?: monaco.extra.IUserFriendlyKeybinding[]
+  statusBarElement: Element
 ): monaco.IDisposable {
   switch (keyBindingsMode) {
     case 'vim': {
@@ -19,11 +23,8 @@ export function updateEditorKeybindings (
       return emacsExtension
     }
     default: {
-      updateKeybindings(editor, keyBindings ?? [])
       return {
-        dispose: () => {
-          updateKeybindings(editor, [])
-        }
+        dispose: () => {}
       }
     }
   }
