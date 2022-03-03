@@ -556,7 +556,7 @@ async function fetchExtensions () {
         const snippetUrl = resolve(snippetPath)
         const snippetFileContent = JSON5.parse((await download(snippetUrl))!)
 
-        const filePath = `${extension.name}-${snippetConf.language}.json`
+        const filePath = `${extension.name}-${path.basename(snippetPath, '.json')}.json`
         await fs.writeFile(path.resolve(snippetsPath, filePath), JSON.stringify(snippetFileContent, null, 2))
         snippetPaths = {
           ...snippetPaths,
