@@ -389,7 +389,7 @@ async function createRepositoryFileResolver (extension: Extension) {
 }
 
 async function fetchExtensions () {
-  await fs.rmdir(extensionsPath, { recursive: true })
+  await fs.rm(extensionsPath, { recursive: true })
 
   let grammarResult: Omit<monaco.extra.ITMSyntaxExtensionPoint, 'path'>[] = []
   let grammarPaths: Record<string, string> = {}
