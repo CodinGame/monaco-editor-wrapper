@@ -16,7 +16,9 @@ const overrideConfigurationDefaultValue = new Map<string, unknown>(Object.entrie
   'Lua.diagnostics.disable': ['lowercase-global'],
   'r.lsp.diagnostics': false,
   'solargraph.diagnostics': true,
-  'solargraph.formatting': true
+  'solargraph.formatting': true,
+  'systemverilog.linter': 'icarus',
+  'systemverilog.launchConfiguration': 'iverilog -t null'
 }))
 
 interface Extension {
@@ -81,8 +83,8 @@ const extensions: Extension[] = [
       './out/syntaxes/tcl.json': './syntaxes/tcl.tmlanguage.yaml'
     }
   }, {
-    name: 'verilog',
-    repository: 'mshr-h/vscode-verilog-hdl-support'
+    name: 'svlangserver',
+    repository: 'codingame/svlangserver'
   }, {
     name: 'postgresql',
     repository: 'Borvik/vscode-postgres'
