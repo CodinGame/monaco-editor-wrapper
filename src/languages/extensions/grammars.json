@@ -163,6 +163,7 @@
       "meta.embedded.block.pug": "jade",
       "meta.embedded.block.javascript": "javascript",
       "meta.embedded.block.json": "json",
+      "meta.embedded.block.jsonc": "jsonc",
       "meta.embedded.block.less": "less",
       "meta.embedded.block.objc": "objc",
       "meta.embedded.block.scss": "scss",
@@ -554,28 +555,12 @@
     "scopeName": "source.tcl"
   },
   {
-    "language": "verilog",
-    "scopeName": "source.verilog"
-  },
-  {
     "language": "systemverilog",
     "scopeName": "source.systemverilog"
   },
   {
-    "language": "bsv",
-    "scopeName": "source.bsv"
-  },
-  {
-    "language": "ucf",
-    "scopeName": "source.ucfconstraints"
-  },
-  {
-    "language": "sdc",
-    "scopeName": "source.sdc"
-  },
-  {
-    "language": "xdc",
-    "scopeName": "source.sdc"
+    "language": "verilog",
+    "scopeName": "source.systemverilog"
   },
   {
     "scopeName": "markdown.verilog.codeblock",
@@ -583,8 +568,8 @@
       "text.html.markdown"
     ],
     "embeddedLanguages": {
-      "meta.embedded.block.verilog": "source.verilog",
-      "meta.embedded.block.systemverilog": "source.systemverilog"
+      "meta.embedded.block.systemverilog": "source.systemverilog",
+      "meta.embedded.block.verilog": "source.verilog"
     }
   },
   {

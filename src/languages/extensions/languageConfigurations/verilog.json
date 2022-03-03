@@ -24,7 +24,7 @@
       "end"
     ],
     [
-      "case",
+      "randcase",
       "endcase"
     ],
     [
@@ -36,12 +36,44 @@
       "endcase"
     ],
     [
+      "case",
+      "endcase"
+    ],
+    [
+      "checker",
+      "endchecker"
+    ],
+    [
+      "class",
+      "endclass"
+    ],
+    [
+      "clocking",
+      "endclocking"
+    ],
+    [
       "config",
       "endconfig"
     ],
     [
+      "coverage",
+      "endcoverage"
+    ],
+    [
+      "covergroup",
+      "endgroup"
+    ],
+    [
       "fork",
       "join"
+    ],
+    [
+      "fork",
+      "join_any"
+    ],
+    [
+      "fork",
+      "join_none"
     ],
     [
       "function",
@@ -52,6 +84,10 @@
       "endgenerate"
     ],
     [
+      "interface",
+      "endinterface"
+    ],
+    [
       "macromodule",
       "endmodule"
     ],
@@ -60,12 +96,28 @@
       "endmodule"
     ],
     [
+      "package",
+      "endpackage"
+    ],
+    [
       "primitive",
       "endprimitive"
     ],
     [
+      "program",
+      "endprogram"
+    ],
+    [
+      "property",
+      "endproperty"
+    ],
+    [
       "specify",
       "endspecify"
+    ],
+    [
+      "sequence",
+      "endsequence"
     ],
     [
       "table",
@@ -96,5 +148,33 @@
         "string"
       ]
     }
-  ]
+  ],
+  "surroundingPairs": [
+    [
+      "{",
+      "}"
+    ],
+    [
+      "[",
+      "]"
+    ],
+    [
+      "(",
+      ")"
+    ],
+    [
+      "'",
+      "'"
+    ],
+    [
+      "\"",
+      "\""
+    ]
+  ],
+  "folding": {
+    "markers": {
+      "start": "^[ \\t\\n]*(?://[ \\t\\n]*#?region|`(?:ifdef|ifndef|elsif|else)\\b|\\b(?:(?:macro)?module|class)\\b)",
+      "end": "^[ \\t\\n]*(?://[ \\t\\n]*#?endregion|`(?:elsif|else|endif)\\b|\\b(?:endmodule|endclass)\\b)"
+    }
+  }
 }

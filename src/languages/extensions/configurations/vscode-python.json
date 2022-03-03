@@ -13,6 +13,15 @@
         "scope": 2,
         "type": "string"
       },
+      "python.createNewFileEnabled": {
+        "default": "false",
+        "description": "Enable the `Python: New Python File` command.",
+        "scope": 2,
+        "type": "boolean",
+        "tags": [
+          "experimental"
+        ]
+      },
       "python.defaultInterpreterPath": {
         "default": "python",
         "description": "Path to default Python to use when extension loads up for the first time, no longer used once an interpreter is selected for the workspace. See https://aka.ms/AAfekmf to understand when this is used.",
