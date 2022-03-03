@@ -1060,6 +1060,19 @@
     ]
   },
   {
+    "id": "systemverilog",
+    "aliases": [
+      "SystemVerilog",
+      "systemverilog",
+      "System Verilog",
+      "Systemverilog"
+    ],
+    "extensions": [
+      ".sv",
+      ".svh"
+    ]
+  },
+  {
     "id": "verilog",
     "aliases": [
       "Verilog",
@@ -1067,60 +1080,7 @@
     ],
     "extensions": [
       ".v",
-      ".vh",
-      ".vl"
-    ]
-  },
-  {
-    "id": "systemverilog",
-    "aliases": [
-      "System Verilog",
-      "systemverilog"
-    ],
-    "extensions": [
-      ".sv",
-      ".svh",
-      ".SV"
-    ]
-  },
-  {
-    "id": "bsv",
-    "aliases": [
-      "BluespecSystemVerilog",
-      "Bluespec SystemVerilog",
-      "BSV"
-    ],
-    "extensions": [
-      ".bsv",
-      ".BSV"
-    ]
-  },
-  {
-    "id": "ucf",
-    "aliases": [
-      "vivado ucf",
-      "ucf constraints"
-    ],
-    "extensions": [
-      ".ucf"
-    ]
-  },
-  {
-    "id": "sdc",
-    "aliases": [
-      "Synopsys Design Constraints"
-    ],
-    "extensions": [
-      ".sdc"
-    ]
-  },
-  {
-    "id": "xdc",
-    "aliases": [
-      "Xilinx Design Constraints"
-    ],
-    "extensions": [
-      ".xdc"
+      ".vh"
     ]
   },
   {

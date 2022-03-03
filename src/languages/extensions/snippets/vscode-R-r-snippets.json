@@ -410,5 +410,66 @@
       "#endregion"
     ],
     "description": "Folding Region End"
+  },
+  "Shiny sidebar page": {
+    "prefix": "shiny sidebar page",
+    "body": [
+      "library(shiny)",
+      "",
+      "ui <- fluidPage(",
+      "    titlePanel(\"${1:title}\"),",
+      "    sidebarLayout(",
+      "        sidebarPanel(),",
+      "        mainPanel()",
+      "    )",
+      ")",
+      "",
+      "server <- function(input, output, session) {",
+      "",
+      "}",
+      "",
+      "shinyApp(ui, server)$0"
+    ],
+    "description": "Shiny sidebar page"
+  },
+  "Shiny observe event": {
+    "prefix": "shiny observe event",
+    "body": [
+      "observeEvent(${1:event}, {",
+      "    ${0}",
+      "})"
+    ],
+    "description": "Shiny observe event"
+  },
+  "Shiny withProgress": {
+    "prefix": "shiny withProgress",
+    "body": [
+      "withProgress(message = \"${1:message}\", {",
+      "${0}",
+      "})"
+    ],
+    "description": "Shiny withProgress"
+  },
+  "Shiny module": {
+    "prefix": "shiny module",
+    "body": [
+      "${1:name}ui <- function(id) {",
+      "    ns <- NS(id)",
+      "    tagList(",
+      "    ${0}",
+      "        )",
+      "    }",
+      "",
+      "${1:name} <- function(input, output, session) {",
+      "    ns <- session\\$ns",
+      "}",
+      "",
+      "# Copy in UI",
+      "#${1:name}ui(\"${1:name}ui\")",
+      "",
+      "# Copy in server",
+      "#callModule(${1:name}, \"${1:name}ui\")"
+    ],
+    "description": "Shiny module"
   }
 }

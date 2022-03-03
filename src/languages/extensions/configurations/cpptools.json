@@ -2203,7 +2203,7 @@
       "C_Cpp.default.dotConfig": {
         "type": "string",
         "default": null,
-        "markdownDescription": "%c_cpp.configuration.default.dotConfig.markdownDescription%",
+        "markdownDescription": "The value to use in a configuration if `dotConfig` is not specified, or the value to insert if `${default}` is present in `dotConfig`.",
         "scope": 4
       },
       "C_Cpp.updateChannel": {
@@ -2316,7 +2316,7 @@
         "tags": [
           "experimental"
         ],
-        "description": "Show icon for 'Debug and Run' in shortcut menu bar",
+        "description": "Show the Run and Debug play button in the editor title bar for C++ files",
         "scope": 1
       }
     }

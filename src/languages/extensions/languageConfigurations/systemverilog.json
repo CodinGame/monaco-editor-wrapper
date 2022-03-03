@@ -24,7 +24,7 @@
       "end"
     ],
     [
-      "case",
+      "randcase",
       "endcase"
     ],
     [
@@ -33,6 +33,10 @@
     ],
     [
       "casez",
+      "endcase"
+    ],
+    [
+      "case",
       "endcase"
     ],
     [
@@ -50,6 +54,10 @@
     [
       "config",
       "endconfig"
+    ],
+    [
+      "coverage",
+      "endcoverage"
     ],
     [
       "covergroup",
@@ -104,10 +112,6 @@
       "endproperty"
     ],
     [
-      "randcase",
-      "endcase"
-    ],
-    [
       "specify",
       "endspecify"
     ],
@@ -144,5 +148,33 @@
         "string"
       ]
     }
-  ]
+  ],
+  "surroundingPairs": [
+    [
+      "{",
+      "}"
+    ],
+    [
+      "[",
+      "]"
+    ],
+    [
+      "(",
+      ")"
+    ],
+    [
+      "'",
+      "'"
+    ],
+    [
+      "\"",
+      "\""
+    ]
+  ],
+  "folding": {
+    "markers": {
+      "start": "^[ \\t\\n]*(?://[ \\t\\n]*#?region|`(?:ifdef|ifndef|elsif|else)\\b|\\b(?:(?:macro)?module|class)\\b)",
+      "end": "^[ \\t\\n]*(?://[ \\t\\n]*#?endregion|`(?:elsif|else|endif)\\b|\\b(?:endmodule|endclass)\\b)"
+    }
+  }
 }

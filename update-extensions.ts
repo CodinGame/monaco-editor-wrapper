@@ -16,7 +16,9 @@ const overrideConfigurationDefaultValue = new Map<string, unknown>(Object.entrie
   'Lua.diagnostics.disable': ['lowercase-global'],
   'r.lsp.diagnostics': false,
   'solargraph.diagnostics': true,
-  'solargraph.formatting': true
+  'solargraph.formatting': true,
+  'systemverilog.linter': 'icarus',
+  'systemverilog.launchConfiguration': 'iverilog -t null'
 }))
 
 interface Extension {
@@ -81,8 +83,8 @@ const extensions: Extension[] = [
       './out/syntaxes/tcl.json': './syntaxes/tcl.tmlanguage.yaml'
     }
   }, {
-    name: 'verilog',
-    repository: 'mshr-h/vscode-verilog-hdl-support'
+    name: 'svlangserver',
+    repository: 'codingame/svlangserver'
   }, {
     name: 'postgresql',
     repository: 'Borvik/vscode-postgres'
@@ -389,7 +391,7 @@ async function createRepositoryFileResolver (extension: Extension) {
 }
 
 async function fetchExtensions () {
-  await fs.rmdir(extensionsPath, { recursive: true })
+  await fs.rm(extensionsPath, { recursive: true })
 
   let grammarResult: Omit<monaco.extra.ITMSyntaxExtensionPoint, 'path'>[] = []
   let grammarPaths: Record<string, string> = {}
@@ -556,7 +558,7 @@ async function fetchExtensions () {
         const snippetUrl = resolve(snippetPath)
         const snippetFileContent = JSON5.parse((await download(snippetUrl))!)
 
-        const filePath = `${extension.name}-${snippetConf.language}.json`
+        const filePath = `${extension.name}-${path.basename(snippetPath, '.json')}.json`
         await fs.writeFile(path.resolve(snippetsPath, filePath), JSON.stringify(snippetFileContent, null, 2))
         snippetPaths = {
           ...snippetPaths,
