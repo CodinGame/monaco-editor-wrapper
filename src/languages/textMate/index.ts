@@ -30,7 +30,7 @@ function getOrCreateGrammarFactory (): CGTMGrammarFactory {
 }
 
 const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageService)
-export async function createTextMateTokensProvider (languageId: string): Promise<monaco.languages.ITokenizationSupport> {
+async function createTextMateTokensProvider (languageId: string): Promise<monaco.languages.ITokenizationSupport> {
   const grammarFactory = getOrCreateGrammarFactory()
   const encodedLanguageId = languageService.languageIdCodec.encodeLanguageId(languageId)
   const { grammar, initialState, containsEmbeddedLanguages } = await grammarFactory.createGrammar(languageId, encodedLanguageId)
@@ -43,4 +43,15 @@ export async function createTextMateTokensProvider (languageId: string): Promise
     languageService.createById(languageService.languageIdCodec.decodeLanguageId(encodedLanguageId))
   })
   return new CGTMTokenizationSupport(languageId, encodedLanguageId, tokenization, grammar)
+}
+
+const tokenizationSupports = new Map<string, Promise<monaco.languages.ITokenizationSupport>>()
+
+export function getOrCreateTextMateTokensProvider (languageId: string): Promise<monaco.languages.ITokenizationSupport> {
+  let tokenizationSupportPromise = tokenizationSupports.get(languageId)
+  if (tokenizationSupportPromise == null) {
+    tokenizationSupportPromise = createTextMateTokensProvider(languageId)
+    tokenizationSupports.set(languageId, tokenizationSupportPromise)
+  }
+  return tokenizationSupportPromise
 }
