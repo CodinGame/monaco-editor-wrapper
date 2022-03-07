@@ -1,5 +1,5 @@
 import * as monaco from 'monaco-editor'
-import { createTextMateTokensProvider } from './textMate'
+import { getOrCreateTextMateTokensProvider } from './textMate'
 import textMateLanguages from './extensions/languages.json'
 import { languageLoader as monarchLanguageLoader } from './monarch'
 import languageConfigurationLoader, { RawLanguageConfiguration } from './extensions/languageConfigurationLoader'
@@ -39,7 +39,7 @@ for (const languageId of languagesIds) {
 
   monaco.languages.setTokenizationSupportFactory(languageId, {
     createTokenizationSupport: async () => {
-      return createTextMateTokensProvider(languageId).catch(err => {
+      return getOrCreateTextMateTokensProvider(languageId).catch(err => {
         const monarchLoader = monarchLanguageLoader[languageId]
         if (monarchLoader != null) {
           console.warn(`Failed to load TextMate grammar for language ${languageId}, fallback to monarch`, err)
@@ -70,22 +70,25 @@ function parseLanguageConfiguration (config: RawLanguageConfiguration): monaco.e
   }
 }
 
+async function loadLanguageConfiguration (languageId: string) {
+  const loader = languageConfigurationLoader[languageId]
+  if (loader != null) {
+    const configuration = await loader()
+    monaco.extra.handleLanguageConfiguration(
+      languageId,
+      addCustomFoldingMarkers(parseLanguageConfiguration(configuration))
+    )
+  }
+}
+
 languageService.onDidEncounterLanguage(async (languageId) => {
   if (languageId === 'plaintext') {
     return
   }
 
-  const loader = languageConfigurationLoader[languageId]
-  if (loader != null) {
-    loader().then((configuration) => {
-      monaco.extra.handleLanguageConfiguration(
-        languageId,
-        addCustomFoldingMarkers(parseLanguageConfiguration(configuration))
-      )
-    }).catch(error => {
-      console.error('Unable to load language configuration', error)
-    })
-  }
+  loadLanguageConfiguration(languageId).catch(error => {
+    console.error('Unable to load language configuration', error)
+  })
 })
 
 function getMonacoLanguage (languageOrModeId: string): string {
@@ -103,6 +106,14 @@ function getMonacoLanguage (languageOrModeId: string): string {
   return 'plaintext'
 }
 
+async function loadLanguage (languageId: string): Promise<void> {
+  await Promise.all([
+    loadLanguageConfiguration(languageId),
+    getOrCreateTextMateTokensProvider(languageId)
+  ])
+}
+
 export {
-  getMonacoLanguage
+  getMonacoLanguage,
+  loadLanguage
 }
