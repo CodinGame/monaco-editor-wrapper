@@ -22,10 +22,8 @@
   ],
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@codingame/monaco-emacs": "^0.2.3",
     "delay": ">=5.0.0",
     "monaco-editor": "npm:@codingame/monaco-editor@^0.33.0",
-    "monaco-vim": "^0.2.0",
     "vscode-oniguruma": "^1.6.2"
   },
   "devDependencies": {
@@ -35,6 +33,7 @@
     "@babel/preset-env": "7.16.11",
     "@babel/preset-typescript": "7.16.7",
     "@babel/runtime": "7.17.7",
+    "@codingame/monaco-emacs": "^0.2.3",
     "@rollup/plugin-alias": "3.1.9",
     "@rollup/plugin-babel": "5.3.1",
     "@rollup/plugin-commonjs": "21.0.2",
@@ -61,6 +60,7 @@
     "fast-plist": "0.1.2",
     "ini": "2.0.0",
     "json5": "2.2.0",
+    "monaco-vim": "^0.2.0",
     "postcss": "8.4.8",
     "rollup": "2.70.1",
     "rollup-plugin-json5": "1.0.0",
