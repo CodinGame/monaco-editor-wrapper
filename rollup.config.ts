@@ -75,7 +75,9 @@ export default rollup.defineConfig({
     nodeResolve({
       extensions
     }),
-    commonjs(),
+    commonjs({
+      esmExternals: (id) => id.match(/^monaco-editor(\/.*)?/) != null // required for monaco-emacs with use import monaco-editor esm code from commonjs code
+    }),
     babel({
       extensions,
       presets: [
