@@ -1,11 +1,10 @@
 {
   "name": "@codingame/monaco-editor-wrapper",
-  "version": "1.10.2",
+  "version": "0.0.0-semantic-release",
   "private": false,
   "description": "Enhanced Monaco editor with TextMate grammars and more",
   "scripts": {
     "build": "rollup --config rollup.config.ts --configPlugin typescript && npm run generate-types",
-    "prepublishOnly": "npm run build",
     "generate-types": "tsc --project tsconfig.types.json",
     "update-extensions": "ts-node update-extensions.ts"
   },
@@ -47,6 +46,7 @@
     "@typescript-eslint/eslint-plugin": "5.15.0",
     "@typescript-eslint/parser": "5.15.0",
     "babel-eslint": "10.1.0",
+    "conventional-changelog-conventionalcommits": "^4.6.3",
     "cson-parser": "4.0.9",
     "deep-equal": "2.0.5",
     "eslint": "8.11.0",
