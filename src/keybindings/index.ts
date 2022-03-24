@@ -1,5 +1,5 @@
 import * as monaco from 'monaco-editor'
-import EmacsExtension from '@codingame/monaco-emacs'
+import EmacsExtension from 'monaco-emacs'
 import { initVimMode } from './vim'
 
 const keybindingService = monaco.extra.StandaloneServices.get(monaco.extra.IKeybindingService) as monaco.extra.StandaloneKeybindingService
