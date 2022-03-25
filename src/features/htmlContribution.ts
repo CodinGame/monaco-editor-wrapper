@@ -86,12 +86,13 @@ function autoCloseHtmlTags (editor: monaco.editor.ICodeEditor): monaco.IDisposab
           range.endColumn + rangeLength + enclosingTag.length + 1
         )
 
+        const selections = editor.getSelections()
         const rest = model.getValueInRange(newRange)
-        model.applyEdits([{
+        editor.executeEdits('autoclosing', [{
           range: newRange,
           text: `</${enclosingTag}>${rest}`,
           forceMoveMarkers: true
-        }])
+        }], selections ?? undefined)
       }
     }, 100)
   }))
