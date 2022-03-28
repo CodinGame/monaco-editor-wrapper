@@ -114,6 +114,9 @@ const extensions: Extension[] = [
   }, {
     name: 'solargraph',
     repository: 'castwide/vscode-solargraph'
+  }, {
+    name: 'solidity',
+    repository: 'juanfranblanco/vscode-solidity'
   }
 ]
 
