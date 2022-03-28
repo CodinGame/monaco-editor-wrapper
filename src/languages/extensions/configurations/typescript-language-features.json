@@ -498,6 +498,46 @@
           "Remove unnecessary semicolons."
         ]
       },
+      "js/ts.implicitProjectConfig.module": {
+        "type": "string",
+        "markdownDescription": "Sets the module system for the program. See more: https://www.typescriptlang.org/tsconfig#module.",
+        "default": "ESNext",
+        "enum": [
+          "CommonJS",
+          "AMD",
+          "System",
+          "UMD",
+          "ES6",
+          "ES2015",
+          "ES2020",
+          "ESNext",
+          "None",
+          "ES2022",
+          "Node12",
+          "NodeNext"
+        ],
+        "scope": 3
+      },
+      "js/ts.implicitProjectConfig.target": {
+        "type": "string",
+        "default": "ES2020",
+        "markdownDescription": "Set target JavaScript language version for emitted JavaScript and include library declarations. See more: https://www.typescriptlang.org/tsconfig#target.",
+        "enum": [
+          "ES3",
+          "ES5",
+          "ES6",
+          "ES2015",
+          "ES2016",
+          "ES2017",
+          "ES2018",
+          "ES2019",
+          "ES2020",
+          "ES2021",
+          "ES2022",
+          "ESNext"
+        ],
+        "scope": 3
+      },
       "javascript.implicitProjectConfig.checkJs": {
         "type": "boolean",
         "default": false,
@@ -599,13 +639,13 @@
       "javascript.suggest.jsdoc.generateReturns": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "Enable/disable generating `@return` annotations for JSDoc templates. Requires using TypeScript 4.2+ in the workspace.",
+        "markdownDescription": "Enable/disable generating `@returns` annotations for JSDoc templates. Requires using TypeScript 4.2+ in the workspace.",
         "scope": 5
       },
       "typescript.suggest.jsdoc.generateReturns": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "Enable/disable generating `@return` annotations for JSDoc templates. Requires using TypeScript 4.2+ in the workspace.",
+        "markdownDescription": "Enable/disable generating `@returns` annotations for JSDoc templates. Requires using TypeScript 4.2+ in the workspace.",
         "scope": 5
       },
       "typescript.locale": {
@@ -999,6 +1039,12 @@
         "type": "boolean",
         "default": true,
         "description": "Enable/disable snippet completions for class members. Requires using TypeScript 4.5+ in the workspace",
+        "scope": 4
+      },
+      "typescript.suggest.objectLiteralMethodSnippets.enabled": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enable/disable snippet completions for methods in object literals. Requires using TypeScript 4.7+ in the workspace",
         "scope": 4
       }
     }

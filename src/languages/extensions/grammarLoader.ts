@@ -99,7 +99,8 @@ const loader = {
   'debian-control.r': async () => (await import(/* webpackChunkName: "grammar-debian-control-r" */ './grammars/vscode-R/dcf.json')).default,
   'text.html.rmarkdown': async () => (await import(/* webpackChunkName: "grammar-text-html-rmarkdown" */ './grammars/vscode-R/RMarkdown.json')).default,
   'text.html.markdown.redcarpet': async () => (await import(/* webpackChunkName: "grammar-text-html-markdown-redcarpet" */ './grammars/vscode-R/Markdown Redcarpet.json')).default,
-  'comment.block.r': async () => (await import(/* webpackChunkName: "grammar-comment-block-r" */ './grammars/vscode-R/Rcpp.json')).default
+  'comment.block.r': async () => (await import(/* webpackChunkName: "grammar-comment-block-r" */ './grammars/vscode-R/Rcpp.json')).default,
+  'source.solidity': async () => (await import(/* webpackChunkName: "grammar-source-solidity" */ './grammars/solidity/solidity.json')).default
 } as Partial<Record<string, () => Promise<object>>>
 
 export default loader

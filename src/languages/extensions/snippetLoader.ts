@@ -34,7 +34,8 @@ const loader = {
   'verilog': async () => (await import(/* webpackChunkName: "snippet-verilog" */ './snippets/svlangserver-systemverilog.json')).default,
   'r': async () => (await import(/* webpackChunkName: "snippet-r" */ './snippets/vscode-R-r-snippets.json')).default,
   'rd': async () => (await import(/* webpackChunkName: "snippet-rd" */ './snippets/vscode-R-r-snippets.json')).default,
-  'rmd': async () => (await import(/* webpackChunkName: "snippet-rmd" */ './snippets/vscode-R-rmarkdown.json')).default
+  'rmd': async () => (await import(/* webpackChunkName: "snippet-rmd" */ './snippets/vscode-R-rmarkdown.json')).default,
+  'solidity': async () => (await import(/* webpackChunkName: "snippet-solidity" */ './snippets/solidity-solidity.json')).default
 } as unknown as Partial<Record<string, () => Promise<Record<string, monaco.extra.JsonSerializedSnippet>>>>
 
 export default loader

@@ -29,7 +29,7 @@
         ],
         "default": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m",
         "description": "Specifies extra VM arguments used to launch the Java Language Server. Eg. use `-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m ` to optimize memory usage with the parallel garbage collector",
-        "scope": 3
+        "scope": 6
       },
       "java.errors.incompleteClasspath.severity": {
         "type": [
@@ -562,7 +562,7 @@
           "additionalProperties": false
         },
         "default": [],
-        "scope": 2
+        "scope": 6
       },
       "java.server.launchMode": {
         "type": "string",

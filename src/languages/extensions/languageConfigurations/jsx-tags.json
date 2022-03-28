@@ -130,7 +130,7 @@
         "pattern": "^>$"
       },
       "afterText": {
-        "pattern": "/^<\\/([_:\\w][_:\\w-.\\d]*)\\s*>$",
+        "pattern": "^<\\/([_:\\w][_:\\w-.\\d]*)\\s*>$",
         "flags": "i"
       },
       "action": {

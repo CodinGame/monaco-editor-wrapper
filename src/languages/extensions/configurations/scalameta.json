@@ -4,8 +4,8 @@
     "properties": {
       "metals.serverVersion": {
         "type": "string",
-        "default": "0.11.1+170-7320cac2-SNAPSHOT",
-        "markdownDescription": "The version of the Metals server artifact. Requires reloading the window.\n\n**Change only if you know what you're doing**",
+        "default": "0.11.2+62-3a7e098d-SNAPSHOT",
+        "markdownDescription": "The version of the Metals server artifact. Requires reloading the window.  \n\n**VS Code extension version is guaranteed to work only with the default version, change if you know what you're doing**",
         "scope": 3
       },
       "metals.serverProperties": {
@@ -156,7 +156,8 @@
           "2.12.9",
           "2.12.8",
           "2.11.12",
-          "3.1.1-RC1",
+          "3.1.2-RC2",
+          "3.1.1",
           "3.1.0",
           "3.0.2",
           "3.0.1",
