@@ -13,15 +13,6 @@
         "scope": 2,
         "type": "string"
       },
-      "python.createNewFileEnabled": {
-        "default": "false",
-        "description": "Enable the `Python: New Python File` command.",
-        "scope": 2,
-        "type": "boolean",
-        "tags": [
-          "experimental"
-        ]
-      },
       "python.defaultInterpreterPath": {
         "default": "python",
         "description": "Path to default Python to use when extension loads up for the first time, no longer used once an interpreter is selected for the workspace. See https://aka.ms/AAfekmf to understand when this is used.",
@@ -58,10 +49,7 @@
         "items": {
           "enum": [
             "All",
-            "pythonDeprecatePythonPath",
-            "pythonSurveyNotification",
-            "pythonInterpreterInfoPinned",
-            "pythonInterpreterInfoUnpinned"
+            "pythonSurveyNotification"
           ]
         },
         "scope": 2,
@@ -73,10 +61,7 @@
         "items": {
           "enum": [
             "All",
-            "pythonDeprecatePythonPath",
-            "pythonSurveyNotification",
-            "pythonInterpreterInfoPinned",
-            "pythonInterpreterInfoUnpinned"
+            "pythonSurveyNotification"
           ]
         },
         "scope": 2,
@@ -144,17 +129,6 @@
         "description": "Whether to install Python modules globally when not using an environment.",
         "scope": 4,
         "type": "boolean"
-      },
-      "python.insidersChannel": {
-        "default": "off",
-        "description": "Set to \"weekly\" or \"daily\" to automatically download and install the latest Insiders builds of the python extension, which include upcoming features and bug fixes.",
-        "enum": [
-          "daily",
-          "off",
-          "weekly"
-        ],
-        "scope": 2,
-        "type": "string"
       },
       "python.languageServer": {
         "default": "Default",

@@ -2316,7 +2316,7 @@
         "tags": [
           "experimental"
         ],
-        "description": "Show the Run and Debug play button in the editor title bar for C++ files",
+        "description": "Show the Run and Debug play button in the editor title bar for C++ files.",
         "scope": 1
       }
     }

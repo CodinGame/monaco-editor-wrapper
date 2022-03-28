@@ -533,6 +533,9 @@
         "keyword.declaration": [
           "keyword.local.lua"
         ],
+        "keyword.documentation": [
+          "storage.type.annotation.lua"
+        ],
         "keyword.readonly": [
           "constant.language.lua"
         ],

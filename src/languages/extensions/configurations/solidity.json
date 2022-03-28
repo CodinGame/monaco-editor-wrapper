@@ -1,0 +1,134 @@
+[
+  {
+    "type": "object",
+    "title": "Solidity configuration",
+    "properties": {
+      "solidity.nodemodulespackage": {
+        "type": "string",
+        "default": "solc",
+        "description": "The node modules package to find the solcjs compiler",
+        "scope": 3
+      },
+      "solidity.compileUsingRemoteVersion": {
+        "type": "string",
+        "default": "latest",
+        "description": "Compile downloading a remote solc binary file, for example: 'latest' or 'v0.4.3+commit.2353da71', use the command 'Solidity: Get solidity releases' to list all versions, or just right click in a solidity file to simply select the version",
+        "scope": 3
+      },
+      "solidity.compilerOptimization": {
+        "type": "number",
+        "default": 200,
+        "description": "Optimize for how many times you intend to run the code. Lower values will optimize more for initial deployment cost, higher values will optimize more for high-frequency usage.",
+        "scope": 3
+      },
+      "solidity.compileUsingLocalVersion": {
+        "type": "string",
+        "default": "",
+        "description": "Compile using a local solc binary file, please include the path of the file if wanted: 'C://v0.4.3+commit.2353da71.js'",
+        "scope": 3
+      },
+      "solidity.defaultCompiler": {
+        "type": "string",
+        "enum": [
+          "remote",
+          "localFile",
+          "localNodeModule",
+          "embedded"
+        ],
+        "default": "remote",
+        "description": "Sets the default compiler to use",
+        "scope": 3
+      },
+      "solidity.linter": {
+        "type": "string",
+        "enum": [
+          "",
+          "solhint",
+          "solium"
+        ],
+        "default": "solhint",
+        "description": "Enables linting using either solium (ethlint) or solhint. Possible options 'solhint' and 'solium', the default is solhint",
+        "scope": 3
+      },
+      "solidity.solhintRules": {
+        "type": [
+          "object"
+        ],
+        "default": null,
+        "description": "Solhint linting validation rules",
+        "scope": 3
+      },
+      "solidity.formatter": {
+        "type": "string",
+        "default": "prettier",
+        "enum": [
+          "none",
+          "prettier"
+        ],
+        "description": "Enables / disables the solidity formatter (prettier solidity default)",
+        "scope": 3
+      },
+      "solidity.soliumRules": {
+        "type": [
+          "object"
+        ],
+        "default": {
+          "imports-on-top": 0,
+          "variable-declarations": 0,
+          "indentation": [
+            "off",
+            4
+          ],
+          "quotes": [
+            "off",
+            "double"
+          ]
+        },
+        "description": "Solium linting validation rules",
+        "scope": 3
+      },
+      "solidity.enabledAsYouTypeCompilationErrorCheck": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enables as you type compilation of the document and error highlighting",
+        "scope": 3
+      },
+      "solidity.validationDelay": {
+        "type": "number",
+        "default": 1500,
+        "description": "Delay to trigger the validation of the changes of the current document (compilation, solium)",
+        "scope": 3
+      },
+      "solidity.packageDefaultDependenciesDirectory": {
+        "type": "string",
+        "default": "node_modules",
+        "description": "Default directory for Packages Dependencies, i.e: 'node_modules', 'lib'. This is used to avoid typing imports with that path prefix",
+        "scope": 3
+      },
+      "solidity.packageDefaultDependenciesContractsDirectory": {
+        "type": "string",
+        "default": "",
+        "description": "Default directory where the Package Dependency store its contracts, i.e: 'src', 'contracts', or just a blank string '', this is used to avoid typing imports with subfolder paths",
+        "scope": 3
+      },
+      "solidity.remappings": {
+        "type": "array",
+        "default": [],
+        "description": "Remappings to resolve contracts to local files / directories, i.e: [\"@openzeppelin/=lib/openzeppelin-contracts\",\"ds-test/=lib/ds-test/src/\"]",
+        "scope": 3
+      },
+      "solidity.remappingsWindows": {
+        "type": "array",
+        "default": [],
+        "description": "Windows Remappings to resolve contracts to local Windows files / directories (Note this overrides the generic remapping settings if the OS is Windows) , i.e: [\"@openzeppelin/=C:/lib/openzeppelin-contracts\",\"ds-test/=C:/lib/ds-test/src/\"]",
+        "scope": 3
+      },
+      "solidity.remappingsUnix": {
+        "type": "array",
+        "default": [],
+        "description": "Unix Remappings to resolve contracts to local Unix files / directories (Note this overrides the generic remapping settings if the OS is Unix based), i.e: [\"@openzeppelin/=/opt/lib/openzeppelin-contracts\",\"ds-test/=/opt/lib/ds-test/src/\"]",
+        "scope": 3
+      }
+    }
+  }
+]

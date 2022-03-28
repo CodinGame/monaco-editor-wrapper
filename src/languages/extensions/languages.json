@@ -1130,7 +1130,7 @@
     ],
     "filenamePatterns": [
       "**/*-requirements.{txt, in}",
-      "**/*-contstraints.txt",
+      "**/*-constraints.txt",
       "**/requirements-*.{txt, in}",
       "**/constraints-*.txt",
       "**/requirements/*.{txt,in}",
@@ -1225,6 +1225,16 @@
     ],
     "aliases": [
       "Groovy"
+    ]
+  },
+  {
+    "id": "solidity",
+    "aliases": [
+      "Solidity",
+      "solidity"
+    ],
+    "extensions": [
+      ".sol"
     ]
   }
 ]

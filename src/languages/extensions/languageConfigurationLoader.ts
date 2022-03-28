@@ -82,7 +82,8 @@ const loader = {
   'pip-requirements': async () => (await import(/* webpackChunkName: "language-configuration-pip-requirements" */ './languageConfigurations/pip-requirements.json')).default,
   'rd': async () => (await import(/* webpackChunkName: "language-configuration-rd" */ './languageConfigurations/rd.json')).default,
   'rmd': async () => (await import(/* webpackChunkName: "language-configuration-rmd" */ './languageConfigurations/rmd.json')).default,
-  'debian-control.r': async () => (await import(/* webpackChunkName: "language-configuration-debian-control.r" */ './languageConfigurations/debian-control.r.json')).default
+  'debian-control.r': async () => (await import(/* webpackChunkName: "language-configuration-debian-control.r" */ './languageConfigurations/debian-control.r.json')).default,
+  'solidity': async () => (await import(/* webpackChunkName: "language-configuration-solidity" */ './languageConfigurations/solidity.json')).default
 } as unknown as Partial<Record<string, () => Promise<RawLanguageConfiguration>>>
 
 export default loader

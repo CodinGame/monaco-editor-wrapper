@@ -1,6 +1,7 @@
 [
   {
     "title": "Analyzer",
+    "order": 1,
     "properties": {
       "dart.additionalAnalyzerFileExtensions": {
         "type": "array",
@@ -99,6 +100,7 @@
   },
   {
     "title": "DevTools",
+    "order": 1,
     "properties": {
       "dart.updateDevTools": {
         "type": "boolean",
@@ -180,6 +182,7 @@
   },
   {
     "title": "Editor",
+    "order": 1,
     "properties": {
       "dart.analysisServerFolding": {
         "type": "boolean",
@@ -321,6 +324,7 @@
   },
   {
     "title": "Flutter",
+    "order": 1,
     "properties": {
       "dart.flutterAdbConnectOnChromeOs": {
         "type": "boolean",
@@ -504,12 +508,6 @@
         "markdownDescription": "When to show the Flutter headless web-server device. This requires using the Dart Debug extension for Chrome and is usually only used for remote environments where Chrome is not available such as browser/cloud-based IDEs (requires restart).",
         "scope": 3
       },
-      "dart.flutterStructuredErrors": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "Whether to use Flutter's [structured error support](https://medium.com/flutter/improving-flutters-error-messages-e098513cecf9) for improved error display.",
-        "scope": 4
-      },
       "dart.flutterTestAdditionalArgs": {
         "type": "array",
         "default": [],
@@ -544,6 +542,7 @@
   },
   {
     "title": "Logging",
+    "order": 1,
     "properties": {
       "dart.analyzerInstrumentationLogFile": {
         "type": [
@@ -654,6 +653,7 @@
   },
   {
     "title": "Pub",
+    "order": 1,
     "properties": {
       "dart.promptToGetPackages": {
         "type": "boolean",
@@ -680,6 +680,7 @@
   },
   {
     "title": "Run and Debug",
+    "order": 1,
     "properties": {
       "dart.buildRunnerAdditionalArgs": {
         "type": "array",
@@ -779,7 +780,7 @@
           "Suppress test timeouts both when Running and Debugging"
         ],
         "default": "never",
-        "markdownDescription": "Whether to suppress test timeouts when running/debugging tests. This currently works by increasing the default timeout to 1d but will not affect tests that have explicit (non-factor) timeouts set with @timeout.",
+        "markdownDescription": "Whether to suppress test timeouts when running/debugging tests. To work properly this requires package:test version 1.20.1 or newer. For older versions, the default timeout will be increased to 1d but this will not affect tests that have explicit (non-factor) timeouts set with @timeout.",
         "scope": 4
       },
       "dart.cliAdditionalArgs": {
@@ -813,6 +814,7 @@
   },
   {
     "title": "SDK",
+    "order": 1,
     "properties": {
       "dart.checkForSdkUpdates": {
         "type": "boolean",
@@ -866,6 +868,7 @@
   },
   {
     "title": "Testing",
+    "order": 1,
     "properties": {
       "dart.allowTestsOutsideTestFolder": {
         "type": "boolean",
@@ -897,12 +900,12 @@
   },
   {
     "title": "Other",
-    "order": 9,
+    "order": 2,
     "properties": {
-      "dart.allowAnalytics": {
-        "type": "boolean",
-        "default": true,
-        "description": "Whether to send analytics such as startup timings, frequency of use of features and analysis server crashes.",
+      "dart.projectSearchDepth": {
+        "type": "number",
+        "default": 3,
+        "description": "How many levels (including the workspace roots) down the workspace to search for Dart/Flutter projects. Increasing this number may help detect Flutter projects that are deeply nested in your workspace but slow down all operations that search for projects, including extension activation.",
         "scope": 3
       },
       "dart.env": {
@@ -915,12 +918,12 @@
   },
   {
     "title": "Experimental",
-    "order": 10,
+    "order": 3,
     "properties": {
       "dart.enableServerSnippets": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "This setting is currently unused and should be left set to 'false'. It will be updated and enabled by default in the future.",
+        "markdownDescription": "Whether to enable using code snippets from the Dart Analysis Server and disable the snippets included in the extension. If the version of the Dart/Flutter SDK you're using does not support server snippets, this will result in no snippets being available.",
         "scope": 3
       },
       "dart.normalizeFileCasing": {
@@ -957,6 +960,12 @@
         "type": "boolean",
         "default": false,
         "markdownDescription": "Whether to perform hot reload on save based on a filesystem watcher for Dart files rather than using VS Code's `onDidSave` event. This allows reloads to trigger when external tools modify Dart source files.",
+        "scope": 3
+      },
+      "dart.previewSdkDaps": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "PREVIEW: Whether to use the new debug adapters shipped in the Dart and Flutter SDKs. This setting will only apply if your SDK is new enough to include an appropriate version of the DAP server.",
         "scope": 3
       }
     }
