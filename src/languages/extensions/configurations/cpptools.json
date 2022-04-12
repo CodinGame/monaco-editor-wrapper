@@ -190,6 +190,12 @@
         "markdownDescription": "Additional command line arguments to pass to `clang-tidy`. These take precedence over the equivalent `C_Cpp.codeAnalysis.clangTidy.*` settings.",
         "scope": 4
       },
+      "C_Cpp.codeAnalysis.clangTidy.useBuildPath": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "If `true` and `compileCommands` is set, the `-p=<build-path>` argument is passed to `clang-tidy` instead of build arguments being passed after `--`. This may not work if environment variables aren't set so that system includes can be found.",
+        "scope": 4
+      },
       "C_Cpp.codeAnalysis.clangTidy.checks.enabled": {
         "type": "array",
         "items": {
@@ -2132,12 +2138,14 @@
           "c++14",
           "c++17",
           "c++20",
+          "c++23",
           "gnu++98",
           "gnu++03",
           "gnu++11",
           "gnu++14",
           "gnu++17",
-          "gnu++20"
+          "gnu++20",
+          "gnu++23"
         ],
         "markdownDescription": "The value to use in a configuration if `cppStandard` is either not specified or set to `${default}`.",
         "scope": 4

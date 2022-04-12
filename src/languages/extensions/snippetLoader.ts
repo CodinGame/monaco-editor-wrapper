@@ -15,7 +15,6 @@ const loader = {
   'javascriptreact': async () => (await import(/* webpackChunkName: "snippet-javascriptreact" */ './snippets/javascript-javascript.code-snippets.json')).default,
   'markdown': async () => (await import(/* webpackChunkName: "snippet-markdown" */ './snippets/markdown-basics-markdown.code-snippets.json')).default,
   'php': async () => (await import(/* webpackChunkName: "snippet-php" */ './snippets/php-php.code-snippets.json')).default,
-  'powershell': async () => (await import(/* webpackChunkName: "snippet-powershell" */ './snippets/powershell-powershell.code-snippets.json')).default,
   'swift': async () => (await import(/* webpackChunkName: "snippet-swift" */ './snippets/swift-swift.code-snippets.json')).default,
   'typescript': async () => (await import(/* webpackChunkName: "snippet-typescript" */ './snippets/typescript-basics-typescript.code-snippets.json')).default,
   'typescriptreact': async () => (await import(/* webpackChunkName: "snippet-typescriptreact" */ './snippets/typescript-basics-typescript.code-snippets.json')).default,

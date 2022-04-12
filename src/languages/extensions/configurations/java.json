@@ -537,7 +537,8 @@
                 "JavaSE-14",
                 "JavaSE-15",
                 "JavaSE-16",
-                "JavaSE-17"
+                "JavaSE-17",
+                "JavaSE-18"
               ],
               "description": "Java Execution Environment name. Must be unique."
             },
@@ -696,6 +697,22 @@
         ],
         "default": "line",
         "description": "Show quickfixes at the problem or line level.",
+        "scope": 3
+      },
+      "java.inlayHints.parameterNames.enabled": {
+        "type": "string",
+        "enum": [
+          "none",
+          "literals",
+          "all"
+        ],
+        "enumDescriptions": [
+          "Disable parameter name hints",
+          "Enable parameter name hints only for literal arguments",
+          "Enable parameter name hints for literal and non-literal arguments"
+        ],
+        "default": "literals",
+        "markdownDescription": "Enable/disable inlay hints for parameter names:\n```java\n\nInteger.valueOf(/* s: */ '123', /* radix: */ 10)\n \n```\n",
         "scope": 3
       }
     }

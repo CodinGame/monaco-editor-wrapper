@@ -650,7 +650,9 @@
       },
       "typescript.locale": {
         "type": "string",
+        "default": "auto",
         "enum": [
+          "auto",
           "de",
           "es",
           "en",

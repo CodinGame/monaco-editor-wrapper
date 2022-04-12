@@ -513,7 +513,7 @@
           "support.class.lua"
         ],
         "function": [
-          "variable.function.lua"
+          "support.function.any-method.lua"
         ],
         "function.declaration": [
           "entity.name.function.lua"
@@ -609,7 +609,7 @@
           "variable.other.constant.lua"
         ],
         "variable.static": [
-          "variable.other.lua"
+          "variable.global.lua"
         ]
       }
     },
