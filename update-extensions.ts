@@ -593,8 +593,8 @@ async function fetchExtensions () {
   }
 }
 
-function generateLoaderLine (key: string, chunkName: string, path: string) {
-  return `  '${key}': async () => (await import(/* webpackChunkName: "${chunkName}" */ './${path}')).default`
+function generateLoaderLine (key: string, chunkName: string, path: string, mode: 'lazy' | 'lazy-once' | 'eager' | 'weak' = 'lazy') {
+  return `  '${key}': async () => (await import(/* webpackChunkName: "${chunkName}" */ /* webpackMode: "${mode}" */ './${path}')).default`
 }
 
 function generateGrammarLoaderLine ([scopeName, path]: [string, string]) {
