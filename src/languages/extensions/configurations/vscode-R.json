@@ -59,26 +59,44 @@
       },
       "r.lsp.args": {
         "type": "array",
+        "items": {
+          "type": "string"
+        },
         "default": [],
-        "description": "The command line arguments to use when launching R Language Server",
+        "description": "The command line arguments to use when launching R Language Server.",
+        "scope": 3
+      },
+      "r.lsp.libPaths": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "default": [],
+        "markdownDescription": "Additional library paths to launch R Language Server with. These paths will be appended to `.libPaths()`. `${workspaceFolder}` and `${home}` could be used in the paths.",
+        "scope": 3
+      },
+      "r.lsp.promptToInstall": {
+        "type": "boolean",
+        "default": true,
+        "description": "Prompt to install R Language Server if it is not installed.",
         "scope": 3
       },
       "r.lsp.debug": {
         "type": "boolean",
         "default": false,
-        "description": "Debug R Language Server",
+        "description": "Debug R Language Server.",
         "scope": 3
       },
       "r.lsp.diagnostics": {
         "type": "boolean",
         "default": false,
-        "description": "Enable Diagnostics",
+        "description": "Enable diagnostics.",
         "scope": 3
       },
       "r.lsp.lang": {
         "type": "string",
         "default": "",
-        "description": "Override default LANG environment variable",
+        "markdownDescription": "Override default `LANG` environment variable.",
         "scope": 3
       },
       "r.lsp.use_stdio": {
@@ -284,6 +302,12 @@
         "type": "integer",
         "default": 0,
         "markdownDescription": "The maximum number of rows to be displayed in the data viewer. `0` means no limit. Changes the option `vsc.row_limit` in R. Requires `#r.sessionWatcher#` to be set to `true`.",
+        "scope": 3
+      },
+      "r.session.data.pageSize": {
+        "type": "integer",
+        "default": 500,
+        "markdownDescription": "The maximum number of rows per page in the data viewer. `0` means to disable pagination.",
         "scope": 3
       },
       "r.session.viewers.viewColumn": {

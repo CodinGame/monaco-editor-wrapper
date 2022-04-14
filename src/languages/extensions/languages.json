@@ -998,7 +998,8 @@
   {
     "id": "COBOL Copybook",
     "extensions": [
-      ".cpy"
+      ".cpy",
+      ".copy"
     ]
   },
   {

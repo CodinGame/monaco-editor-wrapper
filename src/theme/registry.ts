@@ -1,44 +1,97 @@
 import * as monaco from 'monaco-editor'
-import { convertTheme, fixVSCodeThemeColors, IVSCodeTheme } from './tools'
+import { convertTheme, IVSCodeTheme } from './tools'
 
 const vscodeThemeData = new Map<string, monaco.extra.ColorThemeData>()
 
-function convertColorSheme (colorSheme: monaco.editor.ColorScheme) {
-  switch (colorSheme) {
-    case monaco.editor.ColorScheme.DARK: return monaco.extra.VS_DARK_THEME
-    case monaco.editor.ColorScheme.LIGHT: return monaco.extra.VS_LIGHT_THEME
-    case monaco.editor.ColorScheme.HIGH_CONTRAST: return monaco.extra.VS_HC_THEME
+const darkCustomColors: monaco.extra.IThemeScopedColorCustomizations = {
+  'statusBar.background': '#252e38',
+  'statusBar.foreground': '#ffffff',
+  'statusBar.border': '#41454a'
+}
+const lightCustomColors: monaco.extra.IThemeScopedColorCustomizations = {
+  'statusBar.background': '#ffffff',
+  'statusBar.foreground': '#20252a',
+  'statusBar.border': '#dadada'
+}
+const customColors: monaco.extra.IColorCustomizations = {
+  ...lightCustomColors,
+  '[Visual Studio Dark]': darkCustomColors,
+  '[Default Dark+]': darkCustomColors,
+  '[Default High Contrast]': darkCustomColors,
+  '[Visual Studio Light]': lightCustomColors,
+  '[Default Light+]': lightCustomColors,
+  '[Default High Contrast Light]': lightCustomColors
+}
+
+const customTokenColors: monaco.extra.ITokenColorCustomizations = {
+}
+const customTokenColor: monaco.extra.ISemanticTokenColorCustomizations = {
+  rules: {
+    '*.static': {
+      fontStyle: 'italic'
+    },
+    '*.final.static': {
+      fontStyle: 'italic bold'
+    },
+    '*.readonly': {
+      fontStyle: 'bold'
+    },
+    '*.deprecated': {
+      fontStyle: 'strikethrough'
+    }
   }
 }
 
-export async function addVSCodeTheme (name: string, vscodeTheme: IVSCodeTheme): Promise<void> {
+export interface Theme {
+  id: string
+  label: string
+}
+
+const themes: Theme[] = []
+export async function defineVSCodeTheme (
+  id: string,
+  vscodeThemeLoader: (uri?: monaco.Uri) => Promise<IVSCodeTheme>,
+  themeExtensionPoint?: Partial<monaco.extra.IThemeExtensionPoint>,
+  extensionData?: Partial<monaco.extra.ExtensionData>
+): Promise<void> {
+  const path = `/theme-${id}.json`
+  const rootUri = monaco.Uri.file(themeExtensionPoint?.path?.slice(1) ?? path)
   const themeData = monaco.extra.ColorThemeData.fromExtensionTheme({
-    id: name,
-    path: `/theme-${name}.json`,
-    uiTheme: convertColorSheme(vscodeTheme.type),
-    _watch: false
-  }, monaco.Uri.file(`/theme-${name}.json`), {
-    extensionId: `theme-${name}`,
+    id,
+    path: path,
+    _watch: false,
+    ...themeExtensionPoint
+  }, rootUri, {
+    extensionId: `theme-${id}`,
     extensionPublisher: 'codingame',
-    extensionName: `theme-${name}`,
-    extensionIsBuiltin: false
+    extensionName: `theme-${id}`,
+    extensionIsBuiltin: false,
+    ...extensionData
   })
-  vscodeThemeData.set(name, themeData)
+  vscodeThemeData.set(id, themeData)
+  themes.push({
+    id,
+    label: themeExtensionPoint?.label ?? themeExtensionPoint?.id ?? id
+  })
+
+  themeData.setCustomColors(customColors)
+  themeData.setCustomTokenColors(customTokenColors)
+  themeData.setCustomSemanticTokenColors(customTokenColor)
 
   await themeData.ensureLoaded({
     _serviceBrand: undefined,
-    readExtensionResource: async () => {
-      return JSON.stringify(vscodeTheme)
+    readExtensionResource: async (uri) => {
+      return JSON.stringify(await vscodeThemeLoader(uri))
     }
   })
-
-  const monacoTheme: monaco.editor.IStandaloneThemeData = {
-    ...convertTheme(fixVSCodeThemeColors(vscodeTheme)),
-    encodedTokensColors: themeData.tokenColorMap.slice(1)
-  }
-  monaco.editor.defineTheme(name, monacoTheme, vscodeTheme.semanticHighlighting)
+  const monacoTheme = convertTheme(themeData, themeExtensionPoint?.uiTheme ?? monaco.extra.VS_LIGHT_THEME)
+  monaco.editor.defineTheme(id, monacoTheme, themeData.semanticHighlighting)
 }
 
 export function getThemeData (themeName: string): monaco.extra.ColorThemeData | null {
   return vscodeThemeData.get(themeName) ?? null
+}
+
+export function getThemes (): Theme[] {
+  return themes
 }

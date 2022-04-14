@@ -39,11 +39,11 @@ for (const languageId of languagesIds) {
 
   monaco.languages.setTokenizationSupportFactory(languageId, {
     createTokenizationSupport: async () => {
-      return getOrCreateTextMateTokensProvider(languageId).catch(err => {
+      return getOrCreateTextMateTokensProvider(languageId).catch(async err => {
         const monarchLoader = monarchLanguageLoader[languageId]
         if (monarchLoader != null) {
           console.warn(`Failed to load TextMate grammar for language ${languageId}, fallback to monarch`, err)
-          monaco.languages.setMonarchTokensProvider(languageId, monarchLoader().then(lang => lang.language))
+          monaco.languages.setMonarchTokensProvider(languageId, (await monarchLoader()).language)
         } else {
           console.warn(`Failed to load TextMate grammar for language ${languageId} and no fallback monarch`, err)
         }

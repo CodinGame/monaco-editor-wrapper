@@ -37,29 +37,14 @@ function colorsAllowed ({ foreground, background }: { foreground?: string, backg
 }
 
 export interface IVSCodeTheme {
-  '$schema': 'vscode://schemas/color-theme'
-  type: monaco.editor.ColorScheme
-  colors: { [name: string]: string }
+  colors?: { [name: string]: string }
   tokenColors: monaco.extra.ITextMateThemingRule[]
-  semanticTokenColors?: Record<string, monaco.extra.ITokenColorizationSetting>
+  semanticTokenColors?: Record<string, monaco.extra.ITokenColorizationSetting | string>
   semanticHighlighting?: boolean
 }
 
-const getBase = (type: monaco.editor.ColorScheme) => {
-  if (type === 'dark') {
-    return 'vs-dark'
-  }
-
-  if (type === 'hc') {
-    return 'hc-black'
-  }
-
-  return 'vs'
-}
-
-function convertTheme (theme: IVSCodeTheme): monaco.editor.IStandaloneThemeData {
-  const { tokenColors = [], colors = {} } = theme
-  const rules = tokenColors
+function convertTheme (themeData: monaco.extra.ColorThemeData, base: monaco.editor.BuiltinTheme): monaco.editor.IStandaloneThemeData {
+  const rules = themeData.tokenColors
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     .filter(t => t.settings != null && t.scope != null && colorsAllowed(t.settings))
     .reduce((acc, token) => {
@@ -85,10 +70,11 @@ function convertTheme (theme: IVSCodeTheme): monaco.editor.IStandaloneThemeData 
     }, [] as monaco.editor.ITokenThemeRule[])
 
   return {
-    base: getBase(theme.type),
+    base,
     inherit: true,
-    colors: colors,
-    rules
+    colors: themeData.colorMapData,
+    rules,
+    encodedTokensColors: themeData.tokenColorMap.slice(1)
   }
 }
 
@@ -103,8 +89,8 @@ function fixVSCodeThemeColors (vscodeTheme: IVSCodeTheme): IVSCodeTheme {
       {
         scope: [''],
         settings: {
-          foreground: fixThemeColor(vscodeTheme.colors['editor.foreground']),
-          background: fixThemeColor(vscodeTheme.colors['editor.background'])
+          foreground: fixThemeColor(vscodeTheme.colors?.['editor.foreground']),
+          background: fixThemeColor(vscodeTheme.colors?.['editor.background'])
         }
       },
       ...vscodeTheme.tokenColors.map(tokenColor => ({

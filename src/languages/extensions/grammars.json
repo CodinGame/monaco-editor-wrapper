@@ -243,7 +243,13 @@
   },
   {
     "language": "shellscript",
-    "scopeName": "source.shell"
+    "scopeName": "source.shell",
+    "balancedBracketScopes": [
+      "*"
+    ],
+    "unbalancedBracketScopes": [
+      "meta.scope.case-pattern.shell"
+    ]
   },
   {
     "language": "sql",
