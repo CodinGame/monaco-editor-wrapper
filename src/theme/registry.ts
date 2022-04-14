@@ -3,6 +3,45 @@ import { convertTheme, IVSCodeTheme } from './tools'
 
 const vscodeThemeData = new Map<string, monaco.extra.ColorThemeData>()
 
+const darkCustomColors: monaco.extra.IThemeScopedColorCustomizations = {
+  'statusBar.background': '#252e38',
+  'statusBar.foreground': '#ffffff',
+  'statusBar.border': '#41454a'
+}
+const lightCustomColors: monaco.extra.IThemeScopedColorCustomizations = {
+  'statusBar.background': '#ffffff',
+  'statusBar.foreground': '#20252a',
+  'statusBar.border': '#dadada'
+}
+const customColors: monaco.extra.IColorCustomizations = {
+  ...lightCustomColors,
+  '[Visual Studio Dark]': darkCustomColors,
+  '[Default Dark+]': darkCustomColors,
+  '[Default High Contrast]': darkCustomColors,
+  '[Visual Studio Light]': lightCustomColors,
+  '[Default Light+]': lightCustomColors,
+  '[Default High Contrast Light]': lightCustomColors
+}
+
+const customTokenColors: monaco.extra.ITokenColorCustomizations = {
+}
+const customTokenColor: monaco.extra.ISemanticTokenColorCustomizations = {
+  rules: {
+    '*.static': {
+      fontStyle: 'italic'
+    },
+    '*.final.static': {
+      fontStyle: 'italic bold'
+    },
+    '*.readonly': {
+      fontStyle: 'bold'
+    },
+    '*.deprecated': {
+      fontStyle: 'strikethrough'
+    }
+  }
+}
+
 export async function defineVSCodeTheme (
   id: string,
   vscodeThemeLoader: (uri?: monaco.Uri) => Promise<IVSCodeTheme>,
@@ -24,6 +63,10 @@ export async function defineVSCodeTheme (
     ...extensionData
   })
   vscodeThemeData.set(id, themeData)
+
+  themeData.setCustomColors(customColors)
+  themeData.setCustomTokenColors(customTokenColors)
+  themeData.setCustomSemanticTokenColors(customTokenColor)
 
   await themeData.ensureLoaded({
     _serviceBrand: undefined,
