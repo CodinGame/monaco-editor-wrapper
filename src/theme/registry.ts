@@ -42,6 +42,12 @@ const customTokenColor: monaco.extra.ISemanticTokenColorCustomizations = {
   }
 }
 
+export interface Theme {
+  id: string
+  label: string
+}
+
+const themes: Theme[] = []
 export async function defineVSCodeTheme (
   id: string,
   vscodeThemeLoader: (uri?: monaco.Uri) => Promise<IVSCodeTheme>,
@@ -63,6 +69,10 @@ export async function defineVSCodeTheme (
     ...extensionData
   })
   vscodeThemeData.set(id, themeData)
+  themes.push({
+    id,
+    label: themeExtensionPoint?.label ?? themeExtensionPoint?.id ?? id
+  })
 
   themeData.setCustomColors(customColors)
   themeData.setCustomTokenColors(customTokenColors)
@@ -80,4 +90,8 @@ export async function defineVSCodeTheme (
 
 export function getThemeData (themeName: string): monaco.extra.ColorThemeData | null {
   return vscodeThemeData.get(themeName) ?? null
+}
+
+export function getThemes (): Theme[] {
+  return themes
 }
