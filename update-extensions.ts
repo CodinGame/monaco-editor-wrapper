@@ -30,7 +30,7 @@ interface Extension {
 }
 
 const extensions: Extension[] = [
-  ...['clojure', 'coffeescript', 'cpp', 'csharp', 'css', 'fsharp', 'go',
+  ...['theme-defaults', 'clojure', 'coffeescript', 'cpp', 'csharp', 'css', 'fsharp', 'go',
     'groovy', 'html', 'java', 'javascript', 'json', 'lua', 'markdown-basics',
     'objective-c', 'perl', 'php', 'powershell', 'python', 'r', 'ruby',
     'rust', 'scss', 'shellscript', 'sql', 'swift', 'typescript-basics', 'typescript-language-features',
@@ -355,6 +355,7 @@ interface PackageJsonContributes {
   semanticTokenScopes?: ITokenStyleDefaultExtensionPoint[]
   semanticTokenModifiers?: ITokenModifierExtensionPoint[]
   configuration?: monaco.extra.IConfigurationNode | monaco.extra.IConfigurationNode[]
+  themes?: monaco.extra.IThemeExtensionPoint[]
 }
 
 async function createRepositoryFileResolver (extension: Extension) {
@@ -401,6 +402,8 @@ async function fetchExtensions () {
   let snippetPaths: Record<string, string> = {}
   let languageConfigurationPaths: Record<string, string> = {}
   let extensionConfigurationRegistrationPaths: Record<string, string> = {}
+  let themePaths: Record<string, string> = {}
+  let themeResult: (Omit<monaco.extra.IThemeExtensionPoint, '_watch'> & { extension: string })[] = []
   let languageResult: Omit<monaco.languages.ILanguageExtensionPoint, 'configuration'>[] = []
 
   const grammarsPath = path.resolve(extensionsPath, 'grammars')
@@ -414,6 +417,9 @@ async function fetchExtensions () {
 
   const extensionConfigurationRegistrationsPath = path.resolve(extensionsPath, 'configurations')
   await fs.mkdir(extensionConfigurationRegistrationsPath, { recursive: true })
+
+  const themesPath = path.resolve(extensionsPath, 'themes')
+  await fs.mkdir(themesPath, { recursive: true })
 
   const extensionResult: {
     configurationDefaults: Record<string, unknown>
@@ -434,6 +440,7 @@ async function fetchExtensions () {
 
     const packageJsonContent = (await download(resolve('package.json')))!
     const packageJson = JSON.parse(packageJsonContent) as {
+      name: string
       contributes: PackageJsonContributes
     }
 
@@ -451,7 +458,8 @@ async function fetchExtensions () {
       semanticTokenTypes,
       semanticTokenScopes,
       semanticTokenModifiers,
-      configuration
+      configuration,
+      themes
     } = packageJson.contributes
 
     if (configurationDefaults != null) {
@@ -580,16 +588,43 @@ async function fetchExtensions () {
         [extension.name]: path.join('configurations', filePath)
       }
     }
+
+    if (themes != null) {
+      for (const theme of themes) {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (theme.id == null) {
+          continue
+        }
+        const filePath = `${packageJson.name}~${path.basename(theme.path)}`
+        const themeContent = JSON5.parse((await download(resolve(theme.path)))!)
+
+        await fs.writeFile(path.resolve(themesPath, filePath), JSON.stringify(themeContent, null, 2))
+
+        themePaths = {
+          ...themePaths,
+          [`${packageJson.name}:${path.resolve('/', theme.path)}`]: path.join('themes', filePath)
+        }
+
+        themeResult = [
+          ...themeResult, {
+            ...theme,
+            extension: packageJson.name
+          }
+        ]
+      }
+    }
   }
 
   return {
     grammars: grammarResult,
     languages: languageResult,
     extensions: extensionResult,
+    themes: themeResult,
     grammarPaths,
     snippetPaths,
     languageConfigurationPaths,
-    extensionConfigurationRegistrationPaths
+    extensionConfigurationRegistrationPaths,
+    themePaths
   }
 }
 
@@ -613,6 +648,10 @@ function generateConfigurationRegistrationLoaderLine ([extensionId, path]: [stri
   return generateLoaderLine(extensionId, `configuration-registration-${extensionId}`, path)
 }
 
+function generateThemeLoaderLine ([themeId, path]: [string, string]) {
+  return generateLoaderLine(themeId, `theme-${themeId}`, path, 'eager')
+}
+
 async function main () {
   const {
     grammars,
@@ -620,8 +659,10 @@ async function main () {
     extensions,
     snippetPaths,
     grammarPaths,
+    themePaths,
     languageConfigurationPaths,
-    extensionConfigurationRegistrationPaths
+    extensionConfigurationRegistrationPaths,
+    themes
   } = await fetchExtensions()
 
   await fs.mkdir(path.dirname(extensionsPath), { recursive: true })
@@ -630,6 +671,8 @@ async function main () {
   await fs.writeFile(path.resolve(extensionsPath, 'grammars.json'), JSON.stringify(grammars, null, 2))
 
   await fs.writeFile(path.resolve(extensionsPath, 'extensions.json'), JSON.stringify(extensions, null, 2))
+
+  await fs.writeFile(path.resolve(extensionsPath, 'themes.json'), JSON.stringify(themes, null, 2))
 
   const grammarLoaders = `{\n${Object.entries(grammarPaths).map(generateGrammarLoaderLine).join(',\n')}\n}`
 
@@ -683,6 +726,18 @@ import * as monaco from 'monaco-editor'
 
 /* eslint-disable */
 const loader = ${configurationRegistrationLoader} as unknown as Partial<Record<string, () => Promise<monaco.extra.IConfigurationNode[]>>>
+
+export default loader
+  `)
+
+  const themeLoader = `{\n${Object.entries(themePaths).map(generateThemeLoaderLine).join(',\n')}\n}`
+
+  await fs.writeFile(path.resolve(extensionsPath, 'themeLoader.ts'), `
+// Generated file, do not modify
+import { IVSCodeTheme } from '../../theme/tools'
+
+/* eslint-disable */
+const loader = ${themeLoader} as Partial<Record<string, () => Promise<IVSCodeTheme>>>
 
 export default loader
   `)
