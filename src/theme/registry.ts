@@ -14,7 +14,6 @@ const lightCustomColors: monaco.extra.IThemeScopedColorCustomizations = {
   'statusBar.border': '#dadada'
 }
 const customColors: monaco.extra.IColorCustomizations = {
-  ...lightCustomColors,
   '[Visual Studio Dark]': darkCustomColors,
   '[Default Dark+]': darkCustomColors,
   '[Default High Contrast]': darkCustomColors,
