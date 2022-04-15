@@ -21,8 +21,10 @@ monaco.extra.StandaloneServices.initialize({
 
 // Force EOL to be '\n' even on Windows
 const configurationService = monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService)
-configurationService.updateValue('files.eol', '\n').catch(err => {
-  console.error('Unable to set file eol', err)
+configurationService.updateValue('files.eol', '\n').catch((error: Error) => {
+  monaco.errorHandler.onUnexpectedError(new Error('Unable to set file eol', {
+    cause: error
+  }))
 })
 
 monaco.errorHandler.setUnexpectedErrorHandler(error => {
