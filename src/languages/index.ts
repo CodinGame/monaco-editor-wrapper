@@ -39,13 +39,23 @@ for (const languageId of languagesIds) {
 
   monaco.languages.setTokenizationSupportFactory(languageId, {
     createTokenizationSupport: async () => {
-      return getOrCreateTextMateTokensProvider(languageId).catch(async err => {
+      return getOrCreateTextMateTokensProvider(languageId).catch(async (error: Error) => {
         const monarchLoader = monarchLanguageLoader[languageId]
         if (monarchLoader != null) {
-          console.warn(`Failed to load TextMate grammar for language ${languageId}, fallback to monarch`, err)
-          monaco.languages.setMonarchTokensProvider(languageId, (await monarchLoader()).language)
+          monaco.errorHandler.onUnexpectedError(new Error(`Failed to load TextMate grammar for language ${languageId}, fallback to monarch`, {
+            cause: error
+          }))
+          try {
+            monaco.languages.setMonarchTokensProvider(languageId, (await monarchLoader()).language)
+          } catch (error) {
+            monaco.errorHandler.onUnexpectedError(new Error(`Failed to load Monarch grammar for language ${languageId}`, {
+              cause: error as Error
+            }))
+          }
         } else {
-          console.warn(`Failed to load TextMate grammar for language ${languageId} and no fallback monarch`, err)
+          monaco.errorHandler.onUnexpectedError(new Error(`Failed to load TextMate grammar for language ${languageId} and no fallback monarch`, {
+            cause: error
+          }))
         }
         return null
       })
@@ -87,7 +97,9 @@ languageService.onDidEncounterLanguage(async (languageId) => {
   }
 
   loadLanguageConfiguration(languageId).catch(error => {
-    console.error('Unable to load language configuration', error)
+    monaco.errorHandler.onUnexpectedError(new Error(`Unable to load language configuration for language ${languageId}`, {
+      cause: error
+    }))
   })
 })
 

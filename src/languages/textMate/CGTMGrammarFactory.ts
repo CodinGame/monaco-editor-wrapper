@@ -16,7 +16,9 @@ const getOnigLib = async (binaryUrl: string): Promise<vscodeTextmate.IOnigLib> =
       createOnigString
     }
   } catch (error) {
-    console.error('Unable to load wasm', error)
+    monaco.errorHandler.onUnexpectedError(new Error('Unable to load vscode-oniguruma wasm', {
+      cause: error as Error
+    }))
     throw error
   }
 }
@@ -32,7 +34,11 @@ export default class CGTMGrammarFactory extends monaco.extra.TMGrammarFactory {
     const grammarFactoryHost: monaco.extra.ITMGrammarFactoryHost = {
       // eslint-disable-next-line no-console
       logTrace: console.debug,
-      logError: console.error,
+      logError: (msg, error: Error) => {
+        monaco.errorHandler.onUnexpectedError(new Error(msg, {
+          cause: error
+        }))
+      },
       async readFile (resource: monaco.Uri): Promise<string> {
         const scopeName = resource.path.slice(resource.path.lastIndexOf('/') + 1, -'.json'.length)
         const grammarLoader = scopeGrammarLoader[scopeName]

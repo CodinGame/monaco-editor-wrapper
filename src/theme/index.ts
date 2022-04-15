@@ -35,7 +35,9 @@ for (const themeExtensionPoint of (defaultThemes as VSCodeTheme[])) {
     extensionName: themeExtensionPoint.extension,
     extensionIsBuiltin: true
   }).catch((error: Error) => {
-    console.error('Unable to define vscode theme', error)
+    monaco.errorHandler.onUnexpectedError(new Error(`Unable to define "${themeExtensionPoint.id}" vscode theme`, {
+      cause: error
+    }))
   })
 }
 
