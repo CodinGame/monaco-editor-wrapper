@@ -36,6 +36,9 @@ const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILa
 async function createTextMateTokensProvider (languageId: string): Promise<monaco.languages.ITokenizationSupport | null> {
   const grammarFactory = getOrCreateGrammarFactory()
   const encodedLanguageId = languageService.languageIdCodec.encodeLanguageId(languageId)
+  if (!grammarFactory.has(languageId)) {
+    return null
+  }
   const { grammar, initialState, containsEmbeddedLanguages } = await grammarFactory.createGrammar(languageId, encodedLanguageId)
   if (grammar == null) {
     return null
