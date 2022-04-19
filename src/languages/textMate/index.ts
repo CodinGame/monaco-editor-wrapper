@@ -11,7 +11,10 @@ function createGrammarFactory (): CGTMGrammarFactory {
   const parsedGrammars = (rawGrammars as unknown as Omit<monaco.extra.ITMSyntaxExtensionPoint, 'path'>[])
     .map(grammar => ({
       ...monaco.extra.parseTextMateGrammar(grammar as monaco.extra.ITMSyntaxExtensionPoint, languageService),
-      location: monaco.Uri.file(grammar.scopeName + '.json')
+      location: monaco.Uri.from({
+        scheme: 'browser',
+        path: grammar.scopeName + '.json'
+      })
     }))
 
   return new CGTMGrammarFactory(

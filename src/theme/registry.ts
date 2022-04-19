@@ -54,7 +54,11 @@ export async function defineVSCodeTheme (
   extensionData?: Partial<monaco.extra.ExtensionData>
 ): Promise<void> {
   const path = `/theme-${id}.json`
-  const rootUri = monaco.Uri.file(themeExtensionPoint?.path?.slice(1) ?? path)
+  // Do not use `file` scheme or monaco will replace `/` by `\` on windows
+  const rootUri = monaco.Uri.from({
+    scheme: 'browser',
+    path: themeExtensionPoint?.path?.slice(1) ?? path
+  })
   const themeData = monaco.extra.ColorThemeData.fromExtensionTheme({
     id,
     path: path,
