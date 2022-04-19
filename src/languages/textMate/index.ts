@@ -33,12 +33,12 @@ function getOrCreateGrammarFactory (): CGTMGrammarFactory {
 }
 
 const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageService)
-async function createTextMateTokensProvider (languageId: string): Promise<monaco.languages.ITokenizationSupport> {
+async function createTextMateTokensProvider (languageId: string): Promise<monaco.languages.ITokenizationSupport | null> {
   const grammarFactory = getOrCreateGrammarFactory()
   const encodedLanguageId = languageService.languageIdCodec.encodeLanguageId(languageId)
   const { grammar, initialState, containsEmbeddedLanguages } = await grammarFactory.createGrammar(languageId, encodedLanguageId)
   if (grammar == null) {
-    throw new Error(`No grammar found for language ${languageId}`)
+    return null
   }
   const tokenization = new monaco.extra.TMTokenization(grammar, initialState, containsEmbeddedLanguages)
   tokenization.onDidEncounterLanguage((encodedLanguageId) => {
@@ -48,9 +48,9 @@ async function createTextMateTokensProvider (languageId: string): Promise<monaco
   return new CGTMTokenizationSupport(languageId, encodedLanguageId, tokenization, grammar)
 }
 
-const tokenizationSupports = new Map<string, Promise<monaco.languages.ITokenizationSupport>>()
+const tokenizationSupports = new Map<string, Promise<monaco.languages.ITokenizationSupport | null>>()
 
-export function getOrCreateTextMateTokensProvider (languageId: string): Promise<monaco.languages.ITokenizationSupport> {
+export function getOrCreateTextMateTokensProvider (languageId: string): Promise<monaco.languages.ITokenizationSupport | null> {
   let tokenizationSupportPromise = tokenizationSupports.get(languageId)
   if (tokenizationSupportPromise == null) {
     tokenizationSupportPromise = createTextMateTokensProvider(languageId)
