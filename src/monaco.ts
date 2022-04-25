@@ -6,6 +6,16 @@ import TextModelService from './services/TextModelService'
 import './worker'
 import setupExtensions from './extensions'
 
+import 'monaco-editor/esm/vs/editor/editor.all'
+import 'monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp'
+import 'monaco-editor/esm/vs/editor/standalone/browser/iPadShowKeyboard/iPadShowKeyboard'
+import 'monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens'
+import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneHelpQuickAccess'
+import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoLineQuickAccess'
+import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoSymbolQuickAccess'
+import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneCommandsQuickAccess'
+import 'monaco-editor/esm/vs/editor/standalone/browser/referenceSearch/standaloneReferenceSearch'
+
 monaco.extra.StandaloneServices.initialize({
   get textModelService () {
     return new TextModelService(monaco.extra.StandaloneServices.get(monaco.extra.IModelService))
@@ -18,6 +28,8 @@ monaco.extra.StandaloneServices.initialize({
     )
   }
 })
+// Disable high contrast autodetection because it fallbacks on the hc-black no matter what
+monaco.extra.StandaloneServices.get(monaco.editor.IStandaloneThemeService).setAutoDetectHighContrast(false)
 
 // Force EOL to be '\n' even on Windows
 const configurationService = monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService)

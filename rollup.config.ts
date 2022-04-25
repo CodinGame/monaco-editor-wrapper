@@ -44,8 +44,8 @@ export default rollup.defineConfig({
     dir: 'dist',
     format: 'esm',
     paths: {
-      'monaco-editor': 'monaco-editor/esm/vs/editor/edcore.main',
-      'monaco-editor-core': 'monaco-editor/esm/vs/editor/edcore.main'
+      'monaco-editor': 'monaco-editor/esm/vs/editor/editor.api',
+      'monaco-editor-core': 'monaco-editor/esm/vs/editor/editor.api'
     },
     entryFileNames: (module) => {
       const name = path.join(
@@ -101,7 +101,7 @@ export default rollup.defineConfig({
         replacement: 'monaco-editor/'
       }, {
         find: /^(monaco-editor|monaco-editor-core)$/,
-        replacement: 'monaco-editor/esm/vs/editor/edcore.main'
+        replacement: 'monaco-editor/esm/vs/editor/editor.api'
       }]
     }),
     string({

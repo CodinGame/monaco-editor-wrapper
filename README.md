@@ -32,14 +32,14 @@ npm install @codingame/monaco-editor-wrapper
 ### Usage
 
 :warning: You should NEVER import `monaco-editor` directly in your code.
-`monaco-editor/esm/vs/editor/edcore.main` should be used instead or Monaco will load all languages/worker and break the loading.
+`monaco-editor/esm/vs/editor/editor.api` should be used instead or Monaco will load all languages/worker and break the loading.
 There are 2 solutions:
 - if webpack is used, a resolve alias can be used:
 ```javascript
 {
   resolve: {
     alias: {
-      'monaco-editor$': require.resolve('monaco-editor/esm/vs/editor/edcore.main')
+      'monaco-editor$': require.resolve('monaco-editor/esm/vs/editor/editor.api')
     }
   }
 }
