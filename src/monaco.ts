@@ -6,6 +6,17 @@ import TextModelService from './services/TextModelService'
 import './worker'
 import setupExtensions from './extensions'
 
+import 'monaco-editor/esm/vs/editor/editor.all'
+import 'monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp'
+import 'monaco-editor/esm/vs/editor/standalone/browser/iPadShowKeyboard/iPadShowKeyboard'
+import 'monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens'
+import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneHelpQuickAccess'
+import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoLineQuickAccess'
+import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoSymbolQuickAccess'
+import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneCommandsQuickAccess'
+import 'monaco-editor/esm/vs/editor/standalone/browser/referenceSearch/standaloneReferenceSearch'
+import 'monaco-editor/esm/vs/editor/standalone/browser/toggleHighContrast/toggleHighContrast'
+
 monaco.extra.StandaloneServices.initialize({
   get textModelService () {
     return new TextModelService(monaco.extra.StandaloneServices.get(monaco.extra.IModelService))
