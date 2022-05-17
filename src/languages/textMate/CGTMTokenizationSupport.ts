@@ -19,7 +19,7 @@ export default class CGTMTokenizationSupport extends monaco.extra.TMTokenization
   }
 
   // To make "inspect tokens" work, default impl is `throw new Error('Not supported!');`
-  tokenize (line: string, hasEOL: boolean, state: monaco.languages.IState): monaco.TokenizationResult {
+  override tokenize (line: string, hasEOL: boolean, state: monaco.languages.IState): monaco.TokenizationResult {
     return monaco.languages.adaptTokenize(this.languageId, {
       tokenize: (line: string, state: monaco.languages.IState) => {
         const actualResult = this.grammar.tokenizeLine(line, state as StackElement)

@@ -168,11 +168,11 @@ export default class TextModelService extends monaco.extra.StandaloneTextModelSe
     super(modelService)
   }
 
-  public registerTextModelContentProvider (scheme: string, provider: monaco.extra.ITextModelContentProvider): monaco.IDisposable {
+  public override registerTextModelContentProvider (scheme: string, provider: monaco.extra.ITextModelContentProvider): monaco.IDisposable {
     return this.resourceModelCollection.registerTextModelContentProvider(scheme, provider)
   }
 
-  public async createModelReference (resource: monaco.Uri): Promise<monaco.extra.IReference<monaco.extra.IResolvedTextEditorModel>> {
+  public override async createModelReference (resource: monaco.Uri): Promise<monaco.extra.IReference<monaco.extra.IResolvedTextEditorModel>> {
     const result = await this.asyncModelCollection.acquire(resource.toString())
     return result
   }
