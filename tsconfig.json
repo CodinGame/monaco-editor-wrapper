@@ -4,6 +4,7 @@
     "strict": true,
     "baseUrl": "./app",
     "esModuleInterop": true,
+    "noImplicitOverride": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "lib": [

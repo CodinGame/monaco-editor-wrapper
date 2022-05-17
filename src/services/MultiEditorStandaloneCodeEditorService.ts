@@ -54,7 +54,7 @@ function openNewCodeEditor (model: monaco.editor.ITextModel) {
   return editor
 }
 
-export type EditorOpenHandler = (model: monaco.editor.ITextModel, input: monaco.extra.IResourceEditorInput, editor: monaco.editor.ICodeEditor, sideBySide?: boolean) => Promise<monaco.editor.ICodeEditor | null>
+export type EditorOpenHandler = (model: monaco.editor.ITextModel, input: monaco.extra.IResourceEditorInput, editor: monaco.editor.ICodeEditor | null, sideBySide?: boolean) => Promise<monaco.editor.ICodeEditor | null>
 
 export default class MultiEditorStandaloneCodeEditorServiceImpl extends monaco.extra.StandaloneCodeEditorService {
   private textModelService: monaco.extra.ITextModelService
@@ -81,11 +81,11 @@ export default class MultiEditorStandaloneCodeEditorServiceImpl extends monaco.e
     }
   }
 
-  override async openCodeEditor (input: monaco.extra.IResourceEditorInput, editor: monaco.editor.ICodeEditor, sideBySide?: boolean): Promise<monaco.editor.ICodeEditor | null> {
+  override async openCodeEditor (input: monaco.extra.IResourceEditorInput, editor: monaco.editor.ICodeEditor | null, sideBySide?: boolean): Promise<monaco.editor.ICodeEditor | null> {
     const reference = await this.textModelService.createModelReference(input.resource)
     const model = reference.object.textEditorModel
     let modelEditor: monaco.editor.ICodeEditor | undefined
-    if (editor.getModel() === model) {
+    if (editor != null && editor.getModel() === model) {
       modelEditor = editor
     }
     if (modelEditor == null) {
