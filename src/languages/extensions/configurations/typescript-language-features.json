@@ -162,6 +162,12 @@
         "markdownDescription": "Enable/disable inlay hints for implicit variable types:\n```typescript\n\nconst foo /* :number */ = Date.now();\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
         "scope": 4
       },
+      "typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Suppress type hints on variables whose name is identical to the type name. Requires using TypeScript 4.8+ in the workspace.",
+        "scope": 4
+      },
       "typescript.inlayHints.propertyDeclarationTypes.enabled": {
         "type": "boolean",
         "default": false,
@@ -212,6 +218,12 @@
         "type": "boolean",
         "default": false,
         "markdownDescription": "Enable/disable inlay hints for implicit variable types:\n```typescript\n\nconst foo /* :number */ = Date.now();\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
+        "scope": 4
+      },
+      "javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Suppress type hints on variables whose name is identical to the type name. Requires using TypeScript 4.8+ in the workspace.",
         "scope": 4
       },
       "javascript.inlayHints.propertyDeclarationTypes.enabled": {
@@ -566,7 +578,7 @@
       },
       "js/ts.implicitProjectConfig.strictNullChecks": {
         "type": "boolean",
-        "default": false,
+        "default": true,
         "markdownDescription": "Enable/disable [strict null checks](https://www.typescriptlang.org/tsconfig#strictNullChecks) in JavaScript and TypeScript files that are not part of a project. Existing `jsconfig.json` or `tsconfig.json` files override this setting.",
         "scope": 3
       },
@@ -952,7 +964,10 @@
         "type": "boolean",
         "default": false,
         "description": "(Experimental) Enables project wide error reporting.",
-        "scope": 3
+        "scope": 3,
+        "tags": [
+          "experimental"
+        ]
       },
       "typescript.tsserver.watchOptions": {
         "type": "object",
