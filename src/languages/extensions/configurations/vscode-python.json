@@ -25,12 +25,6 @@
         "scope": 1,
         "type": "boolean"
       },
-      "python.disableInstallationCheck": {
-        "default": false,
-        "description": "Whether to check if Python is installed (also warn when using the macOS-installed Python).",
-        "scope": 4,
-        "type": "boolean"
-      },
       "python.envFile": {
         "default": "${workspaceFolder}/.env",
         "description": "Absolute path to a file containing environment variable definitions.",
@@ -526,6 +520,15 @@
         "scope": 6,
         "type": "string"
       },
+      "python.pylanceLspNotebooksEnabled": {
+        "type": "boolean",
+        "default": false,
+        "description": "Determines if Pylance's experimental LSP notebooks support is used or not.",
+        "scope": 2,
+        "tags": [
+          "experimental"
+        ]
+      },
       "python.sortImports.args": {
         "default": [],
         "description": "Arguments passed in. Each argument is a separate item in the array.",
@@ -542,6 +545,7 @@
         "type": "string"
       },
       "python.tensorBoard.logDirectory": {
+        "default": "",
         "description": "Set this setting to your preferred TensorBoard log directory to skip log directory prompt when starting TensorBoard.",
         "scope": 1,
         "type": "string"
@@ -561,6 +565,12 @@
       "python.terminal.executeInFileDir": {
         "default": false,
         "description": "When executing a file in the terminal, whether to use execute in the file's directory, instead of the current open folder.",
+        "scope": 4,
+        "type": "boolean"
+      },
+      "python.terminal.focusAfterLaunch": {
+        "default": false,
+        "description": "When launching a python process, whether to focus on the terminal.",
         "scope": 4,
         "type": "boolean"
       },

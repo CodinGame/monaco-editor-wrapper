@@ -32,6 +32,10 @@
     "files.watcherExclude": {
       "**/.dart_tool": true
     },
+    "explorer.fileNesting.patterns": {
+      "pubspec.yaml": "pubspec.lock,pubspec_overrides.yaml,.packages,.flutter-plugins,.flutter-plugins-dependencies,.metadata",
+      "*.dart": "${capture}.g.dart"
+    },
     "[scala]": {
       "editor.suggestSelection": "first",
       "editor.formatOnPaste": true,
@@ -63,9 +67,6 @@
       "editor.wordBasedSuggestions": false,
       "editor.suggest.insertMode": "replace",
       "editor.semanticHighlighting.enabled": true
-    },
-    "[Log]": {
-      "editor.wordWrap": "off"
     }
   },
   "semanticTokenTypes": [

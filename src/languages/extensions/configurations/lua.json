@@ -1,30 +1,6 @@
 [
   {
     "properties": {
-      "Lua.IntelliSense.traceBeSetted": {
-        "default": false,
-        "markdownDescription": "Please read [wiki](https://github.com/sumneko/lua-language-server/wiki/IntelliSense-optional-features) to learn more.",
-        "scope": 4,
-        "type": "boolean"
-      },
-      "Lua.IntelliSense.traceFieldInject": {
-        "default": false,
-        "markdownDescription": "Please read [wiki](https://github.com/sumneko/lua-language-server/wiki/IntelliSense-optional-features) to learn more.",
-        "scope": 4,
-        "type": "boolean"
-      },
-      "Lua.IntelliSense.traceLocalSet": {
-        "default": false,
-        "markdownDescription": "Please read [wiki](https://github.com/sumneko/lua-language-server/wiki/IntelliSense-optional-features) to learn more.",
-        "scope": 4,
-        "type": "boolean"
-      },
-      "Lua.IntelliSense.traceReturn": {
-        "default": false,
-        "markdownDescription": "Please read [wiki](https://github.com/sumneko/lua-language-server/wiki/IntelliSense-optional-features) to learn more.",
-        "scope": 4,
-        "type": "boolean"
-      },
       "Lua.completion.autoRequire": {
         "default": true,
         "markdownDescription": "When the input looks like a file name, automatically `require` this file.",
@@ -116,15 +92,26 @@
         "type": "boolean"
       },
       "Lua.diagnostics.disable": {
+        "default": [
+          "lowercase-global"
+        ],
         "items": {
           "type": "string"
         },
         "markdownDescription": "Disabled diagnostic (Use code in hover brackets).",
         "scope": 4,
-        "type": "array",
+        "type": "array"
+      },
+      "Lua.diagnostics.disableScheme": {
         "default": [
-          "lowercase-global"
-        ]
+          "git"
+        ],
+        "items": {
+          "type": "string"
+        },
+        "markdownDescription": "Do not diagnose Lua files that use the following scheme.",
+        "scope": 4,
+        "type": "array"
       },
       "Lua.diagnostics.enable": {
         "default": true,
@@ -133,6 +120,7 @@
         "type": "boolean"
       },
       "Lua.diagnostics.globals": {
+        "default": [],
         "items": {
           "type": "string"
         },
@@ -178,7 +166,7 @@
         "properties": {
           "ambiguity-1": {
             "default": "Any",
-            "description": "%config.diagnostics.ambiguity-1%",
+            "description": "Enable ambiguous operator precedence diagnostics. For example, the `num or 0 + 1` expression will be suggested `(num or 0) + 1` instead.",
             "enum": [
               "Any",
               "Opened",
@@ -318,7 +306,7 @@
           },
           "duplicate-index": {
             "default": "Any",
-            "description": "%config.diagnostics.duplicate-index%",
+            "description": "Enable duplicate table index diagnostics.",
             "enum": [
               "Any",
               "Opened",
@@ -338,7 +326,7 @@
           },
           "empty-block": {
             "default": "Opened",
-            "description": "%config.diagnostics.empty-block%",
+            "description": "Enable empty code block diagnostics.",
             "enum": [
               "Any",
               "Opened",
@@ -348,7 +336,7 @@
           },
           "global-in-nil-env": {
             "default": "Any",
-            "description": "%config.diagnostics.global-in-nil-env%",
+            "description": "Enable cannot use global variables （ `_ENV` is set to `nil`） diagnostics.",
             "enum": [
               "Any",
               "Opened",
@@ -358,7 +346,27 @@
           },
           "lowercase-global": {
             "default": "Any",
-            "description": "%config.diagnostics.lowercase-global%",
+            "description": "Enable lowercase global variable definition diagnostics.",
+            "enum": [
+              "Any",
+              "Opened",
+              "None"
+            ],
+            "type": "string"
+          },
+          "missing-parameter": {
+            "default": "Opened",
+            "description": "%config.diagnostics.missing-parameter%",
+            "enum": [
+              "Any",
+              "Opened",
+              "None"
+            ],
+            "type": "string"
+          },
+          "need-check-nil": {
+            "default": "Opened",
+            "description": "%config.diagnostics.need-check-nil%",
             "enum": [
               "Any",
               "Opened",
@@ -368,7 +376,7 @@
           },
           "newfield-call": {
             "default": "Any",
-            "description": "%config.diagnostics.newfield-call%",
+            "description": "在字面量表中，2行代码之间缺少分隔符，在语法上被解析为了一次索引操作",
             "enum": [
               "Any",
               "Opened",
@@ -378,7 +386,7 @@
           },
           "newline-call": {
             "default": "Any",
-            "description": "%config.diagnostics.newline-call%",
+            "description": "Enable newline call diagnostics. Is's raised when a line starting with `(` is encountered, which is syntactically parsed as a function call on the previous line.",
             "enum": [
               "Any",
               "Opened",
@@ -408,7 +416,7 @@
           },
           "redefined-local": {
             "default": "Opened",
-            "description": "%config.diagnostics.redefined-local%",
+            "description": "Enable redefined local variable diagnostics.",
             "enum": [
               "Any",
               "Opened",
@@ -418,7 +426,7 @@
           },
           "redundant-parameter": {
             "default": "Opened",
-            "description": "%config.diagnostics.redundant-parameter%",
+            "description": "Enable redundant function parameter diagnostics.",
             "enum": [
               "Any",
               "Opened",
@@ -438,7 +446,17 @@
           },
           "redundant-value": {
             "default": "Opened",
-            "description": "%config.diagnostics.redundant-value%",
+            "description": "Enable the redundant values assigned diagnostics. It's raised during assignment operation, when the number of values is higher than the number of objects being assigned.",
+            "enum": [
+              "Any",
+              "Opened",
+              "None"
+            ],
+            "type": "string"
+          },
+          "spell-check": {
+            "default": "None",
+            "description": "%config.diagnostics.spell-check%",
             "enum": [
               "Any",
               "Opened",
@@ -448,7 +466,7 @@
           },
           "trailing-space": {
             "default": "Opened",
-            "description": "%config.diagnostics.trailing-space%",
+            "description": "Enable trailing space diagnostics.",
             "enum": [
               "Any",
               "Opened",
@@ -508,7 +526,7 @@
           },
           "undefined-env-child": {
             "default": "Any",
-            "description": "%config.diagnostics.undefined-env-child%",
+            "description": "Enable undefined environment variable diagnostics. It's raised when `_ENV` table is set to a new literal table, but the used global variable is no longer present in the global environment.",
             "enum": [
               "Any",
               "Opened",
@@ -528,7 +546,7 @@
           },
           "undefined-global": {
             "default": "Any",
-            "description": "%config.diagnostics.undefined-global%",
+            "description": "Enable undefined global variable diagnostics.",
             "enum": [
               "Any",
               "Opened",
@@ -548,7 +566,7 @@
           },
           "unused-function": {
             "default": "Opened",
-            "description": "%config.diagnostics.unused-function%",
+            "description": "Enable unused function diagnostics.",
             "enum": [
               "Any",
               "Opened",
@@ -558,7 +576,7 @@
           },
           "unused-label": {
             "default": "Opened",
-            "description": "%config.diagnostics.unused-label%",
+            "description": "Enable unused label diagnostics.",
             "enum": [
               "Any",
               "Opened",
@@ -568,7 +586,7 @@
           },
           "unused-local": {
             "default": "Opened",
-            "description": "%config.diagnostics.unused-local%",
+            "description": "Enable unused local variable diagnostics.",
             "enum": [
               "Any",
               "Opened",
@@ -578,7 +596,7 @@
           },
           "unused-vararg": {
             "default": "Opened",
-            "description": "%config.diagnostics.unused-vararg%",
+            "description": "Enable unused vararg diagnostics.",
             "enum": [
               "Any",
               "Opened",
@@ -597,7 +615,7 @@
         "properties": {
           "ambiguity-1": {
             "default": "Warning",
-            "description": "%config.diagnostics.ambiguity-1%",
+            "description": "Enable ambiguous operator precedence diagnostics. For example, the `num or 0 + 1` expression will be suggested `(num or 0) + 1` instead.",
             "enum": [
               "Error",
               "Warning",
@@ -751,7 +769,7 @@
           },
           "duplicate-index": {
             "default": "Warning",
-            "description": "%config.diagnostics.duplicate-index%",
+            "description": "Enable duplicate table index diagnostics.",
             "enum": [
               "Error",
               "Warning",
@@ -773,7 +791,7 @@
           },
           "empty-block": {
             "default": "Hint",
-            "description": "%config.diagnostics.empty-block%",
+            "description": "Enable empty code block diagnostics.",
             "enum": [
               "Error",
               "Warning",
@@ -784,7 +802,7 @@
           },
           "global-in-nil-env": {
             "default": "Warning",
-            "description": "%config.diagnostics.global-in-nil-env%",
+            "description": "Enable cannot use global variables （ `_ENV` is set to `nil`） diagnostics.",
             "enum": [
               "Error",
               "Warning",
@@ -795,7 +813,29 @@
           },
           "lowercase-global": {
             "default": "Information",
-            "description": "%config.diagnostics.lowercase-global%",
+            "description": "Enable lowercase global variable definition diagnostics.",
+            "enum": [
+              "Error",
+              "Warning",
+              "Information",
+              "Hint"
+            ],
+            "type": "string"
+          },
+          "missing-parameter": {
+            "default": "Warning",
+            "description": "%config.diagnostics.missing-parameter%",
+            "enum": [
+              "Error",
+              "Warning",
+              "Information",
+              "Hint"
+            ],
+            "type": "string"
+          },
+          "need-check-nil": {
+            "default": "Warning",
+            "description": "%config.diagnostics.need-check-nil%",
             "enum": [
               "Error",
               "Warning",
@@ -806,7 +846,7 @@
           },
           "newfield-call": {
             "default": "Warning",
-            "description": "%config.diagnostics.newfield-call%",
+            "description": "在字面量表中，2行代码之间缺少分隔符，在语法上被解析为了一次索引操作",
             "enum": [
               "Error",
               "Warning",
@@ -817,7 +857,7 @@
           },
           "newline-call": {
             "default": "Information",
-            "description": "%config.diagnostics.newline-call%",
+            "description": "Enable newline call diagnostics. Is's raised when a line starting with `(` is encountered, which is syntactically parsed as a function call on the previous line.",
             "enum": [
               "Error",
               "Warning",
@@ -850,7 +890,7 @@
           },
           "redefined-local": {
             "default": "Hint",
-            "description": "%config.diagnostics.redefined-local%",
+            "description": "Enable redefined local variable diagnostics.",
             "enum": [
               "Error",
               "Warning",
@@ -861,7 +901,7 @@
           },
           "redundant-parameter": {
             "default": "Warning",
-            "description": "%config.diagnostics.redundant-parameter%",
+            "description": "Enable redundant function parameter diagnostics.",
             "enum": [
               "Error",
               "Warning",
@@ -883,7 +923,18 @@
           },
           "redundant-value": {
             "default": "Warning",
-            "description": "%config.diagnostics.redundant-value%",
+            "description": "Enable the redundant values assigned diagnostics. It's raised during assignment operation, when the number of values is higher than the number of objects being assigned.",
+            "enum": [
+              "Error",
+              "Warning",
+              "Information",
+              "Hint"
+            ],
+            "type": "string"
+          },
+          "spell-check": {
+            "default": "Information",
+            "description": "%config.diagnostics.spell-check%",
             "enum": [
               "Error",
               "Warning",
@@ -894,7 +945,7 @@
           },
           "trailing-space": {
             "default": "Hint",
-            "description": "%config.diagnostics.trailing-space%",
+            "description": "Enable trailing space diagnostics.",
             "enum": [
               "Error",
               "Warning",
@@ -960,7 +1011,7 @@
           },
           "undefined-env-child": {
             "default": "Information",
-            "description": "%config.diagnostics.undefined-env-child%",
+            "description": "Enable undefined environment variable diagnostics. It's raised when `_ENV` table is set to a new literal table, but the used global variable is no longer present in the global environment.",
             "enum": [
               "Error",
               "Warning",
@@ -982,7 +1033,7 @@
           },
           "undefined-global": {
             "default": "Warning",
-            "description": "%config.diagnostics.undefined-global%",
+            "description": "Enable undefined global variable diagnostics.",
             "enum": [
               "Error",
               "Warning",
@@ -1004,7 +1055,7 @@
           },
           "unused-function": {
             "default": "Hint",
-            "description": "%config.diagnostics.unused-function%",
+            "description": "Enable unused function diagnostics.",
             "enum": [
               "Error",
               "Warning",
@@ -1015,7 +1066,7 @@
           },
           "unused-label": {
             "default": "Hint",
-            "description": "%config.diagnostics.unused-label%",
+            "description": "Enable unused label diagnostics.",
             "enum": [
               "Error",
               "Warning",
@@ -1026,7 +1077,7 @@
           },
           "unused-local": {
             "default": "Hint",
-            "description": "%config.diagnostics.unused-local%",
+            "description": "Enable unused local variable diagnostics.",
             "enum": [
               "Error",
               "Warning",
@@ -1037,7 +1088,7 @@
           },
           "unused-vararg": {
             "default": "Hint",
-            "description": "%config.diagnostics.unused-vararg%",
+            "description": "Enable unused vararg diagnostics.",
             "enum": [
               "Error",
               "Warning",
@@ -1064,12 +1115,21 @@
         "type": "integer"
       },
       "Lua.format.defaultConfig": {
+        "additionalProperties": false,
+        "default": [],
         "markdownDescription": "%config.format.defaultConfig%",
+        "patternProperties": {
+          ".*": {
+            "default": "",
+            "type": "string"
+          }
+        },
         "scope": 4,
+        "title": "defaultConfig",
         "type": "object"
       },
       "Lua.format.enable": {
-        "default": "true",
+        "default": true,
         "markdownDescription": "Enable code formatter.",
         "scope": 4,
         "type": "boolean"
@@ -1089,6 +1149,12 @@
         ],
         "scope": 4,
         "type": "string"
+      },
+      "Lua.hint.await": {
+        "default": true,
+        "markdownDescription": "%config.hint.await%",
+        "scope": 4,
+        "type": "boolean"
       },
       "Lua.hint.enable": {
         "default": false,
@@ -1136,6 +1202,12 @@
         "scope": 4,
         "type": "integer"
       },
+      "Lua.hover.expandAlias": {
+        "default": true,
+        "markdownDescription": "%config.hover.expandAlias%",
+        "scope": 4,
+        "type": "boolean"
+      },
       "Lua.hover.previewFields": {
         "default": 20,
         "markdownDescription": "When hovering to view a table, limits the maximum number of previews for fields.",
@@ -1161,6 +1233,7 @@
         "type": "integer"
       },
       "Lua.misc.parameters": {
+        "default": [],
         "items": {
           "type": "string"
         },
@@ -1324,6 +1397,7 @@
           }
         },
         "scope": 4,
+        "title": "builtin",
         "type": "object"
       },
       "Lua.runtime.fileEncoding": {
@@ -1335,10 +1409,23 @@
           "utf16be"
         ],
         "markdownDescription": "File encoding. The `ansi` option is only available under the `Windows` platform.",
+        "markdownEnumDescriptions": [
+          "%config.runtime.fileEncoding.utf8%",
+          "%config.runtime.fileEncoding.ansi%",
+          "%config.runtime.fileEncoding.utf16le%",
+          "%config.runtime.fileEncoding.utf16be%"
+        ],
+        "scope": 4,
+        "type": "string"
+      },
+      "Lua.runtime.meta": {
+        "default": "${version} ${language} ${encoding}",
+        "markdownDescription": "%config.runtime.meta%",
         "scope": 4,
         "type": "string"
       },
       "Lua.runtime.nonstandardSymbol": {
+        "default": [],
         "items": {
           "enum": [
             "//",
@@ -1386,6 +1473,7 @@
       },
       "Lua.runtime.special": {
         "additionalProperties": false,
+        "default": [],
         "markdownDescription": "The custom global variables are regarded as some special built-in variables, and the language server will provide special support\nThe following example shows that 'include' is treated as' require '.\n```json\n\"Lua.runtime.special\" : {\n    \"include\" : \"require\"\n}\n```\n",
         "patternProperties": {
           ".*": {
@@ -1399,12 +1487,14 @@
               "dofile",
               "loadfile",
               "pcall",
-              "xpcall"
+              "xpcall",
+              "assert"
             ],
             "type": "string"
           }
         },
         "scope": 4,
+        "title": "special",
         "type": "object"
       },
       "Lua.runtime.unicodeName": {
@@ -1423,6 +1513,13 @@
           "LuaJIT"
         ],
         "markdownDescription": "Lua runtime version.",
+        "markdownEnumDescriptions": [
+          "%config.runtime.version.Lua 5.1%",
+          "%config.runtime.version.Lua 5.2%",
+          "%config.runtime.version.Lua 5.3%",
+          "%config.runtime.version.Lua 5.4%",
+          "%config.runtime.version.LuaJIT%"
+        ],
         "scope": 4,
         "type": "string"
       },
@@ -1455,6 +1552,15 @@
         "markdownDescription": "Enable signature help.",
         "scope": 4,
         "type": "boolean"
+      },
+      "Lua.spell.dict": {
+        "default": [],
+        "items": {
+          "type": "string"
+        },
+        "markdownDescription": "%config.spell.dict%",
+        "scope": 4,
+        "type": "array"
       },
       "Lua.telemetry.enable": {
         "default": null,
@@ -1504,6 +1610,7 @@
         "type": "boolean"
       },
       "Lua.workspace.library": {
+        "default": [],
         "items": {
           "type": "string"
         },
@@ -1523,6 +1630,19 @@
         "scope": 4,
         "type": "integer"
       },
+      "Lua.workspace.supportScheme": {
+        "default": [
+          "file",
+          "untitled",
+          "git"
+        ],
+        "items": {
+          "type": "string"
+        },
+        "markdownDescription": "Provide language server for the Lua files of the following scheme.",
+        "scope": 4,
+        "type": "array"
+      },
       "Lua.workspace.useGitIgnore": {
         "default": true,
         "markdownDescription": "Ignore files list in `.gitignore` .",
@@ -1530,6 +1650,7 @@
         "type": "boolean"
       },
       "Lua.workspace.userThirdParty": {
+        "default": [],
         "items": {
           "type": "string"
         },

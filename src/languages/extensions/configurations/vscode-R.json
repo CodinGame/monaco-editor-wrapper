@@ -51,6 +51,15 @@
         },
         "scope": 3
       },
+      "r.libPaths": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "default": [],
+        "markdownDescription": "Additional library paths to launch R background processes (R languageserver, help server, etc.). These paths will be appended to `.libPaths()` on process startup. It could be useful for projects with [renv](https://rstudio.github.io/renv/index.html) enabled.",
+        "scope": 3
+      },
       "r.lsp.enabled": {
         "type": "boolean",
         "default": true,
@@ -64,15 +73,6 @@
         },
         "default": [],
         "description": "The command line arguments to use when launching R Language Server.",
-        "scope": 3
-      },
-      "r.lsp.libPaths": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "default": [],
-        "markdownDescription": "Additional library paths to launch R Language Server with. These paths will be appended to `.libPaths()`. `${workspaceFolder}` and `${home}` could be used in the paths.",
         "scope": 3
       },
       "r.lsp.promptToInstall": {

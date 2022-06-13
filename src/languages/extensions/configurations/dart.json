@@ -145,10 +145,19 @@
         "description": "The theme to use for Dart DevTools.",
         "scope": 3
       },
-      "dart.embedDevTools": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "Whether to load [Dart DevTools](https://dart.dev/tools/dart-devtools) embedded inside VS Code.",
+      "dart.devToolsLocation": {
+        "enum": [
+          "beside",
+          "active",
+          "external"
+        ],
+        "enumDescriptions": [
+          "Open DevTools in beside the active editor",
+          "Open DevTools over the top of the active editor",
+          "Open DevTools externally in its own browser window"
+        ],
+        "default": "beside",
+        "markdownDescription": "Which editor/column to open [Dart DevTools](https://dart.dev/tools/dart-devtools) in.",
         "scope": 3
       },
       "dart.openDevTools": {
@@ -368,10 +377,10 @@
         "description": "The programming language to use for iOS apps when creating new projects using the 'Flutter: New Project' command.",
         "scope": 3
       },
-      "dart.flutterCreateOffline": {
+      "dart.offline": {
         "type": "boolean",
         "default": false,
-        "description": "Whether to use offline mode when creating new projects with the 'Flutter: New Project' command.",
+        "description": "Whether to use the --offline switch for commands like 'pub get' and 'Flutter: New Project'.",
         "scope": 3
       },
       "dart.flutterCreateOrganization": {
@@ -419,13 +428,17 @@
       "dart.flutterHotReloadOnSave": {
         "enum": [
           "never",
-          "always",
-          "manual"
+          "manual",
+          "manualIfDirty",
+          "all",
+          "allIfDirty"
         ],
         "enumDescriptions": [
           "Do not reload when saving",
+          "Reload for explicit manual saves (requires pressing Save explicitly if using autosave)",
+          "Reload for explicit manual saves (requires pressing Save explicitly if using autosave) only if the saved file had changes",
           "Reload for all saves, manual or automatic",
-          "Only reload for manual saves (requires pressing Save explicitly if using autosave)"
+          "Reload for all saves, manual or automatic only if the saved file had changes"
         ],
         "default": "manual",
         "markdownDescription": "Whether to automatically send a Hot Reload request to Flutter apps during a debug session when saving files. Dart apps are controlled by the hotReloadOnSave setting.",
@@ -434,13 +447,17 @@
       "dart.hotReloadOnSave": {
         "enum": [
           "never",
-          "always",
-          "manual"
+          "manual",
+          "manualIfDirty",
+          "all",
+          "allIfDirty"
         ],
         "enumDescriptions": [
           "Do not reload when saving",
+          "Reload for explicit manual saves (requires pressing Save explicitly if using autosave)",
+          "Reload for explicit manual saves (requires pressing Save explicitly if using autosave) only if the saved file had changes",
           "Reload for all saves, manual or automatic",
-          "Only reload for manual saves (requires pressing Save explicitly if using autosave)"
+          "Reload for all saves, manual or automatic only if the saved file had changes"
         ],
         "default": "never",
         "markdownDescription": "Whether to automatically send a Hot Reload request to Dart apps during a debug session when saving files. Flutter apps are controlled by the flutterHotReloadOnSave setting.",
@@ -485,11 +502,13 @@
       "dart.flutterShowEmulators": {
         "enum": [
           "local",
-          "always"
+          "always",
+          "never"
         ],
         "enumDescriptions": [
           "Only show for local workspaces",
-          "Always show, even for remote sessions"
+          "Always show, even for remote sessions",
+          "Never show emulators"
         ],
         "default": "local",
         "markdownDescription": "When to show the Flutter emulators. These are usually hidden for remote workspaces because it is usually not possible to see or interact with emulators in a remote session. If you are using remoting/containers in a way that you can interact with launched emulator processes, you may wish to set this to 'always'.",
@@ -624,7 +643,7 @@
       },
       "dart.maxCompletionItems": {
         "type": "number",
-        "default": 2000,
+        "default": 100000,
         "description": "The maximum number of completion items to return from a code completion request. Updated results will be fetched as additional characters are typed. Lower numbers may improved performance. Only affects LSP for > Dart SDK 2.17.",
         "scope": 3
       },
@@ -834,13 +853,13 @@
           "string"
         ],
         "default": null,
-        "markdownDescription": "The location of the Dart SDK to use for analyzing and executing code. If blank, Dart Code will attempt to find it from the `PATH` environment variable. When editing a Flutter project, the version of Dart included in the Flutter SDK is used in preference.",
+        "markdownDescription": "The location of the Dart SDK to use for analyzing and executing code. If blank (or not a valid SDK), Dart Code will attempt to find it from the `PATH` environment variable. When editing a Flutter project, the version of Dart included in the Flutter SDK is used in preference.",
         "scope": 6
       },
       "dart.sdkPaths": {
         "type": "array",
         "default": [],
-        "description": "An array of paths that either directly point to a Dart SDK or the parent directory of multiple Dart SDKs. When set, the version number in the status bar can be used to quickly switch between SDKs.",
+        "description": "An array of paths that either directly point to a Dart SDK or the parent directory of multiple Dart SDKs that can be used for fast SDK switching. These paths are not used directly when searching for an SDK. When this setting is populated, the SDK version number in the status bar can be used to quickly switch between SDKs.",
         "items": {
           "type": "string"
         },
@@ -858,13 +877,13 @@
           "string"
         ],
         "default": null,
-        "markdownDescription": "The location of the Flutter SDK to use. If blank, Dart Code will attempt to find it from the project directory, `FLUTTER_ROOT` environment variable and the `PATH` environment variable.",
+        "markdownDescription": "The location of the Flutter SDK to use. If blank (or not a valid SDK), Dart Code will attempt to find it from the project directory, `FLUTTER_ROOT` environment variable and the `PATH` environment variable.",
         "scope": 6
       },
       "dart.flutterSdkPaths": {
         "type": "array",
         "default": [],
-        "description": "An array of paths that either directly point to a Flutter SDK or the parent directory of multiple Flutter SDKs. When set, the version number in the status bar can be used to quickly switch between SDKs.",
+        "description": "An array of paths that either directly point to a Flutter SDK or the parent directory of multiple Flutter SDKs that can be used for fast SDK switching. These paths are not used directly when searching for an SDK. When this setting is populated, the version number in the status bar can be used to quickly switch between SDKs.",
         "items": {
           "type": "string"
         },
@@ -928,8 +947,8 @@
     "properties": {
       "dart.enableServerSnippets": {
         "type": "boolean",
-        "default": false,
-        "markdownDescription": "Whether to enable using code snippets from the Dart Analysis Server and disable the snippets included in the extension. If the version of the Dart/Flutter SDK you're using does not support server snippets, this will result in no snippets being available.",
+        "default": true,
+        "markdownDescription": "Whether to use code snippets from the Dart Analysis Server instead of those included in the extension. Server snippets are context and language-version aware and should be preferred.",
         "scope": 3
       },
       "dart.normalizeFileCasing": {

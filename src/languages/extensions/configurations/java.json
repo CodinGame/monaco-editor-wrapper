@@ -9,7 +9,7 @@
           "null"
         ],
         "default": null,
-        "description": "Specifies the folder path to the JDK (11 or more recent) used to launch the Java Language Server.\nOn Windows, backslashes must be escaped, i.e.\n\"java.home\":\"C:\\\\Program Files\\\\Java\\\\jdk11.0_8\"",
+        "description": "Specifies the folder path to the JDK (17 or more recent) used to launch the Java Language Server.\nOn Windows, backslashes must be escaped, i.e.\n\"java.home\":\"C:\\\\Program Files\\\\Java\\\\jdk-17.0_3\"",
         "scope": 6,
         "deprecationMessage": "This setting is deprecated, please use 'java.jdt.ls.java.home' instead."
       },
@@ -19,7 +19,7 @@
           "null"
         ],
         "default": null,
-        "description": "Specifies the folder path to the JDK (11 or more recent) used to launch the Java Language Server. This setting will replace the Java extension's embedded JRE to start the Java Language Server. \n\nOn Windows, backslashes must be escaped, i.e.\n\"java.jdt.ls.java.home\":\"C:\\\\Program Files\\\\Java\\\\jdk11.0_8\"",
+        "description": "Specifies the folder path to the JDK (17 or more recent) used to launch the Java Language Server. This setting will replace the Java extension's embedded JRE to start the Java Language Server. \n\nOn Windows, backslashes must be escaped, i.e.\n\"java.jdt.ls.java.home\":\"C:\\\\Program Files\\\\Java\\\\jdk-17.0_3\"",
         "scope": 6
       },
       "java.jdt.ls.vmargs": {
@@ -164,6 +164,12 @@
         "type": "boolean",
         "default": false,
         "description": "Enable/disable the signature help.",
+        "scope": 3
+      },
+      "java.signatureHelp.description.enabled": {
+        "type": "boolean",
+        "default": false,
+        "description": "Enable/disable to show the description in signature help.",
         "scope": 3
       },
       "java.implementationsCodeLens.enabled": {
@@ -315,12 +321,6 @@
         "description": "Enable/disable code completion support",
         "scope": 3
       },
-      "java.completion.overwrite": {
-        "type": "boolean",
-        "default": true,
-        "description": "When set to true, code completion overwrites the current text. When set to false, code is simply added instead.",
-        "scope": 3
-      },
       "java.completion.guessMethodArguments": {
         "type": "boolean",
         "default": false,
@@ -362,8 +362,8 @@
         "default": [
           "java",
           "javax",
-          "com",
-          "org"
+          "org",
+          "com"
         ],
         "scope": 3
       },
@@ -712,7 +712,31 @@
           "Enable parameter name hints for literal and non-literal arguments"
         ],
         "default": "literals",
-        "markdownDescription": "Enable/disable inlay hints for parameter names:\n```java\n\nInteger.valueOf(/* s: */ '123', /* radix: */ 10)\n \n```\n",
+        "markdownDescription": "Enable/disable inlay hints for parameter names:\n```java\n\nInteger.valueOf(/* s: */ '123', /* radix: */ 10)\n \n```\n `#java.inlayHints.parameterNames.exclusions#` can be used to disable the inlay hints for methods.",
+        "scope": 3
+      },
+      "java.inlayHints.parameterNames.exclusions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "default": [],
+        "markdownDescription": "The patterns for the methods that will be disabled to show the inlay hints. Supported pattern examples:\n - `java.lang.Math.*` - All the methods from java.lang.Math.\n - `*.Arrays.asList` - Methods named as 'asList' in the types named as 'Arrays'.\n - `*.println(*)` - Methods named as 'println'.\n - `(from, to)` - Methods with two parameters named as 'from' and 'to'.\n - `(arg*)` - Methods with one parameter whose name starts with 'arg'.",
+        "scope": 3
+      },
+      "java.project.encoding": {
+        "enum": [
+          "ignore",
+          "warning",
+          "setDefault"
+        ],
+        "enumDescriptions": [
+          "Ignore project encoding settings",
+          "Show warning if a project has no explicit encoding set",
+          "Set the default workspace encoding settings"
+        ],
+        "default": "ignore",
+        "markdownDescription": "Project encoding settings",
         "scope": 3
       }
     }

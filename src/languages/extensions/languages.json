@@ -603,6 +603,12 @@
     ]
   },
   {
+    "id": "json",
+    "filenames": [
+      "tsconfig.tsbuildinfo"
+    ]
+  },
+  {
     "id": "vb",
     "extensions": [
       ".vb",
@@ -1100,6 +1106,12 @@
       ".java",
       ".class"
     ]
+  },
+  {
+    "filenames": [
+      ".luarc.json"
+    ],
+    "id": "jsonc"
   },
   {
     "id": "aspnetcorerazor",
