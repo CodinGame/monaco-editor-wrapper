@@ -22,7 +22,7 @@ const customAliases: Partial<Record<string, string[]>> = {
 for (const [languageId, aliases] of Object.entries(customAliases)) {
   monaco.languages.register({
     id: languageId,
-    aliases: aliases
+    aliases
   })
 }
 

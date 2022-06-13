@@ -61,7 +61,7 @@ export async function defineVSCodeTheme (
   })
   const themeData = monaco.extra.ColorThemeData.fromExtensionTheme({
     id,
-    path: path,
+    path,
     _watch: false,
     ...themeExtensionPoint
   }, rootUri, {
