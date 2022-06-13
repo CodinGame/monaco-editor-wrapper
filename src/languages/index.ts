@@ -19,24 +19,24 @@ const customAliases: Partial<Record<string, string[]>> = {
   postgres: ['postgresql', 'postgres', 'pg', 'postgre']
 }
 
+for (const [languageId, aliases] of Object.entries(customAliases)) {
+  monaco.languages.register({
+    id: languageId,
+    aliases: aliases
+  })
+}
+
 const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageService)
 const languagesIds = Array.from(new Set([
   ...Object.keys(monarchLanguageLoader),
   ...textMateLanguages.map(rawLanguage => rawLanguage.id)
 ]))
 
-for (const languageId of languagesIds) {
-  const textMateLanguage: monaco.languages.ILanguageExtensionPoint | undefined = textMateLanguages.find(rawLanguage => rawLanguage.id === languageId)
-  monaco.languages.register({
-    id: languageId,
-    extensions: textMateLanguage?.extensions,
-    filenames: textMateLanguage?.filenames,
-    filenamePatterns: textMateLanguage?.filenamePatterns,
-    firstLine: textMateLanguage?.firstLine,
-    aliases: [...(textMateLanguage?.aliases ?? []), ...(customAliases[languageId] ?? [])],
-    mimetypes: textMateLanguage?.mimetypes
-  })
+for (const textMateLanguage of textMateLanguages) {
+  monaco.languages.register(textMateLanguage)
+}
 
+for (const languageId of languagesIds) {
   monaco.languages.setTokenizationSupportFactory(languageId, {
     createTokenizationSupport: async () => {
       return getOrCreateTextMateTokensProvider(languageId).catch(async (error: Error) => {
