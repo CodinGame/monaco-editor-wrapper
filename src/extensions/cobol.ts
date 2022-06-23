@@ -1,7 +1,7 @@
 import * as monaco from 'monaco-editor'
 
 const fixedPositions = [0, 6, 7, 11]
-const lastFixedPosition = fixedPositions[fixedPositions.length - 1]
+const lastFixedPosition = fixedPositions[fixedPositions.length - 1]!
 
 function getIndentWidth (editor: monaco.editor.IStandaloneCodeEditor): number {
   return editor.getModel()!.getOptions().tabSize

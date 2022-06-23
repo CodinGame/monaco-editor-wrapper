@@ -73,9 +73,9 @@ function parseLanguageConfiguration (config: RawLanguageConfiguration): monaco.e
     ...config,
     folding: config.folding != null
       ? {
-        ...config.folding,
-        markers: (markers != null) ? { start: new RegExp(markers.start), end: new RegExp(markers.end) } : undefined
-      }
+          ...config.folding,
+          markers: (markers != null) ? { start: new RegExp(markers.start), end: new RegExp(markers.end) } : undefined
+        }
       : undefined
   }
 }

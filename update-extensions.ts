@@ -369,7 +369,7 @@ async function createRepositoryFileResolver (extension: Extension) {
         const from = parsed[key].path
         const githubOrigin = /https:\/\/github\.com\/(.*)/.exec(parsed[key].url)
         if (githubOrigin != null) {
-          map[from] = githubOrigin[1]
+          map[from] = githubOrigin[1]!
         }
       }
     }
@@ -382,7 +382,7 @@ async function createRepositoryFileResolver (extension: Extension) {
     let rpath = `${extension.path ?? ''}${fixedPath}`
     let version = extension.version ?? 'master'
     for (const from in map) {
-      const to = map[from]
+      const to = map[from]!
       if (rpath.startsWith(from)) {
         repository = to
         rpath = path.relative(from, rpath)

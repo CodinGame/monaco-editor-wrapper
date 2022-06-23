@@ -7,7 +7,7 @@ const registry = monaco.extra.Registry.as<monaco.extra.IJSONContributionRegistry
 // Hack because the commands are filled by a code not run in monaco-editor
 {
   const allCommands = monaco.extra.CommandsRegistry.getCommands()
-  const keybindingsCommandSchema = (registry.getSchemaContributions().schemas['vscode://schemas/keybindings']!.items as monaco.extra.IJSONSchema).properties!.command.anyOf![0]!
+  const keybindingsCommandSchema = (registry.getSchemaContributions().schemas['vscode://schemas/keybindings']!.items as monaco.extra.IJSONSchema).properties!.command!.anyOf![0]!
   keybindingsCommandSchema.enum = Array.from(allCommands.keys())
   keybindingsCommandSchema.enumDescriptions = <string[]>Array.from(allCommands.values()).map(command => command.description?.description)
 }

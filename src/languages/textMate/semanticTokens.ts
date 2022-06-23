@@ -29,7 +29,7 @@ for (const contribution of extensions.semanticTokenModifiers as ITokenModifierEx
 
 for (const contribution of extensions.semanticTokenScopes as unknown as ITokenStyleDefaultExtensionPoint[]) {
   for (const selectorString in contribution.scopes) {
-    const tmScopes = contribution.scopes[selectorString]
+    const tmScopes = contribution.scopes[selectorString]!
     const selector = tokenClassificationRegistry.parseTokenSelector(selectorString, contribution.language)
     tokenClassificationRegistry.registerTokenStyleDefault(selector, { scopesToProbe: tmScopes.map(s => s.split(' ')) })
   }
