@@ -117,7 +117,11 @@ const extensions: Extension[] = [
   }, {
     name: 'solidity',
     repository: 'juanfranblanco/vscode-solidity'
-  }
+  },
+  {
+    name: 'vetur',
+    repository: 'vuejs/vetur'
+  },  
 ]
 
 const excludeScopeNames = ['source.objcpp', 'source.reason', 'source.cpp.embedded.macro']
