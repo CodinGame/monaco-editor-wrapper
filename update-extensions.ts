@@ -120,6 +120,13 @@ const extensions: Extension[] = [
   }, {
     name: 'vetur',
     repository: 'vuejs/vetur'
+  }, {
+    name: 'svelte.svelte-vscode',
+    repository: 'sveltejs/language-tools',
+    path: 'packages/svelte-vscode/',
+    mapping: {
+      './syntaxes/svelte.tmLanguage.json': './syntaxes/svelte.tmLanguage.src.yaml'
+    }
   },
 ]
 
@@ -392,7 +399,7 @@ async function createRepositoryFileResolver (extension: Extension) {
       }
       version = 'master'
     }
-
+    
     return `https://raw.githubusercontent.com/${repository}/${version}/${rpath}`
   }
 }
