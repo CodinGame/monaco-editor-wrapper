@@ -1127,6 +1127,13 @@
           "string.regexp.other-escape.cs"
         ]
       }
+    },
+    {
+      "scopes": {
+        "property.refValue": [
+          "entity.name.function"
+        ]
+      }
     }
   ],
   "semanticTokenModifiers": [

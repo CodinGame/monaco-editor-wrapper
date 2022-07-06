@@ -83,7 +83,11 @@ const loader = {
   'rd': async () => (await import(/* webpackChunkName: "language-configuration-rd" */ /* webpackMode: "lazy" */ './languageConfigurations/rd.json')).default,
   'rmd': async () => (await import(/* webpackChunkName: "language-configuration-rmd" */ /* webpackMode: "lazy" */ './languageConfigurations/rmd.json')).default,
   'debian-control.r': async () => (await import(/* webpackChunkName: "language-configuration-debian-control.r" */ /* webpackMode: "lazy" */ './languageConfigurations/debian-control.r.json')).default,
-  'solidity': async () => (await import(/* webpackChunkName: "language-configuration-solidity" */ /* webpackMode: "lazy" */ './languageConfigurations/solidity.json')).default
+  'solidity': async () => (await import(/* webpackChunkName: "language-configuration-solidity" */ /* webpackMode: "lazy" */ './languageConfigurations/solidity.json')).default,
+  'vue': async () => (await import(/* webpackChunkName: "language-configuration-vue" */ /* webpackMode: "lazy" */ './languageConfigurations/vue.json')).default,
+  'vue-html': async () => (await import(/* webpackChunkName: "language-configuration-vue-html" */ /* webpackMode: "lazy" */ './languageConfigurations/vue-html.json')).default,
+  'vue-postcss': async () => (await import(/* webpackChunkName: "language-configuration-vue-postcss" */ /* webpackMode: "lazy" */ './languageConfigurations/vue-postcss.json')).default,
+  'vue-sugarss': async () => (await import(/* webpackChunkName: "language-configuration-vue-sugarss" */ /* webpackMode: "lazy" */ './languageConfigurations/vue-sugarss.json')).default
 } as unknown as Partial<Record<string, () => Promise<RawLanguageConfiguration>>>
 
 export default loader

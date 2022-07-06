@@ -738,6 +738,12 @@
         "default": "ignore",
         "markdownDescription": "Project encoding settings",
         "scope": 3
+      },
+      "java.jdt.ls.lombokSupport.enabled": {
+        "type": "boolean",
+        "default": true,
+        "description": "Whether to load lombok processors from project classpath",
+        "scope": 3
       }
     }
   }
