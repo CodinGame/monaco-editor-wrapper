@@ -1,0 +1,50 @@
+{
+  "scopeName": "markdown.vue.codeblock",
+  "fileTypes": [],
+  "injectionSelector": "L:text.html.markdown",
+  "patterns": [
+    {
+      "include": "#vue-code-block"
+    }
+  ],
+  "repository": {
+    "vue-code-block": {
+      "begin": "(^|\\G)(\\s*)(\\`{3,}|~{3,})\\s*(?i:(vue)(\\s+[^`~]*)?$)",
+      "name": "markup.fenced_code.block.markdown",
+      "end": "(^|\\G)(\\2|\\s{0,3})(\\3)\\s*$",
+      "beginCaptures": {
+        "3": {
+          "name": "punctuation.definition.markdown"
+        },
+        "5": {
+          "name": "fenced_code.block.language"
+        },
+        "6": {
+          "name": "fenced_code.block.language.attributes"
+        }
+      },
+      "endCaptures": {
+        "3": {
+          "name": "punctuation.definition.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "begin": "(^|\\G)(\\s*)(.*)",
+          "while": "(^|\\G)(?!\\s*([`~]{3,})\\s*$)",
+          "contentName": "meta.embedded.block.vue",
+          "patterns": [
+            {
+              "include": "source.vue"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "information_for_contributors": [
+    "This file has been converted from https://github.com/vuejs/vetur/blob/master/",
+    "If you want to provide a fix or improvement, please create a pull request against the original repository.",
+    "Once accepted there, we are happy to receive an update request."
+  ]
+}
