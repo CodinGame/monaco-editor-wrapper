@@ -83,7 +83,8 @@ const loader = {
   'rd': async () => (await import(/* webpackChunkName: "language-configuration-rd" */ /* webpackMode: "lazy" */ './languageConfigurations/rd.json')).default,
   'rmd': async () => (await import(/* webpackChunkName: "language-configuration-rmd" */ /* webpackMode: "lazy" */ './languageConfigurations/rmd.json')).default,
   'debian-control.r': async () => (await import(/* webpackChunkName: "language-configuration-debian-control.r" */ /* webpackMode: "lazy" */ './languageConfigurations/debian-control.r.json')).default,
-  'solidity': async () => (await import(/* webpackChunkName: "language-configuration-solidity" */ /* webpackMode: "lazy" */ './languageConfigurations/solidity.json')).default
+  'solidity': async () => (await import(/* webpackChunkName: "language-configuration-solidity" */ /* webpackMode: "lazy" */ './languageConfigurations/solidity.json')).default,
+  'svelte': async () => (await import(/* webpackChunkName: "language-configuration-svelte" */ /* webpackMode: "lazy" */ './languageConfigurations/svelte.json')).default
 } as unknown as Partial<Record<string, () => Promise<RawLanguageConfiguration>>>
 
 export default loader

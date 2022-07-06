@@ -117,7 +117,11 @@ const extensions: Extension[] = [
   }, {
     name: 'solidity',
     repository: 'juanfranblanco/vscode-solidity'
-  }
+  }, {
+    name: 'svelte.svelte-vscode',
+    repository: 'CodinGame/sveltejs-language-tools',
+    path: 'packages/svelte-vscode/'
+  },
 ]
 
 const excludeScopeNames = ['source.objcpp', 'source.reason', 'source.cpp.embedded.macro']

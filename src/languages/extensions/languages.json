@@ -1249,5 +1249,21 @@
     "extensions": [
       ".sol"
     ]
+  },
+  {
+    "id": "svelte",
+    "aliases": [
+      "Svelte",
+      "svelte"
+    ],
+    "extensions": [
+      ".svelte"
+    ]
+  },
+  {
+    "id": "json",
+    "filenames": [
+      ".prettierrc"
+    ]
   }
 ]

@@ -25,7 +25,8 @@ const loader = {
   'vscode-R': async () => (await import(/* webpackChunkName: "configuration-registration-vscode-R" */ /* webpackMode: "lazy" */ './configurations/vscode-R.json')).default,
   'vscode-groovy': async () => (await import(/* webpackChunkName: "configuration-registration-vscode-groovy" */ /* webpackMode: "lazy" */ './configurations/vscode-groovy.json')).default,
   'solargraph': async () => (await import(/* webpackChunkName: "configuration-registration-solargraph" */ /* webpackMode: "lazy" */ './configurations/solargraph.json')).default,
-  'solidity': async () => (await import(/* webpackChunkName: "configuration-registration-solidity" */ /* webpackMode: "lazy" */ './configurations/solidity.json')).default
+  'solidity': async () => (await import(/* webpackChunkName: "configuration-registration-solidity" */ /* webpackMode: "lazy" */ './configurations/solidity.json')).default,
+  'svelte.svelte-vscode': async () => (await import(/* webpackChunkName: "configuration-registration-svelte.svelte-vscode" */ /* webpackMode: "lazy" */ './configurations/svelte.svelte-vscode.json')).default
 } as unknown as Partial<Record<string, () => Promise<monaco.extra.IConfigurationNode[]>>>
 
 export default loader

@@ -1,0 +1,28 @@
+{
+  "scopeName": "markdown.svelte.codeblock.style",
+  "fileTypes": [],
+  "injectionSelector": "L:meta.style.svelte",
+  "patterns": [
+    {
+      "include": "#svelte-script-css"
+    }
+  ],
+  "repository": {
+    "svelte-script-css": {
+      "begin": "(?<=style.*>)(?!</)",
+      "end": "(?=</)",
+      "name": "meta.embedded.block.svelte.style",
+      "contentName": "source.css",
+      "patterns": [
+        {
+          "include": "source.css"
+        }
+      ]
+    }
+  },
+  "information_for_contributors": [
+    "This file has been converted from https://github.com/CodinGame/sveltejs-language-tools/blob/master/packages/svelte-vscode/",
+    "If you want to provide a fix or improvement, please create a pull request against the original repository.",
+    "Once accepted there, we are happy to receive an update request."
+  ]
+}

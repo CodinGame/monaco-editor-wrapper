@@ -469,6 +469,25 @@
         "description": "Whether to automatically send a Hot Restart request during a debug session when saving files if Hot Reload is not available but Hot Restart is.",
         "scope": 3
       },
+      "dart.flutterGenerateLocalizationsOnSave": {
+        "enum": [
+          "never",
+          "manual",
+          "manualIfDirty",
+          "all",
+          "allIfDirty"
+        ],
+        "enumDescriptions": [
+          "Do not generate localizations when saving",
+          "Generate localizations for explicit manual saves (requires pressing Save explicitly if using autosave)",
+          "Generate localizations for explicit manual saves (requires pressing Save explicitly if using autosave) only if the saved file had changes",
+          "Generate localizations for all saves, manual or automatic",
+          "Generate localizations for all saves, manual or automatic only if the saved file had changes"
+        ],
+        "default": "never",
+        "markdownDescription": "Whether to automatically run the Generate Localizations command for Flutter apps when saving .arb files.",
+        "scope": 3
+      },
       "dart.flutterOutline": {
         "type": "boolean",
         "default": true,
@@ -700,6 +719,23 @@
         "default": true,
         "markdownDescription": "Whether to automatically run `pub get` whenever `pubspec.yaml` is saved.",
         "scope": 4
+      },
+      "dart.runPubGetOnNestedProjects": {
+        "enum": [
+          "none",
+          "both",
+          "above",
+          "below"
+        ],
+        "enumDescriptions": [
+          "Only run `pub get` for the project whose pubspec was changed",
+          "Run `pub get` also in parent or child projects of the one whose pubspec was changed",
+          "Run `pub get` also in parent projects of the one whose pubspec was changed",
+          "Run `pub get` also in child projects of the one whose pubspec was changed"
+        ],
+        "default": "none",
+        "markdownDescription": "Whether to automatically run `pub get` on nested projects above or below the one where the pubspec was changed.",
+        "scope": 3
       }
     }
   },
@@ -929,7 +965,7 @@
     "properties": {
       "dart.projectSearchDepth": {
         "type": "number",
-        "default": 3,
+        "default": 5,
         "description": "How many levels (including the workspace roots) down the workspace to search for Dart/Flutter projects. Increasing this number may help detect Flutter projects that are deeply nested in your workspace but slow down all operations that search for projects, including extension activation.",
         "scope": 3
       },

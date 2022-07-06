@@ -100,7 +100,15 @@ const loader = {
   'text.html.rmarkdown': async () => (await import(/* webpackChunkName: "grammar-text-html-rmarkdown" */ /* webpackMode: "lazy" */ './grammars/vscode-R/RMarkdown.json')).default,
   'text.html.markdown.redcarpet': async () => (await import(/* webpackChunkName: "grammar-text-html-markdown-redcarpet" */ /* webpackMode: "lazy" */ './grammars/vscode-R/Markdown Redcarpet.json')).default,
   'comment.block.r': async () => (await import(/* webpackChunkName: "grammar-comment-block-r" */ /* webpackMode: "lazy" */ './grammars/vscode-R/Rcpp.json')).default,
-  'source.solidity': async () => (await import(/* webpackChunkName: "grammar-source-solidity" */ /* webpackMode: "lazy" */ './grammars/solidity/solidity.json')).default
+  'source.solidity': async () => (await import(/* webpackChunkName: "grammar-source-solidity" */ /* webpackMode: "lazy" */ './grammars/solidity/solidity.json')).default,
+  'source.svelte': async () => (await import(/* webpackChunkName: "grammar-source-svelte" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/svelte.tmLanguage.json')).default,
+  'svelte.pug': async () => (await import(/* webpackChunkName: "grammar-svelte-pug" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/pug-svelte.json')).default,
+  'svelte.pug.tags': async () => (await import(/* webpackChunkName: "grammar-svelte-pug-tags" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/pug-svelte-tags.json')).default,
+  'svelte.pug.dotblock': async () => (await import(/* webpackChunkName: "grammar-svelte-pug-dotblock" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/pug-svelte-dotblock.json')).default,
+  'markdown.svelte.codeblock': async () => (await import(/* webpackChunkName: "grammar-markdown-svelte-codeblock" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/markdown-svelte.json')).default,
+  'markdown.svelte.codeblock.script': async () => (await import(/* webpackChunkName: "grammar-markdown-svelte-codeblock-script" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/markdown-svelte-js.json')).default,
+  'markdown.svelte.codeblock.style': async () => (await import(/* webpackChunkName: "grammar-markdown-svelte-codeblock-style" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/markdown-svelte-css.json')).default,
+  'source.css.postcss': async () => (await import(/* webpackChunkName: "grammar-source-css-postcss" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/postcss.json')).default
 } as Partial<Record<string, () => Promise<object>>>
 
 export default loader

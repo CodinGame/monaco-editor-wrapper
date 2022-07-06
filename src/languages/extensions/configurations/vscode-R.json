@@ -223,6 +223,61 @@
         "markdownDescription": "Show links to matching help pages in hover",
         "scope": 3
       },
+      "r.helpPanel.clickCodeExamples": {
+        "type": "object",
+        "markdownDescription": "What happens when clicking code examples on help pages. Might require restarting to take effect.",
+        "default": {
+          "Click": "Copy",
+          "Ctrl+Click": "Run",
+          "Shift+Click": "Ignore"
+        },
+        "properties": {
+          "Click": {
+            "type": "string",
+            "default": "Copy",
+            "enum": [
+              "Ignore",
+              "Copy",
+              "Run"
+            ],
+            "enumDescriptions": [
+              "Do nothing",
+              "Copy the code to the clipboard",
+              "Run the code in the terminal"
+            ]
+          },
+          "Ctrl+Click": {
+            "type": "string",
+            "default": "Run",
+            "enum": [
+              "Ignore",
+              "Copy",
+              "Run"
+            ],
+            "enumDescriptions": [
+              "Do nothing",
+              "Copy the code to the clipboard",
+              "Run the code in the terminal"
+            ]
+          },
+          "Shift+Click": {
+            "type": "string",
+            "default": "Ignore",
+            "enum": [
+              "Ignore",
+              "Copy",
+              "Run"
+            ],
+            "enumDescriptions": [
+              "Do nothing",
+              "Copy the code to the clipboard",
+              "Run the code in the terminal"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "scope": 3
+      },
       "r.source.encoding": {
         "type": "string",
         "default": "UTF-8",

@@ -1941,6 +1941,48 @@
         "description": "Controls the background coloring of inactive preprocessor blocks. Input is in the form a hexadecimal color code or a valid Theme Color. If not set, this defaults to transparent. This setting only applies when inactive region dimming is enabled.",
         "scope": 4
       },
+      "C_Cpp.inlayHints.autoDeclarationTypes.enabled": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Display inlay hints for deduced type when `auto` is used in a declaration:\n```cpp \n\n auto index /* : int */ = 0;\n```",
+        "scope": 1
+      },
+      "C_Cpp.inlayHints.autoDeclarationTypes.showOnLeft": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Display inlay hints for deduced type when `auto` is used in a declaration on the left of the identifier:\n```cpp \n\n auto /* int */ index = 0;\n```",
+        "scope": 1
+      },
+      "C_Cpp.inlayHints.parameterNames.enabled": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Display inlay hints for parameter names:\n```cpp \n\n int a = getArea(/* width: */ x, /* height: */ y);\n```",
+        "scope": 1
+      },
+      "C_Cpp.inlayHints.parameterNames.suppressWhenArgumentContainsName": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Suppress parameter name hints when the argument text or inline comment contains the parameter name:\n```cpp \n\n int a = getArea(width, /* height: */ y);\n```",
+        "scope": 1
+      },
+      "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Hide leading `_` in parameter name hints.",
+        "scope": 1
+      },
+      "C_Cpp.inlayHints.referenceOperator.enabled": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Display the inlay hint reference operator `&` for parameters passed by non-const reference:\n```cpp \n\n swap(/* &first: */ str1, /* &last: */ str2);\n```",
+        "scope": 1
+      },
+      "C_Cpp.inlayHints.referenceOperator.showSpace": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Controls whether a space is shown after `&` for parameters passed by non-const reference:\n```cpp \n\n swap(/* & first: */ str1, /* & last: */ str2);\n```",
+        "scope": 1
+      },
       "C_Cpp.loggingLevel": {
         "type": "string",
         "enum": [
@@ -2394,14 +2436,13 @@
         "type": "boolean",
         "default": true,
         "description": "Show the \"Run and Debug\" play button and \"Add Debug Configuration\" gear in the editor title bar for C++ files.",
-        "scope": 1
+        "scope": 4
       },
       "C_Cpp.legacyCompilerArgsBehavior": {
         "type": "boolean",
         "default": false,
         "markdownDescription": "Enable pre-v1.10.0 behavior for how shell escaping is handled in compiler arg settings. Shell escaping is no longer expected or supported by default in arg arrays starting in v1.10.0.",
-        "scope": 4,
-        "deprecationMessage": "This setting is temporary to support transitioning to corrected behavior in v1.10.0."
+        "scope": 4
       }
     }
   }
