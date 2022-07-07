@@ -1,11 +1,10 @@
 import * as monaco from 'monaco-editor'
 import './languages'
 import './theme'
-import MultiEditorStandaloneCodeEditorServiceImpl, { EditorOpenHandler } from './services/MultiEditorStandaloneCodeEditorService'
-import TextModelService from './services/TextModelService'
+import getModelEditorServiceOverride from 'vscode/service-override/modelEditor'
+import getMessageServiceOverride from 'vscode/service-override/messages'
 import './worker'
 import setupExtensions from './extensions'
-
 import 'monaco-editor/esm/vs/editor/editor.all'
 import 'monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp'
 import 'monaco-editor/esm/vs/editor/standalone/browser/iPadShowKeyboard/iPadShowKeyboard'
@@ -15,18 +14,15 @@ import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGot
 import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoSymbolQuickAccess'
 import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneCommandsQuickAccess'
 import 'monaco-editor/esm/vs/editor/standalone/browser/referenceSearch/standaloneReferenceSearch'
+import EditorOpenHandlerRegistry, { EditorOpenHandler } from './tools/EditorOpenHandlerRegistry'
+
+const editorOpenHandlerRegistry = new EditorOpenHandlerRegistry()
 
 monaco.extra.StandaloneServices.initialize({
-  get textModelService () {
-    return new TextModelService(monaco.extra.StandaloneServices.get(monaco.extra.IModelService))
-  },
-  get codeEditorService () {
-    return new MultiEditorStandaloneCodeEditorServiceImpl(
-      monaco.extra.StandaloneServices.get(monaco.extra.IContextKeyService),
-      monaco.extra.StandaloneServices.get(monaco.editor.IStandaloneThemeService),
-      monaco.extra.StandaloneServices.get(monaco.extra.ITextModelService)
-    )
-  }
+  ...getModelEditorServiceOverride((model, input, sideBySide) => {
+    return editorOpenHandlerRegistry.openCodeEditor(model, input, sideBySide)
+  }),
+  ...getMessageServiceOverride(document.body)
 })
 // Disable high contrast autodetection because it fallbacks on the hc-black no matter what
 monaco.extra.StandaloneServices.get(monaco.editor.IStandaloneThemeService).setAutoDetectHighContrast(false)
@@ -57,8 +53,7 @@ function registerTextModelContentProvider (scheme: string, provider: monaco.extr
 }
 
 function registerEditorOpenHandler (handler: EditorOpenHandler): monaco.IDisposable {
-  const codeEditorService = monaco.extra.StandaloneServices.get(monaco.extra.ICodeEditorService)
-  return (codeEditorService as MultiEditorStandaloneCodeEditorServiceImpl).registerEditorOpenHandler(handler)
+  return editorOpenHandlerRegistry.registerEditorOpenHandler(handler)
 }
 
 export {
