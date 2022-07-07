@@ -489,7 +489,7 @@ async function fetchExtensions () {
 
         const grammarText = await download(grammarUrl)
         if (grammarText == null) {
-          throw new Error('Unable to download grammar file')
+          throw new Error('Unable to download grammar file: ' + grammarUrl)
         }
         const ext = path.extname(grammarUrl)
 
