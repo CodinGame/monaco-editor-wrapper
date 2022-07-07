@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run lint && rollup --config rollup.config.ts --configPlugin typescript && npm run generate-types",
     "generate-types": "tsc --project tsconfig.types.json",
-    "update-extensions": "ts-node update-extensions.ts",
+    "update-extensions": "node --loader ts-node/esm update-extensions.ts",
     "lint": "eslint --ext .ts src update-extensions.ts"
   },
   "repository": {
