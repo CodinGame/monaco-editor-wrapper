@@ -4,9 +4,10 @@
   "private": false,
   "description": "Enhanced Monaco editor with TextMate grammars and more",
   "scripts": {
-    "build": "rollup --config rollup.config.ts --configPlugin typescript && npm run generate-types",
+    "build": "npm run lint && rollup --config rollup.config.ts --configPlugin typescript && npm run generate-types",
     "generate-types": "tsc --project tsconfig.types.json",
-    "update-extensions": "ts-node update-extensions.ts"
+    "update-extensions": "ts-node update-extensions.ts",
+    "lint": "eslint --ext .ts src update-extensions.ts"
   },
   "repository": {
     "type": "git",
@@ -36,7 +37,6 @@
     "@rollup/plugin-alias": "3.1.9",
     "@rollup/plugin-babel": "5.3.1",
     "@rollup/plugin-commonjs": "22.0.0",
-    "@rollup/plugin-eslint": "8.0.2",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "13.3.0",
     "@rollup/plugin-typescript": "^8.3.3",
