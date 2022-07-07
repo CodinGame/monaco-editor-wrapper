@@ -167,6 +167,7 @@
       "meta.embedded.block.javascript": "javascript",
       "meta.embedded.block.json": "json",
       "meta.embedded.block.jsonc": "jsonc",
+      "meta.embedded.block.latex": "latex",
       "meta.embedded.block.less": "less",
       "meta.embedded.block.objc": "objc",
       "meta.embedded.block.scss": "scss",
@@ -262,6 +263,13 @@
   {
     "language": "typescript",
     "scopeName": "source.ts",
+    "unbalancedBracketScopes": [
+      "keyword.operator.relational",
+      "storage.type.function.arrow",
+      "keyword.operator.bitwise.shift",
+      "meta.brace.angle",
+      "punctuation.definition.tag"
+    ],
     "tokenTypes": {
       "meta.template.expression": "other",
       "meta.template.expression string": "string",
@@ -275,6 +283,12 @@
   {
     "language": "typescriptreact",
     "scopeName": "source.tsx",
+    "unbalancedBracketScopes": [
+      "keyword.operator.relational",
+      "storage.type.function.arrow",
+      "keyword.operator.bitwise.shift",
+      "punctuation.definition.tag"
+    ],
     "embeddedLanguages": {
       "meta.tag.tsx": "jsx-tags",
       "meta.tag.without-attributes.tsx": "jsx-tags",
@@ -678,5 +692,143 @@
   {
     "language": "solidity",
     "scopeName": "source.solidity"
+  },
+  {
+    "language": "vue",
+    "scopeName": "source.vue",
+    "embeddedLanguages": {
+      "text.html.basic": "html",
+      "text.html.vue-html": "vue-html",
+      "text.jade.slm": "slm",
+      "text.pug": "jade",
+      "text.haml": "haml",
+      "text.slim": "slim",
+      "text.html.liquid": "liquid",
+      "source.css": "css",
+      "source.css.scss": "scss",
+      "source.css.less": "less",
+      "source.css.postcss": "vue-postcss",
+      "source.css.sugarss": "vue-sugarss",
+      "source.sass": "sass",
+      "source.stylus": "stylus",
+      "source.js": "javascript",
+      "source.ts": "typescript",
+      "source.coffee": "coffeescript",
+      "text.html.markdown": "md",
+      "source.yaml": "yaml",
+      "source.json": "json",
+      "source.php": "php",
+      "source.graphql": "graphql"
+    }
+  },
+  {
+    "language": "vue-postcss",
+    "scopeName": "source.css.postcss"
+  },
+  {
+    "language": "vue-sugarss",
+    "scopeName": "source.css.sugarss"
+  },
+  {
+    "language": "vue-html",
+    "scopeName": "text.html.vue-html",
+    "embeddedLanguages": {
+      "source.js": "javascript"
+    }
+  },
+  {
+    "scopeName": "vue.pug.directives",
+    "injectTo": [
+      "source.vue"
+    ]
+  },
+  {
+    "scopeName": "vue.pug.interpolations",
+    "injectTo": [
+      "source.vue"
+    ]
+  },
+  {
+    "scopeName": "markdown.vue.codeblock",
+    "injectTo": [
+      "text.html.markdown"
+    ],
+    "embeddedLanguages": {
+      "meta.embedded.block.vue": "vue"
+    }
+  },
+  {
+    "language": "svelte",
+    "scopeName": "source.svelte",
+    "embeddedLanguages": {
+      "text.html.basic": "html",
+      "text.html.markdown": "markdown",
+      "text.pug": "jade",
+      "source.css": "css",
+      "source.css.less": "less",
+      "source.css.scss": "scss",
+      "source.css.postcss": "postcss",
+      "source.sass": "sass",
+      "source.stylus": "stylus",
+      "source.js": "javascript",
+      "source.ts": "typescript",
+      "source.coffee": "coffeescript"
+    }
+  },
+  {
+    "scopeName": "svelte.pug",
+    "injectTo": [
+      "source.svelte"
+    ],
+    "embeddedLanguages": {
+      "source.ts": "typescript",
+      "text.pug": "jade"
+    }
+  },
+  {
+    "scopeName": "svelte.pug.tags",
+    "injectTo": [
+      "source.svelte"
+    ],
+    "embeddedLanguages": {
+      "source.ts": "typescript",
+      "text.pug": "jade"
+    }
+  },
+  {
+    "scopeName": "svelte.pug.dotblock",
+    "injectTo": [
+      "source.svelte"
+    ],
+    "embeddedLanguages": {
+      "source.ts": "typescript"
+    }
+  },
+  {
+    "scopeName": "markdown.svelte.codeblock",
+    "injectTo": [
+      "text.html.markdown"
+    ],
+    "embeddedLanguages": {
+      "meta.embedded.block.svelte": "svelte"
+    }
+  },
+  {
+    "scopeName": "markdown.svelte.codeblock.script",
+    "injectTo": [
+      "text.html.markdown"
+    ]
+  },
+  {
+    "scopeName": "markdown.svelte.codeblock.style",
+    "injectTo": [
+      "text.html.markdown"
+    ]
+  },
+  {
+    "scopeName": "source.css.postcss",
+    "injectTo": [
+      "source.svelte"
+    ]
   }
 ]

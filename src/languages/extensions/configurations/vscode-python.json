@@ -15,7 +15,7 @@
       },
       "python.defaultInterpreterPath": {
         "default": "python",
-        "description": "Path to default Python to use when extension loads up for the first time, no longer used once an interpreter is selected for the workspace. See https://aka.ms/AAfekmf to understand when this is used.",
+        "description": "Path to default Python to use when extension loads up for the first time, no longer used once an interpreter is selected for the workspace. See https://aka.ms/AAfekmf to understand when this is used",
         "scope": 6,
         "type": "string"
       },
@@ -222,7 +222,7 @@
       },
       "python.linting.flake8Enabled": {
         "default": false,
-        "description": "Whether to lint Python files using flake8",
+        "description": "Whether to lint Python files using flake8.",
         "scope": 4,
         "type": "boolean"
       },
@@ -284,7 +284,7 @@
       },
       "python.linting.mypyCategorySeverity.note": {
         "default": "Information",
-        "description": "Severity of Mypy message type 'Note'.",
+        "description": "%python.linting.mypyCategorySeverity.note.description%.",
         "enum": [
           "Error",
           "Hint",
@@ -362,7 +362,7 @@
       },
       "python.linting.pycodestyleEnabled": {
         "default": false,
-        "description": "Whether to lint Python files using pycodestyle",
+        "description": "Whether to lint Python files using pycodestyle.",
         "scope": 4,
         "type": "boolean"
       },
@@ -383,7 +383,7 @@
       },
       "python.linting.pydocstyleEnabled": {
         "default": false,
-        "description": "Whether to lint Python files using pydocstyle",
+        "description": "Whether to lint Python files using pydocstyle.",
         "scope": 4,
         "type": "boolean"
       },
@@ -449,7 +449,7 @@
       },
       "python.linting.pylintCategorySeverity.fatal": {
         "default": "Error",
-        "description": "Severity of Pylint message type 'Fatal/F'.",
+        "description": "Severity of Pylint message type 'Error/F'.",
         "enum": [
           "Error",
           "Hint",
