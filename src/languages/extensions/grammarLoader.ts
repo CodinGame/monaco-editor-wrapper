@@ -100,7 +100,21 @@ const loader = {
   'text.html.rmarkdown': async () => (await import(/* webpackChunkName: "grammar-text-html-rmarkdown" */ /* webpackMode: "lazy" */ './grammars/vscode-R/RMarkdown.json')).default,
   'text.html.markdown.redcarpet': async () => (await import(/* webpackChunkName: "grammar-text-html-markdown-redcarpet" */ /* webpackMode: "lazy" */ './grammars/vscode-R/Markdown Redcarpet.json')).default,
   'comment.block.r': async () => (await import(/* webpackChunkName: "grammar-comment-block-r" */ /* webpackMode: "lazy" */ './grammars/vscode-R/Rcpp.json')).default,
-  'source.solidity': async () => (await import(/* webpackChunkName: "grammar-source-solidity" */ /* webpackMode: "lazy" */ './grammars/solidity/solidity.json')).default
+  'source.solidity': async () => (await import(/* webpackChunkName: "grammar-source-solidity" */ /* webpackMode: "lazy" */ './grammars/solidity/solidity.json')).default,
+  'source.vue': async () => (await import(/* webpackChunkName: "grammar-source-vue" */ /* webpackMode: "lazy" */ './grammars/vetur/vue-generated.json')).default,
+  'source.css.postcss': async () => (await import(/* webpackChunkName: "grammar-source-css-postcss" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/postcss.src.yaml.json')).default,
+  'source.css.sugarss': async () => (await import(/* webpackChunkName: "grammar-source-css-sugarss" */ /* webpackMode: "lazy" */ './grammars/vetur/vue-sugarss.json')).default,
+  'text.html.vue-html': async () => (await import(/* webpackChunkName: "grammar-text-html-vue-html" */ /* webpackMode: "lazy" */ './grammars/vetur/vue-html.tmLanguage.json')).default,
+  'vue.pug.directives': async () => (await import(/* webpackChunkName: "grammar-vue-pug-directives" */ /* webpackMode: "lazy" */ './grammars/vetur/directives.tmLanguage.json')).default,
+  'vue.pug.interpolations': async () => (await import(/* webpackChunkName: "grammar-vue-pug-interpolations" */ /* webpackMode: "lazy" */ './grammars/vetur/interpolations.tmLanguage.json')).default,
+  'markdown.vue.codeblock': async () => (await import(/* webpackChunkName: "grammar-markdown-vue-codeblock" */ /* webpackMode: "lazy" */ './grammars/vetur/markdown-vue.json')).default,
+  'source.svelte': async () => (await import(/* webpackChunkName: "grammar-source-svelte" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/svelte.tmLanguage.src.yaml.json')).default,
+  'svelte.pug': async () => (await import(/* webpackChunkName: "grammar-svelte-pug" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/pug-svelte.json')).default,
+  'svelte.pug.tags': async () => (await import(/* webpackChunkName: "grammar-svelte-pug-tags" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/pug-svelte-tags.json')).default,
+  'svelte.pug.dotblock': async () => (await import(/* webpackChunkName: "grammar-svelte-pug-dotblock" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/pug-svelte-dotblock.json')).default,
+  'markdown.svelte.codeblock': async () => (await import(/* webpackChunkName: "grammar-markdown-svelte-codeblock" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/markdown-svelte.json')).default,
+  'markdown.svelte.codeblock.script': async () => (await import(/* webpackChunkName: "grammar-markdown-svelte-codeblock-script" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/markdown-svelte-js.json')).default,
+  'markdown.svelte.codeblock.style': async () => (await import(/* webpackChunkName: "grammar-markdown-svelte-codeblock-style" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/markdown-svelte-css.json')).default
 } as Partial<Record<string, () => Promise<object>>>
 
 export default loader

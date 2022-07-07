@@ -3,8 +3,8 @@ import JSON5 from 'json5'
 import ini from 'ini'
 import cson from 'cson-parser'
 import plist from 'fast-plist'
-import YAML from 'yaml'
 import type * as monaco from 'monaco-editor'
+import jsYaml from 'js-yaml'
 import https from 'https'
 import path from 'path'
 import * as fs from 'fs/promises'
@@ -117,6 +117,17 @@ const extensions: Extension[] = [
   }, {
     name: 'solidity',
     repository: 'juanfranblanco/vscode-solidity'
+  }, {
+    name: 'vetur',
+    repository: 'vuejs/vetur'
+  }, {
+    name: 'svelte.svelte-vscode',
+    repository: 'sveltejs/language-tools',
+    path: 'packages/svelte-vscode/',
+    mapping: {
+      './syntaxes/svelte.tmLanguage.json': './syntaxes/svelte.tmLanguage.src.yaml',
+      './syntaxes/postcss.json': './syntaxes/postcss.src.yaml'
+    }
   }
 ]
 
@@ -435,6 +446,7 @@ async function fetchExtensions () {
 
   let i = 0
   for (const extension of extensions) {
+    // eslint-disable-next-line no-console
     console.info(`extension ${i++}/${extensions.length} (${extension.name})`)
     const resolve = await createRepositoryFileResolver(extension)
 
@@ -489,7 +501,7 @@ async function fetchExtensions () {
 
         const grammarText = await download(grammarUrl)
         if (grammarText == null) {
-          throw new Error('Unable to download grammar file')
+          throw new Error('Unable to download grammar file: ' + grammarUrl)
         }
         const ext = path.extname(grammarUrl)
 
@@ -502,7 +514,7 @@ async function fetchExtensions () {
           } else if (ext === '.json' || ext === '.JSON-tmLanguage') {
             grammarObject = JSON5.parse(grammarText)
           } else if (ext === '.yaml' || ext === '.yml') {
-            grammarObject = YAML.parse(grammarText)
+            grammarObject = jsYaml.load(grammarText)
           } else {
             return Promise.reject(new Error('Unknown file extension: ' + ext))
           }

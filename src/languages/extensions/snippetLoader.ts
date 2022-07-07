@@ -34,7 +34,8 @@ const loader = {
   'r': async () => (await import(/* webpackChunkName: "snippet-r" */ /* webpackMode: "lazy" */ './snippets/vscode-R-r-snippets.json')).default,
   'rd': async () => (await import(/* webpackChunkName: "snippet-rd" */ /* webpackMode: "lazy" */ './snippets/vscode-R-r-snippets.json')).default,
   'rmd': async () => (await import(/* webpackChunkName: "snippet-rmd" */ /* webpackMode: "lazy" */ './snippets/vscode-R-rmarkdown.json')).default,
-  'solidity': async () => (await import(/* webpackChunkName: "snippet-solidity" */ /* webpackMode: "lazy" */ './snippets/solidity-solidity.json')).default
+  'solidity': async () => (await import(/* webpackChunkName: "snippet-solidity" */ /* webpackMode: "lazy" */ './snippets/solidity-solidity.json')).default,
+  'svelte': async () => (await import(/* webpackChunkName: "snippet-svelte" */ /* webpackMode: "lazy" */ './snippets/svelte.svelte-vscode-svelte.json')).default
 } as unknown as Partial<Record<string, () => Promise<Record<string, monaco.extra.JsonSerializedSnippet>>>>
 
 export default loader

@@ -843,6 +843,22 @@
         "markdownDescription": "Enable/disable searching `package.json` dependencies for available auto imports.",
         "scope": 3
       },
+      "typescript.preferences.autoImportFileExcludePatterns": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "markdownDescription": "Specify glob patterns of files to exclude from auto imports. Requires using TypeScript 4.8 or newer in the workspace.",
+        "scope": 4
+      },
+      "javascript.preferences.autoImportFileExcludePatterns": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "markdownDescription": "Specify glob patterns of files to exclude from auto imports. Requires using TypeScript 4.8 or newer in the workspace.",
+        "scope": 4
+      },
       "javascript.preferences.renameShorthandProperties": {
         "type": "boolean",
         "default": true,

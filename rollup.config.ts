@@ -5,7 +5,6 @@ import alias from '@rollup/plugin-alias'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import webWorkerLoader from 'rollup-plugin-web-worker-loader'
 import { string } from 'rollup-plugin-string'
-import eslint from '@rollup/plugin-eslint'
 import { babel } from '@rollup/plugin-babel'
 import * as rollup from 'rollup'
 import builtins from 'rollup-plugin-node-builtins'
@@ -66,11 +65,6 @@ export default rollup.defineConfig({
       targetPlatform: 'browser',
       pattern: /(.+)\?worker$/,
       plugins: [terser()]
-    }),
-    eslint({
-      throwOnError: true,
-      throwOnWarning: true,
-      include: ['**/*.ts']
     }),
     nodeResolve({
       extensions
