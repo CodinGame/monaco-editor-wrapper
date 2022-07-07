@@ -435,6 +435,7 @@ async function fetchExtensions () {
 
   let i = 0
   for (const extension of extensions) {
+    // eslint-disable-next-line no-console
     console.info(`extension ${i++}/${extensions.length} (${extension.name})`)
     const resolve = await createRepositoryFileResolver(extension)
 
