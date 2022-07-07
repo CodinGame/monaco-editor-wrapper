@@ -2,9 +2,8 @@ import * as monaco from 'monaco-editor'
 import EmacsExtension from 'monaco-emacs'
 import { initVimMode } from './vim'
 
-const keybindingService = monaco.extra.StandaloneServices.get(monaco.extra.IKeybindingService) as monaco.extra.StandaloneKeybindingService
-
 export function updateKeybindings (bindings: monaco.extra.IUserFriendlyKeybinding[]): void {
+  const keybindingService = monaco.extra.StandaloneServices.get(monaco.extra.IKeybindingService) as monaco.extra.StandaloneKeybindingService
   keybindingService.setUserKeybindings(bindings)
 }
 
