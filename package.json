@@ -67,7 +67,7 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "monaco-editor": "npm:@codingame/monaco-editor@^0.33.6",
-    "vscode": "npm:@codingame/monaco-vscode-api@^1.67.9",
+    "vscode": "npm:@codingame/monaco-vscode-api@~1.67.9",
     "vscode-oniguruma": "^1.6.2"
   },
   "devDependencies": {
