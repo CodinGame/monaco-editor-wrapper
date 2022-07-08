@@ -36,7 +36,7 @@ export default rollup.defineConfig({
     if ([/\?worker$/].some(reg => reg.test(source))) {
       return false
     }
-    return externals.some(external => source.startsWith(external))
+    return externals.some(external => source === external || source.startsWith(`${external}/`))
   },
   output: [{
     chunkFileNames: '[name].js',
