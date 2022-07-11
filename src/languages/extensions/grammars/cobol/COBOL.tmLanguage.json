@@ -29,10 +29,10 @@
       "include": "#cobol-keywords"
     },
     {
-      "include": "#idms-keywords"
+      "include": "#cobol-preprocessor-keywords"
     },
     {
-      "include": "#cobol-preprocessor-keywords"
+      "include": "#idms-keywords"
     }
   ],
   "repository": {

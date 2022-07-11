@@ -56,7 +56,7 @@ const extensions: Extension[] = [
     repository: 'mathiasfrohlich/vscode-kotlin'
   }, {
     name: 'ocaml',
-    repository: 'reasonml-editor/vscode-reasonml'
+    repository: 'ocamllabs/vscode-ocaml-platform'
   }, {
     name: 'pascal',
     repository: 'alefragnani/vscode-language-pascal'

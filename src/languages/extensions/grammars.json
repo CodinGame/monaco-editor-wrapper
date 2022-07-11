@@ -464,40 +464,86 @@
     }
   },
   {
-    "language": "ocaml",
-    "scopeName": "source.ocaml"
+    "language": "dune",
+    "scopeName": "source.dune"
   },
   {
-    "language": "ocaml.hover.info",
-    "scopeName": "source.ocaml.hover.info"
+    "language": "dune-project",
+    "scopeName": "source.dune-project"
   },
   {
-    "language": "ocaml.hover.type",
-    "scopeName": "source.ocaml.hover.type"
+    "language": "dune-workspace",
+    "scopeName": "source.dune-workspace"
   },
   {
     "language": "ocaml.merlin",
     "scopeName": "source.ocaml.merlin"
   },
   {
+    "scopeName": "markdown.ocaml.codeblock",
+    "injectTo": [
+      "text.html.markdown"
+    ],
+    "embeddedLanguages": {
+      "meta.embedded.block.ocaml": "ocaml"
+    }
+  },
+  {
+    "language": "ocaml",
+    "scopeName": "source.ocaml"
+  },
+  {
+    "language": "ocaml.interface",
+    "scopeName": "source.ocaml.interface"
+  },
+  {
     "language": "ocaml.ocamlbuild",
     "scopeName": "source.ocaml.ocamlbuild"
+  },
+  {
+    "language": "ocaml.ocamldoc",
+    "scopeName": "source.ocaml.ocamldoc"
+  },
+  {
+    "language": "ocaml.ocamlformat",
+    "scopeName": "source.ocaml.ocamlformat"
+  },
+  {
+    "language": "ocaml.ocamllex",
+    "scopeName": "source.ocaml.ocamllex"
+  },
+  {
+    "scopeName": "source.action.menhir",
+    "injectTo": [
+      "source.ocaml"
+    ]
+  },
+  {
+    "language": "ocaml.menhir",
+    "scopeName": "source.ocaml.menhir",
+    "embeddedLanguages": {
+      "source.embedded-action.menhir": "source.action.menhir"
+    }
   },
   {
     "language": "ocaml.opam",
     "scopeName": "source.ocaml.opam"
   },
   {
-    "language": "reason.hover.info",
-    "scopeName": "source.reason.hover.info"
+    "language": "ocaml.opam-install",
+    "scopeName": "source.ocaml.opam-install"
   },
   {
-    "language": "reason.hover.signature",
-    "scopeName": "source.reason.hover.signature"
+    "language": "ocaml.META",
+    "scopeName": "source.ocaml.META"
   },
   {
-    "language": "reason.hover.type",
-    "scopeName": "source.reason.hover.type"
+    "language": "ocaml.oasis",
+    "scopeName": "source.ocaml.oasis"
+  },
+  {
+    "language": "atd",
+    "scopeName": "source.atd"
   },
   {
     "scopeName": "markdown.reason.codeblock",
@@ -509,13 +555,8 @@
     }
   },
   {
-    "scopeName": "markdown.ocaml.codeblock",
-    "injectTo": [
-      "text.html.markdown"
-    ],
-    "embeddedLanguages": {
-      "meta.embedded.block.ocaml": "ocaml"
-    }
+    "language": "cram",
+    "scopeName": "source.cram"
   },
   {
     "language": "pascal",
