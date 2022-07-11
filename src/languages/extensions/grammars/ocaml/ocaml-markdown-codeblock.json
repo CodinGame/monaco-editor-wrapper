@@ -26,7 +26,7 @@
   },
   "scopeName": "markdown.ocaml.codeblock",
   "information_for_contributors": [
-    "This file has been converted from https://github.com/reasonml-editor/vscode-reasonml/blob/master/",
+    "This file has been converted from https://github.com/ocamllabs/vscode-ocaml-platform/blob/master/",
     "If you want to provide a fix or improvement, please create a pull request against the original repository.",
     "Once accepted there, we are happy to receive an update request."
   ]

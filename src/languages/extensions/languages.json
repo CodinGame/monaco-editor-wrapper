@@ -868,52 +868,179 @@
     ]
   },
   {
-    "id": "ocaml",
+    "id": "dune",
     "aliases": [
-      "OCaml"
+      "dune"
     ],
     "extensions": [
-      ".ml",
-      ".mli"
+      "dune",
+      "jbuild"
     ]
   },
   {
-    "id": "ocaml.hover.info"
+    "id": "dune-project",
+    "aliases": [
+      "dune project"
+    ],
+    "extensions": [
+      "dune-project"
+    ]
   },
   {
-    "id": "ocaml.hover.type"
+    "id": "dune-workspace",
+    "aliases": [
+      "dune workspace"
+    ],
+    "filenames": [
+      "dune-workspace"
+    ],
+    "filenamePatterns": [
+      "dune-workspace.*"
+    ]
   },
   {
     "id": "ocaml.merlin",
     "aliases": [
-      "Merlin"
+      "Merlin",
+      "merlin"
     ],
     "extensions": [
-      "merlin"
+      ".merlin"
+    ]
+  },
+  {
+    "id": "ocaml",
+    "aliases": [
+      "OCaml",
+      "ocaml"
+    ],
+    "extensions": [
+      ".ml",
+      ".eliom",
+      ".ocamlinit"
+    ]
+  },
+  {
+    "id": "ocaml.interface",
+    "aliases": [
+      "OCaml Interface",
+      "ocaml interface"
+    ],
+    "extensions": [
+      ".mli",
+      ".eliomi"
+    ]
+  },
+  {
+    "id": "ocaml.opam",
+    "aliases": [
+      "opam"
+    ],
+    "filenames": [
+      "opam"
+    ],
+    "extensions": [
+      ".opam",
+      ".opam.locked",
+      ".opam.template"
+    ]
+  },
+  {
+    "id": "ocaml.opam-install",
+    "aliases": [
+      "opam install"
+    ],
+    "extensions": [
+      ".install"
+    ]
+  },
+  {
+    "id": "ocaml.META",
+    "aliases": [
+      "META",
+      "meta"
+    ],
+    "filenames": [
+      "META"
     ]
   },
   {
     "id": "ocaml.ocamlbuild",
     "aliases": [
-      "OCamlbuild"
+      "OCamlbuild",
+      "ocamlbuild"
     ],
     "extensions": [
       "_tags"
     ]
   },
   {
-    "id": "ocaml.opam",
+    "id": "ocaml.oasis",
     "aliases": [
-      "OPAM"
+      "OASIS",
+      "oasis"
     ],
     "extensions": [
-      "opam"
+      "_oasis"
+    ]
+  },
+  {
+    "id": "ocaml.ocamldoc",
+    "aliases": [
+      "OCamldoc",
+      "ocamldoc"
+    ],
+    "extensions": [
+      ".mld"
+    ]
+  },
+  {
+    "id": "ocaml.ocamlformat",
+    "aliases": [
+      "OCamlFormat",
+      "ocamlformat"
+    ],
+    "extensions": [
+      ".ocamlformat"
+    ]
+  },
+  {
+    "id": "ocaml.ocamllex",
+    "aliases": [
+      "OCamllex",
+      "ocamllex"
+    ],
+    "extensions": [
+      ".mll"
+    ]
+  },
+  {
+    "id": "ocaml.menhir",
+    "aliases": [
+      "Menhir",
+      "menhir",
+      "OCamlyacc",
+      "ocamlyacc"
+    ],
+    "extensions": [
+      ".mly"
+    ]
+  },
+  {
+    "id": "atd",
+    "aliases": [
+      "ATD",
+      "atd"
+    ],
+    "extensions": [
+      ".atd"
     ]
   },
   {
     "id": "reason",
     "aliases": [
-      "Reason"
+      "Reason",
+      "reason"
     ],
     "extensions": [
       ".re",
@@ -921,13 +1048,15 @@
     ]
   },
   {
-    "id": "reason.hover.info"
-  },
-  {
-    "id": "reason.hover.signature"
-  },
-  {
-    "id": "reason.hover.type"
+    "id": "cram",
+    "aliases": [
+      "Cram Test",
+      "Cram",
+      "cram"
+    ],
+    "extensions": [
+      ".t"
+    ]
   },
   {
     "id": "pascal",
@@ -1006,6 +1135,9 @@
     "extensions": [
       ".cpy",
       ".copy"
+    ],
+    "filenamePatterns": [
+      "**/*copybook*/**"
     ]
   },
   {

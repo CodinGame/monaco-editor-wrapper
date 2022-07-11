@@ -1,141 +1,125 @@
 [
   {
-    "type": "object",
-    "title": "Reason configuration",
+    "title": "OCaml Platform",
     "properties": {
-      "reason.codelens.unicode": {
-        "type": "boolean",
-        "default": true,
-        "description": "Enable the use of unicode symbols in codelens.",
+      "ocaml.sandbox": {
+        "type": "object",
+        "default": null,
+        "description": "Determines where to find the sandbox for a given project",
         "scope": 3
       },
-      "reason.codelens.enabled": {
-        "type": "boolean",
-        "default": false,
-        "description": "Specifies whether the code lens is shown.",
-        "scope": 3
-      },
-      "reason.debounce.linter": {
-        "oneOf": [
-          {
-            "type": "integer"
-          },
-          {
-            "enum": [
-              "Infinity"
-            ]
-          }
-        ],
-        "default": 500,
-        "description": "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly.",
-        "scope": 3
-      },
-      "reason.diagnostics.tools": {
-        "type": "array",
-        "items": {
-          "enum": [
-            "merlin",
-            "bsb"
-          ]
-        },
-        "default": [
-          "merlin"
-        ],
-        "maxItems": 2,
-        "uniqueItems": true,
-        "description": "Specifies which tool or tools will be used to get diagnostics. If you choose both \"merlin\" and \"bsb\", merlin will be used while editing and bsb when saving.",
-        "scope": 3
-      },
-      "reason.format.width": {
+      "ocaml.server.extraEnv": {
         "type": [
-          "number",
-          null
+          "null",
+          "object"
         ],
         "default": null,
-        "description": "Set the width of lines when formatting code with refmt",
+        "markdownDescription": "Extra environment variables that will be passed to OCaml LSP executable. Useful for debugging purposes mostly.",
         "scope": 3
       },
-      "reason.path.bsb": {
+      "ocaml.dune.autoDetect": {
+        "type": "boolean",
+        "default": true,
+        "description": "Controls whether dune tasks should be automatically detected.",
+        "scope": 3
+      },
+      "ocaml.trace.server": {
+        "description": "Controls the logging output of the language server. Valid settings are `off`, `messages`, or `verbose`.",
         "type": "string",
-        "default": "./node_modules/bs-platform/lib/bsb.exe",
-        "description": "The path to the `bsb` binary.",
-        "scope": 3
-      },
-      "reason.path.ocamlfind": {
-        "type": "string",
-        "default": "ocamlfind",
-        "description": "The path to the `ocamlfind` binary.",
-        "scope": 3
-      },
-      "reason.path.esy": {
-        "type": "string",
-        "default": "esy",
-        "description": "The path to the `esy` binary.",
-        "scope": 3
-      },
-      "reason.path.env": {
-        "type": "string",
-        "default": "env",
-        "description": "The path to the `env` command which prints the language server environment for debugging editor issues.",
-        "scope": 3
-      },
-      "reason.path.ocamlmerlin": {
-        "type": "string",
-        "default": "ocamlmerlin",
-        "description": "The path to the `ocamlmerlin` binary.",
-        "scope": 3
-      },
-      "reason.path.ocpindent": {
-        "type": "string",
-        "default": "ocp-indent",
-        "description": "The path to the `ocp-indent` binary.",
-        "scope": 3
-      },
-      "reason.path.opam": {
-        "type": "string",
-        "default": "opam",
-        "description": "The path to the `opam` binary.",
-        "scope": 3
-      },
-      "reason.path.rebuild": {
-        "type": "string",
-        "default": "rebuild",
-        "description": "The path to the `rebuild` binary.",
-        "scope": 3
-      },
-      "reason.path.refmt": {
-        "type": "string",
-        "default": "refmt",
-        "description": "The path to the `refmt` binary.",
-        "scope": 3
-      },
-      "reason.path.refmterr": {
-        "type": "string",
-        "default": "refmterr",
-        "description": "The path to the `refmterr` binary.",
-        "scope": 3
-      },
-      "reason.path.rtop": {
-        "type": "string",
-        "default": "rtop",
-        "description": "The path to the `rtop` binary.",
-        "scope": 3
-      },
-      "reason.server.languages": {
-        "type": "array",
-        "items": {
-          "enum": [
-            "ocaml",
-            "reason"
-          ]
-        },
-        "default": [
-          "ocaml",
-          "reason"
+        "enum": [
+          "off",
+          "messages",
+          "verbose"
         ],
-        "maxItems": 2,
-        "uniqueItems": true,
-        "description": "The list of languages enable support for in the language server.",
+        "default": "off",
+        "scope": 3
+      },
+      "ocaml.useOcamlEnv": {
+        "type": "boolean",
+        "default": true,
+        "description": "Controls whether to use ocaml-env for opam commands from OCaml for Windows.",
+        "scope": 3
+      },
+      "ocaml.terminal.shell.linux": {
+        "description": "The path of the shell that the sandbox terminal uses on Linux",
+        "type": [
+          "string",
+          "null"
+        ],
+        "default": null,
+        "scope": 3
+      },
+      "ocaml.terminal.shell.osx": {
+        "description": "The path of the shell that the sandbox terminal uses on macOS",
+        "type": [
+          "string",
+          "null"
+        ],
+        "default": null,
+        "scope": 3
+      },
+      "ocaml.terminal.shell.windows": {
+        "description": "The path of the shell that the sandbox terminal uses on Windows",
+        "type": [
+          "string",
+          "null"
+        ],
+        "default": null,
+        "scope": 3
+      },
+      "ocaml.terminal.shellArgs.linux": {
+        "description": "The command line arguments that the sandbox terminal uses on Linux",
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": "string",
+        "default": null,
+        "scope": 3
+      },
+      "ocaml.terminal.shellArgs.osx": {
+        "description": "The command line arguments that the sandbox terminal uses on macOS",
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": "string",
+        "default": null,
+        "scope": 3
+      },
+      "ocaml.terminal.shellArgs.windows": {
+        "description": "The command line arguments that the sandbox terminal uses on Window",
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": "string",
+        "default": null,
+        "scope": 3
+      },
+      "ocaml.repl.path": {
+        "description": "The path of the REPL that the extension uses",
+        "type": [
+          "string",
+          "null"
+        ],
+        "default": null,
+        "scope": 3
+      },
+      "ocaml.repl.args": {
+        "description": "The REPL arguments that the extension uses",
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": "string",
+        "default": null,
+        "scope": 3
+      },
+      "ocaml.repl.useUtop": {
+        "type": "boolean",
+        "default": true,
+        "description": "Controls whether to use Utop for the REPL if it is installed in the current switch.",
         "scope": 3
       }
     }
