@@ -13,9 +13,9 @@
     "type": "git",
     "url": "https://github.com/CodinGame/monaco-editor-wrapper"
   },
-  "moduleResolution": "node",
   "main": "dist/main.js",
   "module": "dist/main.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "default": "./dist/main.js"
@@ -43,19 +43,19 @@
   },
   "typesVersions": {
     "*": {
-      "./features/jsonContribution": [
+      "features/jsonContribution": [
         "./dist/features/jsonContribution.d.ts"
       ],
-      "./features/cssContribution": [
+      "features/cssContribution": [
         "./dist/features/cssContribution.d.ts"
       ],
-      "./features/htmlContribution": [
+      "features/htmlContribution": [
         "./dist/features/htmlContribution.d.ts"
       ],
-      "./features/typescriptContribution": [
+      "features/typescriptContribution": [
         "./dist/features/typescriptContribution.d.ts"
       ],
-      "./features/extensionConfigurations": [
+      "features/extensionConfigurations": [
         "./dist/features/extensionConfigurations.d.ts"
       ]
     }
@@ -64,7 +64,6 @@
     "dist/",
     "stats.html"
   ],
-  "types": "dist/index.d.ts",
   "dependencies": {
     "monaco-editor": "npm:@codingame/monaco-editor@^0.33.6",
     "vscode": "npm:@codingame/monaco-vscode-api@~1.67.9",
