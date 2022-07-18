@@ -56,10 +56,10 @@ Instead of using `monaco.editor.create`, you should use the `createEditor` expos
 By default, monaco-editor contains worker to achieve IntelliSense in CSS, SCSS, JavaScript, TypeScript, JSON and HTML.
 
 To enable them, import the following files:
-- JSON: `import '@codingame/monaco-editor-wrapper/dist/jsonContribution'`
-- JavaScript/TypeScript: `import '@codingame/monaco-editor-wrapper/dist/typescriptContribution'`
-- CSS/SCSS: `import '@codingame/monaco-editor-wrapper/dist/cssContribution'`
-- HTML: `import '@codingame/monaco-editor-wrapper/dist/htmlContribution'`
+- JSON: `import '@codingame/monaco-editor-wrapper/features/jsonContribution'`
+- JavaScript/TypeScript: `import '@codingame/monaco-editor-wrapper/features/typescriptContribution'`
+- CSS/SCSS: `import '@codingame/monaco-editor-wrapper/features/cssContribution'`
+- HTML: `import '@codingame/monaco-editor-wrapper/features/htmlContribution'`
 
 #### Additional apis
 
@@ -79,4 +79,5 @@ This library exposed some functions to manage the user global configuration:
 - `updateUserConfiguration` Update the user configuration, overrides the default configuration, uses the same syntax as VS Code configuration
 - `getConfiguration` allows to get a given configuration key in a given language
 - `onConfigurationChanged` listen to configuration change
-- `updateEditorKeybindings` allows to update the editor keybindings with the same syntax as in VS Code, or enabled Emacs/Vim keybindings
+- `updateKeybindings` allows to update the editor keybindings with the same syntax as in VS Code
+- `updateEditorKeybindingsMode` switch between `vim`, `emacs` or `classic` keybindings
