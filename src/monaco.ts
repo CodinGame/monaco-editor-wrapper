@@ -27,14 +27,6 @@ monaco.extra.StandaloneServices.initialize({
 // Disable high contrast autodetection because it fallbacks on the hc-black no matter what
 monaco.extra.StandaloneServices.get(monaco.editor.IStandaloneThemeService).setAutoDetectHighContrast(false)
 
-// Force EOL to be '\n' even on Windows
-const configurationService = monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService)
-configurationService.updateValue('files.eol', '\n').catch((error: Error) => {
-  monaco.errorHandler.onUnexpectedError(new Error('Unable to set file eol', {
-    cause: error
-  }))
-})
-
 monaco.errorHandler.setUnexpectedErrorHandler(error => {
   console.warn('Unexpected error', error)
 })
