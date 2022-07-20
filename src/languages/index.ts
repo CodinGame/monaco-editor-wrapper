@@ -26,7 +26,6 @@ for (const [languageId, aliases] of Object.entries(customAliases)) {
   })
 }
 
-const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageService)
 const languagesIds = Array.from(new Set([
   ...Object.keys(monarchLanguageLoader),
   ...textMateLanguages.map(rawLanguage => rawLanguage.id)
@@ -91,19 +90,24 @@ async function loadLanguageConfiguration (languageId: string) {
   }
 }
 
-languageService.onDidEncounterLanguage(async (languageId) => {
-  if (languageId === 'plaintext') {
-    return
-  }
+setTimeout(() => {
+  // In a timeout so the service can be overriden
+  const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageService)
+  languageService.onDidEncounterLanguage(async (languageId) => {
+    if (languageId === 'plaintext') {
+      return
+    }
 
-  loadLanguageConfiguration(languageId).catch(error => {
-    monaco.errorHandler.onUnexpectedError(new Error(`Unable to load language configuration for language ${languageId}`, {
-      cause: error
-    }))
+    loadLanguageConfiguration(languageId).catch(error => {
+      monaco.errorHandler.onUnexpectedError(new Error(`Unable to load language configuration for language ${languageId}`, {
+        cause: error
+      }))
+    })
   })
 })
 
 function getMonacoLanguage (languageOrModeId: string): string {
+  const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageService)
   const modeId = languageService.getLanguageIdByLanguageName(languageOrModeId.toLowerCase())
   if (modeId != null) {
     return modeId

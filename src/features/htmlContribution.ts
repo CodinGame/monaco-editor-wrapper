@@ -28,11 +28,16 @@ registerConfigurations([{
   }
 }])
 
-let autoClosingTags = getConfiguration<boolean>(undefined, 'html.autoClosingTags')!
-onConfigurationChanged(e => {
-  if (e.affectsConfiguration('html.autoClosingTags')) {
-    autoClosingTags = getConfiguration<boolean>(undefined, 'html.autoClosingTags')!
-  }
+let autoClosingTags = false
+
+setTimeout(() => {
+  // In a timeout so the service can be overriden
+  autoClosingTags = getConfiguration<boolean>(undefined, 'html.autoClosingTags')!
+  onConfigurationChanged(e => {
+    if (e.affectsConfiguration('html.autoClosingTags')) {
+      autoClosingTags = getConfiguration<boolean>(undefined, 'html.autoClosingTags')!
+    }
+  })
 })
 
 function autoCloseHtmlTags (editor: monaco.editor.ICodeEditor): monaco.IDisposable {
@@ -100,13 +105,17 @@ function autoCloseHtmlTags (editor: monaco.editor.ICodeEditor): monaco.IDisposab
   return disposableStore
 }
 
-const codeEditors = monaco.extra.StandaloneServices.get(monaco.extra.ICodeEditorService).listCodeEditors()
-for (const editor of codeEditors) {
-  autoCloseHtmlTags(editor)
-}
-monaco.editor.onDidCreateEditor(editor => {
-  autoCloseHtmlTags(editor)
+setTimeout(() => {
+  // In a timeout so the service can be overriden
+  const codeEditors = monaco.extra.StandaloneServices.get(monaco.extra.ICodeEditorService).listCodeEditors()
+  for (const editor of codeEditors) {
+    autoCloseHtmlTags(editor)
+  }
+  monaco.editor.onDidCreateEditor(editor => {
+    autoCloseHtmlTags(editor)
+  })
 })
+
 /**
  * End autoclosing html tags
  */

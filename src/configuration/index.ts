@@ -16,15 +16,18 @@ configurationRegistry.registerDefaultConfigurations([{
   overrides: extensions.configurationDefaults
 }])
 
-const simpleConfigurationService = monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService) as monaco.extra.StandaloneConfigurationService
-
-export const onConfigurationChanged = simpleConfigurationService.onDidChangeConfiguration
+export function onConfigurationChanged (listener: (e: monaco.extra.IConfigurationChangeEvent) => void): monaco.IDisposable {
+  const simpleConfigurationService = monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService) as monaco.extra.StandaloneConfigurationService
+  return simpleConfigurationService.onDidChangeConfiguration(listener)
+}
 
 export function getConfiguration<C = Partial<monaco.editor.IEditorOptions>> (language?: string, section: string = 'editor'): C | undefined {
+  const simpleConfigurationService = monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService) as monaco.extra.StandaloneConfigurationService
   return simpleConfigurationService.getValue(section, { overrideIdentifier: language })
 }
 
 export function updateUserConfiguration (configurationJson: string): void {
+  const simpleConfigurationService = monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService) as monaco.extra.StandaloneConfigurationService
   simpleConfigurationService.updateUserConfiguration(configurationJson)
 }
 
