@@ -3,6 +3,7 @@ import { IConfigurationChangeEvent, IConfigurationService } from 'vscode/service
 import * as vscode from 'vscode'
 import { updateUserConfiguration } from 'vscode/service-override/configuration'
 import extensions from '../languages/extensions/extensions.json'
+import './files'
 
 const configurationRegistry = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
 configurationRegistry.registerDefaultConfigurations([{
