@@ -5,6 +5,7 @@ import getModelEditorServiceOverride from 'vscode/service-override/modelEditor'
 import getMessageServiceOverride from 'vscode/service-override/messages'
 import getConfigurationServiceOverride from 'vscode/service-override/configuration'
 import './worker'
+import { createConfiguredEditor } from 'vscode/monaco'
 import setupExtensions from './extensions'
 import 'monaco-editor/esm/vs/editor/editor.all'
 import 'monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp'
@@ -37,7 +38,7 @@ monaco.errorHandler.setUnexpectedErrorHandler(error => {
 })
 
 function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandaloneEditorConstructionOptions): monaco.editor.IStandaloneCodeEditor {
-  const editor = monaco.editor.create(domElement, options)
+  const editor = createConfiguredEditor(domElement, options)
 
   setupExtensions(editor)
 
