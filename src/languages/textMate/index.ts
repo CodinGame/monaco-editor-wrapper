@@ -32,8 +32,8 @@ function getOrCreateGrammarFactory (): CGTMGrammarFactory {
   return textMateGrammarFactory
 }
 
-const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageService)
 async function createTextMateTokensProvider (languageId: string): Promise<monaco.languages.ITokenizationSupport | null> {
+  const languageService = monaco.extra.StandaloneServices.get(monaco.languages.ILanguageService)
   const grammarFactory = getOrCreateGrammarFactory()
   const encodedLanguageId = languageService.languageIdCodec.encodeLanguageId(languageId)
   if (!grammarFactory.has(languageId)) {

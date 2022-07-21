@@ -1,4 +1,7 @@
 import * as monaco from 'monaco-editor'
+import { IConfigurationChangeEvent, IConfigurationService } from 'vscode/services'
+import * as vscode from 'vscode'
+import { updateUserConfiguration } from 'vscode/service-override/configuration'
 import extensions from '../languages/extensions/extensions.json'
 
 const configurationRegistry = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
@@ -7,7 +10,8 @@ configurationRegistry.registerDefaultConfigurations([{
     'editor.codeLens': false,
     'editor.fontSize': 12,
     'editor.maxTokenizationLineLength': 1000,
-    'editor.quickSuggestions': false
+    'editor.quickSuggestions': false,
+    'files.eol': '\n'
   }
 }])
 
@@ -15,16 +19,18 @@ configurationRegistry.registerDefaultConfigurations([{
   overrides: extensions.configurationDefaults
 }])
 
-const simpleConfigurationService = monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService) as monaco.extra.StandaloneConfigurationService
-
-export const onConfigurationChanged = simpleConfigurationService.onDidChangeConfiguration
-
-export function getConfiguration<C = Partial<monaco.editor.IEditorOptions>> (language?: string, section: string = 'editor'): C | undefined {
-  return simpleConfigurationService.getValue(section, { overrideIdentifier: language })
+export function onConfigurationChanged (listener: (e: IConfigurationChangeEvent) => void): vscode.Disposable {
+  const configurationService = monaco.extra.StandaloneServices.get(IConfigurationService)
+  return configurationService.onDidChangeConfiguration(listener)
 }
 
-export function updateUserConfiguration (configurationJson: string): void {
-  simpleConfigurationService.updateUserConfiguration(configurationJson)
+export function getConfiguration<C = Partial<monaco.editor.IEditorOptions>> (language?: string, section: string = 'editor'): C | undefined {
+  const configurationService = monaco.extra.StandaloneServices.get(IConfigurationService)
+  return configurationService.getValue(section, { overrideIdentifier: language })
+}
+
+export {
+  updateUserConfiguration
 }
 
 export function registerConfigurations (configurations: monaco.extra.IConfigurationNode[], validate?: boolean): void {

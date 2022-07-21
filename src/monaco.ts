@@ -3,7 +3,9 @@ import './languages'
 import './theme'
 import getModelEditorServiceOverride from 'vscode/service-override/modelEditor'
 import getMessageServiceOverride from 'vscode/service-override/messages'
+import getConfigurationServiceOverride from 'vscode/service-override/configuration'
 import './worker'
+import { createConfiguredEditor } from 'vscode/monaco'
 import setupExtensions from './extensions'
 import 'monaco-editor/esm/vs/editor/editor.all'
 import 'monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp'
@@ -22,17 +24,13 @@ monaco.extra.StandaloneServices.initialize({
   ...getModelEditorServiceOverride((model, input, sideBySide) => {
     return editorOpenHandlerRegistry.openCodeEditor(model, input, sideBySide)
   }),
-  ...getMessageServiceOverride(document.body)
+  ...getMessageServiceOverride(document.body),
+  ...getConfigurationServiceOverride()
 })
 // Disable high contrast autodetection because it fallbacks on the hc-black no matter what
-monaco.extra.StandaloneServices.get(monaco.editor.IStandaloneThemeService).setAutoDetectHighContrast(false)
-
-// Force EOL to be '\n' even on Windows
-const configurationService = monaco.extra.StandaloneServices.get(monaco.extra.IConfigurationService)
-configurationService.updateValue('files.eol', '\n').catch((error: Error) => {
-  monaco.errorHandler.onUnexpectedError(new Error('Unable to set file eol', {
-    cause: error
-  }))
+setTimeout(() => {
+  // In a timeout so the service can be overriden
+  monaco.extra.StandaloneServices.get(monaco.editor.IStandaloneThemeService).setAutoDetectHighContrast(false)
 })
 
 monaco.errorHandler.setUnexpectedErrorHandler(error => {
@@ -40,7 +38,7 @@ monaco.errorHandler.setUnexpectedErrorHandler(error => {
 })
 
 function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandaloneEditorConstructionOptions): monaco.editor.IStandaloneCodeEditor {
-  const editor = monaco.editor.create(domElement, options)
+  const editor = createConfiguredEditor(domElement, options)
 
   setupExtensions(editor)
 
