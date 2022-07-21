@@ -3,7 +3,7 @@ const configurationRegistry = monaco.extra.Registry.as<monaco.extra.IConfigurati
 
 /**
  * comes from https://github.com/microsoft/vscode/blob/16d0a319b28caa4b6cf4e6801fd508282b7533e0/src/vs/workbench/contrib/files/browser/files.contribution.ts#L132
- * Required by the Lua language server
+ * files.exclude and files.associations are required by the Lua language server
  */
 export const FILES_EXCLUDE_CONFIG = 'files.exclude'
 export const FILES_ASSOCIATIONS_CONFIG = 'files.associations'
@@ -18,6 +18,22 @@ configurationRegistry.registerConfiguration({
   title: 'Files',
   type: 'object',
   properties: {
+    'files.eol': {
+      type: 'string',
+      enum: [
+        '\n',
+        '\r\n',
+        'auto'
+      ],
+      enumDescriptions: [
+        nls.localize('eol.LF', 'LF'),
+        nls.localize('eol.CRLF', 'CRLF'),
+        nls.localize('eol.auto', 'Uses operating system specific end of line character.')
+      ],
+      default: 'auto',
+      description: nls.localize('eol', 'The default end of line character.'),
+      scope: ConfigurationScope.LANGUAGE_OVERRIDABLE
+    },
     [FILES_EXCLUDE_CONFIG]: {
       type: 'object',
       markdownDescription: nls.localize('exclude', 'Configure glob patterns for excluding files and folders. For example, the file Explorer decides which files and folders to show or hide based on this setting. Refer to the `#search.exclude#` setting to define search specific excludes. Read more about glob patterns [here](https://code.visualstudio.com/docs/editor/codebasics#_advanced-search-options).'),
