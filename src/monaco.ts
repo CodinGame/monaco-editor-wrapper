@@ -4,13 +4,16 @@ import './theme'
 import getModelEditorServiceOverride from 'vscode/service-override/modelEditor'
 import getMessageServiceOverride from 'vscode/service-override/messages'
 import getConfigurationServiceOverride from 'vscode/service-override/configuration'
+import getKeybindingsServiceOverride from 'vscode/service-override/keybindings'
+import getTextmateServiceOverride from 'vscode/service-override/textmate'
+import getThemeServiceOverride from 'vscode/service-override/theme'
 import './worker'
 import { createConfiguredEditor } from 'vscode/monaco'
+import onigFile from 'vscode-oniguruma/release/onig.wasm'
 import setupExtensions from './extensions'
 import 'monaco-editor/esm/vs/editor/editor.all'
 import 'monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp'
 import 'monaco-editor/esm/vs/editor/standalone/browser/iPadShowKeyboard/iPadShowKeyboard'
-import 'monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens'
 import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneHelpQuickAccess'
 import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoLineQuickAccess'
 import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoSymbolQuickAccess'
@@ -25,7 +28,13 @@ monaco.extra.StandaloneServices.initialize({
     return editorOpenHandlerRegistry.openCodeEditor(model, input, sideBySide)
   }),
   ...getMessageServiceOverride(document.body),
-  ...getConfigurationServiceOverride()
+  ...getConfigurationServiceOverride(),
+  ...getKeybindingsServiceOverride(),
+  ...getTextmateServiceOverride(async () => {
+    const response = await fetch(onigFile)
+    return await response.arrayBuffer()
+  }),
+  ...getThemeServiceOverride()
 })
 // Disable high contrast autodetection because it fallbacks on the hc-black no matter what
 setTimeout(() => {

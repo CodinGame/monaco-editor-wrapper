@@ -1,7 +1,6 @@
 import * as monaco from 'monaco-editor'
-import { getOrCreateTextMateTokensProvider } from './textMate'
+import './textMate'
 import textMateLanguages from './extensions/languages.json'
-import { languageLoader as monarchLanguageLoader } from './monarch'
 import languageConfigurationLoader, { RawLanguageConfiguration } from './extensions/languageConfigurationLoader'
 import './snippets'
 import { addCustomFoldingMarkers } from '../hacks'
@@ -26,40 +25,8 @@ for (const [languageId, aliases] of Object.entries(customAliases)) {
   })
 }
 
-const languagesIds = Array.from(new Set([
-  ...Object.keys(monarchLanguageLoader),
-  ...textMateLanguages.map(rawLanguage => rawLanguage.id)
-]))
-
 for (const textMateLanguage of textMateLanguages) {
   monaco.languages.register(textMateLanguage)
-}
-
-for (const languageId of languagesIds) {
-  monaco.languages.setTokenizationSupportFactory(languageId, {
-    createTokenizationSupport: async () => {
-      return getOrCreateTextMateTokensProvider(languageId).catch(async (error: Error) => {
-        const monarchLoader = monarchLanguageLoader[languageId]
-        if (monarchLoader != null) {
-          monaco.errorHandler.onUnexpectedError(new Error(`Failed to load TextMate grammar for language ${languageId}, fallback to monarch`, {
-            cause: error
-          }))
-          try {
-            monaco.languages.setMonarchTokensProvider(languageId, (await monarchLoader()).language)
-          } catch (error) {
-            monaco.errorHandler.onUnexpectedError(new Error(`Failed to load Monarch grammar for language ${languageId}`, {
-              cause: error as Error
-            }))
-          }
-        } else {
-          monaco.errorHandler.onUnexpectedError(new Error(`Failed to load TextMate grammar for language ${languageId} and no fallback monarch`, {
-            cause: error
-          }))
-        }
-        return null
-      })
-    }
-  })
 }
 
 /**
@@ -124,8 +91,7 @@ function getMonacoLanguage (languageOrModeId: string): string {
 
 async function loadLanguage (languageId: string): Promise<void> {
   await Promise.all([
-    loadLanguageConfiguration(languageId),
-    getOrCreateTextMateTokensProvider(languageId)
+    loadLanguageConfiguration(languageId)
   ])
 }
 

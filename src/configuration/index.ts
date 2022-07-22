@@ -5,6 +5,25 @@ import { updateUserConfiguration } from 'vscode/service-override/configuration'
 import extensions from '../languages/extensions/extensions.json'
 import './files'
 
+const darkCustomColors: monaco.extra.IThemeScopedColorCustomizations = {
+  'statusBar.background': '#252e38',
+  'statusBar.foreground': '#ffffff',
+  'statusBar.border': '#41454a'
+}
+const lightCustomColors: monaco.extra.IThemeScopedColorCustomizations = {
+  'statusBar.background': '#ffffff',
+  'statusBar.foreground': '#20252a',
+  'statusBar.border': '#dadada'
+}
+const customColors: monaco.extra.IColorCustomizations = {
+  '[Visual Studio Dark]': darkCustomColors,
+  '[Default Dark+]': darkCustomColors,
+  '[Default High Contrast]': darkCustomColors,
+  '[Visual Studio Light]': lightCustomColors,
+  '[Default Light+]': lightCustomColors,
+  '[Default High Contrast Light]': lightCustomColors
+}
+
 const configurationRegistry = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
 configurationRegistry.registerDefaultConfigurations([{
   overrides: {
@@ -12,7 +31,24 @@ configurationRegistry.registerDefaultConfigurations([{
     'editor.fontSize': 12,
     'editor.maxTokenizationLineLength': 1000,
     'editor.quickSuggestions': false,
-    'files.eol': '\n'
+    'files.eol': '\n',
+    'editor.semanticTokenColorCustomizations': {
+      rules: {
+        '*.static': {
+          fontStyle: 'italic'
+        },
+        '*.final.static': {
+          fontStyle: 'italic bold'
+        },
+        '*.readonly': {
+          fontStyle: 'bold'
+        },
+        '*.deprecated': {
+          fontStyle: 'strikethrough'
+        }
+      }
+    },
+    'workbench.colorCustomizations': customColors
   }
 }])
 

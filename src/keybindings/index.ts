@@ -1,10 +1,10 @@
 import * as monaco from 'monaco-editor'
 import EmacsExtension from 'monaco-emacs'
+import { updateUserKeybindings } from 'vscode/service-override/keybindings'
 import { initVimMode } from './vim'
 
-export function updateKeybindings (bindings: monaco.extra.IUserFriendlyKeybinding[]): void {
-  const keybindingService = monaco.extra.StandaloneServices.get(monaco.extra.IKeybindingService) as monaco.extra.StandaloneKeybindingService
-  keybindingService.setUserKeybindings(bindings)
+export function updateKeybindings (bindings: IUserFriendlyKeybinding[]): void {
+  updateUserKeybindings(JSON.stringify(bindings))
 }
 
 export function updateEditorKeybindingsMode (
