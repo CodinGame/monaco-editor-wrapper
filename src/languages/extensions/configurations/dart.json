@@ -30,7 +30,7 @@
       "dart.analyzerAdditionalArgs": {
         "type": "array",
         "default": [],
-        "description": "Additional arguments to pass to the Dart analysis server.",
+        "description": "Additional arguments to pass to the Dart Analysis Server.",
         "scope": 3,
         "items": {
           "type": "string"
@@ -51,7 +51,7 @@
           "string"
         ],
         "default": null,
-        "description": "The path to a custom Dart analysis server.",
+        "description": "The path to a custom Dart Analysis Server. This setting is intended for use by Dart Analysis Server developers.",
         "scope": 6
       },
       "dart.analyzerSshHost": {
@@ -60,7 +60,7 @@
           "string"
         ],
         "default": null,
-        "description": "An SSH host to run the analysis server.\nThis can be useful when modifying code on a remote machine using SSHFS.",
+        "description": "An SSH host to run the Analysis Server.\nThis can be useful when modifying code on a remote machine using SSHFS.",
         "scope": 3
       },
       "dart.analyzerVmServicePort": {
@@ -69,13 +69,13 @@
           "number"
         ],
         "default": null,
-        "description": "The port number to be used for the Dart analysis server VM service.",
+        "description": "The port number to be used for the Dart Analysis Server VM service. This setting is intended for use by Dart Analysis Server developers.",
         "scope": 3
       },
       "dart.notifyAnalyzerErrors": {
         "type": "boolean",
         "default": true,
-        "description": "Whether to show a notification the first few times an analysis server exception occurs.",
+        "description": "Whether to show a notification the first few times an Analysis Server exception occurs.",
         "scope": 3
       },
       "dart.onlyAnalyzeProjectsWithOpenFiles": {
@@ -186,6 +186,15 @@
         "default": true,
         "markdownDescription": "Whether to show notifications for widget errors that offer Inspect Widget links. This requires that the `#dart.shareDevToolsWithFlutter#` setting is also enabled.",
         "scope": 3
+      },
+      "dart.customDevToolsUri": {
+        "type": [
+          "null",
+          "string"
+        ],
+        "default": null,
+        "description": "A custom URI to use for launching DevTools. This setting is intended for use by Dart DevTools developers.",
+        "scope": 6
       }
     }
   },
@@ -196,7 +205,7 @@
       "dart.analysisServerFolding": {
         "type": "boolean",
         "default": true,
-        "description": "Whether to use folding data from the Dart analysis server instead of the built-in VS Code indent-based folding.",
+        "description": "Whether to use folding data from the Dart Analysis Server instead of the built-in VS Code indent-based folding.",
         "scope": 3
       },
       "dart.autoImportCompletions": {
@@ -588,7 +597,7 @@
           "string"
         ],
         "default": null,
-        "description": "The path to a log file for very detailed logging in the Dart analysis server that may be useful when trying to diagnose analysis server issues.",
+        "description": "The path to a log file for very detailed logging in the Dart Analysis Server that may be useful when trying to diagnose Analysis Server issues.",
         "scope": 6
       },
       "dart.analyzerLogFile": {
@@ -597,7 +606,7 @@
           "string"
         ],
         "default": null,
-        "description": "The path to a log file for communication between Dart Code and the analysis server.",
+        "description": "The path to a log file for communication between Dart Code and the Analysis Server.",
         "scope": 6
       },
       "dart.dapLogFile": {
@@ -780,6 +789,12 @@
         "description": "The protocol to use for the Dart Debug Extension backend service and injected client. Using WebSockets can improve performance but may fail when connecting through some proxy servers.",
         "scope": 3
       },
+      "dart.debugSdkLibraries": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Whether to mark Dart SDK libraries (`dart:*`) as debuggable, enabling stepping into them while debugging.",
+        "scope": 3
+      },
       "dart.debugExternalPackageLibraries": {
         "type": "boolean",
         "default": false,
@@ -870,6 +885,24 @@
         "items": {
           "type": "string"
         }
+      },
+      "dart.customDartDapPath": {
+        "type": [
+          "null",
+          "string"
+        ],
+        "default": null,
+        "description": "The path to a custom Dart Debug Adapter. This setting is intended for use by Dart Debug Adapter developers.",
+        "scope": 6
+      },
+      "dart.customFlutterDapPath": {
+        "type": [
+          "null",
+          "string"
+        ],
+        "default": null,
+        "description": "The path to a custom Flutter Debug Adapter. This setting is intended for use by Dart Debug Adapter developers.",
+        "scope": 6
       }
     }
   },
@@ -900,12 +933,6 @@
           "type": "string"
         },
         "scope": 6
-      },
-      "dart.debugSdkLibraries": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "Whether to mark Dart SDK libraries (`dart:*`) as debuggable, enabling stepping into them while debugging.",
-        "scope": 3
       },
       "dart.flutterSdkPath": {
         "type": [
@@ -996,8 +1023,14 @@
       "dart.previewBazelWorkspaceCustomScripts": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "EXPERIMENTAL: Whether to look for custom script definitions at `dart/config/intellij-plugins/flutter.json` in Bazel workspaces. Currently supported for macOS and Linux only.",
+        "markdownDescription": "EXPERIMENTAL: Whether to look for custom script definitions at `dart/config/ide/flutter.json` in Bazel workspaces. Currently supported for macOS and Linux only.",
         "scope": 3
+      },
+      "dart.daemonPort": {
+        "type": "number",
+        "default": false,
+        "markdownDescription": "EXPERIMENTAL: The port where flutter daemon can be accessed if daemon is run remotely. This setting is intended for use by Google developers.",
+        "scope": 4
       },
       "dart.previewCommitCharacters": {
         "type": "boolean",

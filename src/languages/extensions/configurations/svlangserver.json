@@ -28,7 +28,7 @@
       },
       "systemverilog.launchConfiguration": {
         "type": "string",
-        "default": "iverilog -t null",
+        "default": "iverilog -g2012 -t null",
         "description": "Command used for linting",
         "examples": [
           "verilator -sv --lint-only --Wall",
