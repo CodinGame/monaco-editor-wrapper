@@ -18,7 +18,7 @@ const overrideConfigurationDefaultValue = new Map<string, unknown>(Object.entrie
   'solargraph.diagnostics': true,
   'solargraph.formatting': true,
   'systemverilog.linter': 'icarus',
-  'systemverilog.launchConfiguration': 'iverilog -t null'
+  'systemverilog.launchConfiguration': 'iverilog -g2012 -t null'
 }))
 
 interface Extension {
