@@ -208,6 +208,22 @@
         "scope": 4,
         "type": "string"
       },
+      "python.interpreter.infoVisibility": {
+        "default": "onPythonRelated",
+        "description": "Controls when to display information of selected interpreter in the status bar.",
+        "enum": [
+          "never",
+          "onPythonRelated",
+          "always"
+        ],
+        "enumDescriptions": [
+          "Never display information.",
+          "Only display information if Python-related files are opened.",
+          "Always display information."
+        ],
+        "scope": 2,
+        "type": "string"
+      },
       "python.linting.flake8CategorySeverity.W": {
         "default": "Warning",
         "description": "Severity of Flake8 message type 'W'.",
