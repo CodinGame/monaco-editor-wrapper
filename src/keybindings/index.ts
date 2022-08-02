@@ -1,10 +1,16 @@
 import * as monaco from 'monaco-editor'
-import EmacsExtension from 'monaco-emacs'
-import { initVimMode } from './vim'
 
 export function updateKeybindings (bindings: monaco.extra.IUserFriendlyKeybinding[]): void {
   const keybindingService = monaco.extra.StandaloneServices.get(monaco.extra.IKeybindingService) as monaco.extra.StandaloneKeybindingService
   keybindingService.setUserKeybindings(bindings)
+}
+
+class PromiseDisposable implements monaco.IDisposable {
+  constructor (private promise: Promise<monaco.IDisposable>) {}
+
+  dispose (): void {
+    this.promise.then(disposable => disposable.dispose(), console.error)
+  }
 }
 
 export function updateEditorKeybindingsMode (
@@ -14,12 +20,16 @@ export function updateEditorKeybindingsMode (
 ): monaco.IDisposable {
   switch (keyBindingsMode) {
     case 'vim': {
-      return initVimMode(editor, statusBarElement)
+      return new PromiseDisposable(import('./vim').then(({ initVimMode }) => {
+        return initVimMode(editor, statusBarElement)
+      }))
     }
     case 'emacs': {
-      const emacsExtension = new EmacsExtension(editor)
-      emacsExtension.start()
-      return emacsExtension
+      return new PromiseDisposable(import('monaco-emacs').then(({ default: EmacsExtension }) => {
+        const emacsExtension = new EmacsExtension(editor)
+        emacsExtension.start()
+        return emacsExtension
+      }))
     }
     default: {
       return {
