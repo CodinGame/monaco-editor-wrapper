@@ -6,8 +6,8 @@ import * as monaco from 'monaco-editor'
 //  custom block content
 // }
 */
-const CUSTOM_BLOCK_BEGIN_REGEX = '^\\w*(?:\\/\\/|#).*\\{'
-const CUSTOM_BLOCK_END_REGEX = '^\\w*(?:\\/\\/|#).*\\}'
+const CUSTOM_BLOCK_BEGIN_REGEX = '^\\s*(?:\\/\\/|#).*(?:\\{|#region)'
+const CUSTOM_BLOCK_END_REGEX = '^\\s*(?:\\/\\/|#).*(?:\\}|#endregion)'
 export function addCustomFoldingMarkers (configuration: monaco.extra.ILanguageConfiguration): monaco.extra.ILanguageConfiguration {
   const markers = configuration.folding?.markers
   return {
