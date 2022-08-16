@@ -5,6 +5,9 @@ import cson from 'cson-parser'
 import plist from 'fast-plist'
 import type * as monaco from 'monaco-editor'
 import jsYaml from 'js-yaml'
+import { ConfigurationScope, IConfigurationNode } from 'vscode/service-override/configuration'
+import { ITMSyntaxExtensionPoint } from 'vscode/service-override/textmate'
+import { IThemeExtensionPoint } from 'vscode/service-override/theme'
 import https from 'https'
 import path from 'path'
 import * as fs from 'fs/promises'
@@ -135,7 +138,7 @@ const excludeScopeNames = ['source.objcpp', 'source.reason', 'source.cpp.embedde
 
 const extensionsPath = path.resolve(__dirname, 'src/languages/extensions')
 
-function overrideDefaultValue (configuration: monaco.extra.IConfigurationNode) {
+function overrideDefaultValue (configuration: IConfigurationNode) {
   return {
     ...configuration,
     properties: Object.fromEntries(Object.entries(configuration.properties ?? {}).map(([key, value]) => [
@@ -237,8 +240,8 @@ function replaceNLStrings<T extends object> (literal: T, messages: MessageBag): 
 /**
  * These 2 methods come from https://github.com/CodinGame/vscode/blob/ebf697cb9dae96a2f6d2f6ca750173ddf4a7db82/src/vs/workbench/api/common/configurationExtensionPoint.ts#L181
  */
-function handleConfiguration (node: monaco.extra.IConfigurationNode): monaco.extra.IConfigurationNode[] {
-  const configurations: monaco.extra.IConfigurationNode[] = []
+function handleConfiguration (node: IConfigurationNode): IConfigurationNode[] {
+  const configurations: IConfigurationNode[] = []
   const configuration = deepClone(node)
 
   if (configuration.title != null && (typeof configuration.title !== 'string')) {
@@ -251,17 +254,8 @@ function handleConfiguration (node: monaco.extra.IConfigurationNode): monaco.ext
   return configurations
 }
 
-enum ConfigurationScope {
-  APPLICATION = 1,
-  MACHINE = 2,
-  WINDOW = 3,
-  RESOURCE = 4,
-  LANGUAGE_OVERRIDABLE = 5,
-  MACHINE_OVERRIDABLE = 6
-}
-
 const seenProperties = new Set<string>()
-function validateProperties (configuration: monaco.extra.IConfigurationNode): void {
+function validateProperties (configuration: IConfigurationNode): void {
   const properties = configuration.properties
   if (properties != null) {
     if (typeof properties !== 'object') {
@@ -356,7 +350,7 @@ interface ITokenStyleDefaultExtensionPoint {
 
 interface PackageJsonContributes {
   languages?: (monaco.languages.ILanguageExtensionPoint & { configuration?: string })[]
-  grammars?: monaco.extra.ITMSyntaxExtensionPoint[]
+  grammars?: ITMSyntaxExtensionPoint[]
   configurationDefaults?: Record<string, unknown>
   snippets?: {
     language: string
@@ -365,8 +359,8 @@ interface PackageJsonContributes {
   semanticTokenTypes?: ITokenTypeExtensionPoint[]
   semanticTokenScopes?: ITokenStyleDefaultExtensionPoint[]
   semanticTokenModifiers?: ITokenModifierExtensionPoint[]
-  configuration?: monaco.extra.IConfigurationNode | monaco.extra.IConfigurationNode[]
-  themes?: monaco.extra.IThemeExtensionPoint[]
+  configuration?: IConfigurationNode | IConfigurationNode[]
+  themes?: IThemeExtensionPoint[]
 }
 
 async function createRepositoryFileResolver (extension: Extension) {
@@ -408,13 +402,13 @@ async function createRepositoryFileResolver (extension: Extension) {
 async function fetchExtensions () {
   await fs.rm(extensionsPath, { recursive: true })
 
-  let grammarResult: Omit<monaco.extra.ITMSyntaxExtensionPoint, 'path'>[] = []
+  let grammarResult: Omit<ITMSyntaxExtensionPoint, 'path'>[] = []
   let grammarPaths: Record<string, string> = {}
   let snippetPaths: Record<string, string> = {}
   let languageConfigurationPaths: Record<string, string> = {}
   let extensionConfigurationRegistrationPaths: Record<string, string> = {}
   let themePaths: Record<string, string> = {}
-  let themeResult: (Omit<monaco.extra.IThemeExtensionPoint, '_watch'> & { extension: string })[] = []
+  let themeResult: (Omit<IThemeExtensionPoint, '_watch'> & { extension: string })[] = []
   let languageResult: Omit<monaco.languages.ILanguageExtensionPoint, 'configuration'>[] = []
 
   const grammarsPath = path.resolve(extensionsPath, 'grammars')
@@ -701,10 +695,9 @@ export default loader
 
   await fs.writeFile(path.resolve(extensionsPath, 'snippetLoader.ts'), `
 // Generated file, do not modify
-import * as monaco from 'monaco-editor'
 
 /* eslint-disable */
-const loader = ${snippetLoaders} as unknown as Partial<Record<string, () => Promise<Record<string, monaco.extra.JsonSerializedSnippet>>>>
+const loader = ${snippetLoaders} as unknown as Partial<Record<string, () => Promise<Record<string, unknown>>>>
 
 export default loader
   `)
@@ -713,19 +706,9 @@ export default loader
 
   await fs.writeFile(path.resolve(extensionsPath, 'languageConfigurationLoader.ts'), `
 // Generated file, do not modify
-import * as monaco from 'monaco-editor'
-
-export interface RawLanguageConfiguration extends Omit<monaco.extra.ILanguageConfiguration, 'folding'> {
-  folding?: Omit<monaco.extra.ILanguageConfiguration['folding'], 'markers'> & {
-    markers?: {
-      start: string
-      end: string
-    }
-  }
-}
 
 /* eslint-disable */
-const loader = ${configurationLoader} as unknown as Partial<Record<string, () => Promise<RawLanguageConfiguration>>>
+const loader = ${configurationLoader} as unknown as Partial<Record<string, () => Promise<unknown>>>
 
 export default loader
   `)
@@ -734,10 +717,10 @@ export default loader
 
   await fs.writeFile(path.resolve(extensionsPath, 'extensionConfigurationLoader.ts'), `
 // Generated file, do not modify
-import * as monaco from 'monaco-editor'
+import type { IConfigurationNode } from 'vscode/service-override/configuration'
 
 /* eslint-disable */
-const loader = ${configurationRegistrationLoader} as unknown as Partial<Record<string, () => Promise<monaco.extra.IConfigurationNode[]>>>
+const loader = ${configurationRegistrationLoader} as unknown as Partial<Record<string, () => Promise<IConfigurationNode[]>>>
 
 export default loader
   `)
@@ -746,10 +729,9 @@ export default loader
 
   await fs.writeFile(path.resolve(extensionsPath, 'themeLoader.ts'), `
 // Generated file, do not modify
-import { IVSCodeTheme } from '../../theme/tools'
 
 /* eslint-disable */
-const loader = ${themeLoader} as Partial<Record<string, () => Promise<IVSCodeTheme>>>
+const loader = ${themeLoader} as Partial<Record<string, () => Promise<unknown>>>
 
 export default loader
   `)

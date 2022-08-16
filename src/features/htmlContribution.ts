@@ -1,7 +1,10 @@
 import * as monaco from 'monaco-editor'
 import 'monaco-editor/esm/vs/language/html/monaco.contribution'
-import { getConfiguration, onConfigurationChanged, registerConfigurations } from '../configuration'
+import { ConfigurationScope } from 'vscode/service-override/configuration'
+import { DisposableStore } from 'vscode/monaco'
+import { StandaloneServices, ICodeEditorService } from 'vscode/services'
 import { registerWorkerLoader } from '../worker'
+import { getConfiguration, onConfigurationChanged, registerConfigurations } from '../configuration'
 
 const workerLoader = async () => (await import(/* webpackChunkName: "MonacoHtmlWorker" */'monaco-editor/esm/vs/language/html/html.worker?worker')).default
 registerWorkerLoader('html', workerLoader)
@@ -21,7 +24,7 @@ registerConfigurations([{
   properties: {
     'html.autoClosingTags': {
       type: 'boolean',
-      scope: monaco.extra.ConfigurationScope.RESOURCE,
+      scope: ConfigurationScope.RESOURCE,
       default: true,
       description: 'Enable/disable autoclosing of HTML tags.'
     }
@@ -41,7 +44,7 @@ setTimeout(() => {
 })
 
 function autoCloseHtmlTags (editor: monaco.editor.ICodeEditor): monaco.IDisposable {
-  const disposableStore = new monaco.DisposableStore()
+  const disposableStore = new DisposableStore()
 
   let timeout: number | undefined
   disposableStore.add({
@@ -107,7 +110,7 @@ function autoCloseHtmlTags (editor: monaco.editor.ICodeEditor): monaco.IDisposab
 
 setTimeout(() => {
   // In a timeout so the service can be overriden
-  const codeEditors = monaco.extra.StandaloneServices.get(monaco.extra.ICodeEditorService).listCodeEditors()
+  const codeEditors = StandaloneServices.get(ICodeEditorService).listCodeEditors()
   for (const editor of codeEditors) {
     autoCloseHtmlTags(editor)
   }

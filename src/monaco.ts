@@ -5,7 +5,7 @@ import getModelEditorServiceOverride from 'vscode/service-override/modelEditor'
 import getMessageServiceOverride from 'vscode/service-override/messages'
 import getConfigurationServiceOverride from 'vscode/service-override/configuration'
 import './worker'
-import { createConfiguredEditor } from 'vscode/monaco'
+import { createConfiguredEditor, errorHandler } from 'vscode/monaco'
 import setupExtensions from './extensions'
 import 'monaco-editor/esm/vs/editor/editor.all'
 import 'monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp'
@@ -20,7 +20,7 @@ import EditorOpenHandlerRegistry, { EditorOpenHandler } from './tools/EditorOpen
 
 const editorOpenHandlerRegistry = new EditorOpenHandlerRegistry()
 
-monaco.extra.StandaloneServices.initialize({
+StandaloneServices.initialize({
   ...getModelEditorServiceOverride((model, input, sideBySide) => {
     return editorOpenHandlerRegistry.openCodeEditor(model, input, sideBySide)
   }),
@@ -33,7 +33,7 @@ setTimeout(() => {
   monaco.extra.StandaloneServices.get(monaco.editor.IStandaloneThemeService).setAutoDetectHighContrast(false)
 })
 
-monaco.errorHandler.setUnexpectedErrorHandler(error => {
+errorHandler.setUnexpectedErrorHandler(error => {
   console.warn('Unexpected error', error)
 })
 
@@ -45,8 +45,8 @@ function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandal
   return editor
 }
 
-function registerTextModelContentProvider (scheme: string, provider: monaco.extra.ITextModelContentProvider): monaco.IDisposable {
-  const textModelService = monaco.extra.StandaloneServices.get(monaco.extra.ITextModelService)
+function registerTextModelContentProvider (scheme: string, provider: ITextModelContentProvider): monaco.IDisposable {
+  const textModelService = StandaloneServices.get(ITextModelService)
   return textModelService.registerTextModelContentProvider(scheme, provider)
 }
 

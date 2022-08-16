@@ -1,15 +1,5 @@
 
 // Generated file, do not modify
-import * as monaco from 'monaco-editor'
-
-export interface RawLanguageConfiguration extends Omit<monaco.extra.ILanguageConfiguration, 'folding'> {
-  folding?: Omit<monaco.extra.ILanguageConfiguration['folding'], 'markers'> & {
-    markers?: {
-      start: string
-      end: string
-    }
-  }
-}
 
 /* eslint-disable */
 const loader = {
@@ -102,7 +92,7 @@ const loader = {
   'vue-postcss': async () => (await import(/* webpackChunkName: "language-configuration-vue-postcss" */ /* webpackMode: "lazy" */ './languageConfigurations/vue-postcss.json')).default,
   'vue-sugarss': async () => (await import(/* webpackChunkName: "language-configuration-vue-sugarss" */ /* webpackMode: "lazy" */ './languageConfigurations/vue-sugarss.json')).default,
   'svelte': async () => (await import(/* webpackChunkName: "language-configuration-svelte" */ /* webpackMode: "lazy" */ './languageConfigurations/svelte.json')).default
-} as unknown as Partial<Record<string, () => Promise<RawLanguageConfiguration>>>
+} as unknown as Partial<Record<string, () => Promise<unknown>>>
 
 export default loader
   
