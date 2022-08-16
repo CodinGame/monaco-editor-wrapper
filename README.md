@@ -66,9 +66,7 @@ To enable them, import the following files:
 ##### Highlighting/theme
 
 This library uses VS Code themes instead of Monaco theme.
-To add your custom theme, use the `addVSCodeTheme` method.
-
-:warning: this method returns a promise, you need to wait for it before calling `monaco.editor.setTheme`.
+To add your custom theme, use the `defineVSCodeTheme` method.
 
 Default Monaco theme shouldn't be used.
 
