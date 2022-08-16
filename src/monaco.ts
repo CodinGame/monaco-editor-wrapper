@@ -5,6 +5,7 @@ import { StandaloneServices, ITextModelService, ITextModelContentProvider } from
 import getModelEditorServiceOverride from 'vscode/service-override/modelEditor'
 import getMessageServiceOverride from 'vscode/service-override/messages'
 import getConfigurationServiceOverride from 'vscode/service-override/configuration'
+import getKeybindingsServiceOverride from 'vscode/service-override/keybindings'
 import getThemeServiceOverride from 'vscode/service-override/theme'
 import './worker'
 import { createConfiguredEditor, errorHandler } from 'vscode/monaco'
@@ -28,6 +29,7 @@ StandaloneServices.initialize({
   }),
   ...getMessageServiceOverride(document.body),
   ...getConfigurationServiceOverride(),
+  ...getKeybindingsServiceOverride(),
   ...getThemeServiceOverride()
 })
 // Disable high contrast autodetection because it fallbacks on the hc-black no matter what
