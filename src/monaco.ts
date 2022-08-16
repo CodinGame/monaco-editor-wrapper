@@ -1,9 +1,11 @@
 import * as monaco from 'monaco-editor'
 import './languages'
 import './theme'
+import { StandaloneServices, ITextModelService, ITextModelContentProvider } from 'vscode/services'
 import getModelEditorServiceOverride from 'vscode/service-override/modelEditor'
 import getMessageServiceOverride from 'vscode/service-override/messages'
 import getConfigurationServiceOverride from 'vscode/service-override/configuration'
+import getThemeServiceOverride from 'vscode/service-override/theme'
 import './worker'
 import { createConfiguredEditor, errorHandler } from 'vscode/monaco'
 import setupExtensions from './extensions'
@@ -25,7 +27,8 @@ StandaloneServices.initialize({
     return editorOpenHandlerRegistry.openCodeEditor(model, input, sideBySide)
   }),
   ...getMessageServiceOverride(document.body),
-  ...getConfigurationServiceOverride()
+  ...getConfigurationServiceOverride(),
+  ...getThemeServiceOverride()
 })
 // Disable high contrast autodetection because it fallbacks on the hc-black no matter what
 setTimeout(() => {

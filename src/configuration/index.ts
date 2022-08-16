@@ -11,7 +11,23 @@ configurationRegistry.registerDefaultConfigurations([{
     'editor.fontSize': 12,
     'editor.maxTokenizationLineLength': 1000,
     'editor.quickSuggestions': false,
-    'files.eol': '\n'
+    'files.eol': '\n',
+    'editor.semanticTokenColorCustomizations': {
+      rules: {
+        '*.static': {
+          fontStyle: 'italic'
+        },
+        '*.final.static': {
+          fontStyle: 'italic bold'
+        },
+        '*.readonly': {
+          fontStyle: 'bold'
+        },
+        '*.deprecated': {
+          fontStyle: 'strikethrough'
+        }
+      }
+    }
   }
 }])
 
