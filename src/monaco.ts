@@ -45,11 +45,6 @@ StandaloneServices.initialize({
   ...getSnippetConfigurationServiceOverride(),
   ...getLanguagesServiceOverride()
 })
-// Disable high contrast autodetection because it fallbacks on the hc-black no matter what
-setTimeout(() => {
-  // In a timeout so the service can be overriden
-  monaco.extra.StandaloneServices.get(monaco.editor.IStandaloneThemeService).setAutoDetectHighContrast(false)
-})
 
 errorHandler.setUnexpectedErrorHandler(error => {
   console.warn('Unexpected error', error)
