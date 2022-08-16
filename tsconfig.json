@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./app",
     "noImplicitOverride": true,
-    "isolatedModules": true,
+    "resolveJsonModule": true,
     "lib": [
       "dom",
       "dom.iterable",
