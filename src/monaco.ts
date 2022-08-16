@@ -8,7 +8,10 @@ import getConfigurationServiceOverride from 'vscode/service-override/configurati
 import getKeybindingsServiceOverride from 'vscode/service-override/keybindings'
 import getTextmateServiceOverride from 'vscode/service-override/textmate'
 import getThemeServiceOverride from 'vscode/service-override/theme'
+import geTokenClassificationServiceOverride from 'vscode/service-override/tokenClassification'
+import getLanguageConfigurationServiceOverride from 'vscode/service-override/languageConfiguration'
 import getSnippetConfigurationServiceOverride from 'vscode/service-override/snippets'
+import getLanguagesServiceOverride from 'vscode/service-override/languages'
 import './worker'
 import { createConfiguredEditor, errorHandler } from 'vscode/monaco'
 import onigFile from 'vscode-oniguruma/release/onig.wasm'
@@ -36,8 +39,11 @@ StandaloneServices.initialize({
     const response = await fetch(onigFile)
     return await response.arrayBuffer()
   }),
+  ...getThemeServiceOverride(),
+  ...geTokenClassificationServiceOverride(),
+  ...getLanguageConfigurationServiceOverride(),
   ...getSnippetConfigurationServiceOverride(),
-  ...getThemeServiceOverride()
+  ...getLanguagesServiceOverride()
 })
 // Disable high contrast autodetection because it fallbacks on the hc-black no matter what
 setTimeout(() => {
