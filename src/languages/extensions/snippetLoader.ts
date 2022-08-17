@@ -1,6 +1,5 @@
 
 // Generated file, do not modify
-import * as monaco from 'monaco-editor'
 
 /* eslint-disable */
 const loader = {
@@ -39,7 +38,7 @@ const loader = {
   'rmd': async () => (await import(/* webpackChunkName: "snippet-rmd" */ /* webpackMode: "lazy" */ './snippets/vscode-R-rmarkdown.json')).default,
   'solidity': async () => (await import(/* webpackChunkName: "snippet-solidity" */ /* webpackMode: "lazy" */ './snippets/solidity-solidity.json')).default,
   'svelte': async () => (await import(/* webpackChunkName: "snippet-svelte" */ /* webpackMode: "lazy" */ './snippets/svelte.svelte-vscode-svelte.json')).default
-} as unknown as Partial<Record<string, () => Promise<Record<string, monaco.extra.JsonSerializedSnippet>>>>
+} as unknown as Partial<Record<string, () => Promise<Record<string, unknown>>>>
 
 export default loader
   

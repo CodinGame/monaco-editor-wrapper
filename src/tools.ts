@@ -1,6 +1,13 @@
 import * as monaco from 'monaco-editor'
 
-function isPasteAction (handlerId: string, payload: unknown): payload is monaco.editor.PastePayload {
+interface PastePayload {
+  text: string
+  pasteOnNewLine: boolean
+  multicursorText: string[] | null
+  mode: string | null
+}
+
+function isPasteAction (handlerId: string, payload: unknown): payload is PastePayload {
   return handlerId === 'paste'
 }
 
@@ -61,7 +68,7 @@ export function lockCodeWithoutDecoration (
             currentEditorValue.slice(currentEditorValue.length - after) === payload.text.slice(payload.text.length - after)
           ) {
             editor.setSelection(lastEditableRange)
-            const newPayload: monaco.editor.PastePayload = {
+            const newPayload: PastePayload = {
               ...payload,
               text: payload.text.slice(before, payload.text.length - after)
             }

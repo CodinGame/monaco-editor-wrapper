@@ -1,7 +1,51 @@
 import { IDisposable } from 'monaco-editor'
 import * as monacoVim from 'monaco-vim'
 import * as monaco from 'monaco-editor'
+import { IJSONSchema } from 'vscode/monaco'
+import { configurationRegistry, ConfigurationScope } from 'vscode/service-override/configuration'
 import { getConfiguration, onConfigurationChanged } from '../configuration'
+
+const vimKeybindingsSchema: IJSONSchema = {
+  type: 'object',
+  properties: {
+    before: {
+      type: 'array',
+      items: {
+        type: 'string'
+      }
+    },
+    after: {
+      type: 'array',
+      items: {
+        type: 'string'
+      }
+    }
+  }
+}
+configurationRegistry.registerConfiguration({
+  id: 'vim',
+  order: 5,
+  type: 'object',
+  title: 'Vim',
+  scope: ConfigurationScope.LANGUAGE_OVERRIDABLE,
+  properties: {
+    'vim.normalModeKeyBindings': {
+      type: 'array',
+      description: 'Remapped keys in Normal mode.',
+      items: vimKeybindingsSchema
+    },
+    'vim.insertModeKeyBindings': {
+      type: 'array',
+      description: 'Remapped keys in Insert mode.',
+      items: vimKeybindingsSchema
+    },
+    'vim.visualModeKeyBindings': {
+      type: 'array',
+      description: 'Remapped keys in Visual mode.',
+      items: vimKeybindingsSchema
+    }
+  }
+})
 
 interface VimKeybindingConfiguration {
   before?: string[]

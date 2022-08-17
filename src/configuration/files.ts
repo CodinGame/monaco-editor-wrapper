@@ -1,5 +1,4 @@
-import * as monaco from 'monaco-editor'
-const configurationRegistry = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
+import { configurationRegistry, ConfigurationScope } from 'vscode/service-override/configuration'
 
 /**
  * comes from https://github.com/microsoft/vscode/blob/16d0a319b28caa4b6cf4e6801fd508282b7533e0/src/vs/workbench/contrib/files/browser/files.contribution.ts#L132
@@ -8,7 +7,6 @@ const configurationRegistry = monaco.extra.Registry.as<monaco.extra.IConfigurati
 export const FILES_EXCLUDE_CONFIG = 'files.exclude'
 export const FILES_ASSOCIATIONS_CONFIG = 'files.associations'
 const isWeb = true
-const ConfigurationScope = monaco.extra.ConfigurationScope
 const nls = {
   localize: (key: string, defaultValue: string) => defaultValue
 }

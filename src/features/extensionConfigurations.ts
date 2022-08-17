@@ -1,7 +1,5 @@
-import * as monaco from 'monaco-editor'
+import { configurationRegistry } from 'vscode/service-override/configuration'
 import extensionConfigurationLoader from '../languages/extensions/extensionConfigurationLoader'
-
-const configurationRegistry = monaco.extra.Registry.as<monaco.extra.IConfigurationRegistry>(monaco.extra.ConfigurationExtensions.Configuration)
 
 export async function loadConfigurationForExtension (extensionId: string): Promise<void> {
   const loader = extensionConfigurationLoader[extensionId]

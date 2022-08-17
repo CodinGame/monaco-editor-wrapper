@@ -1,6 +1,6 @@
 
 // Generated file, do not modify
-import * as monaco from 'monaco-editor'
+import type { IConfigurationNode } from 'vscode/service-override/configuration'
 
 /* eslint-disable */
 const loader = {
@@ -28,7 +28,7 @@ const loader = {
   'solidity': async () => (await import(/* webpackChunkName: "configuration-registration-solidity" */ /* webpackMode: "lazy" */ './configurations/solidity.json')).default,
   'vetur': async () => (await import(/* webpackChunkName: "configuration-registration-vetur" */ /* webpackMode: "lazy" */ './configurations/vetur.json')).default,
   'svelte.svelte-vscode': async () => (await import(/* webpackChunkName: "configuration-registration-svelte.svelte-vscode" */ /* webpackMode: "lazy" */ './configurations/svelte.svelte-vscode.json')).default
-} as unknown as Partial<Record<string, () => Promise<monaco.extra.IConfigurationNode[]>>>
+} as unknown as Partial<Record<string, () => Promise<IConfigurationNode[]>>>
 
 export default loader
   
