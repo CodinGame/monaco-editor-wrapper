@@ -3,7 +3,7 @@ import './languages'
 import './theme'
 import { StandaloneServices, ITextModelService, ITextModelContentProvider } from 'vscode/services'
 import getModelEditorServiceOverride from 'vscode/service-override/modelEditor'
-import getMessageServiceOverride from 'vscode/service-override/messages'
+import getDialogServiceOverride from 'vscode/service-override/dialogs'
 import getConfigurationServiceOverride from 'vscode/service-override/configuration'
 import getKeybindingsServiceOverride from 'vscode/service-override/keybindings'
 import getTextmateServiceOverride from 'vscode/service-override/textmate'
@@ -32,7 +32,7 @@ StandaloneServices.initialize({
   ...getModelEditorServiceOverride((model, input, sideBySide) => {
     return editorOpenHandlerRegistry.openCodeEditor(model, input, sideBySide)
   }),
-  ...getMessageServiceOverride(document.body),
+  ...getDialogServiceOverride(),
   ...getConfigurationServiceOverride(),
   ...getKeybindingsServiceOverride(),
   ...getTextmateServiceOverride(async () => {
