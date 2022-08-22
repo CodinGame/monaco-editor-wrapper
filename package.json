@@ -67,7 +67,7 @@
   ],
   "dependencies": {
     "monaco-editor": "npm:@codingame/monaco-editor@^0.34.0",
-    "vscode": "npm:@codingame/monaco-vscode-api@~1.69.2",
+    "vscode": "npm:@codingame/monaco-vscode-api@~1.69.6",
     "vscode-oniguruma": "^1.6.2"
   },
   "devDependencies": {
@@ -108,12 +108,12 @@
     "monaco-emacs": "^0.3.0",
     "monaco-vim": "^0.3.4",
     "postcss": "8.4.16",
-    "rollup": "2.78.0",
+    "rollup": "2.78.1",
     "rollup-plugin-json5": "1.0.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-string": "^3.0.0",
     "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-visualizer": "5.7.1",
+    "rollup-plugin-visualizer": "5.8.0",
     "rollup-plugin-web-worker-loader": "1.6.1",
     "ts-node": "10.9.1",
     "tslib": "^2.4.0",
