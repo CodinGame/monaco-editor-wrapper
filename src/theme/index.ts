@@ -43,10 +43,9 @@ function updateThemes () {
 }
 updateThemes()
 
-function defineVSCodeTheme (id: string, load: () => Promise<string>): Disposable {
+function defineVSCodeTheme (idOrTheme: string | Pick<IThemeExtensionPoint, 'id' | 'label' | 'description' | 'uiTheme' | 'path'>, load: () => Promise<string>): Disposable {
   const theme: VSCodeTheme = {
-    id,
-    path: `/${id}.json`,
+    ...(typeof idOrTheme === 'string' ? { id: idOrTheme, path: `/${idOrTheme}.json` } : idOrTheme),
     load,
     _watch: false
   }
