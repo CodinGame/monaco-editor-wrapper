@@ -349,7 +349,7 @@ interface ITokenStyleDefaultExtensionPoint {
 }
 
 interface PackageJsonContributes {
-  languages?: (monaco.languages.ILanguageExtensionPoint & { configuration?: string })[]
+  languages?: (monaco.languages.ILanguageExtensionPoint & { configuration?: string, icon?: string })[]
   grammars?: ITMSyntaxExtensionPoint[]
   configurationDefaults?: Record<string, unknown>
   snippets?: {
@@ -546,7 +546,7 @@ async function fetchExtensions () {
 
     if (languages != null) {
       for (const languageConf of languages) {
-        const { configuration: languageConfigurationPath, ...languageWithoutConfiguration } = languageConf
+        const { configuration: languageConfigurationPath, icon, ...languageWithoutConfiguration } = languageConf
         const id = languageWithoutConfiguration.id
         let configuration = null
         if (languageConfigurationPath != null) {
