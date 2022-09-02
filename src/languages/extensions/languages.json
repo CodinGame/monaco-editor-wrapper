@@ -495,6 +495,7 @@
       "Shell Script",
       "shellscript",
       "bash",
+      "fish",
       "sh",
       "zsh",
       "ksh",
@@ -521,6 +522,7 @@
       ".zlogout",
       ".zshenv",
       ".zsh-theme",
+      ".fish",
       ".ksh",
       ".csh",
       ".cshrc",
@@ -541,7 +543,7 @@
       "bashrc_Apple_Terminal",
       "zshrc_Apple_Terminal"
     ],
-    "firstLine": "^#!.*\\b(bash|zsh|sh|ksh|dtksh|pdksh|mksh|ash|dash|yash|sh|csh|jcsh|tcsh|itcsh).*|^#\\s*-\\*-[^*]*mode:\\s*shell-script[^*]*-\\*-",
+    "firstLine": "^#!.*\\b(bash|fish|zsh|sh|ksh|dtksh|pdksh|mksh|ash|dash|yash|sh|csh|jcsh|tcsh|itcsh).*|^#\\s*-\\*-[^*]*mode:\\s*shell-script[^*]*-\\*-",
     "mimetypes": [
       "text/x-shellscript"
     ]
@@ -1123,6 +1125,15 @@
     ]
   },
   {
+    "id": "semanticdb",
+    "extensions": [
+      ".semanticdb",
+      ".semanticdb-detailed",
+      ".semanticdb-compact",
+      ".semanticdb-proto"
+    ]
+  },
+  {
     "id": "COBOL",
     "extensions": [
       ".cbl",
@@ -1237,6 +1248,15 @@
     "extensions": [
       ".java",
       ".class"
+    ]
+  },
+  {
+    "id": "java-properties",
+    "aliases": [
+      "Java Properties"
+    ],
+    "extensions": [
+      ".properties"
     ]
   },
   {

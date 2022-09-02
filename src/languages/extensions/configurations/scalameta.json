@@ -4,7 +4,7 @@
     "properties": {
       "metals.serverVersion": {
         "type": "string",
-        "default": "0.11.7+19-1405f4de-SNAPSHOT",
+        "default": "0.11.8+38-1832a3cf-SNAPSHOT",
         "markdownDescription": "The version of the Metals server artifact. Requires reloading the window.  \n\n**VS Code extension version is guaranteed to work only with the default version, change if you know what you're doing**",
         "scope": 3
       },
@@ -173,6 +173,8 @@
           "2.12.9",
           "2.12.8",
           "2.11.12",
+          "3.2.0-RC3",
+          "3.2.0-RC2",
           "3.2.0-RC1",
           "3.1.3",
           "3.1.2",
@@ -193,6 +195,11 @@
       "metals.javaFormat.eclipseProfile": {
         "type": "string",
         "markdownDescription": "Optional Eclipse format profile to use.",
+        "scope": 3
+      },
+      "metals.scalaCliLauncher": {
+        "type": "string",
+        "markdownDescription": "Optional path to Scala CLI launcher to use.",
         "scope": 3
       },
       "metals.suggestLatestUpgrade": {

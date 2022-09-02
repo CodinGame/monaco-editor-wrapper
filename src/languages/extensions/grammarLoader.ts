@@ -102,6 +102,7 @@ const loader = {
   'source.systemverilog': async () => (await import(/* webpackChunkName: "grammar-source-systemverilog" */ /* webpackMode: "lazy" */ './grammars/svlangserver/systemverilog.tmLanguage.json')).default,
   'markdown.verilog.codeblock': async () => (await import(/* webpackChunkName: "grammar-markdown-verilog-codeblock" */ /* webpackMode: "lazy" */ './grammars/svlangserver/codeblock.json')).default,
   'source.pgsql': async () => (await import(/* webpackChunkName: "grammar-source-pgsql" */ /* webpackMode: "lazy" */ './grammars/postgresql/pgsql.tmLanguage.json')).default,
+  'source.java-properties': async () => (await import(/* webpackChunkName: "grammar-source-java-properties" */ /* webpackMode: "lazy" */ './grammars/java/JavaProperties.tmLanguage.json')).default,
   'text.aspnetcorerazor': async () => (await import(/* webpackChunkName: "grammar-text-aspnetcorerazor" */ /* webpackMode: "lazy" */ './grammars/omnisharp/aspnetcorerazor.tmLanguage.json')).default,
   'source.pip-requirements': async () => (await import(/* webpackChunkName: "grammar-source-pip-requirements" */ /* webpackMode: "lazy" */ './grammars/vscode-python/pip-requirements.tmLanguage.json')).default,
   'text.tex.latex.rd': async () => (await import(/* webpackChunkName: "grammar-text-tex-latex-rd" */ /* webpackMode: "lazy" */ './grammars/vscode-R/Rd (R Documentation).json')).default,

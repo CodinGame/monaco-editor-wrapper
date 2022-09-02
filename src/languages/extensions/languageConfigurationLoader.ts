@@ -81,6 +81,7 @@ const loader = {
   'systemverilog': async () => (await import(/* webpackChunkName: "language-configuration-systemverilog" */ /* webpackMode: "lazy" */ './languageConfigurations/systemverilog.json')).default,
   'verilog': async () => (await import(/* webpackChunkName: "language-configuration-verilog" */ /* webpackMode: "lazy" */ './languageConfigurations/verilog.json')).default,
   'postgres': async () => (await import(/* webpackChunkName: "language-configuration-postgres" */ /* webpackMode: "lazy" */ './languageConfigurations/postgres.json')).default,
+  'java-properties': async () => (await import(/* webpackChunkName: "language-configuration-java-properties" */ /* webpackMode: "lazy" */ './languageConfigurations/java-properties.json')).default,
   'aspnetcorerazor': async () => (await import(/* webpackChunkName: "language-configuration-aspnetcorerazor" */ /* webpackMode: "lazy" */ './languageConfigurations/aspnetcorerazor.json')).default,
   'pip-requirements': async () => (await import(/* webpackChunkName: "language-configuration-pip-requirements" */ /* webpackMode: "lazy" */ './languageConfigurations/pip-requirements.json')).default,
   'rd': async () => (await import(/* webpackChunkName: "language-configuration-rd" */ /* webpackMode: "lazy" */ './languageConfigurations/rd.json')).default,

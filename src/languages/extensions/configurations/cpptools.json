@@ -146,6 +146,12 @@
         },
         "scope": 4
       },
+      "C_Cpp.codeAnalysis.clangTidy.codeAction.formatFixes": {
+        "type": "boolean",
+        "description": "If `true`, formatting will be run on the lines changed by 'Fix' code actions.",
+        "default": true,
+        "scope": 4
+      },
       "C_Cpp.codeAnalysis.clangTidy.codeAction.showClear": {
         "type": "string",
         "description": "Controls which 'Clear' code analysis problem code action options are available. Changing the setting to show more options may require re-running code analysis.",
@@ -1328,7 +1334,7 @@
       "C_Cpp.clang_format_style": {
         "type": "string",
         "default": "file",
-        "markdownDescription": "Coding style, currently supports: `Visual Studio`, `LLVM`, `Google`, `Chromium`, `Mozilla`, `WebKit`, `Microsoft`, `GNU`. Use `file` to load the style from a `.clang-format` file in the current or parent directory. Use `{key: value, ...}` to set specific parameters. For example, the `Visual Studio` style is similar to: `{ BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 0, AccessModifierOffset: -4, NamespaceIndentation: All, FixNamespaceComments: false }`.",
+        "markdownDescription": "Coding style, currently supports: `Visual Studio`, `LLVM`, `Google`, `Chromium`, `Mozilla`, `WebKit`, `Microsoft`, `GNU`. Use `file` to load the style from a `.clang-format` file in the current or parent directory, or use `file:<path>/.clang-format` to reference a specific path. Use `{key: value, ...}` to set specific parameters. For example, the `Visual Studio` style is similar to: `{ BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 0, AccessModifierOffset: -4, NamespaceIndentation: All, FixNamespaceComments: false }`.",
         "scope": 4
       },
       "C_Cpp.formatting": {
@@ -2053,6 +2059,24 @@
         "default": true,
         "markdownDescription": "If `true`, tooltips of hover and auto-complete will only display certain labels of structured comments. Otherwise, all comments are displayed.",
         "scope": 1
+      },
+      "C_Cpp.doxygen.generateOnType": {
+        "type": "boolean",
+        "default": true,
+        "description": "Controls whether to automatically insert the Doxygen comment after typing the chosen comment style.",
+        "scope": 4
+      },
+      "C_Cpp.doxygen.generatedStyle": {
+        "type": "string",
+        "enum": [
+          "///",
+          "/**",
+          "/*!",
+          "//!"
+        ],
+        "default": "///",
+        "description": "The string of characters used as the starting line of the Doxygen comment.",
+        "scope": 4
       },
       "C_Cpp.commentContinuationPatterns": {
         "type": "array",

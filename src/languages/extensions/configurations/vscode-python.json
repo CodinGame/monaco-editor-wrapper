@@ -538,12 +538,9 @@
       },
       "python.pylanceLspNotebooksEnabled": {
         "type": "boolean",
-        "default": false,
+        "default": true,
         "description": "Determines if Pylance's experimental LSP notebooks support is used or not.",
-        "scope": 2,
-        "tags": [
-          "experimental"
-        ]
+        "scope": 2
       },
       "python.sortImports.args": {
         "default": [],

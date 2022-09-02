@@ -83,6 +83,13 @@
     "[java]": {
       "editor.suggest.snippetsPreventQuickSuggestions": false
     },
+    "[lua]": {
+      "editor.quickSuggestions": {
+        "comments": "inline",
+        "other": "on",
+        "strings": "on"
+      }
+    },
     "[cpp]": {
       "editor.wordBasedSuggestions": false,
       "editor.suggest.insertMode": "replace",
