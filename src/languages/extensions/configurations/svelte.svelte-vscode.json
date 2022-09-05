@@ -36,6 +36,12 @@
         "default": -1,
         "scope": 3
       },
+      "svelte.language-server.debug": {
+        "type": "boolean",
+        "title": "Language Server Debug Mode",
+        "description": "- You normally don't set this - Enable more verbose logging for the language server useful for debugging language server execution.",
+        "scope": 3
+      },
       "svelte.trace.server": {
         "type": "string",
         "enum": [

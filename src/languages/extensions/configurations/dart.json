@@ -90,10 +90,10 @@
         "description": "Whether to show TODOs in the Problems list.",
         "scope": 3
       },
-      "dart.useLsp": {
+      "dart.useLegacyAnalyzerProtocol": {
         "type": "boolean",
-        "default": true,
-        "markdownDescription": "Whether to run the analyzer in [LSP mode](https://microsoft.github.io/language-server-protocol/). Some features are not supported if this setting is disabled and in a future release LSP will be the only supported option.",
+        "default": false,
+        "markdownDescription": "Whether to use the Dart Analyzer's original protocol instead of LSP. Some features are not supported when using the legacy protocol and support for it will eventually be removed. Please file issues on GitHub in the Dart-Code repo if you find yourself needing to enable this setting.",
         "scope": 3
       }
     }
@@ -187,13 +187,28 @@
         "markdownDescription": "Whether to show notifications for widget errors that offer Inspect Widget links. This requires that the `#dart.shareDevToolsWithFlutter#` setting is also enabled.",
         "scope": 3
       },
-      "dart.customDevToolsUri": {
-        "type": [
-          "null",
-          "string"
-        ],
-        "default": null,
-        "description": "A custom URI to use for launching DevTools. This setting is intended for use by Dart DevTools developers.",
+      "dart.customDevTools": {
+        "type": "object",
+        "properties": {
+          "script": {
+            "type": "string",
+            "default": "/path/to/devtools/tool/build_e2e.dart",
+            "description": "The script or command that runs the DevTools server. This will be supplied to the `dart` executable (for example `dart devtools` or `dart /foo/devtools.dart`)."
+          },
+          "cwd": {
+            "type": "string",
+            "default": "/path/to/devtools",
+            "description": "The working directory to spawn the command in."
+          },
+          "env": {
+            "type": "object",
+            "default": {
+              "LOCAL_DART_SDK": "/path/to/dart-sdk"
+            },
+            "description": "Any environment variables to set when spawning the command."
+          }
+        },
+        "description": "Custom settings for launching DevTools. This setting is intended for use by Dart DevTools developers.",
         "scope": 6
       }
     }
@@ -724,9 +739,18 @@
         }
       },
       "dart.runPubGetOnPubspecChanges": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "Whether to automatically run `pub get` whenever `pubspec.yaml` is saved.",
+        "enum": [
+          "always",
+          "prompt",
+          "never"
+        ],
+        "enumDescriptions": [
+          "Always run when pubspec is changed",
+          "Prompt to run when pubspec is changed",
+          "Never run when pubspec is changed"
+        ],
+        "default": "always",
+        "markdownDescription": "Whether to run `pub get` whenever `pubspec.yaml` is saved.",
         "scope": 4
       },
       "dart.runPubGetOnNestedProjects": {
@@ -1020,12 +1044,6 @@
         "description": "Whether to normalize file casings before sending them to the LSP server. This may fix issues with file_names lints not disappearing after renaming a file if the VS Code API continues to use the original casing.",
         "scope": 3
       },
-      "dart.previewBazelWorkspaceCustomScripts": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "EXPERIMENTAL: Whether to look for custom script definitions at `dart/config/ide/flutter.json` in Bazel workspaces. Currently supported for macOS and Linux only.",
-        "scope": 3
-      },
       "dart.daemonPort": {
         "type": "number",
         "default": false,
@@ -1057,9 +1075,12 @@
         "scope": 3
       },
       "dart.previewSdkDaps": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "PREVIEW: Whether to use the new debug adapters shipped in the Dart and Flutter SDKs. This setting will only apply if your SDK is new enough to include an appropriate version of the DAP server.",
+        "type": [
+          "null",
+          "boolean"
+        ],
+        "default": null,
+        "markdownDescription": "PREVIEW: Whether to use the new debug adapters shipped in the Dart and Flutter SDKs. This setting will only apply if your SDK is new enough to include an appropriate version of the DAP server. Setting the value to `true` will opt-in to the new DAPs. Setting to `false` will opt-out. Leaving as `null` will allow the extension to decide when to enable the SDK DAPs as part of a progressive rollout.",
         "scope": 3
       }
     }

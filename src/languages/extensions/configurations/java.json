@@ -27,8 +27,8 @@
           "string",
           "null"
         ],
-        "default": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m",
-        "description": "Specifies extra VM arguments used to launch the Java Language Server. Eg. use `-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m ` to optimize memory usage with the parallel garbage collector",
+        "default": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -Xlog:jni+resolve=off",
+        "description": "Specifies extra VM arguments used to launch the Java Language Server. Eg. use `-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -Xlog:jni+resolve=off` to optimize memory usage with the parallel garbage collector",
         "scope": 6
       },
       "java.errors.incompleteClasspath.severity": {
@@ -82,6 +82,12 @@
         "description": "Enable/disable the Maven importer.",
         "scope": 3
       },
+      "java.import.maven.offline.enabled": {
+        "type": "boolean",
+        "default": false,
+        "description": "Enable/disable the Maven offline mode.",
+        "scope": 3
+      },
       "java.import.gradle.enabled": {
         "type": "boolean",
         "default": true,
@@ -110,7 +116,7 @@
         "type": "string",
         "default": null,
         "description": "The location to the JVM used to run the Gradle daemon.",
-        "scope": 2
+        "scope": 6
       },
       "java.import.gradle.offline.enabled": {
         "type": "boolean",
@@ -743,6 +749,29 @@
         "type": "boolean",
         "default": true,
         "description": "Whether to load lombok processors from project classpath",
+        "scope": 3
+      },
+      "java.jdt.ls.protobufSupport.enabled": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Specify whether to automatically add Protobuf output source directories to the classpath.\n\n**Note:** Only works for Gradle `com.google.protobuf` plugin `0.8.4` or higher.",
+        "scope": 3
+      },
+      "java.jdt.ls.androidSupport.enabled": {
+        "type": "string",
+        "enum": [
+          "auto",
+          "on",
+          "off"
+        ],
+        "default": "auto",
+        "markdownDescription": "[Experimental] Specify whether to enable Android project importing. When set to `auto`, the Android support will be enabled in Visual Studio Code - Insiders.\n\n**Note:** Only works for Android Gradle Plugin `3.2.0` or higher.",
+        "scope": 3
+      },
+      "java.codeAction.sortMembers.avoidVolatileChanges": {
+        "type": "boolean",
+        "default": true,
+        "description": "Reordering of fields, enum constants, and initializers can result in semantic and runtime changes due to different initialization and persistence order. This setting prevents this from occurring.",
         "scope": 3
       }
     }
