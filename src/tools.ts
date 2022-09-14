@@ -220,3 +220,50 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.IStandaloneCode
     editor.setHiddenAreas(otherHiddenAreas)
   }
 }
+
+/**
+ * Collapse everything between startToken and endToken
+ */
+export async function collapseCodeSections (editor: monaco.editor.IStandaloneCodeEditor, startToken: string, endToken: string, isRegex: boolean = false): Promise<void> {
+  const editorModel = editor.getModel()
+  const ranges: monaco.IRange[] = []
+  if (editorModel != null) {
+    let currentPosition = editorModel.getFullModelRange().getStartPosition()
+    let match: monaco.editor.FindMatch | null
+    while ((match = editorModel.findNextMatch(startToken,
+      /* searchStart */currentPosition,
+      /* isRegex */isRegex,
+      /* matchCase */true,
+      /* wordSeparators */null,
+      /* captureMatches */false
+    )) != null) {
+      if (match.range.getStartPosition().isBefore(currentPosition)) {
+        break
+      }
+      const matchEnd = editorModel.findNextMatch(endToken,
+        /* searchStart */match.range.getEndPosition(),
+        /* isRegex */isRegex,
+        /* matchCase */true,
+        /* wordSeparators */null,
+        /* captureMatches */false
+      )
+      if (matchEnd != null && matchEnd.range.getStartPosition().isBefore(match.range.getStartPosition())) {
+        break
+      }
+      currentPosition = matchEnd?.range.getEndPosition() ?? editorModel.getFullModelRange().getEndPosition()
+      ranges.push(monaco.Range.fromPositions(match.range.getStartPosition(), currentPosition))
+    }
+
+    const selections = editor.getSelections()
+    editor.setSelections(ranges.map(r => ({
+      selectionStartLineNumber: r.startLineNumber,
+      selectionStartColumn: r.startColumn,
+      positionLineNumber: r.endLineNumber,
+      positionColumn: r.endColumn
+    })))
+    await editor.getAction('editor.createFoldingRangeFromSelection').run()
+    if (selections != null) {
+      editor.setSelections(selections)
+    }
+  }
+}
