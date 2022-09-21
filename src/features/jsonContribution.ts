@@ -7,10 +7,17 @@ function updateDiagnosticsOptions () {
   monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
     comments: 'ignore',
     validate: true,
-    schemas: getJsonSchemas({
-      keybindings: ['file:///keybindings.json'],
-      'settings/user': ['file:///settings.json']
-    })
+    enableSchemaRequest: true,
+    schemas: [
+      ...getJsonSchemas({
+        keybindings: ['file:///keybindings.json'],
+        'settings/user': ['file:///settings.json']
+      })!,
+      {
+        uri: 'https://json-schema.org/draft/2019-09/schema',
+        fileMatch: ['*.schema.json']
+      }
+    ]
   })
 }
 
