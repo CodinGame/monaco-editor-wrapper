@@ -254,16 +254,18 @@ export async function collapseCodeSections (editor: monaco.editor.IStandaloneCod
       ranges.push(monaco.Range.fromPositions(match.range.getStartPosition(), currentPosition))
     }
 
-    const selections = editor.getSelections()
-    editor.setSelections(ranges.map(r => ({
-      selectionStartLineNumber: r.startLineNumber,
-      selectionStartColumn: r.startColumn,
-      positionLineNumber: r.endLineNumber,
-      positionColumn: r.endColumn
-    })))
-    await editor.getAction('editor.createFoldingRangeFromSelection').run()
-    if (selections != null) {
-      editor.setSelections(selections)
+    if (ranges.length > 0) {
+      const selections = editor.getSelections()
+      editor.setSelections(ranges.map(r => ({
+        selectionStartLineNumber: r.startLineNumber,
+        selectionStartColumn: r.startColumn,
+        positionLineNumber: r.endLineNumber,
+        positionColumn: r.endColumn
+      })))
+      await editor.getAction('editor.createFoldingRangeFromSelection').run()
+      if (selections != null) {
+        editor.setSelections(selections)
+      }
     }
   }
 }
