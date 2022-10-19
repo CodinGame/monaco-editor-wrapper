@@ -1,5 +1,5 @@
 import json from 'rollup-plugin-json5'
-import visualizer from 'rollup-plugin-visualizer'
+import { visualizer } from 'rollup-plugin-visualizer'
 import commonjs from '@rollup/plugin-commonjs'
 import alias from '@rollup/plugin-alias'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
@@ -9,8 +9,12 @@ import { babel } from '@rollup/plugin-babel'
 import * as rollup from 'rollup'
 import builtins from 'rollup-plugin-node-builtins'
 import { terser } from 'rollup-plugin-terser'
-import path from 'path'
-import pkg from './package.json'
+import path, { dirname } from 'path'
+import { fileURLToPath } from 'url'
+import pkg from './package.json' assert { type: 'json' }
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const externals = Object.keys(pkg.dependencies)
 
