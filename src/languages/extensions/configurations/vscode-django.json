@@ -1,0 +1,35 @@
+[
+  {
+    "type": "object",
+    "title": "Django configuration",
+    "properties": {
+      "django.snippets.use": {
+        "type": "boolean",
+        "default": true,
+        "description": "Activates the Python snippets",
+        "scope": 3
+      },
+      "django.snippets.exclude": {
+        "type": "array",
+        "default": [
+          "cms",
+          "wagtail"
+        ],
+        "description": "Exclude Python snippets by their file name. Can be 'import', 'postgres'...",
+        "scope": 3
+      },
+      "django.i18n": {
+        "type": "boolean",
+        "default": true,
+        "description": "Activates the i18n features for snippets (eg.: _(\"\"))",
+        "scope": 3
+      },
+      "django.showContributeNotification": {
+        "type": "boolean",
+        "default": true,
+        "description": "Seldom show notifications about this extension",
+        "scope": 3
+      }
+    }
+  }
+]

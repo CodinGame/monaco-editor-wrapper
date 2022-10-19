@@ -28,7 +28,8 @@
       "editor.insertSpaces": true,
       "editor.detectIndentation": false,
       "editor.suggest.insertMode": "replace",
-      "editor.defaultFormatter": "Dart-Code.dart-code"
+      "editor.defaultFormatter": "Dart-Code.dart-code",
+      "editor.inlayHints.enabled": "offUnlessPressed"
     },
     "files.watcherExclude": {
       "**/.dart_tool": true
@@ -104,6 +105,13 @@
       "editor.wordBasedSuggestions": false,
       "editor.suggest.insertMode": "replace",
       "editor.semanticHighlighting.enabled": true
+    },
+    "[django-html]": {
+      "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+      }
     }
   },
   "semanticTokenTypes": [

@@ -12,7 +12,7 @@
       "solidity.compileUsingRemoteVersion": {
         "type": "string",
         "default": "latest",
-        "description": "Compile downloading a remote solc binary file, for example: 'latest' or 'v0.4.3+commit.2353da71', use the command 'Solidity: Get solidity releases' to list all versions, or just right click in a solidity file to simply select the version",
+        "description": "Configuration to download a 'remote' solc (js) version binary file from 'https://binaries.soliditylang.org/', for example: 'latest' will always use the latest version, or a specific version like: 'v0.4.3+commit.2353da71', use the command 'Solidity: Get solidity releases' to list all versions available, or just right click in a solidity file and select either `Solidity: Change global compiler version (Remote)` or `Solidity: Change workspace compiler version (Remote)` to use the wizard to set the correct version or setting for either the current workspace or globally",
         "scope": 3
       },
       "solidity.compilerOptimization": {
@@ -24,11 +24,12 @@
       "solidity.compileUsingLocalVersion": {
         "type": "string",
         "default": "",
-        "description": "Compile using a local solc binary file, please include the path of the file if wanted: 'C://v0.4.3+commit.2353da71.js'",
+        "description": "Compile using a local solc (js) binary file, please include the path of the file if wanted: 'C://v0.4.3+commit.2353da71.js'",
         "scope": 3
       },
       "solidity.defaultCompiler": {
         "type": "string",
+        "description": "Sets the default compiler and compiler configuration to use. Remote will use the configured compiler using the setting 'compileUsingRemoteVersion' downloaded from https://binaries.soliditylang.org/', `localFile` will use the solc file in the location configured in the setting: `compileUsingLocalVersion`, `localNodeModule` will attempt to find the solc file in the node_modules folder / package configured on 'nodemodulespackage' and 'embedded' which will use the solc version packaged with the extension. The default is 'remote' which is configured as 'latest'",
         "enum": [
           "remote",
           "localFile",
@@ -36,7 +37,6 @@
           "embedded"
         ],
         "default": "remote",
-        "description": "Sets the default compiler to use",
         "scope": 3
       },
       "solidity.linter": {
@@ -63,9 +63,10 @@
         "default": "prettier",
         "enum": [
           "none",
-          "prettier"
+          "prettier",
+          "forge"
         ],
-        "description": "Enables / disables the solidity formatter (prettier solidity default)",
+        "description": "Enables / disables the solidity formatter prettier (default) or forge (note it needs to be installed)",
         "scope": 3
       },
       "solidity.soliumRules": {

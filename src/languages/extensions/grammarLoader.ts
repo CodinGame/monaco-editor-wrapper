@@ -93,6 +93,7 @@ const loader = {
   'source.jvm-bytecode': async () => (await import(/* webpackChunkName: "grammar-source-jvm-bytecode" */ /* webpackMode: "lazy" */ './grammars/scalameta/jvm-bytecode.json')).default,
   'source.tasty': async () => (await import(/* webpackChunkName: "grammar-source-tasty" */ /* webpackMode: "lazy" */ './grammars/scalameta/tasty.json')).default,
   'source.buildtarget': async () => (await import(/* webpackChunkName: "grammar-source-buildtarget" */ /* webpackMode: "lazy" */ './grammars/scalameta/buildtarget.json')).default,
+  'source.semanticdb': async () => (await import(/* webpackChunkName: "grammar-source-semanticdb" */ /* webpackMode: "lazy" */ './grammars/scalameta/semanticdb.json')).default,
   'source.cobol': async () => (await import(/* webpackChunkName: "grammar-source-cobol" */ /* webpackMode: "lazy" */ './grammars/cobol/COBOL.tmLanguage.json')).default,
   'source.elixir': async () => (await import(/* webpackChunkName: "grammar-source-elixir" */ /* webpackMode: "lazy" */ './grammars/elixir/elixir.json')).default,
   'text.elixir': async () => (await import(/* webpackChunkName: "grammar-text-elixir" */ /* webpackMode: "lazy" */ './grammars/elixir/eex.json')).default,
@@ -124,7 +125,9 @@ const loader = {
   'svelte.pug.dotblock': async () => (await import(/* webpackChunkName: "grammar-svelte-pug-dotblock" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/pug-svelte-dotblock.json')).default,
   'markdown.svelte.codeblock': async () => (await import(/* webpackChunkName: "grammar-markdown-svelte-codeblock" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/markdown-svelte.json')).default,
   'markdown.svelte.codeblock.script': async () => (await import(/* webpackChunkName: "grammar-markdown-svelte-codeblock-script" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/markdown-svelte-js.json')).default,
-  'markdown.svelte.codeblock.style': async () => (await import(/* webpackChunkName: "grammar-markdown-svelte-codeblock-style" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/markdown-svelte-css.json')).default
+  'markdown.svelte.codeblock.style': async () => (await import(/* webpackChunkName: "grammar-markdown-svelte-codeblock-style" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/markdown-svelte-css.json')).default,
+  'text.html.django': async () => (await import(/* webpackChunkName: "grammar-text-html-django" */ /* webpackMode: "lazy" */ './grammars/vscode-django/django-html.tmLanguage.json')).default,
+  'text.django': async () => (await import(/* webpackChunkName: "grammar-text-django" */ /* webpackMode: "lazy" */ './grammars/vscode-django/django-txt.tmLanguage.json')).default
 } as Partial<Record<string, () => Promise<object>>>
 
 export default loader

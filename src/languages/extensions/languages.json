@@ -141,7 +141,7 @@
       "Jenkinsfile"
     ],
     "filenamePatterns": [
-      "Jenkinsfile.*"
+      "Jenkinsfile*"
     ],
     "firstLine": "^#!.*\\bgroovy\\b"
   },
@@ -270,7 +270,8 @@
     "filenames": [
       "babel.config.json",
       ".babelrc.json",
-      ".ember-cli"
+      ".ember-cli",
+      "typedoc.json"
     ]
   },
   {
@@ -402,7 +403,6 @@
       "py"
     ],
     "filenames": [
-      "Snakefile",
       "SConstruct",
       "SConscript"
     ],
@@ -1097,6 +1097,13 @@
     ]
   },
   {
+    "id": "semanticdb",
+    "extensions": [
+      ".semanticdb-detailed",
+      ".semanticdb-compact"
+    ]
+  },
+  {
     "id": "javap",
     "extensions": [
       ".javap"
@@ -1449,5 +1456,27 @@
     "filenames": [
       ".prettierrc"
     ]
+  },
+  {
+    "id": "django-html",
+    "aliases": [
+      "Django HTML",
+      "django"
+    ],
+    "filenamePatterns": [
+      "**/templates/**/*.html"
+    ],
+    "firstLine": "{%"
+  },
+  {
+    "id": "django-txt",
+    "aliases": [
+      "Django txt",
+      "django"
+    ],
+    "filenamePatterns": [
+      "**/templates/**/*"
+    ],
+    "firstLine": "{%"
   }
 ]

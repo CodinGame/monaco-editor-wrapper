@@ -148,7 +148,7 @@
       },
       "C_Cpp.codeAnalysis.clangTidy.codeAction.formatFixes": {
         "type": "boolean",
-        "description": "If `true`, formatting will be run on the lines changed by 'Fix' code actions.",
+        "markdownDescription": "If `true`, formatting will be run on the lines changed by 'Fix' code actions.",
         "default": true,
         "scope": 4
       },
@@ -223,6 +223,7 @@
         "items": {
           "type": "string"
         },
+        "uniqueItems": true,
         "markdownDescription": "Additional command line arguments to pass to `clang-tidy`. These take precedence over the equivalent `C_Cpp.codeAnalysis.clangTidy.*` settings.",
         "scope": 4
       },
@@ -324,6 +325,7 @@
             "bugprone-posix-return",
             "bugprone-redundant-branch-condition",
             "bugprone-reserved-identifier",
+            "bugprone-shared-ptr-array-mismatch",
             "bugprone-signal-handler",
             "bugprone-signed-char-misuse",
             "bugprone-sizeof-*",
@@ -347,6 +349,7 @@
             "bugprone-terminating-continue",
             "bugprone-throw-keyword-missing",
             "bugprone-too-small-loop-variable",
+            "bugprone-unchecked-optional-access",
             "bugprone-undefined-memory-manipulation",
             "bugprone-undelegated-constructor",
             "bugprone-unhandled-*",
@@ -423,7 +426,6 @@
             "clang-analyzer-cplusplus.NewDeleteLeaks",
             "clang-analyzer-deadcode.DeadStores",
             "clang-analyzer-nullablity.*",
-            "clang-analyzer-nullability.NullabilityBase",
             "clang-analyzer-nullability.NullableDereferenced",
             "clang-analyzer-nullability.NullablePassedToNonnull",
             "clang-analyzer-nullability.NullableReturnedFromNonnull",
@@ -518,6 +520,7 @@
             "cppcoreguidelines-explicit-virtual-functions",
             "cppcoreguidelines-init-variables",
             "cppcoreguidelines-interfaces-global-init",
+            "cppcoreguidelines-macro-to-enum",
             "cppcoreguidelines-macro-usage",
             "cppcoreguidelines-narrowing-conversions",
             "cppcoreguidelines-no-malloc",
@@ -628,6 +631,8 @@
             "llvmlibc-implementation-in-namespace",
             "llvmlibc-restrict-system-libc-headers",
             "misc-*",
+            "misc-confusable-identifiers",
+            "misc-const-correctness",
             "misc-definitions-in-headers",
             "misc-misleading-*",
             "misc-misleading-bidirectional",
@@ -656,6 +661,7 @@
             "modernize-deprecated-headers",
             "modernize-deprecated-ios-base-aliases",
             "modernize-loop-convert",
+            "modernize-macro-to-enum",
             "modernize-make-*",
             "modernize-make-shared",
             "modernize-make-unique",
@@ -672,6 +678,7 @@
             "modernize-use-*",
             "modernize-use-auto",
             "modernize-use-bool-literals",
+            "modernize-use-default",
             "modernize-use-default-member-init",
             "modernize-use-emplace",
             "modernize-use-equals-*",
@@ -723,6 +730,7 @@
             "portability-*",
             "portability-restrict-system-includes",
             "portability-simd-intrinsics",
+            "portability-std-allocator-const",
             "readability-*",
             "readability-avoid-const-params-in-decls",
             "readability-braces-around-statements",
@@ -776,6 +784,7 @@
             "zircon-temporary-objects"
           ]
         },
+        "uniqueItems": true,
         "markdownDescription": "List of enabled `clang-tidy` checks. The values are appended to the `Checks` in a `.clang-tidy` file or `#C_Cpp.codeAnalysis.clangTidy.config#`, if any. The default check `clang-analyzer-*` is always used unless it is explicitly disabled.",
         "scope": 4
       },
@@ -871,6 +880,7 @@
             "bugprone-posix-return",
             "bugprone-redundant-branch-condition",
             "bugprone-reserved-identifier",
+            "bugprone-shared-ptr-array-mismatch",
             "bugprone-signal-handler",
             "bugprone-signed-char-misuse",
             "bugprone-sizeof-*",
@@ -894,6 +904,7 @@
             "bugprone-terminating-continue",
             "bugprone-throw-keyword-missing",
             "bugprone-too-small-loop-variable",
+            "bugprone-unchecked-optional-access",
             "bugprone-undefined-memory-manipulation",
             "bugprone-undelegated-constructor",
             "bugprone-unhandled-*",
@@ -970,7 +981,6 @@
             "clang-analyzer-cplusplus.NewDeleteLeaks",
             "clang-analyzer-deadcode.DeadStores",
             "clang-analyzer-nullablity.*",
-            "clang-analyzer-nullability.NullabilityBase",
             "clang-analyzer-nullability.NullableDereferenced",
             "clang-analyzer-nullability.NullablePassedToNonnull",
             "clang-analyzer-nullability.NullableReturnedFromNonnull",
@@ -1065,6 +1075,7 @@
             "cppcoreguidelines-explicit-virtual-functions",
             "cppcoreguidelines-init-variables",
             "cppcoreguidelines-interfaces-global-init",
+            "cppcoreguidelines-macro-to-enum",
             "cppcoreguidelines-macro-usage",
             "cppcoreguidelines-narrowing-conversions",
             "cppcoreguidelines-no-malloc",
@@ -1175,6 +1186,8 @@
             "llvmlibc-implementation-in-namespace",
             "llvmlibc-restrict-system-libc-headers",
             "misc-*",
+            "misc-confusable-identifiers",
+            "misc-const-correctness",
             "misc-definitions-in-headers",
             "misc-misleading-*",
             "misc-misleading-bidirectional",
@@ -1203,6 +1216,7 @@
             "modernize-deprecated-headers",
             "modernize-deprecated-ios-base-aliases",
             "modernize-loop-convert",
+            "modernize-macro-to-enum",
             "modernize-make-*",
             "modernize-make-shared",
             "modernize-make-unique",
@@ -1219,6 +1233,7 @@
             "modernize-use-*",
             "modernize-use-auto",
             "modernize-use-bool-literals",
+            "modernize-use-default",
             "modernize-use-default-member-init",
             "modernize-use-emplace",
             "modernize-use-equals-*",
@@ -1270,6 +1285,7 @@
             "portability-*",
             "portability-restrict-system-includes",
             "portability-simd-intrinsics",
+            "portability-std-allocator-const",
             "readability-*",
             "readability-avoid-const-params-in-decls",
             "readability-braces-around-statements",
@@ -1323,6 +1339,7 @@
             "zircon-temporary-objects"
           ]
         },
+        "uniqueItems": true,
         "markdownDescription": "List of disabled `clang-tidy` checks. The values are appended to the `Checks` in a `.clang-tidy` file or `#C_Cpp.codeAnalysis.clangTidy.config#`, if any.",
         "scope": 4
       },
@@ -1342,8 +1359,8 @@
         "enum": [
           "clangFormat",
           "vcFormat",
-          "Default",
-          "Disabled"
+          "default",
+          "disabled"
         ],
         "markdownEnumDescriptions": [
           "`clang-format` will be used to format code.",
@@ -1351,7 +1368,7 @@
           "By default, `clang-format` will be used to format the code. However, the Visual C++ formatting engine will be used if an `.editorconfig` file with relevant settings is found nearer to the code being formatted and `#C_Cpp.clang_format_style#` is the default value: `file`.",
           "Code formatting will be disabled."
         ],
-        "default": "Default",
+        "default": "default",
         "description": "Configures the formatting engine.",
         "scope": 4
       },
@@ -1875,11 +1892,11 @@
       "C_Cpp.intelliSenseEngine": {
         "type": "string",
         "enum": [
-          "Default",
+          "default",
           "Tag Parser",
-          "Disabled"
+          "disabled"
         ],
-        "default": "Default",
+        "default": "default",
         "description": "Controls the IntelliSense provider.",
         "enumDescriptions": [
           "Provides context-aware results via a separate IntelliSense process.",
@@ -1891,21 +1908,21 @@
       "C_Cpp.intelliSenseEngineFallback": {
         "type": "string",
         "enum": [
-          "Enabled",
-          "Disabled"
+          "enabled",
+          "disabled"
         ],
-        "default": "Disabled",
+        "default": "disabled",
         "markdownDescription": "Controls whether the IntelliSense engine will automatically switch to the Tag Parser for translation units containing `#include` errors.",
         "scope": 4
       },
       "C_Cpp.autocomplete": {
         "type": "string",
         "enum": [
-          "Default",
-          "Disabled"
+          "default",
+          "disabled"
         ],
-        "default": "Default",
-        "markdownDescription": "Controls the auto-completion provider. If `Disabled` and you want word-based completion, you will also need to set `\"[cpp]\": {\"editor.wordBasedSuggestions\": true}` (and similarly for `c` and `cuda-cpp` languages).",
+        "default": "default",
+        "markdownDescription": "Controls the auto-completion provider. If `disabled` and you want word-based completion, you will also need to set `\"[cpp]\": {\"editor.wordBasedSuggestions\": true}` (and similarly for `c` and `cuda-cpp` languages).",
         "enumDescriptions": [
           "Uses the active IntelliSense engine.",
           "Uses the word-based completion provided by Visual Studio Code."
@@ -1915,11 +1932,11 @@
       "C_Cpp.errorSquiggles": {
         "type": "string",
         "enum": [
-          "Enabled",
-          "Disabled",
-          "EnabledIfIncludesResolve"
+          "enabled",
+          "disabled",
+          "enabledIfIncludesResolve"
         ],
-        "default": "EnabledIfIncludesResolve",
+        "default": "enabledIfIncludesResolve",
         "description": "Controls whether suspected compile errors detected by the IntelliSense engine will be reported back to the editor. It also controls whether code analysis warnings are reported if includes can't be found. This setting is ignored by the Tag Parser engine.",
         "scope": 4
       },
@@ -1951,43 +1968,43 @@
         "type": "boolean",
         "default": false,
         "markdownDescription": "Display inlay hints for deduced type when `auto` is used in a declaration:\n```cpp \n\n auto index /* : int */ = 0;\n```",
-        "scope": 1
+        "scope": 4
       },
       "C_Cpp.inlayHints.autoDeclarationTypes.showOnLeft": {
         "type": "boolean",
         "default": false,
         "markdownDescription": "Display inlay hints for deduced type when `auto` is used in a declaration on the left of the identifier:\n```cpp \n\n auto /* int */ index = 0;\n```",
-        "scope": 1
+        "scope": 4
       },
       "C_Cpp.inlayHints.parameterNames.enabled": {
         "type": "boolean",
         "default": false,
         "markdownDescription": "Display inlay hints for parameter names:\n```cpp \n\n int a = getArea(/* width: */ x, /* height: */ y);\n```",
-        "scope": 1
+        "scope": 4
       },
       "C_Cpp.inlayHints.parameterNames.suppressWhenArgumentContainsName": {
         "type": "boolean",
         "default": true,
         "markdownDescription": "Suppress parameter name hints when the argument text or inline comment contains the parameter name:\n```cpp \n\n int a = getArea(width, /* height: */ y);\n```",
-        "scope": 1
+        "scope": 4
       },
       "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores": {
         "type": "boolean",
         "default": true,
         "markdownDescription": "Hide leading `_` in parameter name hints.",
-        "scope": 1
+        "scope": 4
       },
       "C_Cpp.inlayHints.referenceOperator.enabled": {
         "type": "boolean",
         "default": false,
         "markdownDescription": "Display the inlay hint reference operator `&` for parameters passed by non-const reference:\n```cpp \n\n swap(/* &first: */ str1, /* &last: */ str2);\n```",
-        "scope": 1
+        "scope": 4
       },
       "C_Cpp.inlayHints.referenceOperator.showSpace": {
         "type": "boolean",
         "default": false,
         "markdownDescription": "Controls whether a space is shown after `&` for parameters passed by non-const reference:\n```cpp \n\n swap(/* & first: */ str1, /* & last: */ str2);\n```",
-        "scope": 1
+        "scope": 4
       },
       "C_Cpp.loggingLevel": {
         "type": "string",
@@ -2078,6 +2095,53 @@
         "description": "The string of characters used as the starting line of the Doxygen comment.",
         "scope": 4
       },
+      "C_Cpp.doxygen.sectionTags": {
+        "type": "array",
+        "default": [
+          "attention",
+          "tparam",
+          "param",
+          "result",
+          "returns",
+          "retval",
+          "exceptions",
+          "deprecated",
+          "warning",
+          "note"
+        ],
+        "items": {
+          "type": "string",
+          "enum": [
+            "attention",
+            "author",
+            "authors",
+            "bug",
+            "copyright",
+            "date",
+            "deprecated",
+            "details",
+            "exceptions",
+            "invariant",
+            "note",
+            "param",
+            "pre",
+            "post",
+            "remark",
+            "remarks",
+            "result",
+            "returns",
+            "retval",
+            "since",
+            "tparam",
+            "test",
+            "todo",
+            "version",
+            "warning"
+          ]
+        },
+        "description": "Select the Doxygen section tags that you would like to appear on hover in the tooltip area when the `Simplify Structured Comments` setting is enabled. ",
+        "scope": 4
+      },
       "C_Cpp.commentContinuationPatterns": {
         "type": "array",
         "default": [
@@ -2104,16 +2168,17 @@
             }
           ]
         },
+        "uniqueItems": true,
         "description": "Defines the editor behavior for when the Enter key is pressed inside a multiline or single line comment block.",
         "scope": 3
       },
       "C_Cpp.configurationWarnings": {
         "type": "string",
         "enum": [
-          "Enabled",
-          "Disabled"
+          "enabled",
+          "disabled"
         ],
-        "default": "Enabled",
+        "default": "enabled",
         "description": "Determines whether pop up notifications will be shown when a configuration provider extension is unable to provide a configuration for a source file.",
         "scope": 4
       },
@@ -2150,6 +2215,7 @@
         "items": {
           "type": "string"
         },
+        "uniqueItems": true,
         "markdownDescription": "The value to use in a configuration if `includePath` is not specified in `c_cpp_properties.json`. If `includePath` is specified, add `${default}` to the array to insert the values from this setting. Usually, this should not include system includes; instead, set `#C_Cpp.default.compilerPath#`.",
         "scope": 6
       },
@@ -2158,6 +2224,7 @@
         "items": {
           "type": "string"
         },
+        "uniqueItems": true,
         "markdownDescription": "The value to use in a configuration if `defines` is not specified, or the values to insert if `${default}` is present in `defines`.",
         "scope": 6
       },
@@ -2166,6 +2233,7 @@
         "items": {
           "type": "string"
         },
+        "uniqueItems": true,
         "markdownDescription": "The value to use in a configuration if `macFrameworkPath` is not specified, or the values to insert if `${default}` is present in `macFrameworkPath`.",
         "scope": 6
       },
@@ -2185,6 +2253,7 @@
         "items": {
           "type": "string"
         },
+        "uniqueItems": true,
         "markdownDescription": "The value to use in a configuration if `forcedInclude` is not specified, or the values to insert if `${default}` is present in `forcedInclude`.",
         "scope": 6
       },
@@ -2247,6 +2316,7 @@
         "items": {
           "type": "string"
         },
+        "uniqueItems": true,
         "markdownDescription": "The value to use in configuration if `compilerArgs` is either not specified or set to `${default}`.",
         "scope": 6
       },
@@ -2304,6 +2374,7 @@
           "type": "string"
         },
         "default": null,
+        "uniqueItems": true,
         "markdownDescription": "The value to use in a configuration if `browse.path` is not specified, or the values to insert if `${default}` is present in `browse.path`.",
         "scope": 6
       },
@@ -2323,6 +2394,7 @@
         "items": {
           "type": "string"
         },
+        "uniqueItems": true,
         "markdownDescription": "The value to use for the system include path. If set, it overrides the system include path acquired via `compilerPath` and `compileCommands` settings.",
         "scope": 6
       },
@@ -2366,10 +2438,10 @@
       "C_Cpp.experimentalFeatures": {
         "type": "string",
         "enum": [
-          "Enabled",
-          "Disabled"
+          "enabled",
+          "disabled"
         ],
-        "default": "Disabled",
+        "default": "disabled",
         "description": "Controls whether \"experimental\" features are usable.",
         "scope": 3
       },
@@ -2379,14 +2451,24 @@
         "markdownDescription": "If `true`, snippets are provided by the language server.",
         "scope": 4
       },
+      "C_Cpp.caseSensitiveFileSupport": {
+        "type": "string",
+        "enum": [
+          "default",
+          "enabled"
+        ],
+        "default": "default",
+        "markdownDescription": "If set to `default`, the file system of the workspace is assumed to be case insensitive on Windows and case sensitive on macOS or Linux. If set to `enabled`, the file system of the workspace is assumed to be case sensitive on Windows.",
+        "scope": 3
+      },
       "C_Cpp.enhancedColorization": {
         "type": "string",
         "enum": [
-          "Enabled",
-          "Disabled"
+          "enabled",
+          "disabled"
         ],
-        "default": "Enabled",
-        "markdownDescription": "If enabled, code is colorized based on IntelliSense. This setting only applies if `#C_Cpp.intelliSenseEngine#` is set to `Default`.",
+        "default": "enabled",
+        "markdownDescription": "If enabled, code is colorized based on IntelliSense. This setting only applies if `#C_Cpp.intelliSenseEngine#` is set to `default`.",
         "scope": 3
       },
       "C_Cpp.vcpkg.enabled": {
@@ -2416,10 +2498,10 @@
       "C_Cpp.codeFolding": {
         "type": "string",
         "enum": [
-          "Enabled",
-          "Disabled"
+          "enabled",
+          "disabled"
         ],
-        "default": "Enabled",
+        "default": "enabled",
         "description": "If enabled, code folding ranges are provided by the language server.",
         "scope": 3
       },
@@ -2468,6 +2550,17 @@
         "default": false,
         "markdownDescription": "Enable pre-v1.10.0 behavior for how shell escaping is handled in compiler arg settings. Shell escaping is no longer expected or supported by default in arg arrays starting in v1.10.0.",
         "scope": 4
+      },
+      "C_Cpp.sshTargetsView": {
+        "type": "string",
+        "enum": [
+          "enabled",
+          "disabled",
+          "default"
+        ],
+        "default": "default",
+        "description": "Controls whether the SSH Targets view is visible. By default, enable the view when an SSH command is invoked.",
+        "scope": 3
       }
     }
   }

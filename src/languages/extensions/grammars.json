@@ -583,6 +583,10 @@
     "scopeName": "source.buildtarget"
   },
   {
+    "language": "semanticdb",
+    "scopeName": "source.semanticdb"
+  },
+  {
     "language": "COBOL",
     "scopeName": "source.cobol",
     "embeddedLanguages": {
@@ -882,5 +886,13 @@
     "injectTo": [
       "source.svelte"
     ]
+  },
+  {
+    "language": "django-html",
+    "scopeName": "text.html.django"
+  },
+  {
+    "language": "django-txt",
+    "scopeName": "text.django"
   }
 ]

@@ -27,7 +27,8 @@ const loader = {
   'solargraph': async () => (await import(/* webpackChunkName: "configuration-registration-solargraph" */ /* webpackMode: "lazy" */ './configurations/solargraph.json')).default,
   'solidity': async () => (await import(/* webpackChunkName: "configuration-registration-solidity" */ /* webpackMode: "lazy" */ './configurations/solidity.json')).default,
   'vetur': async () => (await import(/* webpackChunkName: "configuration-registration-vetur" */ /* webpackMode: "lazy" */ './configurations/vetur.json')).default,
-  'svelte.svelte-vscode': async () => (await import(/* webpackChunkName: "configuration-registration-svelte.svelte-vscode" */ /* webpackMode: "lazy" */ './configurations/svelte.svelte-vscode.json')).default
+  'svelte.svelte-vscode': async () => (await import(/* webpackChunkName: "configuration-registration-svelte.svelte-vscode" */ /* webpackMode: "lazy" */ './configurations/svelte.svelte-vscode.json')).default,
+  'vscode-django': async () => (await import(/* webpackChunkName: "configuration-registration-vscode-django" */ /* webpackMode: "lazy" */ './configurations/vscode-django.json')).default
 } as unknown as Partial<Record<string, () => Promise<IConfigurationNode[]>>>
 
 export default loader

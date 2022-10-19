@@ -487,12 +487,6 @@
         "markdownDescription": "Whether to automatically send a Hot Reload request to Dart apps during a debug session when saving files. Flutter apps are controlled by the flutterHotReloadOnSave setting.",
         "scope": 3
       },
-      "dart.flutterHotRestartOnSave": {
-        "type": "boolean",
-        "default": true,
-        "description": "Whether to automatically send a Hot Restart request during a debug session when saving files if Hot Reload is not available but Hot Restart is.",
-        "scope": 3
-      },
       "dart.flutterGenerateLocalizationsOnSave": {
         "enum": [
           "never",
