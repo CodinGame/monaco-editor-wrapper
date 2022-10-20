@@ -131,6 +131,9 @@ const extensions: Extension[] = [
       './syntaxes/svelte.tmLanguage.json': './syntaxes/svelte.tmLanguage.src.yaml',
       './syntaxes/postcss.json': './syntaxes/postcss.src.yaml'
     }
+  }, {
+    name: 'vscode-django',
+    repository: 'vscode-django/vscode-django'
   }
 ]
 

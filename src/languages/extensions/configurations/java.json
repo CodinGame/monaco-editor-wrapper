@@ -27,8 +27,8 @@
           "string",
           "null"
         ],
-        "default": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -Xlog:jni+resolve=off",
-        "description": "Specifies extra VM arguments used to launch the Java Language Server. Eg. use `-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -Xlog:jni+resolve=off` to optimize memory usage with the parallel garbage collector",
+        "default": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -Xlog:disable",
+        "description": "Specifies extra VM arguments used to launch the Java Language Server. Eg. use `-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -Xlog:disable` to optimize memory usage with the parallel garbage collector",
         "scope": 6
       },
       "java.errors.incompleteClasspath.severity": {
@@ -168,7 +168,7 @@
       },
       "java.signatureHelp.enabled": {
         "type": "boolean",
-        "default": false,
+        "default": true,
         "description": "Enable/disable the signature help.",
         "scope": 3
       },
@@ -329,7 +329,7 @@
       },
       "java.completion.guessMethodArguments": {
         "type": "boolean",
-        "default": false,
+        "default": true,
         "description": "When set to true, method arguments are guessed when a method is selected from as list of code assist proposals.",
         "scope": 3
       },
@@ -364,12 +364,14 @@
       },
       "java.completion.importOrder": {
         "type": "array",
-        "description": "Defines the sorting order of import statements. A package or type name prefix (e.g. 'org.eclipse') is a valid entry. An import is always added to the most specific group.",
+        "description": "Defines the sorting order of import statements. A package or type name prefix (e.g. 'org.eclipse') is a valid entry. An import is always added to the most specific group. As a result, the empty string (e.g. '') can be used to group all other imports. Static imports are prefixed with a '#'",
         "default": [
+          "#",
           "java",
           "javax",
           "org",
-          "com"
+          "com",
+          ""
         ],
         "scope": 3
       },
@@ -544,7 +546,8 @@
                 "JavaSE-15",
                 "JavaSE-16",
                 "JavaSE-17",
-                "JavaSE-18"
+                "JavaSE-18",
+                "JavaSE-19"
               ],
               "description": "Java Execution Environment name. Must be unique."
             },
@@ -648,9 +651,9 @@
         "type": "array",
         "default": [
           "node_modules",
-          ".git"
+          "\\.git"
         ],
-        "description": "Excludes files and folders from being refreshed by the Java Language Server, which can improve the overall performance. For example, [\"node_modules\",\".git\"] will exclude all files and folders named 'node_modules' or '.git'. Defaults to [\"node_modules\",\".git\"].",
+        "description": "Excludes files and folders from being refreshed by the Java Language Server, which can improve the overall performance. For example, [\"node_modules\",\"\\.git\"] will exclude all files and folders named 'node_modules' or '.git'. Pattern expressions must be compatible with `java.util.regex.Pattern`. Defaults to [\"node_modules\",\"\\.git\"].",
         "scope": 3
       },
       "java.templates.fileHeader": {
@@ -772,6 +775,26 @@
         "type": "boolean",
         "default": true,
         "description": "Reordering of fields, enum constants, and initializers can result in semantic and runtime changes due to different initialization and persistence order. This setting prevents this from occurring.",
+        "scope": 3
+      },
+      "java.compile.nullAnalysis.nonnull": {
+        "type": "array",
+        "default": [
+          "javax.annotation.Nonnull",
+          "org.eclipse.jdt.annotation.NonNull",
+          "org.springframework.lang.NonNull"
+        ],
+        "markdownDescription": "Specify the Nonnull annotation types to be used for null analysis. If more than one annotation is specified, then the topmost annotation will be used first if it exists in your project dependencies.",
+        "scope": 3
+      },
+      "java.compile.nullAnalysis.nullable": {
+        "type": "array",
+        "default": [
+          "javax.annotation.Nullable",
+          "org.eclipse.jdt.annotation.Nullable",
+          "org.springframework.lang.Nullable"
+        ],
+        "markdownDescription": "Specify the Nullable annotation types to be used for null analysis. If more than one annotation is specified, then the topmost annotation will be used first if it exists in your project dependencies.",
         "scope": 3
       }
     }

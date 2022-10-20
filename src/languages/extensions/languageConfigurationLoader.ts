@@ -92,7 +92,9 @@ const loader = {
   'vue-html': async () => (await import(/* webpackChunkName: "language-configuration-vue-html" */ /* webpackMode: "lazy" */ './languageConfigurations/vue-html.json')).default,
   'vue-postcss': async () => (await import(/* webpackChunkName: "language-configuration-vue-postcss" */ /* webpackMode: "lazy" */ './languageConfigurations/vue-postcss.json')).default,
   'vue-sugarss': async () => (await import(/* webpackChunkName: "language-configuration-vue-sugarss" */ /* webpackMode: "lazy" */ './languageConfigurations/vue-sugarss.json')).default,
-  'svelte': async () => (await import(/* webpackChunkName: "language-configuration-svelte" */ /* webpackMode: "lazy" */ './languageConfigurations/svelte.json')).default
+  'svelte': async () => (await import(/* webpackChunkName: "language-configuration-svelte" */ /* webpackMode: "lazy" */ './languageConfigurations/svelte.json')).default,
+  'django-html': async () => (await import(/* webpackChunkName: "language-configuration-django-html" */ /* webpackMode: "lazy" */ './languageConfigurations/django-html.json')).default,
+  'django-txt': async () => (await import(/* webpackChunkName: "language-configuration-django-txt" */ /* webpackMode: "lazy" */ './languageConfigurations/django-txt.json')).default
 } as unknown as Partial<Record<string, () => Promise<unknown>>>
 
 export default loader
