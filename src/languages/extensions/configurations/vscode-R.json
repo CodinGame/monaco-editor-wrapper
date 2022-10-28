@@ -6,37 +6,37 @@
       "r.rpath.windows": {
         "type": "string",
         "default": "",
-        "description": "Path to an R executable for Windows. Must be \"vanilla\" R, not radian etc.!",
+        "description": "Path to an R executable to launch R background processes (Windows). Must be \"vanilla\" R, not radian etc.!",
         "scope": 3
       },
       "r.rpath.mac": {
         "type": "string",
         "default": "",
-        "description": "Path to an R executable for macOS. Must be \"vanilla\" R, not radian etc.!",
+        "description": "Path to an R executable to launch R background processes (macOS). Must be \"vanilla\" R, not radian etc.!",
         "scope": 3
       },
       "r.rpath.linux": {
         "type": "string",
         "default": "",
-        "description": "Path to an R executable for Linux. Must be \"vanilla\" R, not radian etc.!",
+        "description": "Path to an R executable to launch R background processes (Linux). Must be \"vanilla\" R, not radian etc.!",
         "scope": 3
       },
       "r.rterm.windows": {
         "type": "string",
         "default": "",
-        "description": "R path for Windows. Can also be radian etc.",
+        "description": "R path for interactive terminals (Windows). Can also be radian etc.",
         "scope": 3
       },
       "r.rterm.mac": {
         "type": "string",
         "default": "",
-        "description": "R path for macOS. Can also be radian etc.",
+        "description": "R path for interactive terminals (macOS). Can also be radian etc.",
         "scope": 3
       },
       "r.rterm.linux": {
         "type": "string",
         "default": "",
-        "description": "R path for Linux. Can also be radian etc.",
+        "description": "R path for interactive terminals (Linux). Can also be radian etc.",
         "scope": 3
       },
       "r.rterm.option": {
@@ -132,7 +132,7 @@
       "r.rmarkdown.enableCodeLens": {
         "type": "boolean",
         "default": true,
-        "description": "Enable RMarkdown CodeLens, which are inline commands/buttons e.g. 'Run Chunk | Run Above' shown on the first line of each code chunk.\n\n- Click the buttons to run commands.\n- Hover on the buttons to show tooltips.\n- CodeLens commands are customizable via settings UI (Rmarkdown: Code Lens commands) or settings.json `r.rmarkdown.codeLensCommands`",
+        "markdownDescription": "Enable RMarkdown CodeLens, which are inline commands/buttons e.g. 'Run Chunk | Run Above' shown on the first line of each code chunk.\n\n- Click the buttons to run commands.\n- Hover on the buttons to show tooltips.\n- CodeLens commands are customizable via `#r.rmarkdown.codeLensCommands#` or settings.json `r.rmarkdown.codeLensCommands`",
         "scope": 3
       },
       "r.rmarkdown.chunkBackgroundColor": {
@@ -281,7 +281,7 @@
       "r.source.encoding": {
         "type": "string",
         "default": "UTF-8",
-        "description": "An optional encoding to pass to R when executing the file, i.e. 'source(FILE, encoding=ENCODING)'.",
+        "markdownDescription": "An optional encoding to pass to R when executing the file, i.e. `source(FILE, encoding=ENCODING)`.",
         "scope": 3
       },
       "r.source.focus": {
@@ -292,7 +292,12 @@
           "terminal",
           "none"
         ],
-        "description": "What to show/focus after running code. Set to 'editor' or 'terminal' to show the terminal. Set to 'none' to not show the terminal.",
+        "enumDescriptions": [
+          "Focus editor when sending code to terminal",
+          "Focus terminal when sending code to terminal",
+          "Do not show terminal when sending code to terminal"
+        ],
+        "description": "What to show/focus after sending code to terminal.",
         "scope": 3
       },
       "r.alwaysUseActiveTerminal": {
@@ -447,7 +452,7 @@
           },
           "view": {
             "type": "string",
-            "description": "Which view column to show the WebView triggered by View()? \n\nChanges the option 'vsc.plot' in R.",
+            "description": "Which view column to show the WebView triggered by View()? \n\nChanges the option 'vsc.view' in R.",
             "enum": [
               "Two",
               "Active",
@@ -486,7 +491,7 @@
       "r.rtermSendDelay": {
         "type": "integer",
         "default": 8,
-        "description": "Delay in milliseconds before sending each line to rterm (only applies if r.bracketedPaste is false)",
+        "markdownDescription": "Delay in milliseconds before sending each line to rterm. Requires `#r.bracketedPaste#` to be `false`.",
         "scope": 3
       },
       "r.workspaceViewer.showObjectSize": {
@@ -510,7 +515,7 @@
       "r.liveShare.timeout": {
         "type": "integer",
         "default": 10000,
-        "description": "Time in milliseconds before aborting attempt to connect to Live Share API",
+        "description": "Time in milliseconds before aborting attempt to connect to Live Share API.",
         "scope": 3
       },
       "r.liveShare.defaults.commandForward": {
@@ -531,6 +536,40 @@
         "description": "Default boolean value for automatically sharing R browser ports with guests.",
         "scope": 3
       },
+      "r.plot.devArgs": {
+        "type": "object",
+        "markdownDescription": "The arguments for the png device to replay user graphics to show in VSCode. Requires `#r.plot.useHttpgd#` to be set to `false`. \n\nChanges the option `vsc.dev.args` in R.",
+        "default": {
+          "width": 800,
+          "height": 1200
+        },
+        "properties": {
+          "width": {
+            "type": "number",
+            "description": "Width of the graphic device.",
+            "default": 480
+          },
+          "height": {
+            "type": "number",
+            "description": "Height of the graphic device.",
+            "default": 480
+          },
+          "units": {
+            "type": "string",
+            "default": "px"
+          },
+          "pointsize": {
+            "type": "number",
+            "default": 12
+          },
+          "bg": {
+            "type": "string",
+            "default": "white"
+          }
+        },
+        "additionalProperties": false,
+        "scope": 3
+      },
       "r.plot.useHttpgd": {
         "type": "boolean",
         "default": false,
@@ -548,7 +587,7 @@
           "Match background and primary stroke color to the current color theme (Or apply custom CSS overwrites, if specified in `#r.plot.customStyleOverwrites#`)",
           "Use original colors"
         ],
-        "markdownDescription": "Which color theme to use when launching the plot viewer.",
+        "markdownDescription": "Which color theme to use when launching the httpgd plot viewer.",
         "scope": 3
       },
       "r.plot.defaults.plotPreviewLayout": {
@@ -570,7 +609,7 @@
       "r.plot.defaults.fullWindowMode": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "Whether to use full window mode when launching the plot viewer.",
+        "markdownDescription": "Whether to use full window mode when launching the httpgd plot viewer.",
         "scope": 3
       },
       "r.plot.timing.resizeInterval": {

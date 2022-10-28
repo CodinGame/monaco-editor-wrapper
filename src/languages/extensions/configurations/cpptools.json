@@ -2104,7 +2104,7 @@
           "result",
           "returns",
           "retval",
-          "exceptions",
+          "exception",
           "deprecated",
           "warning",
           "note"
@@ -2120,7 +2120,7 @@
             "date",
             "deprecated",
             "details",
-            "exceptions",
+            "exception",
             "invariant",
             "note",
             "param",
@@ -2139,7 +2139,7 @@
             "warning"
           ]
         },
-        "description": "Select the Doxygen section tags that you would like to appear on hover in the tooltip area when the `Simplify Structured Comments` setting is enabled. ",
+        "description": "Select the Doxygen section tags that you would like to appear on hover in the tooltip area when the 'Simplify Structured Comments' setting is enabled. ",
         "scope": 4
       },
       "C_Cpp.commentContinuationPatterns": {
@@ -2504,6 +2504,16 @@
         "default": "enabled",
         "description": "If enabled, code folding ranges are provided by the language server.",
         "scope": 3
+      },
+      "C_Cpp.hover": {
+        "type": "string",
+        "enum": [
+          "default",
+          "disabled"
+        ],
+        "default": "default",
+        "description": "If disabled, hover details are no longer provided by the language server.",
+        "scope": 4
       },
       "C_Cpp.autocompleteAddParentheses": {
         "type": "boolean",
