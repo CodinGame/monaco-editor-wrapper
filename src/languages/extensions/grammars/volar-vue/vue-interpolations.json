@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "fileTypes": [],
+  "injectionSelector": "L:text.pug -comment -string.comment, L:text.html.derivative -comment.block, L:text.html.markdown -comment.block",
+  "patterns": [
+    {
+      "include": "source.vue#vue-interpolations"
+    }
+  ],
+  "scopeName": "vue.interpolations",
+  "information_for_contributors": [
+    "This file has been converted from https://github.com/johnsoncodehk/volar/blob/master/extensions/vscode-vue-language-features/",
+    "If you want to provide a fix or improvement, please create a pull request against the original repository.",
+    "Once accepted there, we are happy to receive an update request."
+  ]
+}

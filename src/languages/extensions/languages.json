@@ -1410,6 +1410,36 @@
     ]
   },
   {
+    "id": "vue",
+    "extensions": [
+      ".vue"
+    ]
+  },
+  {
+    "id": "markdown"
+  },
+  {
+    "id": "html"
+  },
+  {
+    "id": "jade"
+  },
+  {
+    "id": "plaintext"
+  },
+  {
+    "id": "vue-injection-markdown"
+  },
+  {
+    "id": "vue-directives"
+  },
+  {
+    "id": "vue-interpolations"
+  },
+  {
+    "id": "vue-sfc-style-variable-injection"
+  },
+  {
     "id": "svelte",
     "aliases": [
       "Svelte",
