@@ -121,9 +121,6 @@ const extensions: Extension[] = [
     name: 'solidity',
     repository: 'juanfranblanco/vscode-solidity'
   }, {
-    name: 'vetur',
-    repository: 'vuejs/vetur'
-  }, {
     name: 'svelte.svelte-vscode',
     repository: 'sveltejs/language-tools',
     path: 'packages/svelte-vscode/',

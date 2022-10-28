@@ -1410,38 +1410,6 @@
     ]
   },
   {
-    "id": "vue",
-    "aliases": [
-      "Vue",
-      "vue"
-    ],
-    "extensions": [
-      ".vue"
-    ]
-  },
-  {
-    "id": "vue-html",
-    "aliases": [
-      "Vue-html"
-    ]
-  },
-  {
-    "id": "vue-postcss",
-    "aliases": [
-      "Vue-PostCSS",
-      "Vue-POSTCSS",
-      "vue-postcss"
-    ]
-  },
-  {
-    "id": "vue-sugarss",
-    "aliases": [
-      "Vue-SugarSS",
-      "Vue-SUGARSS",
-      "vue-sugarss"
-    ]
-  },
-  {
     "id": "svelte",
     "aliases": [
       "Svelte",
