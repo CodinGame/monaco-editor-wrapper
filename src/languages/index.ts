@@ -15,7 +15,7 @@ const customAliases: Partial<Record<string, string[]>> = {
   r: ['datascience-r'],
   vb: ['vb.net'],
   javascriptreact: ['react'],
-  javascript: ['vue', 'node'],
+  javascript: ['node'],
   typescript: ['angular'],
   sql: ['mysql'],
   postgres: ['postgresql', 'postgres', 'pg', 'postgre']
