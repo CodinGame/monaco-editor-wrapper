@@ -43,7 +43,8 @@
         "items": {
           "enum": [
             "All",
-            "pythonSurveyNotification"
+            "pythonSurveyNotification",
+            "pythonPromptNewToolsExt"
           ]
         },
         "scope": 2,
@@ -55,7 +56,8 @@
         "items": {
           "enum": [
             "All",
-            "pythonSurveyNotification"
+            "pythonSurveyNotification",
+            "pythonPromptNewToolsExt"
           ]
         },
         "scope": 2,

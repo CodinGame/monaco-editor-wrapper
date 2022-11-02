@@ -1,0 +1,308 @@
+[
+  {
+    "type": "object",
+    "title": "Volar",
+    "properties": {
+      "vue-semantic-server.trace.server": {
+        "scope": 3,
+        "type": "string",
+        "enum": [
+          "off",
+          "messages",
+          "verbose"
+        ],
+        "default": "off",
+        "description": "Traces the communication between VS Code and the language server."
+      },
+      "vue-syntactic-server.trace.server": {
+        "scope": 3,
+        "type": "string",
+        "enum": [
+          "off",
+          "messages",
+          "verbose"
+        ],
+        "default": "off",
+        "description": "Traces the communication between VS Code and the language server."
+      },
+      "volar.vueserver.petiteVue.processHtmlFile": {
+        "type": "boolean",
+        "default": false,
+        "scope": 3
+      },
+      "volar.vueserver.vitePress.processMdFile": {
+        "type": "boolean",
+        "default": false,
+        "scope": 3
+      },
+      "volar.vueserver.textDocumentSync": {
+        "type": "string",
+        "default": "incremental",
+        "enum": [
+          "incremental",
+          "full",
+          "none"
+        ],
+        "enumDescriptions": [
+          "Documents are synced by sending the full content on open. After that only incremental updates to the document are send.",
+          "Documents are synced by always sending the full content of the document.",
+          "Documents should not be synced at all."
+        ],
+        "description": "Defines how the host (editor) should sync document changes to the language server. SFC incremental parser only working when config \"incremental\".",
+        "scope": 3
+      },
+      "volar.vueserver.diagnosticModel": {
+        "type": "string",
+        "default": "push",
+        "enum": [
+          "push",
+          "pull"
+        ],
+        "enumDescriptions": [
+          "Diagnostic push by language server.",
+          "Diagnostic pull by language client."
+        ],
+        "description": "Diagnostic update model.",
+        "scope": 3
+      },
+      "volar.vueserver.maxOldSpaceSize": {
+        "type": [
+          "number",
+          "null"
+        ],
+        "default": null,
+        "description": "Set --max-old-space-size option on server process. If you have problem on frequently \"Request textDocument/** failed.\" error, try setting higher memory(MB) on it.",
+        "scope": 3
+      },
+      "volar.vueserver.noProjectReferences": {
+        "type": "boolean",
+        "default": false,
+        "description": "Ignore project references settings of tsconfig in language server for resolve issue #1916.",
+        "scope": 3
+      },
+      "volar.vueserver.additionalExtensions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "default": [],
+        "description": "List any additional file extensions that should be processed as Vue files (requires restart).",
+        "scope": 3
+      },
+      "volar.codeLens.references": {
+        "type": "boolean",
+        "default": true,
+        "description": "[references] code lens.",
+        "scope": 3
+      },
+      "volar.codeLens.pugTools": {
+        "type": "boolean",
+        "default": false,
+        "description": "[pug ☐] code lens.",
+        "scope": 3
+      },
+      "volar.icon.splitEditors": {
+        "type": "boolean",
+        "default": true,
+        "description": "Show split editor icon in title area of editor.",
+        "scope": 3
+      },
+      "volar.icon.preview": {
+        "type": "boolean",
+        "default": true,
+        "description": "Show Vite / Nuxt App preview icon.",
+        "scope": 3
+      },
+      "volar.doctor.statusBarItem": {
+        "type": "boolean",
+        "default": true,
+        "description": "Show known problems in status bar.",
+        "scope": 3
+      },
+      "volar.codeLens.scriptSetupTools": {
+        "type": "boolean",
+        "default": false,
+        "description": "[ref sugar ☐] code lens.",
+        "scope": 3
+      },
+      "volar.autoWrapParentheses": {
+        "type": "boolean",
+        "default": true,
+        "description": "Auto-wrap `()` to As Expression in interpolations for fix issue #520.",
+        "scope": 3
+      },
+      "volar.autoCompleteRefs": {
+        "type": "boolean",
+        "default": false,
+        "description": "Auto-complete Ref value with `.value`.",
+        "scope": 3
+      },
+      "volar.format.initialIndent": {
+        "type": "object",
+        "description": "Whether to have initial indent.",
+        "default": {
+          "html": true
+        },
+        "properties": {
+          "html": {
+            "type": "boolean",
+            "default": true
+          },
+          "typescript": {
+            "type": "boolean",
+            "default": false
+          },
+          "javascript": {
+            "type": "boolean",
+            "default": false
+          },
+          "typescriptreact": {
+            "type": "boolean",
+            "default": false
+          },
+          "javascriptreact": {
+            "type": "boolean",
+            "default": false
+          },
+          "css": {
+            "type": "boolean",
+            "default": false
+          },
+          "scss": {
+            "type": "boolean",
+            "default": false
+          },
+          "less": {
+            "type": "boolean",
+            "default": false
+          },
+          "json": {
+            "type": "boolean",
+            "default": false
+          },
+          "jsonc": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "scope": 3
+      },
+      "volar.takeOverMode.enabled": {
+        "type": [
+          "boolean",
+          "string"
+        ],
+        "enum": [
+          "auto",
+          false
+        ],
+        "enumDescriptions": [
+          "Auto enable take over mode when built-in TS extension disabled.",
+          "Never enable take over mode."
+        ],
+        "default": "auto",
+        "description": "Take over language support for *.ts.",
+        "scope": 3
+      },
+      "volar.completion.preferredTagNameCase": {
+        "type": "string",
+        "enum": [
+          "auto-kebab",
+          "auto-pascal",
+          "kebab",
+          "pascal"
+        ],
+        "enumDescriptions": [
+          "Auto Detect from Content (Preferred <kebab-case>)",
+          "Auto Detect from Content (Preferred <PascalCase>)",
+          "<kebab-case>",
+          "<PascalCase>"
+        ],
+        "default": "auto-pascal",
+        "description": "Preferred tag name case.",
+        "scope": 3
+      },
+      "volar.completion.preferredAttrNameCase": {
+        "type": "string",
+        "enum": [
+          "auto-kebab",
+          "auto-camel",
+          "kebab",
+          "camel"
+        ],
+        "enumDescriptions": [
+          "Auto Detect from Content (Preferred :kebab-case=\"...\")",
+          "Auto Detect from Content (Preferred :camelCase=\"...\")",
+          ":kebab-case=\"...\"",
+          ":camelCase=\"...\""
+        ],
+        "default": "auto-kebab",
+        "description": "Preferred attr name case.",
+        "scope": 3
+      },
+      "volar.completion.normalizeComponentAutoImportName": {
+        "type": "boolean",
+        "default": true,
+        "description": "Normalize import name for auto import. (\"myCompVue\" -> \"MyComp\")",
+        "scope": 3
+      },
+      "volar.preview.script.vite": {
+        "type": "string",
+        "default": "node {VITE_BIN} --port={PORT}",
+        "scope": 3
+      },
+      "volar.preview.script.nuxi": {
+        "type": "string",
+        "default": "node {NUXI_BIN} dev --port {PORT}",
+        "scope": 3
+      },
+      "volar.preview.port": {
+        "type": "number",
+        "default": 3333,
+        "description": "Default port for component preview server.",
+        "scope": 3
+      },
+      "volar.preview.backgroundColor": {
+        "type": "string",
+        "default": "#f0f0f0",
+        "description": "Component preview background color.",
+        "scope": 3
+      },
+      "volar.preview.transparentGrid": {
+        "type": "boolean",
+        "default": false,
+        "description": "Component preview background style.",
+        "scope": 3
+      },
+      "volar.splitEditors.layout.left": {
+        "type": "array",
+        "default": [
+          "script",
+          "scriptSetup",
+          "styles"
+        ],
+        "scope": 3
+      },
+      "volar.splitEditors.layout.right": {
+        "type": "array",
+        "default": [
+          "template",
+          "customBlocks"
+        ],
+        "scope": 3
+      },
+      "volar.updateImportsOnFileMove.enabled": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enabled update imports on file move.",
+        "scope": 3
+      },
+      "volar.diagnostics.delay": {
+        "type": "number",
+        "default": 200,
+        "description": "Delay time for diagnostics.",
+        "scope": 3
+      }
+    }
+  }
+]

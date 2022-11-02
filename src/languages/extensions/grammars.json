@@ -746,65 +746,99 @@
     "language": "vue",
     "scopeName": "source.vue",
     "embeddedLanguages": {
-      "text.html.basic": "html",
-      "text.html.vue-html": "vue-html",
-      "text.jade.slm": "slm",
+      "source.vue": "vue",
+      "text": "plaintext",
+      "text.html.derivative": "html",
+      "text.html.markdown": "markdown",
       "text.pug": "jade",
-      "text.haml": "haml",
-      "text.slim": "slim",
-      "text.html.liquid": "liquid",
       "source.css": "css",
       "source.css.scss": "scss",
       "source.css.less": "less",
-      "source.css.postcss": "vue-postcss",
-      "source.css.sugarss": "vue-sugarss",
       "source.sass": "sass",
       "source.stylus": "stylus",
+      "source.postcss": "postcss",
       "source.js": "javascript",
       "source.ts": "typescript",
-      "source.coffee": "coffeescript",
-      "text.html.markdown": "md",
-      "source.yaml": "yaml",
+      "source.js.jsx": "javascriptreact",
+      "source.tsx": "typescriptreact",
+      "meta.tag.js": "jsx-tags",
+      "meta.tag.tsx": "jsx-tags",
+      "meta.tag.without-attributes.js": "jsx-tags",
+      "meta.tag.without-attributes.tsx": "jsx-tags",
       "source.json": "json",
-      "source.php": "php",
+      "source.json.comments": "jsonc",
+      "source.yaml": "yaml",
+      "source.toml": "toml",
       "source.graphql": "graphql"
-    }
-  },
-  {
-    "language": "vue-postcss",
-    "scopeName": "source.css.postcss"
-  },
-  {
-    "language": "vue-sugarss",
-    "scopeName": "source.css.sugarss"
-  },
-  {
-    "language": "vue-html",
-    "scopeName": "text.html.vue-html",
-    "embeddedLanguages": {
-      "source.js": "javascript"
-    }
-  },
-  {
-    "scopeName": "vue.pug.directives",
-    "injectTo": [
-      "source.vue"
+    },
+    "unbalancedBracketScopes": [
+      "keyword.operator.relational",
+      "storage.type.function.arrow",
+      "keyword.operator.bitwise.shift",
+      "meta.brace.angle",
+      "punctuation.definition.tag"
     ]
   },
   {
-    "scopeName": "vue.pug.interpolations",
-    "injectTo": [
-      "source.vue"
-    ]
-  },
-  {
+    "language": "vue-injection-markdown",
     "scopeName": "markdown.vue.codeblock",
     "injectTo": [
       "text.html.markdown"
     ],
     "embeddedLanguages": {
-      "meta.embedded.block.vue": "vue"
+      "meta.embedded.block.vue": "vue",
+      "source.vue": "vue",
+      "text": "plaintext",
+      "text.html.derivative": "html",
+      "text.html.markdown": "markdown",
+      "text.pug": "jade",
+      "source.css": "css",
+      "source.css.scss": "scss",
+      "source.css.less": "less",
+      "source.sass": "sass",
+      "source.stylus": "stylus",
+      "source.postcss": "postcss",
+      "source.js": "javascript",
+      "source.ts": "typescript",
+      "source.js.jsx": "javascriptreact",
+      "source.tsx": "typescriptreact",
+      "meta.tag.js": "jsx-tags",
+      "meta.tag.tsx": "jsx-tags",
+      "meta.tag.without-attributes.js": "jsx-tags",
+      "meta.tag.without-attributes.tsx": "jsx-tags",
+      "source.json": "json",
+      "source.json.comments": "jsonc",
+      "source.yaml": "yaml",
+      "source.toml": "toml",
+      "source.graphql": "graphql"
     }
+  },
+  {
+    "language": "vue-directives",
+    "scopeName": "vue.directives",
+    "injectTo": [
+      "source.vue",
+      "text.html.markdown",
+      "text.html.derivative",
+      "text.pug"
+    ]
+  },
+  {
+    "language": "vue-interpolations",
+    "scopeName": "vue.interpolations",
+    "injectTo": [
+      "source.vue",
+      "text.html.markdown",
+      "text.html.derivative",
+      "text.pug"
+    ]
+  },
+  {
+    "language": "vue-sfc-style-variable-injection",
+    "scopeName": "vue.sfc.style.variable.injection",
+    "injectTo": [
+      "source.vue"
+    ]
   },
   {
     "language": "svelte",

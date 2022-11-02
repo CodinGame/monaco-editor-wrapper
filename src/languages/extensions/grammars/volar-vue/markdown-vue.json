@@ -1,5 +1,5 @@
 {
-  "scopeName": "markdown.vue.codeblock",
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "fileTypes": [],
   "injectionSelector": "L:text.html.markdown",
   "patterns": [
@@ -9,18 +9,18 @@
   ],
   "repository": {
     "vue-code-block": {
-      "begin": "(^|\\G)(\\s*)(\\`{3,}|~{3,})\\s*(?i:(vue)(\\s+[^`~]*)?$)",
+      "begin": "(^|\\G)(\\s*)(`{3,}|~{3,})\\s*(?i:(vue)((\\s+|:|,|\\{|\\?)[^`~]*)?$)",
       "name": "markup.fenced_code.block.markdown",
       "end": "(^|\\G)(\\2|\\s{0,3})(\\3)\\s*$",
       "beginCaptures": {
         "3": {
           "name": "punctuation.definition.markdown"
         },
-        "5": {
-          "name": "fenced_code.block.language"
+        "4": {
+          "name": "fenced_code.block.language.markdown"
         },
-        "6": {
-          "name": "fenced_code.block.language.attributes"
+        "5": {
+          "name": "fenced_code.block.language.attributes.markdown"
         }
       },
       "endCaptures": {
@@ -30,20 +30,14 @@
       },
       "patterns": [
         {
-          "begin": "(^|\\G)(\\s*)(.*)",
-          "while": "(^|\\G)(?!\\s*([`~]{3,})\\s*$)",
-          "contentName": "meta.embedded.block.vue",
-          "patterns": [
-            {
-              "include": "source.vue"
-            }
-          ]
+          "include": "source.vue"
         }
       ]
     }
   },
+  "scopeName": "markdown.vue.codeblock",
   "information_for_contributors": [
-    "This file has been converted from https://github.com/vuejs/vetur/blob/master/",
+    "This file has been converted from https://github.com/johnsoncodehk/volar/blob/master/extensions/vscode-vue-language-features/",
     "If you want to provide a fix or improvement, please create a pull request against the original repository.",
     "Once accepted there, we are happy to receive an update request."
   ]
