@@ -1,0 +1,4 @@
+extends:
+  - '@codingame/semantic-release-config'
+branches:
+  - main
