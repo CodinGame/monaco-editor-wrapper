@@ -80,7 +80,7 @@
     "@babel/runtime": "7.19.4",
     "@codingame/commitlint-config-codingame": "^1.0.3",
     "@codingame/eslint-config": "^1.1.6",
-    "@codingame/semantic-release-config": "^1.0.3",
+    "@codingame/semantic-release-rules": "^1.0.0",
     "@codingame/tsconfig": "^1.1.1",
     "@commitlint/cli": "^17.3.0",
     "@rollup/plugin-alias": "4.0.0",
