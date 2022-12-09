@@ -4,7 +4,7 @@ import { defineVSCodeTheme } from './theme'
 import { updateUserConfiguration, registerConfigurations, registerDefaultConfigurations, onConfigurationChanged, getConfiguration } from './configuration'
 import { getMonacoLanguage, loadLanguage } from './languages'
 import { updateKeybindings, updateEditorKeybindingsMode } from './keybindings'
-
+import './style'
 export * from './tools'
 
 export {
