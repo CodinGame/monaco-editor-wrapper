@@ -2,7 +2,7 @@
 import JSON5 from 'json5'
 import ini from 'ini'
 import cson from 'cson-parser'
-import plist from 'fast-plist'
+import * as plist from 'fast-plist'
 import type * as monaco from 'monaco-editor'
 import jsYaml from 'js-yaml'
 import { ConfigurationScope, IConfigurationNode } from 'vscode/service-override/configuration'
@@ -425,15 +425,15 @@ async function fetchExtensions () {
     const resolve = await createRepositoryFileResolver(extension)
 
     const packageJsonContent = (await download(resolve('package.json')))!
-    const packageJson = JSON.parse(packageJsonContent) as {
+    const packageJson: {
       name: string
       contributes: PackageJsonContributes
-    }
+    } = JSON5.parse(packageJsonContent)
 
     // Only use the default i18n, can be improved
     const packageNlsJsonContent = await download(resolve('package.nls.json'))
     if (packageNlsJsonContent != null) {
-      replaceNLStrings(packageJson, JSON.parse(packageNlsJsonContent))
+      replaceNLStrings(packageJson, JSON5.parse(packageNlsJsonContent))
     }
 
     const {
