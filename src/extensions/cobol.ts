@@ -78,7 +78,7 @@ export default function setup (editor: monaco.editor.IStandaloneCodeEditor): voi
         indentLine(editor, lineNumber)
       }
     })
-  }, 'editorLangId == COBOL && !inSnippetMode')
+  }, 'editorLangId == cobol && !inSnippetMode')
 
   editor.addCommand(monaco.KeyMod.Shift | monaco.KeyCode.Tab, () => {
     editor.getSelections()?.forEach(selection => {
@@ -86,5 +86,5 @@ export default function setup (editor: monaco.editor.IStandaloneCodeEditor): voi
         unindentLine(editor, lineNumber)
       }
     })
-  }, 'editorLangId == COBOL && !inSnippetMode')
+  }, 'editorLangId == cobol && !inSnippetMode')
 }
