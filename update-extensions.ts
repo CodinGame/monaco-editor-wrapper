@@ -111,7 +111,7 @@ const extensions: Extension[] = [
   }, {
     name: 'volar-vue',
     repository: 'johnsoncodehk/volar',
-    path: 'extensions/vscode-vue-language-features/'
+    path: 'vue-language-tools/vscode-vue/'
   }, {
     name: 'svelte.svelte-vscode',
     repository: 'sveltejs/language-tools',
