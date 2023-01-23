@@ -2,6 +2,44 @@
   {
     "title": "COBOL Language Support",
     "properties": {
+      "cobol-lsp.smart-tab": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "default": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "anchors": {
+                "type": "object",
+                "patternProperties": {
+                  "^.*$": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "description": "Enable/disable smart tab",
+        "default": true,
+        "scope": 3
+      },
       "cobol-lsp.cpy-manager.profiles": {
         "type": "string",
         "description": "Current default profile for copybook downloader\nZowe Explorer version 1.15.0 or higher is required to download copybooks from the mainframe",
@@ -12,7 +50,7 @@
         "items": {
           "type": "string"
         },
-        "description": "Default list of relative local paths to search for copybooks",
+        "description": "Default list of local paths to search for copybooks",
         "uniqueItems": true,
         "scope": 3
       },
@@ -34,39 +72,12 @@
         "uniqueItems": true,
         "scope": 3
       },
-      "cobol-lsp.cpy-manager.daco.paths-local": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "description": "Default list of relative local paths to search for MAID copybooks",
-        "uniqueItems": true,
-        "scope": 3
-      },
-      "cobol-lsp.cpy-manager.daco.paths-dsn": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "description": "Default list of datasets to search for MAID copybooks\nZowe Explorer version 1.15.0 or higher is required to download copybooks from the mainframe",
-        "uniqueItems": true,
-        "scope": 3
-      },
-      "cobol-lsp.cpy-manager.daco.paths-uss": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "description": "Default list of USS paths to search for MAID copybooks\nZowe Explorer version 1.15.0 or higher is required to download copybooks from the mainframe",
-        "uniqueItems": true,
-        "scope": 3
-      },
       "cobol-lsp.cpy-manager.idms.paths-local": {
         "type": "array",
         "items": {
           "type": "string"
         },
-        "description": "Default list of relative local paths to search for IDMS copybooks",
+        "description": "Default list of local paths to search for IDMS copybooks",
         "uniqueItems": true,
         "scope": 3
       },
@@ -85,6 +96,21 @@
           "type": "string"
         },
         "description": "Default list of USS paths to search for IDMS copybooks\nZowe Explorer version 1.15.0 or higher is required to download copybooks from the mainframe",
+        "uniqueItems": true,
+        "scope": 3
+      },
+      "cobol-lsp.cpy-manager.copybook-extensions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "default": [
+          ".CPY",
+          ".COPY",
+          ".cpy",
+          ".copy"
+        ],
+        "description": "List of copybook extensions",
         "uniqueItems": true,
         "scope": 3
       },
@@ -234,10 +260,7 @@
         },
         "description": "List of relative local paths to search for subroutines",
         "uniqueItems": true,
-        "scope": 3,
-        "default": [
-          "/tmp/project"
-        ]
+        "scope": 3
       },
       "cobol-lsp.logging.level.root": {
         "type": "string",
@@ -280,7 +303,6 @@
         "items": {
           "type": "string",
           "enum": [
-            "DaCo",
             "IDMS"
           ]
         },
@@ -288,22 +310,24 @@
         "uniqueItems": true,
         "scope": 3
       },
-      "cobol-lsp.predefined-sections": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "description": "List of predefined sections",
-        "default": [
-          "S930",
-          "S940",
-          "S950",
-          "S990",
-          "S991",
-          "S997",
-          "S999"
+      "cobol-lsp.cics.translator": {
+        "type": "boolean",
+        "default": "true",
+        "description": "Enable CICS translator",
+        "scope": 3
+      },
+      "cobol-lsp.serverType": {
+        "type": "string",
+        "enum": [
+          "JAVA",
+          "NATIVE"
         ],
-        "uniqueItems": true,
+        "default": "JAVA",
+        "enumDescriptions": [
+          "JAVA  - Run java Server",
+          "NATIVE - Run native Server"
+        ],
+        "description": "COBOL LS server type.",
         "scope": 3
       }
     }

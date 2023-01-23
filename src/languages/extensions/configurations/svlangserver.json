@@ -22,13 +22,13 @@
           "icarus",
           "verilator"
         ],
-        "default": "icarus",
+        "default": "verilator",
         "description": "Linter to use",
         "scope": 3
       },
       "systemverilog.launchConfiguration": {
         "type": "string",
-        "default": "iverilog -g2012 -t null",
+        "default": "verilator -sv --lint-only --Wall",
         "description": "Command used for linting",
         "examples": [
           "verilator -sv --lint-only --Wall",

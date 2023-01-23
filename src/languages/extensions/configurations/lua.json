@@ -1,6 +1,12 @@
 [
   {
     "properties": {
+      "Lua.codeLens.enable": {
+        "default": false,
+        "markdownDescription": "Enable code lens.",
+        "scope": 4,
+        "type": "boolean"
+      },
       "Lua.completion.autoRequire": {
         "default": true,
         "markdownDescription": "When the input looks like a file name, automatically `require` this file.",
@@ -92,9 +98,7 @@
         "type": "boolean"
       },
       "Lua.diagnostics.disable": {
-        "default": [
-          "lowercase-global"
-        ],
+        "default": [],
         "items": {
           "enum": [
             "action-after-return",
@@ -133,6 +137,7 @@
             "exp-in-action",
             "global-in-nil-env",
             "index-in-func-name",
+            "invisible",
             "jump-local-scope",
             "keyword",
             "local-limit",
@@ -156,6 +161,7 @@
             "luadoc-miss-operator-name",
             "luadoc-miss-param-extends",
             "luadoc-miss-param-name",
+            "luadoc-miss-see-name",
             "luadoc-miss-sign-name",
             "luadoc-miss-symbol",
             "luadoc-miss-type-name",
@@ -179,6 +185,7 @@
             "missing-return-value",
             "need-check-nil",
             "need-paren",
+            "nesting-long-mark",
             "newfield-call",
             "newline-call",
             "no-unknown",
@@ -334,7 +341,7 @@
           },
           "strict": {
             "default": "Fallback",
-            "description": "* close-non-object\n* deprecated\n* discard-returns",
+            "description": "* close-non-object\n* deprecated\n* discard-returns\n* invisible",
             "enum": [
               "Any",
               "Opened",
@@ -482,7 +489,7 @@
           },
           "strict": {
             "default": "Fallback",
-            "description": "* close-non-object\n* deprecated\n* discard-returns",
+            "description": "* close-non-object\n* deprecated\n* discard-returns\n* invisible",
             "enum": [
               "Error",
               "Warning",
@@ -816,7 +823,7 @@
             "type": "string"
           },
           "duplicate-set-field": {
-            "default": "Any",
+            "default": "Opened",
             "description": "Enable diagnostics for setting the same field in a class more than once.",
             "enum": [
               "Any",
@@ -844,6 +851,19 @@
           "global-in-nil-env": {
             "default": "Any",
             "description": "Enable cannot use global variables （ `_ENV` is set to `nil`） diagnostics.",
+            "enum": [
+              "Any",
+              "Opened",
+              "None",
+              "Any!",
+              "Opened!",
+              "None!"
+            ],
+            "type": "string"
+          },
+          "invisible": {
+            "default": "Any",
+            "description": "Enable diagnostics for accesses to fields which are invisible.",
             "enum": [
               "Any",
               "Opened",
@@ -1607,6 +1627,21 @@
             ],
             "type": "string"
           },
+          "invisible": {
+            "default": "Warning",
+            "description": "Enable diagnostics for accesses to fields which are invisible.",
+            "enum": [
+              "Error",
+              "Warning",
+              "Information",
+              "Hint",
+              "Error!",
+              "Warning!",
+              "Information!",
+              "Hint!"
+            ],
+            "type": "string"
+          },
           "lowercase-global": {
             "default": "Information",
             "description": "Enable lowercase global variable definition diagnostics.",
@@ -2118,9 +2153,25 @@
       },
       "Lua.diagnostics.workspaceDelay": {
         "default": 3000,
-        "markdownDescription": "Latency (milliseconds) for workspace diagnostics. When you start the workspace, or edit any file, the entire workspace will be re-diagnosed in the background. Set to negative to disable workspace diagnostics.",
+        "markdownDescription": "Latency (milliseconds) for workspace diagnostics.",
         "scope": 4,
         "type": "integer"
+      },
+      "Lua.diagnostics.workspaceEvent": {
+        "default": "OnSave",
+        "enum": [
+          "OnChange",
+          "OnSave",
+          "None"
+        ],
+        "markdownDescription": "Set the time to trigger workspace diagnostics.",
+        "markdownEnumDescriptions": [
+          "Trigger workspace diagnostics when the file is changed.",
+          "Trigger workspace diagnostics when the file is saved.",
+          "Disable workspace diagnostics."
+        ],
+        "scope": 4,
+        "type": "string"
       },
       "Lua.diagnostics.workspaceRate": {
         "default": 100,
@@ -2128,9 +2179,36 @@
         "scope": 4,
         "type": "integer"
       },
+      "Lua.doc.packageName": {
+        "default": [],
+        "items": {
+          "type": "string"
+        },
+        "markdownDescription": "Treat specific field names as package, e.g. `m_*` means `XXX.m_id` and `XXX.m_type` are package, witch can only be accessed in the file where the definition is located.",
+        "scope": 4,
+        "type": "array"
+      },
+      "Lua.doc.privateName": {
+        "default": [],
+        "items": {
+          "type": "string"
+        },
+        "markdownDescription": "Treat specific field names as private, e.g. `m_*` means `XXX.m_id` and `XXX.m_type` are private, witch can only be accessed in the class where the definition is located.",
+        "scope": 4,
+        "type": "array"
+      },
+      "Lua.doc.protectedName": {
+        "default": [],
+        "items": {
+          "type": "string"
+        },
+        "markdownDescription": "Treat specific field names as protected, e.g. `m_*` means `XXX.m_id` and `XXX.m_type` are protected, witch can only be accessed in the class where the definition is located and its subclasses.",
+        "scope": 4,
+        "type": "array"
+      },
       "Lua.format.defaultConfig": {
         "additionalProperties": false,
-        "default": {},
+        "default": [],
         "markdownDescription": "The default format configuration. Has a lower priority than `.editorconfig` file in the workspace.\nRead [formatter docs](https://github.com/CppCXY/EmmyLuaCodeStyle/tree/master/docs) to learn usage.\n",
         "patternProperties": {
           ".*": {
@@ -2262,12 +2340,18 @@
         "scope": 4,
         "type": "integer"
       },
+      "Lua.misc.executablePath": {
+        "default": "",
+        "markdownDescription": "Specify the executable path in VSCode.",
+        "scope": 4,
+        "type": "string"
+      },
       "Lua.misc.parameters": {
         "default": [],
         "items": {
           "type": "string"
         },
-        "markdownDescription": "[Command line parameters](https://github.com/sumneko/lua-telemetry-server/tree/master/method) when starting the language service in VSCode.",
+        "markdownDescription": "[Command line parameters](https://github.com/sumneko/lua-telemetry-server/tree/master/method) when starting the language server in VSCode.",
         "scope": 4,
         "type": "array"
       },
@@ -2549,7 +2633,7 @@
       },
       "Lua.runtime.special": {
         "additionalProperties": false,
-        "default": {},
+        "default": [],
         "markdownDescription": "The custom global variables are regarded as some special built-in variables, and the language server will provide special support\nThe following example shows that 'include' is treated as' require '.\n```json\n\"Lua.runtime.special\" : {\n    \"include\" : \"require\"\n}\n```\n",
         "patternProperties": {
           ".*": {
@@ -2640,18 +2724,6 @@
         "scope": 4,
         "type": "array"
       },
-      "Lua.telemetry.enable": {
-        "default": null,
-        "markdownDescription": "Enable telemetry to send your editor information and error logs over the network. Read our privacy policy [here](https://github.com/sumneko/lua-language-server/wiki/Home#privacy).\n",
-        "scope": 4,
-        "tags": [
-          "telemetry"
-        ],
-        "type": [
-          "boolean",
-          "null"
-        ]
-      },
       "Lua.type.castNumberToInteger": {
         "default": true,
         "markdownDescription": "Allowed to assign the `number` type to the `integer` type.",
@@ -2672,21 +2744,21 @@
       },
       "Lua.typeFormat.config": {
         "additionalProperties": false,
-        "markdownDescription": "%config.typeFormat.config%",
+        "markdownDescription": "Configures the formatting behavior while typing Lua code.",
         "properties": {
           "auto_complete_end": {
             "default": "true",
-            "description": "%config.typeFormat.config.auto_complete_end%",
+            "description": "Controls if `end` is automatically completed at suitable positions.",
             "type": "string"
           },
           "auto_complete_table_sep": {
             "default": "true",
-            "description": "%config.typeFormat.config.auto_complete_table_sep%",
+            "description": "Controls if a separator is automatically appended at the end of a table declaration.",
             "type": "string"
           },
           "format_line": {
             "default": "true",
-            "description": "%config.typeFormat.config.format_line%",
+            "description": "Controls if a line is formatted at all.",
             "type": "string"
           }
         },

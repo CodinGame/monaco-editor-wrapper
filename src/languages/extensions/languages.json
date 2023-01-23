@@ -190,6 +190,7 @@
   {
     "id": "javascriptreact",
     "aliases": [
+      "JavaScript JSX",
       "JavaScript React",
       "jsx"
     ],
@@ -584,6 +585,7 @@
   {
     "id": "typescriptreact",
     "aliases": [
+      "TypeScript JSX",
       "TypeScript React",
       "tsx"
     ],
@@ -1141,22 +1143,21 @@
     ]
   },
   {
-    "id": "COBOL",
+    "id": "cobol",
     "extensions": [
       ".cbl",
       ".cob",
-      ".cobol"
-    ]
-  },
-  {
-    "id": "COBOL Copybook",
-    "extensions": [
+      ".cobol",
       ".cpy",
       ".copy"
     ],
+    "aliases": [
+      "COBOL"
+    ],
     "filenamePatterns": [
       "**/*copybook*/**"
-    ]
+    ],
+    "firstLine": "^[0-9 ]{6}([*].*|[ ] *([Ii][Dd][Ee][Nn][Tt][Ii][Ff][Ii][Cc][Aa][Tt][Ii][Oo][Nn] +[Dd][Ii][Vv][Ii][Ss][Ii][Oo][Nn][. ].*|[0-9][0-9] +[@#$A-Z][-A-Z0-9]*[. ].*|(CBL|PROCESS) +XOPTS\\b.*))$"
   },
   {
     "id": "elixir",
@@ -1213,6 +1214,7 @@
     ],
     "extensions": [
       ".tcl",
+      ".tm",
       ".test"
     ]
   },
@@ -1268,7 +1270,8 @@
   },
   {
     "filenames": [
-      ".luarc.json"
+      ".luarc.json",
+      "config.json"
     ],
     "id": "jsonc"
   },
@@ -1391,6 +1394,24 @@
     ]
   },
   {
+    "id": "namespace.r",
+    "aliases": [
+      "R NAMESPACE"
+    ],
+    "filenames": [
+      "NAMESPACE"
+    ]
+  },
+  {
+    "id": "buildignore.r",
+    "aliases": [
+      "R ignore"
+    ],
+    "filenames": [
+      ".Rbuildignore"
+    ]
+  },
+  {
     "id": "groovy",
     "extensions": [
       ".groovy"
@@ -1476,5 +1497,58 @@
       "**/templates/**/*"
     ],
     "firstLine": "{%"
+  },
+  {
+    "id": "go",
+    "extensions": [
+      ".go"
+    ],
+    "aliases": [
+      "Go"
+    ]
+  },
+  {
+    "id": "go.mod",
+    "filenames": [
+      "go.mod",
+      "gopls.mod"
+    ],
+    "aliases": [
+      "Go Module File"
+    ]
+  },
+  {
+    "id": "go.work",
+    "filenames": [
+      "go.work"
+    ],
+    "aliases": [
+      "Go Work File"
+    ]
+  },
+  {
+    "id": "go.sum",
+    "filenames": [
+      "go.sum"
+    ],
+    "aliases": [
+      "Go Checksum File"
+    ]
+  },
+  {
+    "id": "gotmpl",
+    "extensions": [
+      ".tmpl",
+      ".gotmpl"
+    ],
+    "aliases": [
+      "Go Template File"
+    ]
+  },
+  {
+    "id": "govulncheck",
+    "aliases": [
+      "Govulncheck Output"
+    ]
   }
 ]

@@ -1,96 +1,1136 @@
 [
   {
-    "type": "object",
-    "title": "C/C++",
+    "title": "IntelliSense",
     "properties": {
-      "C_Cpp.maxConcurrentThreads": {
-        "type": [
-          "integer",
-          "null"
+      "C_Cpp.inlayHints.autoDeclarationTypes.enabled": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Display inlay hints for deduced type when `auto` is used in a declaration:\n```cpp \n\n auto index /* : int */ = 0;\n```",
+        "scope": 4
+      },
+      "C_Cpp.inlayHints.autoDeclarationTypes.showOnLeft": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Display inlay hints for deduced type when `auto` is used in a declaration on the left of the identifier:\n```cpp \n\n auto /* int */ index = 0;\n```",
+        "scope": 4
+      },
+      "C_Cpp.inlayHints.parameterNames.enabled": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Display inlay hints for parameter names:\n```cpp \n\n int a = getArea(/* width: */ x, /* height: */ y);\n```",
+        "scope": 4
+      },
+      "C_Cpp.inlayHints.parameterNames.suppressWhenArgumentContainsName": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Suppress parameter name hints when the argument text or inline comment contains the parameter name:\n```cpp \n\n int a = getArea(width, /* height: */ y);\n```",
+        "scope": 4
+      },
+      "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Hide leading `_` in parameter name hints.",
+        "scope": 4
+      },
+      "C_Cpp.inlayHints.referenceOperator.enabled": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Display the inlay hint reference operator `&` for parameters passed by non-const reference:\n```cpp \n\n swap(/* &first: */ str1, /* &last: */ str2);\n```",
+        "scope": 4
+      },
+      "C_Cpp.inlayHints.referenceOperator.showSpace": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Controls whether a space is shown after `&` for parameters passed by non-const reference:\n```cpp \n\n swap(/* & first: */ str1, /* & last: */ str2);\n```",
+        "scope": 4
+      },
+      "C_Cpp.intelliSenseUpdateDelay": {
+        "type": "number",
+        "default": 2000,
+        "description": "Controls the delay in milliseconds before IntelliSense starts updating after a modification.",
+        "scope": 1,
+        "minimum": 500,
+        "maximum": 3000
+      },
+      "C_Cpp.codeFolding": {
+        "type": "string",
+        "enum": [
+          "enabled",
+          "disabled"
         ],
-        "markdownDescription": "The maximum number of concurrent threads to use for language service processing. The value is a hint and may not always be used. The default of `null` (empty) uses the number of logical processors available.",
+        "default": "enabled",
+        "description": "If enabled, code folding ranges are provided by the language server.",
+        "scope": 3
+      },
+      "C_Cpp.autocompleteAddParentheses": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "If `true`, autocomplete will automatically add `(` after function calls, in which case `)` may also be added, depending on the value of the `#editor.autoClosingBrackets#` setting.",
+        "scope": 4
+      },
+      "C_Cpp.suggestSnippets": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "If `true`, snippets are provided by the language server.",
+        "scope": 4
+      },
+      "C_Cpp.enhancedColorization": {
+        "type": "string",
+        "enum": [
+          "enabled",
+          "disabled"
+        ],
+        "default": "enabled",
+        "markdownDescription": "If enabled, code is colorized based on IntelliSense. This setting only applies if `#C_Cpp.intelliSenseEngine#` is set to `default`.",
+        "scope": 3
+      },
+      "C_Cpp.legacyCompilerArgsBehavior": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Enable pre-v1.10.0 behavior for how shell escaping is handled in compiler arg settings. Shell escaping is no longer expected or supported by default in arg arrays starting in v1.10.0.",
+        "scope": 4
+      },
+      "C_Cpp.autocomplete": {
+        "type": "string",
+        "enum": [
+          "default",
+          "disabled"
+        ],
+        "default": "default",
+        "markdownDescription": "Controls the auto-completion provider. If `disabled` and you want word-based completion, you will also need to set `\"[cpp]\": {\"editor.wordBasedSuggestions\": true}` (and similarly for `c` and `cuda-cpp` languages).",
+        "enumDescriptions": [
+          "Uses the active IntelliSense engine.",
+          "Uses the word-based completion provided by Visual Studio Code."
+        ],
+        "scope": 4
+      },
+      "C_Cpp.hover": {
+        "type": "string",
+        "enum": [
+          "default",
+          "disabled"
+        ],
+        "default": "default",
+        "description": "If disabled, hover details are no longer provided by the language server.",
+        "scope": 4
+      },
+      "C_Cpp.errorSquiggles": {
+        "type": "string",
+        "enum": [
+          "enabled",
+          "disabled",
+          "enabledIfIncludesResolve"
+        ],
+        "default": "enabledIfIncludesResolve",
+        "description": "Controls whether suspected compile errors detected by the IntelliSense engine will be reported back to the editor. It also controls whether code analysis warnings are reported if includes can't be found. This setting is ignored by the Tag Parser engine.",
+        "scope": 4
+      },
+      "C_Cpp.dimInactiveRegions": {
+        "type": "boolean",
+        "default": true,
+        "description": "Controls whether inactive preprocessor blocks are colored differently than active code. This setting has no effect if IntelliSense is disabled or if using the Default High Contrast theme.",
+        "scope": 4
+      },
+      "C_Cpp.inactiveRegionOpacity": {
+        "type:": "number",
+        "default": 0.55,
+        "markdownDescription": "Controls the opacity of inactive preprocessor blocks. Scales between `0.1` and `1.0`. This setting only applies when inactive region dimming is enabled.",
+        "scope": 4,
+        "minimum": 0.1,
+        "maximum": 1
+      },
+      "C_Cpp.inactiveRegionForegroundColor": {
+        "type": "string",
+        "description": "Controls the font coloring of inactive preprocessor blocks. Input is in the form a hexadecimal color code or a valid Theme Color. If not set, this defaults to the syntax coloring scheme of the editor. This setting only applies when inactive region dimming is enabled.",
+        "scope": 4
+      },
+      "C_Cpp.inactiveRegionBackgroundColor": {
+        "type": "string",
+        "description": "Controls the background coloring of inactive preprocessor blocks. Input is in the form a hexadecimal color code or a valid Theme Color. If not set, this defaults to transparent. This setting only applies when inactive region dimming is enabled.",
+        "scope": 4
+      },
+      "C_Cpp.renameRequiresIdentifier": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "If `true`, 'Rename Symbol' will require a valid C/C++ identifier.",
+        "scope": 1
+      },
+      "C_Cpp.workspaceSymbols": {
+        "type": "string",
+        "enum": [
+          "All",
+          "Just My Code"
+        ],
+        "default": "Just My Code",
+        "description": "The symbols to include in the query results when 'Go to Symbol in Workspace' is invoked.",
+        "scope": 3
+      },
+      "C_Cpp.default.includePath": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true,
+        "markdownDescription": "The value to use in a configuration if `includePath` is not specified in `c_cpp_properties.json`. If `includePath` is specified, add `${default}` to the array to insert the values from this setting. Usually, this should not include system includes; instead, set `#C_Cpp.default.compilerPath#`.",
+        "scope": 6
+      },
+      "C_Cpp.default.defines": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true,
+        "markdownDescription": "The value to use in a configuration if `defines` is not specified, or the values to insert if `${default}` is present in `defines`.",
+        "scope": 6
+      },
+      "C_Cpp.default.macFrameworkPath": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true,
+        "markdownDescription": "The value to use in a configuration if `macFrameworkPath` is not specified, or the values to insert if `${default}` is present in `macFrameworkPath`.",
+        "scope": 6
+      },
+      "C_Cpp.default.windowsSdkVersion": {
+        "type": "string",
+        "markdownDescription": "Version of the Windows SDK include path to use on Windows, e.g. `10.0.17134.0`.",
+        "pattern": "^((\\d{2}\\.\\d{1}\\.\\d{5}\\.\\d{1}$|^8\\.1)|())$",
+        "scope": 6
+      },
+      "C_Cpp.default.compileCommands": {
+        "type": "string",
+        "markdownDescription": "The value to use in a configuration if `compileCommands` is either not specified, or set to `${default}`.",
+        "scope": 6
+      },
+      "C_Cpp.default.forcedInclude": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true,
+        "markdownDescription": "The value to use in a configuration if `forcedInclude` is not specified, or the values to insert if `${default}` is present in `forcedInclude`.",
+        "scope": 6
+      },
+      "C_Cpp.default.intelliSenseMode": {
+        "type": "string",
+        "enum": [
+          "",
+          "macos-clang-x86",
+          "macos-clang-x64",
+          "macos-clang-arm",
+          "macos-clang-arm64",
+          "macos-gcc-x86",
+          "macos-gcc-x64",
+          "macos-gcc-arm",
+          "macos-gcc-arm64",
+          "linux-clang-x86",
+          "linux-clang-x64",
+          "linux-clang-arm",
+          "linux-clang-arm64",
+          "linux-gcc-x86",
+          "linux-gcc-x64",
+          "linux-gcc-arm",
+          "linux-gcc-arm64",
+          "windows-clang-x86",
+          "windows-clang-x64",
+          "windows-clang-arm",
+          "windows-clang-arm64",
+          "windows-gcc-x86",
+          "windows-gcc-x64",
+          "windows-gcc-arm",
+          "windows-gcc-arm64",
+          "windows-msvc-x86",
+          "windows-msvc-x64",
+          "windows-msvc-arm",
+          "windows-msvc-arm64",
+          "clang-x86",
+          "clang-x64",
+          "clang-arm",
+          "clang-arm64",
+          "gcc-x86",
+          "gcc-x64",
+          "gcc-arm",
+          "gcc-arm64",
+          "msvc-x86",
+          "msvc-x64",
+          "msvc-arm",
+          "msvc-arm64"
+        ],
+        "markdownDescription": "The value to use in a configuration if `intelliSenseMode` is either not specified or set to `${default}`.",
+        "scope": 6
+      },
+      "C_Cpp.default.compilerPath": {
+        "type": "string",
         "default": null,
-        "minimum": 1,
-        "maximum": 32,
-        "scope": 2
+        "markdownDescription": "The value to use in a configuration if `compilerPath` is either not specified or set to `${default}`.",
+        "scope": 6
       },
-      "C_Cpp.maxCachedProcesses": {
-        "type": [
-          "integer",
-          "null"
+      "C_Cpp.default.compilerArgs": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true,
+        "markdownDescription": "The value to use in configuration if `compilerArgs` is either not specified or set to `${default}`.",
+        "scope": 6
+      },
+      "C_Cpp.default.cStandard": {
+        "type": "string",
+        "enum": [
+          "",
+          "c89",
+          "c99",
+          "c11",
+          "c17",
+          "gnu89",
+          "gnu99",
+          "gnu11",
+          "gnu17"
         ],
-        "markdownDescription": "The maximum number of cached processes to use for language service processing. The default of `null` (empty) uses twice the number of logical processors available.",
+        "markdownDescription": "The value to use in a configuration if `cStandard` is either not specified or set to `${default}`.",
+        "scope": 4
+      },
+      "C_Cpp.default.cppStandard": {
+        "type": "string",
+        "enum": [
+          "",
+          "c++98",
+          "c++03",
+          "c++11",
+          "c++14",
+          "c++17",
+          "c++20",
+          "c++23",
+          "gnu++98",
+          "gnu++03",
+          "gnu++11",
+          "gnu++14",
+          "gnu++17",
+          "gnu++20",
+          "gnu++23"
+        ],
+        "markdownDescription": "The value to use in a configuration if `cppStandard` is either not specified or set to `${default}`.",
+        "scope": 4
+      },
+      "C_Cpp.default.configurationProvider": {
+        "type": "string",
+        "markdownDescription": "The value to use in a configuration if `configurationProvider` is either not specified or set to `${default}`.",
+        "scope": 4
+      },
+      "C_Cpp.default.mergeConfigurations": {
+        "type": "boolean",
+        "markdownDescription": "Set to `true` to merge include paths, defines, and forced includes with those from a configuration provider.",
+        "scope": 4
+      },
+      "C_Cpp.default.browse.path": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
         "default": null,
-        "minimum": 0,
-        "maximum": 256,
-        "scope": 2
+        "uniqueItems": true,
+        "markdownDescription": "The value to use in a configuration if `browse.path` is not specified, or the values to insert if `${default}` is present in `browse.path`.",
+        "scope": 6
       },
-      "C_Cpp.maxMemory": {
+      "C_Cpp.default.browse.databaseFilename": {
+        "type": "string",
+        "markdownDescription": "The value to use in a configuration if `browse.databaseFilename` is either not specified or set to `${default}`.",
+        "scope": 6
+      },
+      "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "The value to use in a configuration if `browse.limitSymbolsToIncludedHeaders` is either not specified or set to `${default}`.",
+        "scope": 4
+      },
+      "C_Cpp.default.systemIncludePath": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true,
+        "markdownDescription": "The value to use for the system include path. If set, it overrides the system include path acquired via `compilerPath` and `compileCommands` settings.",
+        "scope": 6
+      },
+      "C_Cpp.default.customConfigurationVariables": {
         "type": [
-          "integer",
+          "object",
           "null"
         ],
-        "markdownDescription": "The maximum memory (in MB) available for language service processing. Fewer processes will be cached and run concurrently after this memory usage is exceeded. The default of `null` (empty) uses the system's free memory.",
         "default": null,
-        "minimum": 256,
-        "maximum": 65536,
-        "scope": 2
+        "patternProperties": {
+          "(^.+$)": {
+            "type": "string"
+          }
+        },
+        "markdownDescription": "The value to use in a configuration if `customConfigurationVariables` is not set, or the values to insert if `${default}` is present as a key in `customConfigurationVariables`.",
+        "scope": 6
       },
-      "C_Cpp.intelliSense.maxCachedProcesses": {
-        "type": [
-          "integer",
-          "null"
-        ],
-        "markdownDescription": "The maximum number of IntelliSense processes to keep running. The default of `null` (empty) uses value inherited from `#C_Cpp.maxCachedProcesses#`.",
+      "C_Cpp.default.enableConfigurationSquiggles": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Controls whether the extension will report errors detected in `c_cpp_properties.json`.",
+        "scope": 4
+      },
+      "C_Cpp.default.dotConfig": {
+        "type": "string",
         "default": null,
-        "minimum": 2,
-        "maximum": 128,
-        "scope": 2
+        "markdownDescription": "The value to use in a configuration if `dotConfig` is not specified, or the value to insert if `${default}` is present in `dotConfig`.",
+        "scope": 4
       },
-      "C_Cpp.intelliSense.maxMemory": {
+      "C_Cpp.configurationWarnings": {
+        "type": "string",
+        "enum": [
+          "enabled",
+          "disabled"
+        ],
+        "default": "enabled",
+        "description": "Determines whether pop up notifications will be shown when a configuration provider extension is unable to provide a configuration for a source file.",
+        "scope": 4
+      },
+      "C_Cpp.workspaceParsingPriority": {
+        "type": "string",
+        "enum": [
+          "highest",
+          "high",
+          "medium",
+          "low"
+        ],
+        "default": "highest",
+        "markdownDescription": "Controls whether parsing of the non-active workspace files uses sleeps to avoid using 100% CPU. The values `highest`/`high`/`medium`/`low` correspond to approximately 100/75/50/25% CPU usage.",
+        "scope": 3
+      },
+      "C_Cpp.intelliSenseEngine": {
+        "type": "string",
+        "enum": [
+          "default",
+          "Tag Parser",
+          "disabled"
+        ],
+        "default": "default",
+        "description": "Controls the IntelliSense provider.",
+        "enumDescriptions": [
+          "Provides context-aware results via a separate IntelliSense process.",
+          "Provides \"fuzzy\" results that are not context-aware.",
+          "Turns off C/C++ language service features."
+        ],
+        "scope": 4
+      },
+      "C_Cpp.intelliSenseEngineFallback": {
+        "type": "string",
+        "enum": [
+          "enabled",
+          "disabled"
+        ],
+        "default": "disabled",
+        "markdownDescription": "Controls whether the IntelliSense engine will automatically switch to the Tag Parser for translation units containing `#include` errors.",
+        "scope": 4
+      },
+      "C_Cpp.exclusionPolicy": {
+        "type": "string",
+        "enum": [
+          "checkFolders",
+          "checkFilesAndFolders"
+        ],
+        "default": "checkFolders",
+        "markdownDescription": "Instructs the extension when to use the `#files.exclude#` (and `#C_Cpp.files.exclude#`) setting when determining which files should be added to the code navigation database while traversing through the paths in the `browse.path` array. If your `#files.exclude#` setting only contains folders, then `checkFolders` is the best choice and will increase the speed at which the extension can initialize the code navigation database.",
+        "enumDescriptions": [
+          "The exclusion filters will only be evaluated once per folder (individual files are not checked).",
+          "The exclusion filters will be evaluated against every file and folder encountered."
+        ],
+        "scope": 4
+      },
+      "C_Cpp.files.exclude": {
+        "type": "object",
+        "markdownDescription": "Configure glob patterns for excluding folders (and files if `#C_Cpp.exclusionPolicy#` is changed). These are specific to the C/C++ extension and are in addition to `#files.exclude#`, but unlike `#files.exclude#` they also apply to paths outside the current workspace folder and are not removed from the Explorer view. Read more about glob patterns [here](https://code.visualstudio.com/docs/editor/codebasics#_advanced-search-options).",
+        "default": {
+          "**/.vscode": true,
+          "**/.vs": true
+        },
+        "additionalProperties": {
+          "anyOf": [
+            {
+              "type": "boolean",
+              "markdownDescription": "The glob pattern to match file paths against. Set to `true` or `false` to enable or disable the pattern."
+            },
+            {
+              "type": "object",
+              "properties": {
+                "when": {
+                  "type": "string",
+                  "pattern": "\\w*\\$\\(basename\\)\\w*",
+                  "default": "$(basename).ext",
+                  "markdownDescription": "Additional check on the siblings of a matching file. Use `$(basename)` as variable for the matching file name."
+                }
+              }
+            }
+          ]
+        },
+        "scope": 4
+      }
+    }
+  },
+  {
+    "title": "Formatting",
+    "properties": {
+      "C_Cpp.vcFormat.indent.braces": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Braces are indented by the amount specified in the `#editor.tabSize#` setting.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.indent.multiLineRelativeTo": {
+        "type": "string",
+        "enum": [
+          "outermostParenthesis",
+          "innermostParenthesis",
+          "statementBegin"
+        ],
+        "enumDescriptions": [
+          "Indent new line relative to the outermost open parenthesis.",
+          "Indent new line relative to the innermost open parenthesis.",
+          "Indent new line relative to the beginning of the current statement."
+        ],
+        "default": "innermostParenthesis",
+        "description": "Determines what new line indentation is relative to.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.indent.withinParentheses": {
+        "type": "string",
+        "enum": [
+          "alignToParenthesis",
+          "indent"
+        ],
+        "markdownEnumDescriptions": [
+          "New line is aligned under the opening parenthesis.",
+          "New line is indented based on `#C_Cpp.vcFormat.indent.multiLineRelativeTo#`."
+        ],
+        "default": "indent",
+        "markdownDescription": "When a new line is typed, it is aligned under the opening parenthesis or based on `#C_Cpp.vcFormat.indent.multiLineRelativeTo#`.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.indent.preserveWithinParentheses": {
+        "type": "boolean",
+        "default": false,
+        "description": "In existing code, preserve the existing indent alignment of new lines within parentheses.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.indent.caseLabels": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Labels are indented relative to switch statements by the amount specified in the `#editor.tabSize#` setting.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.indent.caseContents": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Code inside a `case` block is indented relative to its label by the amount specified in the `#editor.tabSize#` setting.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.indent.caseContentsWhenBlock": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Indent braces following a case statement by the amount specified in the `#editor.tabSize#` setting.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.indent.lambdaBracesWhenParameter": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Indent braces of lambdas used as function parameters relative to the start of the statement by the amount specified in the `#editor.tabSize#` setting.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.indent.gotoLabels": {
+        "type": "string",
+        "enum": [
+          "oneLeft",
+          "leftmostColumn",
+          "none"
+        ],
+        "markdownEnumDescriptions": [
+          "Position goto labels to the left of the current code indentation, by the amount specified in the `#editor.tabSize#` setting.",
+          "Position goto labels at the leftmost edge of the code.",
+          "Goto labels will not be formatted."
+        ],
+        "default": "oneLeft",
+        "description": "The position of goto labels.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.indent.preprocessor": {
+        "type": "string",
+        "enum": [
+          "oneLeft",
+          "leftmostColumn",
+          "none"
+        ],
+        "markdownEnumDescriptions": [
+          "Preprocessor directives are positioned to the left of the current code indentation, by the amount specified in the `#editor.tabSize#` setting.",
+          "Preprocessor directives are positioned at the leftmost edge of the code.",
+          "Preprocessor directives will not be formatted."
+        ],
+        "default": "leftmostColumn",
+        "description": "The position of preprocessor directives.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.indent.accessSpecifiers": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Access specifiers are indented relative to class or struct definitions by the amount specified in the `#editor.tabSize#` setting.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.indent.namespaceContents": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Code is indented relative to its enclosing namespace by the amount specified in the `#editor.tabSize#` setting.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.indent.preserveComments": {
+        "type": "boolean",
+        "default": false,
+        "description": "Indentation of comments is not changed during formatting operations.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.newLine.beforeOpenBrace.namespace": {
+        "type": "string",
+        "enum": [
+          "newLine",
+          "sameLine",
+          "ignore"
+        ],
+        "enumDescriptions": [
+          "Opening braces are moved to a new line.",
+          "Opening braces are kept on the same line and a space is added before each one.",
+          "Opening braces are not formatted."
+        ],
+        "default": "ignore",
+        "description": "The position of opening braces for namespaces.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.newLine.beforeOpenBrace.type": {
+        "type": "string",
+        "enum": [
+          "newLine",
+          "sameLine",
+          "ignore"
+        ],
+        "enumDescriptions": [
+          "Opening braces are moved to a new line.",
+          "Opening braces are kept on the same line and a space is added before each one.",
+          "Opening braces are not formatted."
+        ],
+        "default": "ignore",
+        "description": "The position of opening braces for type definitions.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.newLine.beforeOpenBrace.function": {
+        "type": "string",
+        "enum": [
+          "newLine",
+          "sameLine",
+          "ignore"
+        ],
+        "enumDescriptions": [
+          "Opening braces are moved to a new line.",
+          "Opening braces are kept on the same line and a space is added before each one.",
+          "Opening braces are not formatted."
+        ],
+        "default": "ignore",
+        "description": "The position of opening braces for functions.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.newLine.beforeOpenBrace.block": {
+        "type": "string",
+        "enum": [
+          "newLine",
+          "sameLine",
+          "ignore"
+        ],
+        "enumDescriptions": [
+          "Opening braces are moved to a new line.",
+          "Opening braces are kept on the same line and a space is added before each one.",
+          "Opening braces are not formatted."
+        ],
+        "default": "ignore",
+        "description": "The position of opening braces for control blocks.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.newLine.beforeOpenBrace.lambda": {
+        "enum": [
+          "newLine",
+          "sameLine",
+          "ignore"
+        ],
+        "enumDescriptions": [
+          "Opening braces are moved to a new line.",
+          "Opening braces are kept on the same line and a space is added before each one.",
+          "Opening braces are not formatted."
+        ],
+        "default": "ignore",
+        "description": "The position of opening braces for lambda functions.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.newLine.scopeBracesOnSeparateLines": {
+        "type": "boolean",
+        "default": false,
+        "description": "Place opening and closing braces for scopes on separate lines.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyType": {
+        "type": "boolean",
+        "default": false,
+        "description": "For empty types, move closing braces to the same line as opening braces.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyFunction": {
+        "type": "boolean",
+        "default": false,
+        "description": "For empty function bodies, move closing braces to the same line as opening braces.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.newLine.beforeCatch": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Place `catch` and similar keywords on a new line.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.newLine.beforeElse": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Place `else` on a new line.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.newLine.beforeWhileInDoWhile": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Place `while` in a `do`-`while` loop on a new line.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.beforeFunctionOpenParenthesis": {
+        "type": "string",
+        "enum": [
+          "insert",
+          "remove",
+          "ignore"
+        ],
+        "enumDescriptions": [
+          "Add a space before the opening parenthesis of a function.",
+          "Spaces before opening parenthesis of a function are removed.",
+          "Spaces are left as entered."
+        ],
+        "default": "remove",
+        "description": "Spacing between function names and opening parentheses of argument lists.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.withinParameterListParentheses": {
+        "type": "boolean",
+        "default": false,
+        "description": "A space is added after the opening parenthesis and also before the closing parenthesis in function parameter lists.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.betweenEmptyParameterListParentheses": {
+        "type": "boolean",
+        "default": false,
+        "description": "When a function parameter list is empty, a space is inserted between its parentheses.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.afterKeywordsInControlFlowStatements": {
+        "type": "boolean",
+        "default": true,
+        "description": "A space is added between the keyword and opening parenthesis in control flow statements.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.withinControlFlowStatementParentheses": {
+        "type": "boolean",
+        "default": false,
+        "description": "A space is added after the opening parenthesis and also before the closing parenthesis in control flow statements.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.beforeLambdaOpenParenthesis": {
+        "type": "boolean",
+        "default": false,
+        "description": "A space is added before the opening parenthesis of lambda argument lists.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.withinCastParentheses": {
+        "type": "boolean",
+        "default": false,
+        "description": "A space is added after the opening parenthesis and also before the closing parenthesis of a C-style cast.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.afterCastCloseParenthesis": {
+        "type": "boolean",
+        "default": false,
+        "description": "A space is added after the closing parenthesis of a C-style cast.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.withinExpressionParentheses": {
+        "type": "boolean",
+        "default": false,
+        "description": "A space is added after the opening parenthesis and also before the closing parenthesis of a parenthesized expression.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.beforeBlockOpenBrace": {
+        "type": "boolean",
+        "default": true,
+        "description": "A space is added before the opening braces of scope blocks.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.betweenEmptyBraces": {
+        "type": "boolean",
+        "default": false,
+        "description": "When braces are empty and on the same line, a space is inserted between them.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.beforeInitializerListOpenBrace": {
+        "type": "boolean",
+        "default": false,
+        "description": "A space is added before the opening brace of uniform initialization and initializer lists.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.withinInitializerListBraces": {
+        "type": "boolean",
+        "default": true,
+        "description": "A space is added after the opening brace and also before the closing brace of uniform initialization and initializer lists.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.preserveInInitializerList": {
+        "type": "boolean",
+        "default": true,
+        "description": "Spaces around commas are preserved inside uniform initialization and initializer lists.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.beforeOpenSquareBracket": {
+        "type": "boolean",
+        "default": false,
+        "description": "A space is added before opening square brackets.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.withinSquareBrackets": {
+        "type": "boolean",
+        "default": false,
+        "description": "A space is added after the opening square bracket and also before the closing square bracket.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.beforeEmptySquareBrackets": {
+        "type": "boolean",
+        "default": false,
+        "description": "When square brackets are empty, a space is added before the opening bracket.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.betweenEmptySquareBrackets": {
+        "type": "boolean",
+        "default": false,
+        "description": "When square brackets are empty, a space is inserted between them.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.groupSquareBrackets": {
+        "type": "boolean",
+        "default": true,
+        "description": "For multi-dimensional arrays, all space between brackets is removed. Other settings that control space are overridden.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.withinLambdaBrackets": {
+        "type": "boolean",
+        "default": false,
+        "description": "A space is added after the opening square bracket and also before the closing square bracket.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.betweenEmptyLambdaBrackets": {
+        "type": "boolean",
+        "default": false,
+        "description": "When square brackets are empty, a space is inserted between them.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.beforeComma": {
+        "type": "boolean",
+        "default": false,
+        "description": "A space is added before every comma.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.afterComma": {
+        "type": "boolean",
+        "default": true,
+        "description": "A space is added after every comma.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.removeAroundMemberOperators": {
+        "type": "boolean",
+        "default": true,
+        "description": "Spaces around member access operators, pointer-to-member operators, and scope resolution operators are removed.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.beforeInheritanceColon": {
+        "type": "boolean",
+        "default": true,
+        "description": "A space is added before the colon for inherited types in class definitions.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.beforeConstructorColon": {
+        "type": "boolean",
+        "default": true,
+        "description": "A space is added before the colon in constructor definitions.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.removeBeforeSemicolon": {
+        "type": "boolean",
+        "default": true,
+        "description": "Spaces are removed before every semicolon.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.insertAfterSemicolon": {
+        "type": "boolean",
+        "default": false,
+        "description": "A space is inserted after every semicolon.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.removeAroundUnaryOperator": {
+        "type": "boolean",
+        "default": true,
+        "description": "Spaces between unary operators and operands are removed.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.aroundBinaryOperator": {
+        "type": "string",
+        "enum": [
+          "insert",
+          "remove",
+          "ignore"
+        ],
+        "enumDescriptions": [
+          "A space is added before the operator and also after it.",
+          "Spaces before and after the operator are removed.",
+          "Spaces are left as entered."
+        ],
+        "default": "insert",
+        "description": "Spaces around binary operators.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.aroundAssignmentOperator": {
+        "type": "string",
+        "enum": [
+          "insert",
+          "remove",
+          "ignore"
+        ],
+        "enumDescriptions": [
+          "A space is added before the operator and also after it.",
+          "Spaces before and after the operator are removed.",
+          "Spaces are left as entered."
+        ],
+        "default": "insert",
+        "description": "Spaces around assignment operators.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.pointerReferenceAlignment": {
+        "type": "string",
+        "enum": [
+          "left",
+          "center",
+          "right",
+          "ignore"
+        ],
+        "enumDescriptions": [
+          "Pointer and reference operators are aligned to the left.",
+          "Pointer and reference operators are centered.",
+          "Pointer and reference operators are aligned to the right.",
+          "Pointer and reference operators are not formatted."
+        ],
+        "default": "left",
+        "description": "Spaces around pointer and reference operators.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.space.aroundTernaryOperator": {
+        "type": "string",
+        "enum": [
+          "insert",
+          "remove",
+          "ignore"
+        ],
+        "enumDescriptions": [
+          "A space is added before the operator and also after it.",
+          "Spaces before and after the operator are removed.",
+          "Spaces are left as entered."
+        ],
+        "default": "insert",
+        "description": "Spaces around conditional operators.",
+        "scope": 4
+      },
+      "C_Cpp.vcFormat.wrap.preserveBlocks": {
+        "type": "string",
+        "enum": [
+          "oneLiners",
+          "allOneLineScopes",
+          "never"
+        ],
+        "markdownEnumDescriptions": [
+          "A complete code block that is entered on one line is kept on one line, regardless of the values of any of the `C_Cpp.vcFormat.newLine.*` settings.",
+          "Any code where the opening and closing brace is entered on one line is kept on one line, regardless of the values of any of the `C_Cpp.vcFormat.newLine.*` settings.",
+          "Code blocks are always formatted based on the values of the `C_Cpp.vcFormat.newLine.*` settings."
+        ],
+        "default": "oneLiners",
+        "description": "Wrapping options for blocks.",
+        "scope": 4
+      },
+      "C_Cpp.clang_format_path": {
+        "type": "string",
+        "markdownDescription": "The full path of the `clang-format` executable. If not specified, and `clang-format` is available in the environment path, that is used. If not found in the environment path, the `clang-format` bundled with the extension will be used.",
+        "scope": 6
+      },
+      "C_Cpp.clang_format_style": {
+        "type": "string",
+        "default": "file",
+        "markdownDescription": "Coding style, currently supports: `Visual Studio`, `LLVM`, `Google`, `Chromium`, `Mozilla`, `WebKit`, `Microsoft`, `GNU`. Use `file` to load the style from a `.clang-format` file in the current or parent directory, or use `file:<path>/.clang-format` to reference a specific path. Use `{key: value, ...}` to set specific parameters. For example, the `Visual Studio` style is similar to: `{ BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 0, AccessModifierOffset: -4, NamespaceIndentation: All, FixNamespaceComments: false }`.",
+        "scope": 4
+      },
+      "C_Cpp.formatting": {
+        "type": "string",
+        "enum": [
+          "clangFormat",
+          "vcFormat",
+          "default",
+          "disabled"
+        ],
+        "markdownEnumDescriptions": [
+          "`clang-format` will be used to format code.",
+          "The Visual C++ formatting engine will be used to format code.",
+          "By default, `clang-format` will be used to format the code. However, the Visual C++ formatting engine will be used if an `.editorconfig` file with relevant settings is found nearer to the code being formatted and `#C_Cpp.clang_format_style#` is the default value: `file`.",
+          "Code formatting will be disabled."
+        ],
+        "default": "default",
+        "description": "Configures the formatting engine.",
+        "scope": 4
+      },
+      "C_Cpp.clang_format_fallbackStyle": {
+        "type": "string",
+        "default": "Visual Studio",
+        "markdownDescription": "Name of the predefined style used as a fallback in case `clang-format` is invoked with style `file` but the `.clang-format` file is not found. Possible values are `Visual Studio`, `LLVM`, `Google`, `Chromium`, `Mozilla`, `WebKit`, `Microsoft`, `GNU`, `none`, or use `{key: value, ...}` to set specific parameters. For example, the `Visual Studio` style is similar to: `{ BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 0, AccessModifierOffset: -4, NamespaceIndentation: All, FixNamespaceComments: false }`.",
+        "scope": 4
+      },
+      "C_Cpp.clang_format_sortIncludes": {
         "type": [
-          "integer",
+          "boolean",
           "null"
         ],
-        "markdownDescription": "Older IntelliSense processes will shut down before new processes are created after this memory usage (in MB) is exceeded. The default of `null` (empty) uses the value inherited from `#C_Cpp.maxMemory#`.",
+        "enum": [
+          true,
+          false,
+          null
+        ],
         "default": null,
-        "minimum": 256,
-        "maximum": 65536,
-        "scope": 2
+        "markdownDescription": "If set, overrides the include sorting behavior determined by the `SortIncludes` parameter.",
+        "scope": 4
+      }
+    }
+  },
+  {
+    "title": "Code Documentation",
+    "properties": {
+      "C_Cpp.doxygen.generateOnType": {
+        "type": "boolean",
+        "default": true,
+        "description": "Controls whether to automatically insert the Doxygen comment after typing the chosen comment style.",
+        "scope": 4
       },
-      "C_Cpp.references.maxConcurrentThreads": {
-        "type": [
-          "integer",
-          "null"
+      "C_Cpp.doxygen.generatedStyle": {
+        "type": "string",
+        "enum": [
+          "///",
+          "/**",
+          "/*!",
+          "//!"
         ],
-        "markdownDescription": "The maximum number of concurrent threads to use for 'Find All References' and 'Rename'. The default of `null` (empty) uses the value inherited from `#C_Cpp.maxConcurrentThreads#`.",
-        "default": null,
-        "minimum": 1,
-        "maximum": 32,
-        "scope": 2
+        "default": "///",
+        "description": "The string of characters used as the starting line of the Doxygen comment.",
+        "scope": 4
       },
-      "C_Cpp.references.maxCachedProcesses": {
-        "type": [
-          "integer",
-          "null"
+      "C_Cpp.doxygen.sectionTags": {
+        "type": "array",
+        "default": [
+          "attention",
+          "tparam",
+          "param",
+          "result",
+          "returns",
+          "retval",
+          "exception",
+          "deprecated",
+          "warning",
+          "note"
         ],
-        "markdownDescription": "The maximum number of processes to keep in memory for 'Find All References' and 'Rename'. The default of `0` disables this feature. The value of `null` (empty) uses the value inherited from `#C_Cpp.maxCachedProcesses#`.",
-        "default": 0,
-        "minimum": 0,
-        "maximum": 32,
-        "scope": 2
+        "items": {
+          "type": "string",
+          "enum": [
+            "attention",
+            "author",
+            "authors",
+            "bug",
+            "copyright",
+            "date",
+            "deprecated",
+            "details",
+            "exception",
+            "invariant",
+            "note",
+            "param",
+            "pre",
+            "post",
+            "remark",
+            "remarks",
+            "result",
+            "returns",
+            "retval",
+            "since",
+            "tparam",
+            "test",
+            "todo",
+            "version",
+            "warning"
+          ]
+        },
+        "description": "Select the Doxygen section tags that you would like to appear on hover in the tooltip area when the 'Simplify Structured Comments' setting is enabled. ",
+        "scope": 4
       },
-      "C_Cpp.references.maxMemory": {
-        "type": [
-          "integer",
-          "null"
+      "C_Cpp.commentContinuationPatterns": {
+        "type": "array",
+        "default": [
+          "/**"
         ],
-        "markdownDescription": "Fewer 'Find All References' and 'Rename' processes will be cached and run concurrently after this memory usage (in MB) is exceeded. The default of `null` (empty) uses the value inherited from `#C_Cpp.maxMemory#`.",
-        "default": null,
-        "minimum": 256,
-        "maximum": 65536,
-        "scope": 2
+        "items": {
+          "anyOf": [
+            {
+              "type": "string",
+              "markdownDescription": "The pattern that begins a multiline or single line comment block. The continuation pattern defaults to ` * ` for multiline comment blocks or this string for single line comment blocks."
+            },
+            {
+              "type": "object",
+              "properties": {
+                "begin": {
+                  "type": "string",
+                  "description": "The pattern that begins a multiline or single line comment block."
+                },
+                "continue": {
+                  "type": "string",
+                  "description": "The text that will be inserted on the next line when Enter is pressed inside a multiline or single line comment block."
+                }
+              }
+            }
+          ]
+        },
+        "uniqueItems": true,
+        "description": "Defines the editor behavior for when the Enter key is pressed inside a multiline or single line comment block.",
+        "scope": 3
       },
+      "C_Cpp.simplifyStructuredComments": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "If `true`, tooltips of hover and auto-complete will only display certain labels of structured comments. Otherwise, all comments are displayed.",
+        "scope": 1
+      }
+    }
+  },
+  {
+    "title": "Code Analysis",
+    "properties": {
       "C_Cpp.codeAnalysis.maxConcurrentThreads": {
         "type": [
           "integer",
@@ -1342,845 +2382,72 @@
         "uniqueItems": true,
         "markdownDescription": "List of disabled `clang-tidy` checks. The values are appended to the `Checks` in a `.clang-tidy` file or `#C_Cpp.codeAnalysis.clangTidy.config#`, if any.",
         "scope": 4
-      },
-      "C_Cpp.clang_format_path": {
-        "type": "string",
-        "markdownDescription": "The full path of the `clang-format` executable. If not specified, and `clang-format` is available in the environment path, that is used. If not found in the environment path, the `clang-format` bundled with the extension will be used.",
-        "scope": 6
-      },
-      "C_Cpp.clang_format_style": {
-        "type": "string",
-        "default": "file",
-        "markdownDescription": "Coding style, currently supports: `Visual Studio`, `LLVM`, `Google`, `Chromium`, `Mozilla`, `WebKit`, `Microsoft`, `GNU`. Use `file` to load the style from a `.clang-format` file in the current or parent directory, or use `file:<path>/.clang-format` to reference a specific path. Use `{key: value, ...}` to set specific parameters. For example, the `Visual Studio` style is similar to: `{ BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 0, AccessModifierOffset: -4, NamespaceIndentation: All, FixNamespaceComments: false }`.",
-        "scope": 4
-      },
-      "C_Cpp.formatting": {
-        "type": "string",
-        "enum": [
-          "clangFormat",
-          "vcFormat",
-          "default",
-          "disabled"
-        ],
-        "markdownEnumDescriptions": [
-          "`clang-format` will be used to format code.",
-          "The Visual C++ formatting engine will be used to format code.",
-          "By default, `clang-format` will be used to format the code. However, the Visual C++ formatting engine will be used if an `.editorconfig` file with relevant settings is found nearer to the code being formatted and `#C_Cpp.clang_format_style#` is the default value: `file`.",
-          "Code formatting will be disabled."
-        ],
-        "default": "default",
-        "description": "Configures the formatting engine.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.indent.braces": {
+      }
+    }
+  },
+  {
+    "title": "Debugging",
+    "properties": {
+      "C_Cpp.debugger.useBacktickCommandSubstitution": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "Braces are indented by the amount specified in the `#editor.tabSize#` setting.",
-        "scope": 4
+        "markdownDescription": "If `true`, debugger shell command substitution will use obsolete backtick ``(`)``.",
+        "scope": 3
       },
-      "C_Cpp.vcFormat.indent.multiLineRelativeTo": {
-        "type": "string",
-        "enum": [
-          "outermostParenthesis",
-          "innermostParenthesis",
-          "statementBegin"
-        ],
-        "enumDescriptions": [
-          "Indent new line relative to the outermost open parenthesis.",
-          "Indent new line relative to the innermost open parenthesis.",
-          "Indent new line relative to the beginning of the current statement."
-        ],
-        "default": "innermostParenthesis",
-        "description": "Determines what new line indentation is relative to.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.indent.withinParentheses": {
-        "type": "string",
-        "enum": [
-          "alignToParenthesis",
-          "indent"
-        ],
-        "markdownEnumDescriptions": [
-          "New line is aligned under the opening parenthesis.",
-          "New line is indented based on `#C_Cpp.vcFormat.indent.multiLineRelativeTo#`."
-        ],
-        "default": "indent",
-        "markdownDescription": "When a new line is typed, it is aligned under the opening parenthesis or based on `#C_Cpp.vcFormat.indent.multiLineRelativeTo#`.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.indent.preserveWithinParentheses": {
-        "type": "boolean",
-        "default": false,
-        "description": "In existing code, preserve the existing indent alignment of new lines within parentheses.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.indent.caseLabels": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "Labels are indented relative to switch statements by the amount specified in the `#editor.tabSize#` setting.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.indent.caseContents": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "Code inside a `case` block is indented relative to its label by the amount specified in the `#editor.tabSize#` setting.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.indent.caseContentsWhenBlock": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "Indent braces following a case statement by the amount specified in the `#editor.tabSize#` setting.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.indent.lambdaBracesWhenParameter": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "Indent braces of lambdas used as function parameters relative to the start of the statement by the amount specified in the `#editor.tabSize#` setting.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.indent.gotoLabels": {
-        "type": "string",
-        "enum": [
-          "oneLeft",
-          "leftmostColumn",
-          "none"
-        ],
-        "markdownEnumDescriptions": [
-          "Position goto labels to the left of the current code indentation, by the amount specified in the `#editor.tabSize#` setting.",
-          "Position goto labels at the leftmost edge of the code.",
-          "Goto labels will not be formatted."
-        ],
-        "default": "oneLeft",
-        "description": "The position of goto labels.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.indent.preprocessor": {
-        "type": "string",
-        "enum": [
-          "oneLeft",
-          "leftmostColumn",
-          "none"
-        ],
-        "markdownEnumDescriptions": [
-          "Preprocessor directives are positioned to the left of the current code indentation, by the amount specified in the `#editor.tabSize#` setting.",
-          "Preprocessor directives are positioned at the leftmost edge of the code.",
-          "Preprocessor directives will not be formatted."
-        ],
-        "default": "leftmostColumn",
-        "description": "The position of preprocessor directives.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.indent.accessSpecifiers": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "Access specifiers are indented relative to class or struct definitions by the amount specified in the `#editor.tabSize#` setting.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.indent.namespaceContents": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "Code is indented relative to its enclosing namespace by the amount specified in the `#editor.tabSize#` setting.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.indent.preserveComments": {
-        "type": "boolean",
-        "default": false,
-        "description": "Indentation of comments is not changed during formatting operations.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.newLine.beforeOpenBrace.namespace": {
-        "type": "string",
-        "enum": [
-          "newLine",
-          "sameLine",
-          "ignore"
-        ],
-        "enumDescriptions": [
-          "Opening braces are moved to a new line.",
-          "Opening braces are kept on the same line and a space is added before each one.",
-          "Opening braces are not formatted."
-        ],
-        "default": "ignore",
-        "description": "The position of opening braces for namespaces.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.newLine.beforeOpenBrace.type": {
-        "type": "string",
-        "enum": [
-          "newLine",
-          "sameLine",
-          "ignore"
-        ],
-        "enumDescriptions": [
-          "Opening braces are moved to a new line.",
-          "Opening braces are kept on the same line and a space is added before each one.",
-          "Opening braces are not formatted."
-        ],
-        "default": "ignore",
-        "description": "The position of opening braces for type definitions.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.newLine.beforeOpenBrace.function": {
-        "type": "string",
-        "enum": [
-          "newLine",
-          "sameLine",
-          "ignore"
-        ],
-        "enumDescriptions": [
-          "Opening braces are moved to a new line.",
-          "Opening braces are kept on the same line and a space is added before each one.",
-          "Opening braces are not formatted."
-        ],
-        "default": "ignore",
-        "description": "The position of opening braces for functions.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.newLine.beforeOpenBrace.block": {
-        "type": "string",
-        "enum": [
-          "newLine",
-          "sameLine",
-          "ignore"
-        ],
-        "enumDescriptions": [
-          "Opening braces are moved to a new line.",
-          "Opening braces are kept on the same line and a space is added before each one.",
-          "Opening braces are not formatted."
-        ],
-        "default": "ignore",
-        "description": "The position of opening braces for control blocks.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.newLine.beforeOpenBrace.lambda": {
-        "enum": [
-          "newLine",
-          "sameLine",
-          "ignore"
-        ],
-        "enumDescriptions": [
-          "Opening braces are moved to a new line.",
-          "Opening braces are kept on the same line and a space is added before each one.",
-          "Opening braces are not formatted."
-        ],
-        "default": "ignore",
-        "description": "The position of opening braces for lambda functions.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.newLine.scopeBracesOnSeparateLines": {
-        "type": "boolean",
-        "default": false,
-        "description": "Place opening and closing braces for scopes on separate lines.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyType": {
-        "type": "boolean",
-        "default": false,
-        "description": "For empty types, move closing braces to the same line as opening braces.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyFunction": {
-        "type": "boolean",
-        "default": false,
-        "description": "For empty function bodies, move closing braces to the same line as opening braces.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.newLine.beforeCatch": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "Place `catch` and similar keywords on a new line.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.newLine.beforeElse": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "Place `else` on a new line.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.newLine.beforeWhileInDoWhile": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "Place `while` in a `do`-`while` loop on a new line.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.beforeFunctionOpenParenthesis": {
-        "type": "string",
-        "enum": [
-          "insert",
-          "remove",
-          "ignore"
-        ],
-        "enumDescriptions": [
-          "Add a space before the opening parenthesis of a function.",
-          "Spaces before opening parenthesis of a function are removed.",
-          "Spaces are left as entered."
-        ],
-        "default": "remove",
-        "description": "Spacing between function names and opening parentheses of argument lists.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.withinParameterListParentheses": {
-        "type": "boolean",
-        "default": false,
-        "description": "A space is added after the opening parenthesis and also before the closing parenthesis in function parameter lists.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.betweenEmptyParameterListParentheses": {
-        "type": "boolean",
-        "default": false,
-        "description": "When a function parameter list is empty, a space is inserted between its parentheses.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.afterKeywordsInControlFlowStatements": {
-        "type": "boolean",
-        "default": true,
-        "description": "A space is added between the keyword and opening parenthesis in control flow statements.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.withinControlFlowStatementParentheses": {
-        "type": "boolean",
-        "default": false,
-        "description": "A space is added after the opening parenthesis and also before the closing parenthesis in control flow statements.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.beforeLambdaOpenParenthesis": {
-        "type": "boolean",
-        "default": false,
-        "description": "A space is added before the opening parenthesis of lambda argument lists.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.withinCastParentheses": {
-        "type": "boolean",
-        "default": false,
-        "description": "A space is added after the opening parenthesis and also before the closing parenthesis of a C-style cast.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.afterCastCloseParenthesis": {
-        "type": "boolean",
-        "default": false,
-        "description": "A space is added after the closing parenthesis of a C-style cast.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.withinExpressionParentheses": {
-        "type": "boolean",
-        "default": false,
-        "description": "A space is added after the opening parenthesis and also before the closing parenthesis of a parenthesized expression.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.beforeBlockOpenBrace": {
-        "type": "boolean",
-        "default": true,
-        "description": "A space is added before the opening braces of scope blocks.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.betweenEmptyBraces": {
-        "type": "boolean",
-        "default": false,
-        "description": "When braces are empty and on the same line, a space is inserted between them.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.beforeInitializerListOpenBrace": {
-        "type": "boolean",
-        "default": false,
-        "description": "A space is added before the opening brace of uniform initialization and initializer lists.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.withinInitializerListBraces": {
-        "type": "boolean",
-        "default": true,
-        "description": "A space is added after the opening brace and also before the closing brace of uniform initialization and initializer lists.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.preserveInInitializerList": {
-        "type": "boolean",
-        "default": true,
-        "description": "Spaces around commas are preserved inside uniform initialization and initializer lists.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.beforeOpenSquareBracket": {
-        "type": "boolean",
-        "default": false,
-        "description": "A space is added before opening square brackets.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.withinSquareBrackets": {
-        "type": "boolean",
-        "default": false,
-        "description": "A space is added after the opening square bracket and also before the closing square bracket.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.beforeEmptySquareBrackets": {
-        "type": "boolean",
-        "default": false,
-        "description": "When square brackets are empty, a space is added before the opening bracket.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.betweenEmptySquareBrackets": {
-        "type": "boolean",
-        "default": false,
-        "description": "When square brackets are empty, a space is inserted between them.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.groupSquareBrackets": {
-        "type": "boolean",
-        "default": true,
-        "description": "For multi-dimensional arrays, all space between brackets is removed. Other settings that control space are overridden.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.withinLambdaBrackets": {
-        "type": "boolean",
-        "default": false,
-        "description": "A space is added after the opening square bracket and also before the closing square bracket.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.betweenEmptyLambdaBrackets": {
-        "type": "boolean",
-        "default": false,
-        "description": "When square brackets are empty, a space is inserted between them.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.beforeComma": {
-        "type": "boolean",
-        "default": false,
-        "description": "A space is added before every comma.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.afterComma": {
-        "type": "boolean",
-        "default": true,
-        "description": "A space is added after every comma.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.removeAroundMemberOperators": {
-        "type": "boolean",
-        "default": true,
-        "description": "Spaces around member access operators, pointer-to-member operators, and scope resolution operators are removed.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.beforeInheritanceColon": {
-        "type": "boolean",
-        "default": true,
-        "description": "A space is added before the colon for inherited types in class definitions.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.beforeConstructorColon": {
-        "type": "boolean",
-        "default": true,
-        "description": "A space is added before the colon in constructor definitions.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.removeBeforeSemicolon": {
-        "type": "boolean",
-        "default": true,
-        "description": "Spaces are removed before every semicolon.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.insertAfterSemicolon": {
-        "type": "boolean",
-        "default": false,
-        "description": "A space is inserted after every semicolon.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.removeAroundUnaryOperator": {
-        "type": "boolean",
-        "default": true,
-        "description": "Spaces between unary operators and operands are removed.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.aroundBinaryOperator": {
-        "type": "string",
-        "enum": [
-          "insert",
-          "remove",
-          "ignore"
-        ],
-        "enumDescriptions": [
-          "A space is added before the operator and also after it.",
-          "Spaces before and after the operator are removed.",
-          "Spaces are left as entered."
-        ],
-        "default": "insert",
-        "description": "Spaces around binary operators.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.aroundAssignmentOperator": {
-        "type": "string",
-        "enum": [
-          "insert",
-          "remove",
-          "ignore"
-        ],
-        "enumDescriptions": [
-          "A space is added before the operator and also after it.",
-          "Spaces before and after the operator are removed.",
-          "Spaces are left as entered."
-        ],
-        "default": "insert",
-        "description": "Spaces around assignment operators.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.pointerReferenceAlignment": {
-        "type": "string",
-        "enum": [
-          "left",
-          "center",
-          "right",
-          "ignore"
-        ],
-        "enumDescriptions": [
-          "Pointer and reference operators are aligned to the left.",
-          "Pointer and reference operators are centered.",
-          "Pointer and reference operators are aligned to the right.",
-          "Pointer and reference operators are not formatted."
-        ],
-        "default": "left",
-        "description": "Spaces around pointer and reference operators.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.space.aroundTernaryOperator": {
-        "type": "string",
-        "enum": [
-          "insert",
-          "remove",
-          "ignore"
-        ],
-        "enumDescriptions": [
-          "A space is added before the operator and also after it.",
-          "Spaces before and after the operator are removed.",
-          "Spaces are left as entered."
-        ],
-        "default": "insert",
-        "description": "Spaces around conditional operators.",
-        "scope": 4
-      },
-      "C_Cpp.vcFormat.wrap.preserveBlocks": {
-        "type": "string",
-        "enum": [
-          "oneLiners",
-          "allOneLineScopes",
-          "never"
-        ],
-        "markdownEnumDescriptions": [
-          "A complete code block that is entered on one line is kept on one line, regardless of the values of any of the `C_Cpp.vcFormat.newLine.*` settings.",
-          "Any code where the opening and closing brace is entered on one line is kept on one line, regardless of the values of any of the `C_Cpp.vcFormat.newLine.*` settings.",
-          "Code blocks are always formatted based on the values of the `C_Cpp.vcFormat.newLine.*` settings."
-        ],
-        "default": "oneLiners",
-        "description": "Wrapping options for blocks.",
-        "scope": 4
-      },
-      "C_Cpp.clang_format_fallbackStyle": {
-        "type": "string",
-        "default": "Visual Studio",
-        "markdownDescription": "Name of the predefined style used as a fallback in case `clang-format` is invoked with style `file` but the `.clang-format` file is not found. Possible values are `Visual Studio`, `LLVM`, `Google`, `Chromium`, `Mozilla`, `WebKit`, `Microsoft`, `GNU`, `none`, or use `{key: value, ...}` to set specific parameters. For example, the `Visual Studio` style is similar to: `{ BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 0, AccessModifierOffset: -4, NamespaceIndentation: All, FixNamespaceComments: false }`.",
-        "scope": 4
-      },
-      "C_Cpp.clang_format_sortIncludes": {
-        "type": [
-          "boolean",
-          "null"
-        ],
-        "enum": [
-          true,
-          false,
-          null
-        ],
-        "default": null,
-        "markdownDescription": "If set, overrides the include sorting behavior determined by the `SortIncludes` parameter.",
-        "scope": 4
-      },
-      "C_Cpp.intelliSenseEngine": {
-        "type": "string",
-        "enum": [
-          "default",
-          "Tag Parser",
-          "disabled"
-        ],
-        "default": "default",
-        "description": "Controls the IntelliSense provider.",
-        "enumDescriptions": [
-          "Provides context-aware results via a separate IntelliSense process.",
-          "Provides \"fuzzy\" results that are not context-aware.",
-          "Turns off C/C++ language service features."
-        ],
-        "scope": 4
-      },
-      "C_Cpp.intelliSenseEngineFallback": {
-        "type": "string",
-        "enum": [
-          "enabled",
-          "disabled"
-        ],
-        "default": "disabled",
-        "markdownDescription": "Controls whether the IntelliSense engine will automatically switch to the Tag Parser for translation units containing `#include` errors.",
-        "scope": 4
-      },
-      "C_Cpp.autocomplete": {
-        "type": "string",
-        "enum": [
-          "default",
-          "disabled"
-        ],
-        "default": "default",
-        "markdownDescription": "Controls the auto-completion provider. If `disabled` and you want word-based completion, you will also need to set `\"[cpp]\": {\"editor.wordBasedSuggestions\": true}` (and similarly for `c` and `cuda-cpp` languages).",
-        "enumDescriptions": [
-          "Uses the active IntelliSense engine.",
-          "Uses the word-based completion provided by Visual Studio Code."
-        ],
-        "scope": 4
-      },
-      "C_Cpp.errorSquiggles": {
+      "C_Cpp.sshTargetsView": {
         "type": "string",
         "enum": [
           "enabled",
           "disabled",
-          "enabledIfIncludesResolve"
+          "default"
         ],
-        "default": "enabledIfIncludesResolve",
-        "description": "Controls whether suspected compile errors detected by the IntelliSense engine will be reported back to the editor. It also controls whether code analysis warnings are reported if includes can't be found. This setting is ignored by the Tag Parser engine.",
-        "scope": 4
-      },
-      "C_Cpp.dimInactiveRegions": {
-        "type": "boolean",
-        "default": true,
-        "description": "Controls whether inactive preprocessor blocks are colored differently than active code. This setting has no effect if IntelliSense is disabled or if using the Default High Contrast theme.",
-        "scope": 4
-      },
-      "C_Cpp.inactiveRegionOpacity": {
-        "type:": "number",
-        "default": 0.55,
-        "markdownDescription": "Controls the opacity of inactive preprocessor blocks. Scales between `0.1` and `1.0`. This setting only applies when inactive region dimming is enabled.",
-        "scope": 4,
-        "minimum": 0.1,
-        "maximum": 1
-      },
-      "C_Cpp.inactiveRegionForegroundColor": {
-        "type": "string",
-        "description": "Controls the font coloring of inactive preprocessor blocks. Input is in the form a hexadecimal color code or a valid Theme Color. If not set, this defaults to the syntax coloring scheme of the editor. This setting only applies when inactive region dimming is enabled.",
-        "scope": 4
-      },
-      "C_Cpp.inactiveRegionBackgroundColor": {
-        "type": "string",
-        "description": "Controls the background coloring of inactive preprocessor blocks. Input is in the form a hexadecimal color code or a valid Theme Color. If not set, this defaults to transparent. This setting only applies when inactive region dimming is enabled.",
-        "scope": 4
-      },
-      "C_Cpp.inlayHints.autoDeclarationTypes.enabled": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "Display inlay hints for deduced type when `auto` is used in a declaration:\n```cpp \n\n auto index /* : int */ = 0;\n```",
-        "scope": 4
-      },
-      "C_Cpp.inlayHints.autoDeclarationTypes.showOnLeft": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "Display inlay hints for deduced type when `auto` is used in a declaration on the left of the identifier:\n```cpp \n\n auto /* int */ index = 0;\n```",
-        "scope": 4
-      },
-      "C_Cpp.inlayHints.parameterNames.enabled": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "Display inlay hints for parameter names:\n```cpp \n\n int a = getArea(/* width: */ x, /* height: */ y);\n```",
-        "scope": 4
-      },
-      "C_Cpp.inlayHints.parameterNames.suppressWhenArgumentContainsName": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "Suppress parameter name hints when the argument text or inline comment contains the parameter name:\n```cpp \n\n int a = getArea(width, /* height: */ y);\n```",
-        "scope": 4
-      },
-      "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "Hide leading `_` in parameter name hints.",
-        "scope": 4
-      },
-      "C_Cpp.inlayHints.referenceOperator.enabled": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "Display the inlay hint reference operator `&` for parameters passed by non-const reference:\n```cpp \n\n swap(/* &first: */ str1, /* &last: */ str2);\n```",
-        "scope": 4
-      },
-      "C_Cpp.inlayHints.referenceOperator.showSpace": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "Controls whether a space is shown after `&` for parameters passed by non-const reference:\n```cpp \n\n swap(/* & first: */ str1, /* & last: */ str2);\n```",
-        "scope": 4
-      },
-      "C_Cpp.loggingLevel": {
-        "type": "string",
-        "enum": [
-          "None",
-          "Error",
-          "Warning",
-          "Information",
-          "Debug"
-        ],
-        "default": "Error",
-        "markdownDescription": "The verbosity of logging in the Output Panel. The order of levels from least verbose to most verbose is: `None` < `Error` < `Warning` < `Information` < `Debug`.",
+        "default": "default",
+        "description": "Controls whether the SSH Targets view is visible. By default, enable the view when an SSH command is invoked.",
         "scope": 3
       },
-      "C_Cpp.autoAddFileAssociations": {
+      "C_Cpp.debugShortcut": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "Controls whether files are automatically added to `#files.associations#` when they are the target of a navigation operation from a C/C++ file.",
-        "scope": 3
-      },
-      "C_Cpp.workspaceParsingPriority": {
-        "type": "string",
-        "enum": [
-          "highest",
-          "high",
-          "medium",
-          "low"
-        ],
-        "default": "highest",
-        "markdownDescription": "Controls whether parsing of the non-active workspace files uses sleeps to avoid using 100% CPU. The values `highest`/`high`/`medium`/`low` correspond to approximately 100/75/50/25% CPU usage.",
-        "scope": 3
-      },
-      "C_Cpp.workspaceSymbols": {
-        "type": "string",
-        "enum": [
-          "All",
-          "Just My Code"
-        ],
-        "default": "Just My Code",
-        "description": "The symbols to include in the query results when 'Go to Symbol in Workspace' is invoked.",
-        "scope": 3
-      },
-      "C_Cpp.exclusionPolicy": {
-        "type": "string",
-        "enum": [
-          "checkFolders",
-          "checkFilesAndFolders"
-        ],
-        "default": "checkFolders",
-        "markdownDescription": "Instructs the extension when to use the `#files.exclude#` (and `#C_Cpp.files.exclude#`) setting when determining which files should be added to the code navigation database while traversing through the paths in the `browse.path` array. If your `#files.exclude#` setting only contains folders, then `checkFolders` is the best choice and will increase the speed at which the extension can initialize the code navigation database.",
-        "enumDescriptions": [
-          "The exclusion filters will only be evaluated once per folder (individual files are not checked).",
-          "The exclusion filters will be evaluated against every file and folder encountered."
-        ],
+        "description": "Show the \"Run and Debug\" play button and \"Add Debug Configuration\" gear in the editor title bar for C++ files.",
         "scope": 4
-      },
-      "C_Cpp.preferredPathSeparator": {
-        "type": "string",
-        "enum": [
-          "Forward Slash",
-          "Backslash"
+      }
+    }
+  },
+  {
+    "title": "Resource Management",
+    "properties": {
+      "C_Cpp.references.maxConcurrentThreads": {
+        "type": [
+          "integer",
+          "null"
         ],
-        "default": "Forward Slash",
-        "markdownDescription": "The character used as a path separator for `#include` auto-completion results.",
-        "scope": 6
+        "markdownDescription": "The maximum number of concurrent threads to use for 'Find All References' and 'Rename'. The default of `null` (empty) uses the value inherited from `#C_Cpp.maxConcurrentThreads#`.",
+        "default": null,
+        "minimum": 1,
+        "maximum": 32,
+        "scope": 2
       },
-      "C_Cpp.simplifyStructuredComments": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "If `true`, tooltips of hover and auto-complete will only display certain labels of structured comments. Otherwise, all comments are displayed.",
-        "scope": 1
-      },
-      "C_Cpp.doxygen.generateOnType": {
-        "type": "boolean",
-        "default": true,
-        "description": "Controls whether to automatically insert the Doxygen comment after typing the chosen comment style.",
-        "scope": 4
-      },
-      "C_Cpp.doxygen.generatedStyle": {
-        "type": "string",
-        "enum": [
-          "///",
-          "/**",
-          "/*!",
-          "//!"
+      "C_Cpp.references.maxCachedProcesses": {
+        "type": [
+          "integer",
+          "null"
         ],
-        "default": "///",
-        "description": "The string of characters used as the starting line of the Doxygen comment.",
-        "scope": 4
+        "markdownDescription": "The maximum number of processes to keep in memory for 'Find All References' and 'Rename'. The default of `0` disables this feature. The value of `null` (empty) uses the value inherited from `#C_Cpp.maxCachedProcesses#`.",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 32,
+        "scope": 2
       },
-      "C_Cpp.doxygen.sectionTags": {
-        "type": "array",
-        "default": [
-          "attention",
-          "tparam",
-          "param",
-          "result",
-          "returns",
-          "retval",
-          "exception",
-          "deprecated",
-          "warning",
-          "note"
+      "C_Cpp.references.maxMemory": {
+        "type": [
+          "integer",
+          "null"
         ],
-        "items": {
-          "type": "string",
-          "enum": [
-            "attention",
-            "author",
-            "authors",
-            "bug",
-            "copyright",
-            "date",
-            "deprecated",
-            "details",
-            "exception",
-            "invariant",
-            "note",
-            "param",
-            "pre",
-            "post",
-            "remark",
-            "remarks",
-            "result",
-            "returns",
-            "retval",
-            "since",
-            "tparam",
-            "test",
-            "todo",
-            "version",
-            "warning"
-          ]
-        },
-        "description": "Select the Doxygen section tags that you would like to appear on hover in the tooltip area when the 'Simplify Structured Comments' setting is enabled. ",
-        "scope": 4
-      },
-      "C_Cpp.commentContinuationPatterns": {
-        "type": "array",
-        "default": [
-          "/**"
-        ],
-        "items": {
-          "anyOf": [
-            {
-              "type": "string",
-              "markdownDescription": "The pattern that begins a multiline or single line comment block. The continuation pattern defaults to ` * ` for multiline comment blocks or this string for single line comment blocks."
-            },
-            {
-              "type": "object",
-              "properties": {
-                "begin": {
-                  "type": "string",
-                  "description": "The pattern that begins a multiline or single line comment block."
-                },
-                "continue": {
-                  "type": "string",
-                  "description": "The text that will be inserted on the next line when Enter is pressed inside a multiline or single line comment block."
-                }
-              }
-            }
-          ]
-        },
-        "uniqueItems": true,
-        "description": "Defines the editor behavior for when the Enter key is pressed inside a multiline or single line comment block.",
-        "scope": 3
-      },
-      "C_Cpp.configurationWarnings": {
-        "type": "string",
-        "enum": [
-          "enabled",
-          "disabled"
-        ],
-        "default": "enabled",
-        "description": "Determines whether pop up notifications will be shown when a configuration provider extension is unable to provide a configuration for a source file.",
-        "scope": 4
+        "markdownDescription": "Fewer 'Find All References' and 'Rename' processes will be cached and run concurrently after this memory usage (in MB) is exceeded. The default of `null` (empty) uses the value inherited from `#C_Cpp.maxMemory#`.",
+        "default": null,
+        "minimum": 256,
+        "maximum": 65536,
+        "scope": 2
       },
       "C_Cpp.intelliSenseCachePath": {
         "type": "string",
@@ -2202,227 +2469,100 @@
         "minimum": 256,
         "maximum": 16384
       },
-      "C_Cpp.intelliSenseUpdateDelay": {
-        "type": "number",
-        "default": 2000,
-        "description": "Controls the delay in milliseconds before IntelliSense starts updating after a modification.",
-        "scope": 1,
-        "minimum": 500,
-        "maximum": 3000
-      },
-      "C_Cpp.default.includePath": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "uniqueItems": true,
-        "markdownDescription": "The value to use in a configuration if `includePath` is not specified in `c_cpp_properties.json`. If `includePath` is specified, add `${default}` to the array to insert the values from this setting. Usually, this should not include system includes; instead, set `#C_Cpp.default.compilerPath#`.",
-        "scope": 6
-      },
-      "C_Cpp.default.defines": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "uniqueItems": true,
-        "markdownDescription": "The value to use in a configuration if `defines` is not specified, or the values to insert if `${default}` is present in `defines`.",
-        "scope": 6
-      },
-      "C_Cpp.default.macFrameworkPath": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "uniqueItems": true,
-        "markdownDescription": "The value to use in a configuration if `macFrameworkPath` is not specified, or the values to insert if `${default}` is present in `macFrameworkPath`.",
-        "scope": 6
-      },
-      "C_Cpp.default.windowsSdkVersion": {
-        "type": "string",
-        "markdownDescription": "Version of the Windows SDK include path to use on Windows, e.g. `10.0.17134.0`.",
-        "pattern": "^((\\d{2}\\.\\d{1}\\.\\d{5}\\.\\d{1}$|^8\\.1)|())$",
-        "scope": 6
-      },
-      "C_Cpp.default.compileCommands": {
-        "type": "string",
-        "markdownDescription": "The value to use in a configuration if `compileCommands` is either not specified, or set to `${default}`.",
-        "scope": 6
-      },
-      "C_Cpp.default.forcedInclude": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "uniqueItems": true,
-        "markdownDescription": "The value to use in a configuration if `forcedInclude` is not specified, or the values to insert if `${default}` is present in `forcedInclude`.",
-        "scope": 6
-      },
-      "C_Cpp.default.intelliSenseMode": {
-        "type": "string",
-        "enum": [
-          "",
-          "macos-clang-x86",
-          "macos-clang-x64",
-          "macos-clang-arm",
-          "macos-clang-arm64",
-          "macos-gcc-x86",
-          "macos-gcc-x64",
-          "macos-gcc-arm",
-          "macos-gcc-arm64",
-          "linux-clang-x86",
-          "linux-clang-x64",
-          "linux-clang-arm",
-          "linux-clang-arm64",
-          "linux-gcc-x86",
-          "linux-gcc-x64",
-          "linux-gcc-arm",
-          "linux-gcc-arm64",
-          "windows-clang-x86",
-          "windows-clang-x64",
-          "windows-clang-arm",
-          "windows-clang-arm64",
-          "windows-gcc-x86",
-          "windows-gcc-x64",
-          "windows-gcc-arm",
-          "windows-gcc-arm64",
-          "windows-msvc-x86",
-          "windows-msvc-x64",
-          "windows-msvc-arm",
-          "windows-msvc-arm64",
-          "clang-x86",
-          "clang-x64",
-          "clang-arm",
-          "clang-arm64",
-          "gcc-x86",
-          "gcc-x64",
-          "gcc-arm",
-          "gcc-arm64",
-          "msvc-x86",
-          "msvc-x64",
-          "msvc-arm",
-          "msvc-arm64"
-        ],
-        "markdownDescription": "The value to use in a configuration if `intelliSenseMode` is either not specified or set to `${default}`.",
-        "scope": 6
-      },
-      "C_Cpp.default.compilerPath": {
-        "type": "string",
-        "default": null,
-        "markdownDescription": "The value to use in a configuration if `compilerPath` is either not specified or set to `${default}`.",
-        "scope": 6
-      },
-      "C_Cpp.default.compilerArgs": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "uniqueItems": true,
-        "markdownDescription": "The value to use in configuration if `compilerArgs` is either not specified or set to `${default}`.",
-        "scope": 6
-      },
-      "C_Cpp.default.cStandard": {
-        "type": "string",
-        "enum": [
-          "",
-          "c89",
-          "c99",
-          "c11",
-          "c17",
-          "gnu89",
-          "gnu99",
-          "gnu11",
-          "gnu17"
-        ],
-        "markdownDescription": "The value to use in a configuration if `cStandard` is either not specified or set to `${default}`.",
-        "scope": 4
-      },
-      "C_Cpp.default.cppStandard": {
-        "type": "string",
-        "enum": [
-          "",
-          "c++98",
-          "c++03",
-          "c++11",
-          "c++14",
-          "c++17",
-          "c++20",
-          "c++23",
-          "gnu++98",
-          "gnu++03",
-          "gnu++11",
-          "gnu++14",
-          "gnu++17",
-          "gnu++20",
-          "gnu++23"
-        ],
-        "markdownDescription": "The value to use in a configuration if `cppStandard` is either not specified or set to `${default}`.",
-        "scope": 4
-      },
-      "C_Cpp.default.configurationProvider": {
-        "type": "string",
-        "markdownDescription": "The value to use in a configuration if `configurationProvider` is either not specified or set to `${default}`.",
-        "scope": 4
-      },
-      "C_Cpp.default.mergeConfigurations": {
-        "type": "boolean",
-        "markdownDescription": "Set to `true` to merge include paths, defines, and forced includes with those from a configuration provider.",
-        "scope": 4
-      },
-      "C_Cpp.default.browse.path": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "default": null,
-        "uniqueItems": true,
-        "markdownDescription": "The value to use in a configuration if `browse.path` is not specified, or the values to insert if `${default}` is present in `browse.path`.",
-        "scope": 6
-      },
-      "C_Cpp.default.browse.databaseFilename": {
-        "type": "string",
-        "markdownDescription": "The value to use in a configuration if `browse.databaseFilename` is either not specified or set to `${default}`.",
-        "scope": 6
-      },
-      "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "The value to use in a configuration if `browse.limitSymbolsToIncludedHeaders` is either not specified or set to `${default}`.",
-        "scope": 4
-      },
-      "C_Cpp.default.systemIncludePath": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "uniqueItems": true,
-        "markdownDescription": "The value to use for the system include path. If set, it overrides the system include path acquired via `compilerPath` and `compileCommands` settings.",
-        "scope": 6
-      },
-      "C_Cpp.default.customConfigurationVariables": {
+      "C_Cpp.maxConcurrentThreads": {
         "type": [
-          "object",
+          "integer",
           "null"
         ],
+        "markdownDescription": "The maximum number of concurrent threads to use for language service processing. The value is a hint and may not always be used. The default of `null` (empty) uses the number of logical processors available.",
         "default": null,
-        "patternProperties": {
-          "(^.+$)": {
-            "type": "string"
-          }
-        },
-        "markdownDescription": "The value to use in a configuration if `customConfigurationVariables` is not set, or the values to insert if `${default}` is present as a key in `customConfigurationVariables`.",
-        "scope": 6
+        "minimum": 1,
+        "maximum": 32,
+        "scope": 2
       },
-      "C_Cpp.default.enableConfigurationSquiggles": {
+      "C_Cpp.maxCachedProcesses": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "markdownDescription": "The maximum number of cached processes to use for language service processing. The default of `null` (empty) uses twice the number of logical processors available.",
+        "default": null,
+        "minimum": 0,
+        "maximum": 256,
+        "scope": 2
+      },
+      "C_Cpp.maxMemory": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "markdownDescription": "The maximum memory (in MB) available for language service processing. Fewer processes will be cached and run concurrently after this memory usage is exceeded. The default of `null` (empty) uses the system's free memory.",
+        "default": null,
+        "minimum": 256,
+        "maximum": 65536,
+        "scope": 2
+      },
+      "C_Cpp.intelliSense.maxCachedProcesses": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "markdownDescription": "The maximum number of IntelliSense processes to keep running. The default of `null` (empty) uses value inherited from `#C_Cpp.maxCachedProcesses#`.",
+        "default": null,
+        "minimum": 2,
+        "maximum": 128,
+        "scope": 2
+      },
+      "C_Cpp.intelliSense.maxMemory": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "markdownDescription": "Older IntelliSense processes will shut down before new processes are created after this memory usage (in MB) is exceeded. The default of `null` (empty) uses the value inherited from `#C_Cpp.maxMemory#`.",
+        "default": null,
+        "minimum": 256,
+        "maximum": 65536,
+        "scope": 2
+      }
+    }
+  },
+  {
+    "title": "Miscellaneous",
+    "properties": {
+      "C_Cpp.vcpkg.enabled": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "Controls whether the extension will report errors detected in `c_cpp_properties.json`.",
+        "markdownDescription": "Enable integration services for the [vcpkg dependency manager](https://aka.ms/vcpkg/).",
         "scope": 4
       },
-      "C_Cpp.default.dotConfig": {
+      "C_Cpp.loggingLevel": {
         "type": "string",
-        "default": null,
-        "markdownDescription": "The value to use in a configuration if `dotConfig` is not specified, or the value to insert if `${default}` is present in `dotConfig`.",
-        "scope": 4
+        "enum": [
+          "None",
+          "Error",
+          "Warning",
+          "Information",
+          "Debug"
+        ],
+        "default": "Error",
+        "markdownDescription": "The verbosity of logging in the Output Panel. The order of levels from least verbose to most verbose is: `None` < `Error` < `Warning` < `Information` < `Debug`.",
+        "scope": 3
+      },
+      "C_Cpp.autoAddFileAssociations": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Controls whether files are automatically added to `#files.associations#` when they are the target of a navigation operation from a C/C++ file.",
+        "scope": 3
+      },
+      "C_Cpp.preferredPathSeparator": {
+        "type": "string",
+        "enum": [
+          "Forward Slash",
+          "Backslash"
+        ],
+        "default": "Forward Slash",
+        "markdownDescription": "The character used as a path separator for `#include` auto-completion results.",
+        "scope": 6
       },
       "C_Cpp.updateChannel": {
         "type": "string",
@@ -2445,12 +2585,6 @@
         "description": "Controls whether \"experimental\" features are usable.",
         "scope": 3
       },
-      "C_Cpp.suggestSnippets": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "If `true`, snippets are provided by the language server.",
-        "scope": 4
-      },
       "C_Cpp.caseSensitiveFileSupport": {
         "type": "string",
         "enum": [
@@ -2461,116 +2595,11 @@
         "markdownDescription": "If set to `default`, the file system of the workspace is assumed to be case insensitive on Windows and case sensitive on macOS or Linux. If set to `enabled`, the file system of the workspace is assumed to be case sensitive on Windows.",
         "scope": 3
       },
-      "C_Cpp.enhancedColorization": {
-        "type": "string",
-        "enum": [
-          "enabled",
-          "disabled"
-        ],
-        "default": "enabled",
-        "markdownDescription": "If enabled, code is colorized based on IntelliSense. This setting only applies if `#C_Cpp.intelliSenseEngine#` is set to `default`.",
-        "scope": 3
-      },
-      "C_Cpp.vcpkg.enabled": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "Enable integration services for the [vcpkg dependency manager](https://aka.ms/vcpkg/).",
-        "scope": 4
-      },
       "C_Cpp.addNodeAddonIncludePaths": {
         "type": "boolean",
         "default": false,
         "markdownDescription": "Add include paths from `nan` and `node-addon-api` when they are dependencies.",
         "scope": 1
-      },
-      "C_Cpp.renameRequiresIdentifier": {
-        "type": "boolean",
-        "default": true,
-        "markdownDescription": "If `true`, 'Rename Symbol' will require a valid C/C++ identifier.",
-        "scope": 1
-      },
-      "C_Cpp.debugger.useBacktickCommandSubstitution": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "If `true`, debugger shell command substitution will use obsolete backtick ``(`)``.",
-        "scope": 3
-      },
-      "C_Cpp.codeFolding": {
-        "type": "string",
-        "enum": [
-          "enabled",
-          "disabled"
-        ],
-        "default": "enabled",
-        "description": "If enabled, code folding ranges are provided by the language server.",
-        "scope": 3
-      },
-      "C_Cpp.hover": {
-        "type": "string",
-        "enum": [
-          "default",
-          "disabled"
-        ],
-        "default": "default",
-        "description": "If disabled, hover details are no longer provided by the language server.",
-        "scope": 4
-      },
-      "C_Cpp.autocompleteAddParentheses": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "If `true`, autocomplete will automatically add `(` after function calls, in which case `)` may also be added, depending on the value of the `#editor.autoClosingBrackets#` setting.",
-        "scope": 4
-      },
-      "C_Cpp.files.exclude": {
-        "type": "object",
-        "markdownDescription": "Configure glob patterns for excluding folders (and files if `#C_Cpp.exclusionPolicy#` is changed). These are specific to the C/C++ extension and are in addition to `#files.exclude#`, but unlike `#files.exclude#` they also apply to paths outside the current workspace folder and are not removed from the Explorer view. Read more about glob patterns [here](https://code.visualstudio.com/docs/editor/codebasics#_advanced-search-options).",
-        "default": {
-          "**/.vscode": true,
-          "**/.vs": true
-        },
-        "additionalProperties": {
-          "anyOf": [
-            {
-              "type": "boolean",
-              "markdownDescription": "The glob pattern to match file paths against. Set to `true` or `false` to enable or disable the pattern."
-            },
-            {
-              "type": "object",
-              "properties": {
-                "when": {
-                  "type": "string",
-                  "pattern": "\\w*\\$\\(basename\\)\\w*",
-                  "default": "$(basename).ext",
-                  "markdownDescription": "Additional check on the siblings of a matching file. Use `$(basename)` as variable for the matching file name."
-                }
-              }
-            }
-          ]
-        },
-        "scope": 4
-      },
-      "C_Cpp.debugShortcut": {
-        "type": "boolean",
-        "default": true,
-        "description": "Show the \"Run and Debug\" play button and \"Add Debug Configuration\" gear in the editor title bar for C++ files.",
-        "scope": 4
-      },
-      "C_Cpp.legacyCompilerArgsBehavior": {
-        "type": "boolean",
-        "default": false,
-        "markdownDescription": "Enable pre-v1.10.0 behavior for how shell escaping is handled in compiler arg settings. Shell escaping is no longer expected or supported by default in arg arrays starting in v1.10.0.",
-        "scope": 4
-      },
-      "C_Cpp.sshTargetsView": {
-        "type": "string",
-        "enum": [
-          "enabled",
-          "disabled",
-          "default"
-        ],
-        "default": "default",
-        "description": "Controls whether the SSH Targets view is visible. By default, enable the view when an SSH command is invoked.",
-        "scope": 3
       }
     }
   }

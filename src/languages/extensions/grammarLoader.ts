@@ -111,6 +111,8 @@ const loader = {
   'text.html.rmarkdown': async () => (await import(/* webpackChunkName: "grammar-text-html-rmarkdown" */ /* webpackMode: "lazy" */ './grammars/vscode-R/RMarkdown.json')).default,
   'text.html.markdown.redcarpet': async () => (await import(/* webpackChunkName: "grammar-text-html-markdown-redcarpet" */ /* webpackMode: "lazy" */ './grammars/vscode-R/Markdown Redcarpet.json')).default,
   'comment.block.r': async () => (await import(/* webpackChunkName: "grammar-comment-block-r" */ /* webpackMode: "lazy" */ './grammars/vscode-R/Rcpp.json')).default,
+  'namespace.r': async () => (await import(/* webpackChunkName: "grammar-namespace-r" */ /* webpackMode: "lazy" */ './grammars/vscode-R/rnamespace.json')).default,
+  'buildignore.r': async () => (await import(/* webpackChunkName: "grammar-buildignore-r" */ /* webpackMode: "lazy" */ './grammars/vscode-R/rbuildignore.json')).default,
   'source.solidity': async () => (await import(/* webpackChunkName: "grammar-source-solidity" */ /* webpackMode: "lazy" */ './grammars/solidity/solidity.json')).default,
   'source.vue': async () => (await import(/* webpackChunkName: "grammar-source-vue" */ /* webpackMode: "lazy" */ './grammars/volar-vue/vue.tmLanguage.json')).default,
   'markdown.vue.codeblock': async () => (await import(/* webpackChunkName: "grammar-markdown-vue-codeblock" */ /* webpackMode: "lazy" */ './grammars/volar-vue/markdown-vue.json')).default,
@@ -126,7 +128,10 @@ const loader = {
   'markdown.svelte.codeblock.style': async () => (await import(/* webpackChunkName: "grammar-markdown-svelte-codeblock-style" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/markdown-svelte-css.json')).default,
   'source.css.postcss': async () => (await import(/* webpackChunkName: "grammar-source-css-postcss" */ /* webpackMode: "lazy" */ './grammars/svelte.svelte-vscode/postcss.src.yaml.json')).default,
   'text.html.django': async () => (await import(/* webpackChunkName: "grammar-text-html-django" */ /* webpackMode: "lazy" */ './grammars/vscode-django/django-html.tmLanguage.json')).default,
-  'text.django': async () => (await import(/* webpackChunkName: "grammar-text-django" */ /* webpackMode: "lazy" */ './grammars/vscode-django/django-txt.tmLanguage.json')).default
+  'text.django': async () => (await import(/* webpackChunkName: "grammar-text-django" */ /* webpackMode: "lazy" */ './grammars/vscode-django/django-txt.tmLanguage.json')).default,
+  'go.mod': async () => (await import(/* webpackChunkName: "grammar-go-mod" */ /* webpackMode: "lazy" */ './grammars/vscode-go/go.mod.tmGrammar.json')).default,
+  'go.sum': async () => (await import(/* webpackChunkName: "grammar-go-sum" */ /* webpackMode: "lazy" */ './grammars/vscode-go/go.sum.tmGrammar.json')).default,
+  'govulncheck': async () => (await import(/* webpackChunkName: "grammar-govulncheck" */ /* webpackMode: "lazy" */ './grammars/vscode-go/govulncheck.tmGrammar.json')).default
 } as Partial<Record<string, () => Promise<object>>>
 
 export default loader
