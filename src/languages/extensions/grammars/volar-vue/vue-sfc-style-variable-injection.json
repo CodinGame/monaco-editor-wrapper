@@ -46,7 +46,7 @@
   },
   "scopeName": "vue.sfc.style.variable.injection",
   "information_for_contributors": [
-    "This file has been converted from https://github.com/johnsoncodehk/volar/blob/master/extensions/vscode-vue-language-features/",
+    "This file has been converted from https://github.com/johnsoncodehk/volar/blob/master/vue-language-tools/vscode-vue/",
     "If you want to provide a fix or improvement, please create a pull request against the original repository.",
     "Once accepted there, we are happy to receive an update request."
   ]

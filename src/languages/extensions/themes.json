@@ -7,10 +7,24 @@
     "extension": "theme-defaults"
   },
   {
+    "id": "Default Dark+ Experimental",
+    "label": "Dark+ V2 (Experimental)",
+    "uiTheme": "vs-dark",
+    "path": "./themes/dark_plus_experimental.json",
+    "extension": "theme-defaults"
+  },
+  {
     "id": "Default Light+",
     "label": "Light+ (default light)",
     "uiTheme": "vs",
     "path": "./themes/light_plus.json",
+    "extension": "theme-defaults"
+  },
+  {
+    "id": "Default Light+ Experimental",
+    "label": "Light+ V2 (Experimental)",
+    "uiTheme": "vs",
+    "path": "./themes/light_plus_experimental.json",
     "extension": "theme-defaults"
   },
   {

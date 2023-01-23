@@ -1,14 +1,35 @@
 {
   "configurationDefaults": {
+    "[clojure]": {
+      "diffEditor.ignoreTrimWhitespace": false
+    },
+    "[coffeescript]": {
+      "diffEditor.ignoreTrimWhitespace": false
+    },
+    "[csharp]": {
+      "editor.maxTokenizationLineLength": 2500
+    },
+    "[fsharp]": {
+      "diffEditor.ignoreTrimWhitespace": false
+    },
     "[go]": {
-      "editor.insertSpaces": false
+      "editor.insertSpaces": false,
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+      },
+      "editor.suggest.snippetsPreventQuickSuggestions": false
     },
     "[javascript]": {
       "editor.maxTokenizationLineLength": 2500
     },
     "[markdown]": {
       "editor.unicodeHighlight.ambiguousCharacters": false,
-      "editor.unicodeHighlight.invisibleCharacters": false
+      "editor.unicodeHighlight.invisibleCharacters": false,
+      "diffEditor.ignoreTrimWhitespace": false
+    },
+    "[python]": {
+      "diffEditor.ignoreTrimWhitespace": false
     },
     "[shellscript]": {
       "files.eol": "\n"
@@ -16,7 +37,8 @@
     "[yaml]": {
       "editor.insertSpaces": true,
       "editor.tabSize": 2,
-      "editor.autoIndent": "advanced"
+      "editor.autoIndent": "advanced",
+      "diffEditor.ignoreTrimWhitespace": false
     },
     "[dockercompose]": {
       "editor.insertSpaces": true,
@@ -63,23 +85,15 @@
       "editor.formatOnPaste": true,
       "editor.formatOnType": true
     },
-    "[COBOL]": {
+    "[cobol]": {
       "editor.renderIndentGuides": false,
       "editor.rulers": [
         7,
         11,
         72,
         80
-      ]
-    },
-    "[COBOL Copybook]": {
-      "editor.renderIndentGuides": false,
-      "editor.rulers": [
-        7,
-        11,
-        72,
-        80
-      ]
+      ],
+      "editor.wordSeparators": "!\"#$%&'()*+,./:;<=>?@[\\]^`{|}~"
     },
     "[java]": {
       "editor.suggest.snippetsPreventQuickSuggestions": false
@@ -89,7 +103,8 @@
         "comments": "inline",
         "other": "on",
         "strings": "on"
-      }
+      },
+      "editor.semanticHighlighting.enabled": true
     },
     "[cpp]": {
       "editor.wordBasedSuggestions": false,
@@ -199,6 +214,14 @@
       "id": "stringLiteral",
       "superType": "string",
       "description": "Style for C++ user-defined literal strings."
+    },
+    {
+      "id": "razorComponentElement",
+      "description": "A Razor component element"
+    },
+    {
+      "id": "razorComponentAttribute",
+      "description": "A Razor component attribute"
     },
     {
       "id": "razorTagHelperElement",
@@ -633,6 +656,9 @@
         "type.modification": [
           "storage.type.generic.lua"
         ],
+        "type.readonly": [
+          "storage.type.self.lua"
+        ],
         "typeParameter": [
           "string.tag.lua"
         ],
@@ -651,11 +677,11 @@
         "variable.definition": [
           "variable.language.self.lua"
         ],
+        "variable.global": [
+          "variable.global.lua"
+        ],
         "variable.readonly": [
           "variable.other.constant.lua"
-        ],
-        "variable.static": [
-          "variable.global.lua"
         ]
       }
     },
@@ -1016,6 +1042,12 @@
     {
       "language": "aspnetcorerazor",
       "scopes": {
+        "razorComponentElement": [
+          "entity.name.class.element.component"
+        ],
+        "razorComponentAttribute": [
+          "entity.name.class.attribute.component"
+        ],
         "razorTagHelperElement": [
           "entity.name.class.element.taghelper"
         ],
@@ -1170,6 +1202,30 @@
         ],
         "regexOtherEscape": [
           "string.regexp.other-escape.cs"
+        ]
+      }
+    },
+    {
+      "language": "vue",
+      "scopes": {
+        "component": [
+          "support.class.component.vue"
+        ]
+      }
+    },
+    {
+      "language": "markdown",
+      "scopes": {
+        "component": [
+          "support.class.component.vue"
+        ]
+      }
+    },
+    {
+      "language": "html",
+      "scopes": {
+        "component": [
+          "support.class.component.vue"
         ]
       }
     }

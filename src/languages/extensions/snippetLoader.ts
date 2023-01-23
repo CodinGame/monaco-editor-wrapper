@@ -27,8 +27,6 @@ const loader = {
   'ocaml': async () => (await import(/* webpackChunkName: "snippet-ocaml" */ /* webpackMode: "lazy" */ './snippets/ocaml-ocaml.json')).default,
   'ocaml.ocamllex': async () => (await import(/* webpackChunkName: "snippet-ocaml.ocamllex" */ /* webpackMode: "lazy" */ './snippets/ocaml-ocamllex.json')).default,
   'pascal': async () => (await import(/* webpackChunkName: "snippet-pascal" */ /* webpackMode: "lazy" */ './snippets/pascal-pascal.json')).default,
-  'COBOL': async () => (await import(/* webpackChunkName: "snippet-COBOL" */ /* webpackMode: "lazy" */ './snippets/cobol-snippets.json')).default,
-  'COBOL Copybook': async () => (await import(/* webpackChunkName: "snippet-COBOL Copybook" */ /* webpackMode: "lazy" */ './snippets/cobol-snippets.json')).default,
   'elixir': async () => (await import(/* webpackChunkName: "snippet-elixir" */ /* webpackMode: "lazy" */ './snippets/elixir-snippets.json')).default,
   'erlang': async () => (await import(/* webpackChunkName: "snippet-erlang" */ /* webpackMode: "lazy" */ './snippets/erlang-erlang.json')).default,
   'tcl': async () => (await import(/* webpackChunkName: "snippet-tcl" */ /* webpackMode: "lazy" */ './snippets/tcl-tcl.json')).default,
@@ -40,7 +38,8 @@ const loader = {
   'solidity': async () => (await import(/* webpackChunkName: "snippet-solidity" */ /* webpackMode: "lazy" */ './snippets/solidity-solidity.json')).default,
   'svelte': async () => (await import(/* webpackChunkName: "snippet-svelte" */ /* webpackMode: "lazy" */ './snippets/svelte.svelte-vscode-svelte.json')).default,
   'django-html': async () => (await import(/* webpackChunkName: "snippet-django-html" */ /* webpackMode: "lazy" */ './snippets/vscode-django-filters.json')).default,
-  'django-txt': async () => (await import(/* webpackChunkName: "snippet-django-txt" */ /* webpackMode: "lazy" */ './snippets/vscode-django-filters.json')).default
+  'django-txt': async () => (await import(/* webpackChunkName: "snippet-django-txt" */ /* webpackMode: "lazy" */ './snippets/vscode-django-filters.json')).default,
+  'go': async () => (await import(/* webpackChunkName: "snippet-go" */ /* webpackMode: "lazy" */ './snippets/vscode-go-go.json')).default
 } as unknown as Partial<Record<string, () => Promise<Record<string, unknown>>>>
 
 export default loader

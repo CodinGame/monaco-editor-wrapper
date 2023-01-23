@@ -28,7 +28,8 @@ const loader = {
   'solidity': async () => (await import(/* webpackChunkName: "configuration-registration-solidity" */ /* webpackMode: "lazy" */ './configurations/solidity.json')).default,
   'volar-vue': async () => (await import(/* webpackChunkName: "configuration-registration-volar-vue" */ /* webpackMode: "lazy" */ './configurations/volar-vue.json')).default,
   'svelte.svelte-vscode': async () => (await import(/* webpackChunkName: "configuration-registration-svelte.svelte-vscode" */ /* webpackMode: "lazy" */ './configurations/svelte.svelte-vscode.json')).default,
-  'vscode-django': async () => (await import(/* webpackChunkName: "configuration-registration-vscode-django" */ /* webpackMode: "lazy" */ './configurations/vscode-django.json')).default
+  'vscode-django': async () => (await import(/* webpackChunkName: "configuration-registration-vscode-django" */ /* webpackMode: "lazy" */ './configurations/vscode-django.json')).default,
+  'vscode-go': async () => (await import(/* webpackChunkName: "configuration-registration-vscode-go" */ /* webpackMode: "lazy" */ './configurations/vscode-go.json')).default
 } as unknown as Partial<Record<string, () => Promise<IConfigurationNode[]>>>
 
 export default loader

@@ -5,7 +5,8 @@
         "default": [],
         "description": "List of paths to libraries and the like that need to be imported by auto complete engine. E.g. when using Google App SDK, the paths are not in system path, hence need to be added into this list.",
         "scope": 4,
-        "type": "array"
+        "type": "array",
+        "uniqueItems": true
       },
       "python.condaPath": {
         "default": "",
@@ -39,7 +40,7 @@
       },
       "python.experiments.optInto": {
         "default": [],
-        "description": "List of experiment to opt into. If empty, user is assigned the default experiment groups. See https://github.com/microsoft/vscode-python/wiki/Experiments for more details.",
+        "description": "List of experiment to opt into. If empty, user is assigned the default experiment groups. See https://github.com/microsoft/vscode-python/wiki/AB-Experiments for more details.",
         "items": {
           "enum": [
             "All",
@@ -48,11 +49,12 @@
           ]
         },
         "scope": 2,
-        "type": "array"
+        "type": "array",
+        "uniqueItems": true
       },
       "python.experiments.optOutFrom": {
         "default": [],
-        "description": "List of experiment to opt out of. If empty, user is assigned the default experiment groups. See https://github.com/microsoft/vscode-python/wiki/Experiments for more details.",
+        "description": "List of experiment to opt out of. If empty, user is assigned the default experiment groups. See https://github.com/microsoft/vscode-python/wiki/AB-Experiments for more details.",
         "items": {
           "enum": [
             "All",
@@ -61,7 +63,8 @@
           ]
         },
         "scope": 2,
-        "type": "array"
+        "type": "array",
+        "uniqueItems": true
       },
       "python.formatting.autopep8Args": {
         "default": [],
@@ -260,7 +263,8 @@
           "type": "string"
         },
         "scope": 4,
-        "type": "array"
+        "type": "array",
+        "uniqueItems": true
       },
       "python.linting.lintOnSave": {
         "default": true,
@@ -558,7 +562,7 @@
       "python.tensorBoard.logDirectory": {
         "default": "",
         "description": "Set this setting to your preferred TensorBoard log directory to skip log directory prompt when starting TensorBoard.",
-        "scope": 1,
+        "scope": 4,
         "type": "string"
       },
       "python.terminal.activateEnvInCurrentTerminal": {
@@ -581,7 +585,7 @@
       },
       "python.terminal.focusAfterLaunch": {
         "default": false,
-        "description": "When launching a python process, whether to focus on the terminal.",
+        "description": "When launching a python terminal, whether to focus the cursor on the terminal.",
         "scope": 4,
         "type": "boolean"
       },
@@ -664,7 +668,8 @@
           "type": "string"
         },
         "scope": 2,
-        "type": "array"
+        "type": "array",
+        "uniqueItems": true
       },
       "python.venvPath": {
         "default": "",

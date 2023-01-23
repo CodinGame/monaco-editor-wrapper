@@ -89,7 +89,7 @@
           "boolean"
         ],
         "description": "Enable diagnostics",
-        "default": true,
+        "default": false,
         "enum": [
           true,
           false
@@ -117,7 +117,7 @@
           true,
           false
         ],
-        "default": true,
+        "default": false,
         "scope": 3
       },
       "solargraph.symbols": {

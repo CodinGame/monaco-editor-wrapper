@@ -17,6 +17,13 @@
         "markdownDescription": "Extra environment variables that will be passed to OCaml LSP executable. Useful for debugging purposes mostly.",
         "scope": 3
       },
+      "ocaml.server.args": {
+        "type": "array",
+        "items": "string",
+        "default": [],
+        "markdownDescription": "Extra arguments to pass to ocamllsp.",
+        "scope": 3
+      },
       "ocaml.dune.autoDetect": {
         "type": "boolean",
         "default": true,
@@ -37,7 +44,7 @@
       "ocaml.useOcamlEnv": {
         "type": "boolean",
         "default": true,
-        "description": "Controls whether to use ocaml-env for opam commands from OCaml for Windows.",
+        "description": "Controls whether to use ocaml-env (if available) for opam commands from OCaml for Windows.",
         "scope": 3
       },
       "ocaml.terminal.shell.linux": {

@@ -587,15 +587,7 @@
     "scopeName": "source.semanticdb"
   },
   {
-    "language": "COBOL",
-    "scopeName": "source.cobol",
-    "embeddedLanguages": {
-      "meta.embedded.block.sql": "sql",
-      "meta.embedded.block.html": "html"
-    }
-  },
-  {
-    "language": "COBOL Copybook",
+    "language": "cobol",
     "scopeName": "source.cobol",
     "embeddedLanguages": {
       "meta.embedded.block.sql": "sql",
@@ -739,6 +731,14 @@
     ]
   },
   {
+    "language": "namespace.r",
+    "scopeName": "namespace.r"
+  },
+  {
+    "language": "buildignore.r",
+    "scopeName": "buildignore.r"
+  },
+  {
     "language": "solidity",
     "scopeName": "source.solidity"
   },
@@ -767,6 +767,7 @@
       "meta.tag.without-attributes.tsx": "jsx-tags",
       "source.json": "json",
       "source.json.comments": "jsonc",
+      "source.json5": "json5",
       "source.yaml": "yaml",
       "source.toml": "toml",
       "source.graphql": "graphql"
@@ -808,6 +809,7 @@
       "meta.tag.without-attributes.tsx": "jsx-tags",
       "source.json": "json",
       "source.json.comments": "jsonc",
+      "source.json5": "json5",
       "source.yaml": "yaml",
       "source.toml": "toml",
       "source.graphql": "graphql"
@@ -928,5 +930,21 @@
   {
     "language": "django-txt",
     "scopeName": "text.django"
+  },
+  {
+    "language": "go.mod",
+    "scopeName": "go.mod"
+  },
+  {
+    "language": "go.work",
+    "scopeName": "go.mod"
+  },
+  {
+    "language": "go.sum",
+    "scopeName": "go.sum"
+  },
+  {
+    "language": "govulncheck",
+    "scopeName": "govulncheck"
   }
 ]

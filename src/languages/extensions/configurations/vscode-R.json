@@ -89,7 +89,7 @@
       },
       "r.lsp.diagnostics": {
         "type": "boolean",
-        "default": false,
+        "default": true,
         "description": "Enable diagnostics.",
         "scope": 3
       },
@@ -207,6 +207,17 @@
           "Store globally"
         ],
         "default": "None",
+        "scope": 3
+      },
+      "r.helpPanel.previewLocalPackages": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "default": [
+          "."
+        ],
+        "markdownDescription": "Which local directories to try for local help pages previewer. Set to `[]` to disable.",
         "scope": 3
       },
       "r.helpPanel.rpath": {

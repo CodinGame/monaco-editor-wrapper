@@ -88,6 +88,12 @@
         "description": "Enable/disable the Maven offline mode.",
         "scope": 3
       },
+      "java.import.maven.disableTestClasspathFlag": {
+        "type": "boolean",
+        "default": false,
+        "description": "Enable/disable test classpath segregation. When enabled, this permits the usage of test resources within a Maven project as dependencies within the compile scope of other projects.",
+        "scope": 3
+      },
       "java.import.gradle.enabled": {
         "type": "boolean",
         "default": true,
@@ -140,6 +146,12 @@
         "type": "string",
         "default": null,
         "description": "Setting for GRADLE_USER_HOME.",
+        "scope": 3
+      },
+      "java.import.gradle.annotationProcessing.enabled": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enable/disable the annotation processing on Gradle projects and delegate Annotation Processing to JDT APT. Only works for Gradle 5.2 or higher.",
         "scope": 3
       },
       "java.maven.downloadSources": {
@@ -379,6 +391,22 @@
         "type": "boolean",
         "default": true,
         "markdownDescription": "Enable/disable postfix completion support. `#editor.snippetSuggestions#` can be used to customize how postfix snippets are sorted.",
+        "scope": 3
+      },
+      "java.completion.matchCase": {
+        "type": "string",
+        "enum": [
+          "auto",
+          "firstLetter",
+          "off"
+        ],
+        "enumDescriptions": [
+          "Only match case for the first letter when using Visual Studio Code - Insiders.",
+          "Match case for the first letter when doing completion.",
+          "Do not match case when doing completion."
+        ],
+        "default": "auto",
+        "markdownDescription": "Specify whether to match case for code completion.",
         "scope": 3
       },
       "java.foldingRange.enabled": {
@@ -790,7 +818,7 @@
           "org.eclipse.jdt.annotation.NonNull",
           "org.springframework.lang.NonNull"
         ],
-        "markdownDescription": "Specify the Nonnull annotation types to be used for null analysis. If more than one annotation is specified, then the topmost annotation will be used first if it exists in your project dependencies.",
+        "markdownDescription": "Specify the Nonnull annotation types to be used for null analysis. If more than one annotation is specified, then the topmost annotation will be used first if it exists in project dependencies. This setting will be ignored if `java.compile.nullAnalysis.mode` is set to `disabled`",
         "scope": 3
       },
       "java.compile.nullAnalysis.nullable": {
@@ -800,7 +828,57 @@
           "org.eclipse.jdt.annotation.Nullable",
           "org.springframework.lang.Nullable"
         ],
-        "markdownDescription": "Specify the Nullable annotation types to be used for null analysis. If more than one annotation is specified, then the topmost annotation will be used first if it exists in your project dependencies.",
+        "markdownDescription": "Specify the Nullable annotation types to be used for null analysis. If more than one annotation is specified, then the topmost annotation will be used first if it exists in project dependencies. This setting will be ignored if `java.compile.nullAnalysis.mode` is set to `disabled`",
+        "scope": 3
+      },
+      "java.compile.nullAnalysis.mode": {
+        "type": "string",
+        "enum": [
+          "disabled",
+          "interactive",
+          "automatic"
+        ],
+        "default": "interactive",
+        "markdownDescription": "Specify how to enable the annotation-based null analysis.",
+        "scope": 3
+      },
+      "java.cleanup.actionsOnSave": {
+        "type": "array",
+        "markdownDescription": "The list of clean ups to be run on the current document when it's saved. Clean ups can automatically fix code style or programming mistakes. Click [HERE](command:_java.learnMoreAboutCleanUps) to learn more about what each clean up does.",
+        "items": {
+          "type": "string",
+          "enum": [
+            "qualifyMembers",
+            "qualifyStaticMembers",
+            "addOverride",
+            "addDeprecated",
+            "stringConcatToTextBlock",
+            "invertEquals",
+            "addFinalModifier",
+            "instanceofPatternMatch",
+            "lambdaExpression",
+            "switchExpression",
+            "tryWithResource"
+          ]
+        },
+        "default": [],
+        "scope": 3
+      },
+      "java.sharedIndexes.enabled": {
+        "type": "string",
+        "enum": [
+          "auto",
+          "on",
+          "off"
+        ],
+        "default": "auto",
+        "markdownDescription": "[Experimental] Specify whether to share indexes between different workspaces. When set to `auto`, shared indexes will be enabled in Visual Studio Code - Insiders.",
+        "scope": 3
+      },
+      "java.sharedIndexes.location": {
+        "type": "string",
+        "markdownDescription": "Specifies a common index location for all workspaces. See default values as follows:\n \nWindows: First use `\"$APPDATA\\\\.jdt\\\\index\"`, or `\"~\\\\.jdt\\\\index\"` if it does not exist\n \nmacOS: `\"~/Library/Caches/.jdt/index\"`\n \nLinux: First use `\"$XDG_CACHE_HOME/.jdt/index\"`, or `\"~/.cache/.jdt/index\"` if it does not exist",
+        "default": "",
         "scope": 3
       }
     }

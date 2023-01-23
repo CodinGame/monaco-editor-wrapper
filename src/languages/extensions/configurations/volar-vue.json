@@ -25,6 +25,18 @@
         "default": "off",
         "description": "Traces the communication between VS Code and the language server."
       },
+      "volar.vueserver.configFilePath": {
+        "type": "string",
+        "default": "./volar.config.js",
+        "description": "Path to volar.config.js.",
+        "scope": 3
+      },
+      "volar.vueserver.maxFileSize": {
+        "type": "number",
+        "default": 20971520,
+        "description": "Maximum file size for Vue Server to load. (default: 20MB)",
+        "scope": 3
+      },
       "volar.vueserver.petiteVue.processHtmlFile": {
         "type": "boolean",
         "default": false,
@@ -33,6 +45,10 @@
       "volar.vueserver.vitePress.processMdFile": {
         "type": "boolean",
         "default": false,
+        "scope": 3
+      },
+      "volar.vueserver.json.customBlockSchemaUrls": {
+        "type": "object",
         "scope": 3
       },
       "volar.vueserver.textDocumentSync": {
@@ -80,6 +96,18 @@
         "description": "Ignore project references settings of tsconfig in language server for resolve issue #1916.",
         "scope": 3
       },
+      "volar.vueserver.reverseConfigFilePriority": {
+        "type": "boolean",
+        "default": false,
+        "description": "Reverse priority for tsconfig pickup.",
+        "scope": 3
+      },
+      "volar.vueserver.disableFileWatcher": {
+        "type": "boolean",
+        "default": false,
+        "description": "Disable file watcher in language server for better performance.",
+        "scope": 3
+      },
       "volar.vueserver.additionalExtensions": {
         "type": "array",
         "items": {
@@ -103,7 +131,7 @@
       },
       "volar.icon.splitEditors": {
         "type": "boolean",
-        "default": true,
+        "default": false,
         "description": "Show split editor icon in title area of editor.",
         "scope": 3
       },
@@ -117,6 +145,12 @@
         "type": "boolean",
         "default": true,
         "description": "Show known problems in status bar.",
+        "scope": 3
+      },
+      "volar.doctor.checkVueTsc": {
+        "type": "boolean",
+        "default": false,
+        "description": "Check vue-tsc version.",
         "scope": 3
       },
       "volar.codeLens.scriptSetupTools": {
@@ -135,6 +169,12 @@
         "type": "boolean",
         "default": false,
         "description": "Auto-complete Ref value with `.value`.",
+        "scope": 3
+      },
+      "volar.addSpaceBetweenDoubleCurlyBrackets": {
+        "type": "boolean",
+        "default": true,
+        "description": "Auto add space between double curly brackets: {{|}} -> {{ | }}",
         "scope": 3
       },
       "volar.format.initialIndent": {
@@ -183,25 +223,18 @@
           "jsonc": {
             "type": "boolean",
             "default": false
+          },
+          "json5": {
+            "type": "boolean",
+            "default": false
           }
         },
         "scope": 3
       },
-      "volar.takeOverMode.enabled": {
-        "type": [
-          "boolean",
-          "string"
-        ],
-        "enum": [
-          "auto",
-          false
-        ],
-        "enumDescriptions": [
-          "Auto enable take over mode when built-in TS extension disabled.",
-          "Never enable take over mode."
-        ],
-        "default": "auto",
-        "description": "Take over language support for *.ts.",
+      "volar.takeOverMode.extension": {
+        "type": "string",
+        "default": "Vue.volar",
+        "description": "The extension that take over language support for *.ts.",
         "scope": 3
       },
       "volar.completion.preferredTagNameCase": {
@@ -240,7 +273,7 @@
         "description": "Preferred attr name case.",
         "scope": 3
       },
-      "volar.completion.normalizeComponentAutoImportName": {
+      "volar.completion.normalizeComponentImportName": {
         "type": "boolean",
         "default": true,
         "description": "Normalize import name for auto import. (\"myCompVue\" -> \"MyComp\")",
@@ -264,7 +297,7 @@
       },
       "volar.preview.backgroundColor": {
         "type": "string",
-        "default": "#f0f0f0",
+        "default": "#fff",
         "description": "Component preview background color.",
         "scope": 3
       },

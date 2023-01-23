@@ -85,9 +85,15 @@
         "scope": 3
       },
       "dart.showTodos": {
-        "type": "boolean",
+        "type": [
+          "boolean",
+          "array"
+        ],
+        "items": {
+          "type": "string"
+        },
         "default": true,
-        "description": "Whether to show TODOs in the Problems list.",
+        "description": "Whether to show TODOs in the Problems list. Can be a boolean to enable all TODO comments (TODO, FIXME, HACK, UNDONE) or an array of which types to enable. Older Dart SDKs may not support some TODO kinds.",
         "scope": 3
       },
       "dart.useLegacyAnalyzerProtocol": {
@@ -256,6 +262,22 @@
         "markdownDescription": "Whether to insert parentheses and placeholders for positional and required arguments during code completions when using LSP. This feature is automatically disabled if commit characters are enabled.",
         "scope": 4
       },
+      "dart.documentation": {
+        "type": "string",
+        "default": "full",
+        "enum": [
+          "full",
+          "summary",
+          "none"
+        ],
+        "enumDescriptions": [
+          "Show full documentation",
+          "Show short documentatin summary",
+          "Do not show documentation"
+        ],
+        "markdownDescription": "What level of documentation to show in Hovers and Code Completion details. This setting is only supported for Dart SDKs after v2.18.",
+        "scope": 3
+      },
       "dart.doNotFormat": {
         "type": "array",
         "default": [],
@@ -292,7 +314,7 @@
       "dart.lineLength": {
         "type": "integer",
         "default": 80,
-        "description": "The maximum length of a line of code. This is used by the document formatter.",
+        "markdownDescription": "The maximum length of a line of code. This is used by the document formatter. If you change this value, you may wish to update `editor.rulers` (which draws vertical lines in the editor) in the `[\"dart\"]` section if your settings to match.",
         "scope": 4
       },
       "dart.lspSnippetTextEdits": {
@@ -399,6 +421,15 @@
         ],
         "default": "swift",
         "description": "The programming language to use for iOS apps when creating new projects using the 'Flutter: New Project' command.",
+        "scope": 3
+      },
+      "dart.flutterCreatePlatforms": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "default": null,
+        "description": "The platforms to enable for new projects created using the 'Flutter: New Project' command. If unset, all platforms will be enabled.",
         "scope": 3
       },
       "dart.offline": {
@@ -529,6 +560,12 @@
         "default": null,
         "description": "The path to a directory to save Flutter screenshots.",
         "scope": 6
+      },
+      "dart.flutterRememberSelectedDevice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Whether to remember which device was last (explicitly) selected for each project. When the remembered device is selected, it will prevent newly-connected mobile devices from being automatically selected (regardless of the `#dart.flutterSelectDeviceWhenConnected#` setting).",
+        "scope": 3
       },
       "dart.flutterSelectDeviceWhenConnected": {
         "type": "boolean",
@@ -720,7 +757,7 @@
       "dart.promptToGetPackages": {
         "type": "boolean",
         "default": true,
-        "description": "Whether to prompt to get packages when opening a project with out of date packages.",
+        "description": "Whether to prompt to get/upgrade packages when opening a project with missing/out of date packages.",
         "scope": 4
       },
       "dart.pubAdditionalArgs": {
@@ -1039,8 +1076,11 @@
         "scope": 3
       },
       "dart.daemonPort": {
-        "type": "number",
-        "default": false,
+        "type": [
+          "null",
+          "number"
+        ],
+        "default": null,
         "markdownDescription": "EXPERIMENTAL: The port where flutter daemon can be accessed if daemon is run remotely. This setting is intended for use by Google developers.",
         "scope": 4
       },

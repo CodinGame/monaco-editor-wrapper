@@ -1,0 +1,49 @@
+{
+  "scopeName": "go.sum",
+  "patterns": [
+    {
+      "include": "#checksum"
+    },
+    {
+      "include": "#semver"
+    },
+    {
+      "include": "#unquoted_string"
+    }
+  ],
+  "repository": {
+    "checksum": {
+      "comment": "Checksum",
+      "match": "h1:([^\\s]+)=",
+      "captures": {
+        "1": {
+          "patterns": [
+            {
+              "match": "[a-zA-Z\\d+\\/]{43}",
+              "name": "string.unquoted.go.sum"
+            },
+            {
+              "match": ".*",
+              "name": "invalid.illegal.unknown-hash.go.sum"
+            }
+          ]
+        }
+      }
+    },
+    "semver": {
+      "comment": "Semver version strings (v1.2.3)",
+      "match": "v(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)(?:-[\\da-z-]+(?:\\.[\\da-z-]+)*)?(?:\\+[\\da-z-]+(?:\\.[\\da-z-]+)*)?",
+      "name": "constant.language.go.sum"
+    },
+    "unquoted_string": {
+      "comment": "Unquoted string",
+      "match": "[^\\s]+",
+      "name": "string.unquoted.go.sum"
+    }
+  },
+  "information_for_contributors": [
+    "This file has been converted from https://github.com/golang/vscode-go/blob/master/",
+    "If you want to provide a fix or improvement, please create a pull request against the original repository.",
+    "Once accepted there, we are happy to receive an update request."
+  ]
+}

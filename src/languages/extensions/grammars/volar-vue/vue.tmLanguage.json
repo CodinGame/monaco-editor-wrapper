@@ -504,6 +504,38 @@
           ]
         },
         {
+          "begin": "([a-zA-Z0-9:-]+)\\b(?=[^>]*\\blang\\s*=\\s*(['\"]?)json5\\b\\2)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.tag.$1.html.vue"
+            }
+          },
+          "end": "(</)(\\1)\\s*(?=>)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.html.vue"
+            },
+            "2": {
+              "name": "entity.name.tag.$2.html.vue"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#tag-stuff"
+            },
+            {
+              "begin": "(?<=>)",
+              "end": "(?=<\\/)",
+              "name": "source.json5",
+              "patterns": [
+                {
+                  "include": "source.json5"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "begin": "([a-zA-Z0-9:-]+)\\b(?=[^>]*\\blang\\s*=\\s*(['\"]?)yaml\\b\\2)",
           "beginCaptures": {
             "1": {
@@ -1141,19 +1173,19 @@
     "vue-interpolations": {
       "patterns": [
         {
-          "begin": "\\{\\{",
-          "beginCaptures": [
-            {
-              "name": "punctuation.definition.tag.begin.html.vue"
+          "begin": "(\\{\\{)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.interpolation.begin.html.vue"
             }
-          ],
-          "end": "\\}\\}",
-          "endCaptures": [
-            {
-              "name": "punctuation.definition.tag.end.html.vue"
+          },
+          "end": "(\\}\\})",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.interpolation.end.html.vue"
             }
-          ],
-          "name": "expression.embbeded.vue",
+          },
+          "name": "expression.embedded.vue",
           "patterns": [
             {
               "begin": "\\G",
@@ -1171,7 +1203,7 @@
     }
   },
   "information_for_contributors": [
-    "This file has been converted from https://github.com/johnsoncodehk/volar/blob/master/extensions/vscode-vue-language-features/",
+    "This file has been converted from https://github.com/johnsoncodehk/volar/blob/master/vue-language-tools/vscode-vue/",
     "If you want to provide a fix or improvement, please create a pull request against the original repository.",
     "Once accepted there, we are happy to receive an update request."
   ]

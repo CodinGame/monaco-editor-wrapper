@@ -119,13 +119,13 @@
       "javascript.suggest.includeAutomaticOptionalChainCompletions": {
         "type": "boolean",
         "default": true,
-        "description": "Enable/disable showing completions on potentially undefined values that insert an optional chain call. Requires TS 3.7+ and strict null checks to be enabled.",
+        "description": "Enable/disable showing completions on potentially undefined values that insert an optional chain call. Requires strict null checks to be enabled.",
         "scope": 4
       },
       "typescript.suggest.includeAutomaticOptionalChainCompletions": {
         "type": "boolean",
         "default": true,
-        "description": "Enable/disable showing completions on potentially undefined values that insert an optional chain call. Requires TS 3.7+ and strict null checks to be enabled.",
+        "description": "Enable/disable showing completions on potentially undefined values that insert an optional chain call. Requires strict null checks to be enabled.",
         "scope": 4
       },
       "typescript.inlayHints.parameterNames.enabled": {
@@ -141,7 +141,7 @@
           "Enable parameter name hints for literal and non-literal arguments."
         ],
         "default": "none",
-        "markdownDescription": "Enable/disable inlay hints for parameter names:\n```typescript\n\nparseInt(/* str: */ '123', /* radix: */ 8)\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
+        "markdownDescription": "Enable/disable inlay hints for parameter names:\n```typescript\n\nparseInt(/* str: */ '123', /* radix: */ 8)\n \n```",
         "scope": 4
       },
       "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": {
@@ -153,13 +153,13 @@
       "typescript.inlayHints.parameterTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "Enable/disable inlay hints for implicit parameter types:\n```typescript\n\nel.addEventListener('click', e /* :MouseEvent */ => ...)\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
+        "markdownDescription": "Enable/disable inlay hints for implicit parameter types:\n```typescript\n\nel.addEventListener('click', e /* :MouseEvent */ => ...)\n \n```",
         "scope": 4
       },
       "typescript.inlayHints.variableTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "Enable/disable inlay hints for implicit variable types:\n```typescript\n\nconst foo /* :number */ = Date.now();\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
+        "markdownDescription": "Enable/disable inlay hints for implicit variable types:\n```typescript\n\nconst foo /* :number */ = Date.now();\n \n```",
         "scope": 4
       },
       "typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName": {
@@ -171,19 +171,19 @@
       "typescript.inlayHints.propertyDeclarationTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "Enable/disable inlay hints for implicit types on property declarations:\n```typescript\n\nclass Foo {\n\tprop /* :number */ = Date.now();\n}\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
+        "markdownDescription": "Enable/disable inlay hints for implicit types on property declarations:\n```typescript\n\nclass Foo {\n\tprop /* :number */ = Date.now();\n}\n \n```",
         "scope": 4
       },
       "typescript.inlayHints.functionLikeReturnTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "Enable/disable inlay hints for implicit return types on function signatures:\n```typescript\n\nfunction foo() /* :number */ {\n\treturn Date.now();\n} \n \n```\nRequires using TypeScript 4.4+ in the workspace.",
+        "markdownDescription": "Enable/disable inlay hints for implicit return types on function signatures:\n```typescript\n\nfunction foo() /* :number */ {\n\treturn Date.now();\n} \n \n```",
         "scope": 4
       },
       "typescript.inlayHints.enumMemberValues.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "Enable/disable inlay hints for member values in enum declarations:\n```typescript\n\nenum MyValue {\n\tA /* = 0 */;\n\tB /* = 1 */;\n}\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
+        "markdownDescription": "Enable/disable inlay hints for member values in enum declarations:\n```typescript\n\nenum MyValue {\n\tA /* = 0 */;\n\tB /* = 1 */;\n}\n \n```",
         "scope": 4
       },
       "javascript.inlayHints.parameterNames.enabled": {
@@ -199,7 +199,7 @@
           "Enable parameter name hints for literal and non-literal arguments."
         ],
         "default": "none",
-        "markdownDescription": "Enable/disable inlay hints for parameter names:\n```typescript\n\nparseInt(/* str: */ '123', /* radix: */ 8)\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
+        "markdownDescription": "Enable/disable inlay hints for parameter names:\n```typescript\n\nparseInt(/* str: */ '123', /* radix: */ 8)\n \n```",
         "scope": 4
       },
       "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": {
@@ -211,13 +211,13 @@
       "javascript.inlayHints.parameterTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "Enable/disable inlay hints for implicit parameter types:\n```typescript\n\nel.addEventListener('click', e /* :MouseEvent */ => ...)\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
+        "markdownDescription": "Enable/disable inlay hints for implicit parameter types:\n```typescript\n\nel.addEventListener('click', e /* :MouseEvent */ => ...)\n \n```",
         "scope": 4
       },
       "javascript.inlayHints.variableTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "Enable/disable inlay hints for implicit variable types:\n```typescript\n\nconst foo /* :number */ = Date.now();\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
+        "markdownDescription": "Enable/disable inlay hints for implicit variable types:\n```typescript\n\nconst foo /* :number */ = Date.now();\n \n```",
         "scope": 4
       },
       "javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName": {
@@ -229,37 +229,31 @@
       "javascript.inlayHints.propertyDeclarationTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "Enable/disable inlay hints for implicit types on property declarations:\n```typescript\n\nclass Foo {\n\tprop /* :number */ = Date.now();\n}\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
+        "markdownDescription": "Enable/disable inlay hints for implicit types on property declarations:\n```typescript\n\nclass Foo {\n\tprop /* :number */ = Date.now();\n}\n \n```",
         "scope": 4
       },
       "javascript.inlayHints.functionLikeReturnTypes.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "Enable/disable inlay hints for implicit return types on function signatures:\n```typescript\n\nfunction foo() /* :number */ {\n\treturn Date.now();\n} \n \n```\nRequires using TypeScript 4.4+ in the workspace.",
+        "markdownDescription": "Enable/disable inlay hints for implicit return types on function signatures:\n```typescript\n\nfunction foo() /* :number */ {\n\treturn Date.now();\n} \n \n```",
         "scope": 4
       },
       "javascript.inlayHints.enumMemberValues.enabled": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "Enable/disable inlay hints for member values in enum declarations:\n```typescript\n\nenum MyValue {\n\tA /* = 0 */;\n\tB /* = 1 */;\n}\n \n```\nRequires using TypeScript 4.4+ in the workspace.",
+        "markdownDescription": "Enable/disable inlay hints for member values in enum declarations:\n```typescript\n\nenum MyValue {\n\tA /* = 0 */;\n\tB /* = 1 */;\n}\n \n```",
         "scope": 4
       },
       "javascript.suggest.includeCompletionsForImportStatements": {
         "type": "boolean",
         "default": true,
-        "description": "Enable/disable auto-import-style completions on partially-typed import statements. Requires using TypeScript 4.3+ in the workspace.",
+        "description": "Enable/disable auto-import-style completions on partially-typed import statements.",
         "scope": 4
       },
       "typescript.suggest.includeCompletionsForImportStatements": {
         "type": "boolean",
         "default": true,
-        "description": "Enable/disable auto-import-style completions on partially-typed import statements. Requires using TypeScript 4.3+ in the workspace.",
-        "scope": 4
-      },
-      "typescript.suggest.includeCompletionsWithSnippetText": {
-        "type": "boolean",
-        "default": true,
-        "description": "Enable/disable snippet completions from TS Server. Requires using TypeScript 4.3+ in the workspace.",
+        "description": "Enable/disable auto-import-style completions on partially-typed import statements.",
         "scope": 4
       },
       "typescript.reportStyleChecksAsWarnings": {
@@ -379,7 +373,7 @@
       "typescript.format.semicolons": {
         "type": "string",
         "default": "ignore",
-        "description": "Defines handling of optional semicolons. Requires using TypeScript 3.7 or newer in the workspace.",
+        "description": "Defines handling of optional semicolons.",
         "scope": 4,
         "enum": [
           "ignore",
@@ -497,7 +491,7 @@
       "javascript.format.semicolons": {
         "type": "string",
         "default": "ignore",
-        "description": "Defines handling of optional semicolons. Requires using TypeScript 3.7 or newer in the workspace.",
+        "description": "Defines handling of optional semicolons.",
         "scope": 4,
         "enum": [
           "ignore",
@@ -651,13 +645,13 @@
       "javascript.suggest.jsdoc.generateReturns": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "Enable/disable generating `@returns` annotations for JSDoc templates. Requires using TypeScript 4.2+ in the workspace.",
+        "markdownDescription": "Enable/disable generating `@returns` annotations for JSDoc templates.",
         "scope": 5
       },
       "typescript.suggest.jsdoc.generateReturns": {
         "type": "boolean",
         "default": true,
-        "markdownDescription": "Enable/disable generating `@returns` annotations for JSDoc templates. Requires using TypeScript 4.2+ in the workspace.",
+        "markdownDescription": "Enable/disable generating `@returns` annotations for JSDoc templates.",
         "scope": 5
       },
       "typescript.locale": {
@@ -699,7 +693,7 @@
           "double"
         ],
         "default": "auto",
-        "markdownDescription": "Preferred quote style to use for quick fixes.",
+        "markdownDescription": "Preferred quote style to use for Quick Fixes.",
         "markdownEnumDescriptions": [
           "Infer quote type from existing code",
           "Always use single quotes: `'`",
@@ -715,7 +709,7 @@
           "double"
         ],
         "default": "auto",
-        "markdownDescription": "Preferred quote style to use for quick fixes.",
+        "markdownDescription": "Preferred quote style to use for Quick Fixes.",
         "markdownEnumDescriptions": [
           "Infer quote type from existing code",
           "Always use single quotes: `'`",
@@ -735,7 +729,7 @@
           "Prefers a non-relative import only if one is available that has fewer path segments than a relative import.",
           "Prefers a relative path to the imported file location.",
           "Prefers a non-relative import based on the `baseUrl` or `paths` configured in your `jsconfig.json` / `tsconfig.json`.",
-          "Prefers a non-relative import only if the relative import path would leave the package or project directory. Requires using TypeScript 4.2+ in the workspace."
+          "Prefers a non-relative import only if the relative import path would leave the package or project directory."
         ],
         "default": "shortest",
         "description": "Preferred path style for auto imports.",
@@ -753,7 +747,7 @@
           "Prefers a non-relative import only if one is available that has fewer path segments than a relative import.",
           "Prefers a relative path to the imported file location.",
           "Prefers a non-relative import based on the `baseUrl` or `paths` configured in your `jsconfig.json` / `tsconfig.json`.",
-          "Prefers a non-relative import only if the relative import path would leave the package or project directory. Requires using TypeScript 4.2+ in the workspace."
+          "Prefers a non-relative import only if the relative import path would leave the package or project directory."
         ],
         "default": "shortest",
         "description": "Preferred path style for auto imports.",
@@ -774,7 +768,7 @@
           "Do not shorten path endings; include the `.js` extension."
         ],
         "default": "auto",
-        "description": "Preferred path ending for auto imports. Requires using TypeScript 4.5+ in the workspace.",
+        "description": "Preferred path ending for auto imports.",
         "scope": 5
       },
       "typescript.preferences.importModuleSpecifierEnding": {
@@ -792,7 +786,7 @@
           "Do not shorten path endings; include the `.js` extension."
         ],
         "default": "auto",
-        "description": "Preferred path ending for auto imports. Requires using TypeScript 4.5+ in the workspace.",
+        "description": "Preferred path ending for auto imports.",
         "scope": 5
       },
       "javascript.preferences.jsxAttributeCompletionStyle": {
@@ -862,27 +856,27 @@
       "javascript.preferences.renameShorthandProperties": {
         "type": "boolean",
         "default": true,
-        "description": "Enable/disable introducing aliases for object shorthand properties during renames. Requires using TypeScript 3.4 or newer in the workspace.",
+        "description": "Enable/disable introducing aliases for object shorthand properties during renames.",
         "deprecationMessage": "The setting 'typescript.preferences.renameShorthandProperties' has been deprecated in favor of 'typescript.preferences.useAliasesForRenames'",
         "scope": 5
       },
       "typescript.preferences.renameShorthandProperties": {
         "type": "boolean",
         "default": true,
-        "description": "Enable/disable introducing aliases for object shorthand properties during renames. Requires using TypeScript 3.4 or newer in the workspace.",
+        "description": "Enable/disable introducing aliases for object shorthand properties during renames.",
         "deprecationMessage": "The setting 'typescript.preferences.renameShorthandProperties' has been deprecated in favor of 'typescript.preferences.useAliasesForRenames'",
         "scope": 5
       },
       "javascript.preferences.useAliasesForRenames": {
         "type": "boolean",
         "default": true,
-        "description": "Enable/disable introducing aliases for object shorthand properties during renames. Requires using TypeScript 3.4 or newer in the workspace.",
+        "description": "Enable/disable introducing aliases for object shorthand properties during renames.",
         "scope": 5
       },
       "typescript.preferences.useAliasesForRenames": {
         "type": "boolean",
         "default": true,
-        "description": "Enable/disable introducing aliases for object shorthand properties during renames. Requires using TypeScript 3.4 or newer in the workspace.",
+        "description": "Enable/disable introducing aliases for object shorthand properties during renames.",
         "scope": 5
       },
       "typescript.updateImportsOnFileMove.enabled": {
@@ -950,7 +944,7 @@
       "typescript.tsserver.useSeparateSyntaxServer": {
         "type": "boolean",
         "default": true,
-        "description": "Enable/disable spawning a separate TypeScript server that can more quickly respond to syntax related operations, such as calculating folding or computing document symbols. Requires using TypeScript 3.4.0 or newer in the workspace.",
+        "description": "Enable/disable spawning a separate TypeScript server that can more quickly respond to syntax related operations, such as calculating folding or computing document symbols.",
         "markdownDeprecationMessage": "This setting has been deprecated in favor of `typescript.tsserver.useSyntaxServer`.",
         "scope": 3
       },
@@ -987,7 +981,7 @@
       },
       "typescript.tsserver.watchOptions": {
         "type": "object",
-        "description": "Configure which watching strategies should be used to keep track of files and directories. Requires using TypeScript 3.8+ in the workspace.",
+        "description": "Configure which watching strategies should be used to keep track of files and directories.",
         "scope": 3,
         "properties": {
           "watchFile": {
@@ -1002,7 +996,7 @@
               "useFsEventsOnParentDirectory"
             ],
             "enumDescriptions": [
-              "Polls files in chunks at regular interval. Requires using TypeScript 4.3+ in the workspace.",
+              "Polls files in chunks at regular interval.",
               "Check every file for changes several times a second at a fixed interval.",
               "Check every file for changes several times a second, but use heuristics to check certain types of files less frequently than others.",
               "Use a dynamic queue where less-frequently modified files will be checked less often.",
@@ -1021,7 +1015,7 @@
               "useFsEvents"
             ],
             "enumDescriptions": [
-              "Polls directories in chunks at regular interval. Requires using TypeScript 4.3+ in the workspace.",
+              "Polls directories in chunks at regular interval.",
               "Check every directory for changes several times a second at a fixed interval.",
               "Use a dynamic queue where less-frequently modified directories will be checked less often.",
               "Attempt to use the operating system/file system's native events for directory changes."
@@ -1055,30 +1049,39 @@
           "currentProject"
         ],
         "enumDescriptions": [
-          "Search all open JavaScript or TypeScript projects for symbols. Requires using TypeScript 3.9 or newer in the workspace.",
+          "Search all open JavaScript or TypeScript projects for symbols.",
           "Only search for symbols in the current JavaScript or TypeScript project."
         ],
         "default": "allOpenProjects",
-        "markdownDescription": "Controls which files are searched by [go to symbol in workspace](https://code.visualstudio.com/docs/editor/editingevolved#_open-symbol-by-name).",
+        "markdownDescription": "Controls which files are searched by [Go to Symbol in Workspace](https://code.visualstudio.com/docs/editor/editingevolved#_open-symbol-by-name).",
         "scope": 3
       },
       "javascript.suggest.classMemberSnippets.enabled": {
         "type": "boolean",
         "default": true,
-        "description": "Enable/disable snippet completions for class members. Requires using TypeScript 4.5+ in the workspace",
+        "description": "Enable/disable snippet completions for class members.",
         "scope": 4
       },
       "typescript.suggest.classMemberSnippets.enabled": {
         "type": "boolean",
         "default": true,
-        "description": "Enable/disable snippet completions for class members. Requires using TypeScript 4.5+ in the workspace",
+        "description": "Enable/disable snippet completions for class members.",
         "scope": 4
       },
       "typescript.suggest.objectLiteralMethodSnippets.enabled": {
         "type": "boolean",
         "default": true,
-        "description": "Enable/disable snippet completions for methods in object literals. Requires using TypeScript 4.7+ in the workspace",
+        "description": "Enable/disable snippet completions for methods in object literals. Requires using TypeScript 4.7+ in the workspace.",
         "scope": 4
+      },
+      "typescript.experimental.tsserver.web.enableProjectWideIntellisense": {
+        "type": "boolean",
+        "default": false,
+        "description": "Enable/disable project-wide IntelliSense on web. Requires that VS Code is running in a trusted context.",
+        "scope": 3,
+        "tags": [
+          "experimental"
+        ]
       }
     }
   }
