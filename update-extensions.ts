@@ -123,6 +123,9 @@ const extensions: Extension[] = [
   }, {
     name: 'vscode-django',
     repository: 'vscode-django/vscode-django'
+  }, {
+    name: 'vscode-go',
+    repository: 'golang/vscode-go'
   }
 ]
 
