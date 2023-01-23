@@ -12,18 +12,6 @@ import https from 'https'
 import path from 'path'
 import * as fs from 'fs/promises'
 
-const overrideConfigurationDefaultValue = new Map<string, unknown>(Object.entries({
-  'cobol-lsp.subroutine-manager.paths-local': ['/tmp/project'],
-  'Lua.runtime.version': 'Lua 5.4',
-  'Lua.diagnostics.enable': true,
-  'Lua.diagnostics.disable': ['lowercase-global'],
-  'r.lsp.diagnostics': false,
-  'solargraph.diagnostics': true,
-  'solargraph.formatting': true,
-  'systemverilog.linter': 'icarus',
-  'systemverilog.launchConfiguration': 'iverilog -g2012 -t null'
-}))
-
 interface Extension {
   name: string
   repository: string
@@ -141,18 +129,6 @@ const extensions: Extension[] = [
 const excludeScopeNames = ['source.objcpp', 'source.reason', 'source.cpp.embedded.macro']
 
 const extensionsPath = path.resolve(__dirname, 'src/languages/extensions')
-
-function overrideDefaultValue (configuration: IConfigurationNode) {
-  return {
-    ...configuration,
-    properties: Object.fromEntries(Object.entries(configuration.properties ?? {}).map(([key, value]) => [
-      key, {
-        ...value,
-        default: overrideConfigurationDefaultValue.get(key) ?? value.default
-      }
-    ]))
-  }
-}
 
 /**
  * There 2 functions come from https://github.com/CodinGame/vscode/blob/standalone/0.31.x/src/vs/base/common/types.ts
@@ -590,7 +566,7 @@ async function fetchExtensions () {
 
     if (configuration != null) {
       const filePath = `${extension.name}.json`
-      const configurations = (Array.isArray(configuration) ? configuration : [configuration]).flatMap(handleConfiguration).map(overrideDefaultValue)
+      const configurations = (Array.isArray(configuration) ? configuration : [configuration]).flatMap(handleConfiguration)
       await fs.writeFile(path.resolve(extensionConfigurationRegistrationsPath, filePath), JSON.stringify(configurations, null, 2))
 
       extensionConfigurationRegistrationPaths = {
