@@ -67,7 +67,7 @@
   ],
   "dependencies": {
     "monaco-editor": "npm:@codingame/monaco-editor@^0.34.0",
-    "vscode": "npm:@codingame/monaco-vscode-api@~1.69.14",
+    "vscode": "npm:@codingame/monaco-vscode-api@~1.69.16",
     "vscode-oniguruma": "^1.6.2",
     "vscode-textmate": "^7.0.3"
   },
@@ -94,12 +94,12 @@
     "@types/node": "18.11.18",
     "@types/rollup-plugin-node-builtins": "^2.1.2",
     "@types/vscode": "~1.69.1",
-    "@typescript-eslint/eslint-plugin": "5.48.2",
-    "@typescript-eslint/parser": "5.48.2",
+    "@typescript-eslint/eslint-plugin": "5.50.0",
+    "@typescript-eslint/parser": "5.50.0",
     "conventional-changelog-conventionalcommits": "^5.0.0",
     "cson-parser": "4.0.9",
     "deep-equal": "2.2.0",
-    "eslint": "8.32.0",
+    "eslint": "8.33.0",
     "eslint-config-standard": "17.0.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-node": "11.1.0",
@@ -112,7 +112,7 @@
     "monaco-emacs": "^0.3.0",
     "monaco-vim": "^0.3.5",
     "postcss": "8.4.21",
-    "rollup": "3.10.1",
+    "rollup": "3.12.1",
     "rollup-plugin-json5": "1.0.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-string": "^3.0.0",
@@ -120,8 +120,8 @@
     "rollup-plugin-visualizer": "5.9.0",
     "rollup-plugin-web-worker-loader": "1.6.1",
     "ts-node": "10.9.1",
-    "tslib": "^2.4.1",
-    "typescript": "4.9.4"
+    "tslib": "^2.5.0",
+    "typescript": "4.9.5"
   },
   "browserslist": [
     "defaults",
@@ -132,10 +132,10 @@
     "not IE_Mob 11"
   ],
   "volta": {
-    "node": "16.17.1",
-    "npm": "8.15.0"
+    "node": "18.13.0",
+    "npm": "9.4.1"
   },
   "overrides": {
-    "rollup": "3.10.1"
+    "rollup": "3.12.1"
   }
 }
