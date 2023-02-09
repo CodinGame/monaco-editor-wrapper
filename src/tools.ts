@@ -1,4 +1,5 @@
 import * as monaco from 'monaco-editor'
+import { Disposable } from 'vscode'
 
 interface PastePayload {
   text: string
@@ -268,4 +269,53 @@ export async function collapseCodeSections (editor: monaco.editor.IStandaloneCod
       }
     }
   }
+}
+
+export function mapClipboard (
+  editor: monaco.editor.IStandaloneCodeEditor, {
+    toClipboard = v => v,
+    fromClipboard = v => v
+  }: {
+    toClipboard: (v: string) => string
+    fromClipboard: (v: string) => string
+  }): Disposable {
+  const originalTrigger = editor.trigger
+  editor.trigger = function (source, handlerId, payload) {
+    if (handlerId === 'paste') {
+      const newText = fromClipboard(payload.text)
+      if (newText !== payload.text) {
+        payload = {
+          ...payload,
+          text: newText
+        }
+      }
+    }
+    originalTrigger.call(this, source, handlerId, payload)
+  }
+
+  function mapCopy (event: ClipboardEvent) {
+    const clipdata = event.clipboardData
+    if (clipdata == null) {
+      return
+    }
+    const content = clipdata.getData('Text')
+    const transformed = toClipboard(content)
+    if (transformed !== content) {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (clipdata.types != null) {
+        clipdata.types.forEach((type) => clipdata.setData(type, toClipboard(content)))
+      } else {
+        clipdata.setData('text/plain', toClipboard(content))
+      }
+    }
+  }
+  const domNode = editor.getContainerDomNode()
+  domNode.addEventListener('copy', mapCopy)
+  domNode.addEventListener('cut', mapCopy)
+
+  return new Disposable(() => {
+    domNode.removeEventListener('copy', mapCopy)
+    domNode.removeEventListener('cut', mapCopy)
+    editor.trigger = originalTrigger
+  })
 }
