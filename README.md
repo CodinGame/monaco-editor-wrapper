@@ -8,7 +8,7 @@ Monaco editor wrapper that adds some features and improvements to it:
   - Language snippets
   - Language default editor configuration
 - Language resources loading are lazy using dynamic imports (compatible with webpack)
-- It requires using VS Code themes instead of Monaco themes and include a default light theme
+- It requires using VS Code themes instead of Monaco themes and includes default vscode themes
 - Keybindings and user configuration like in VS Code
 - Vim and Emacs modes
 - It configures the workers
