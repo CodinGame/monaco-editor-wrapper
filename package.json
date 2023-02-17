@@ -68,7 +68,8 @@
   "dependencies": {
     "monaco-editor": "^0.34.0",
     "vscode": "npm:@codingame/monaco-vscode-api@~1.69.18",
-    "vscode-oniguruma": "^1.6.2"
+    "vscode-oniguruma": "^1.6.2",
+    "vscode-textmate": "^7.0.4"
   },
   "devDependencies": {
     "@babel/core": "7.20.12",
