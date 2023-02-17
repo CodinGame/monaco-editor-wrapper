@@ -66,10 +66,9 @@
     "stats.html"
   ],
   "dependencies": {
-    "monaco-editor": "npm:@codingame/monaco-editor@^0.34.0",
-    "vscode": "npm:@codingame/monaco-vscode-api@~1.69.16",
-    "vscode-oniguruma": "^1.6.2",
-    "vscode-textmate": "^7.0.3"
+    "monaco-editor": "^0.34.0",
+    "vscode": "npm:@codingame/monaco-vscode-api@~1.69.18",
+    "vscode-oniguruma": "^1.6.2"
   },
   "devDependencies": {
     "@babel/core": "7.20.12",
@@ -82,7 +81,7 @@
     "@codingame/eslint-config": "^1.1.6",
     "@codingame/semantic-release-rules": "^1.0.0",
     "@codingame/tsconfig": "^1.1.1",
-    "@commitlint/cli": "^17.4.2",
+    "@commitlint/cli": "^17.4.3",
     "@rollup/plugin-alias": "4.0.3",
     "@rollup/plugin-babel": "6.0.3",
     "@rollup/plugin-commonjs": "24.0.1",
@@ -94,12 +93,12 @@
     "@types/node": "18.11.18",
     "@types/rollup-plugin-node-builtins": "^2.1.2",
     "@types/vscode": "~1.69.1",
-    "@typescript-eslint/eslint-plugin": "5.50.0",
-    "@typescript-eslint/parser": "5.50.0",
+    "@typescript-eslint/eslint-plugin": "5.52.0",
+    "@typescript-eslint/parser": "5.52.0",
     "conventional-changelog-conventionalcommits": "^5.0.0",
     "cson-parser": "4.0.9",
     "deep-equal": "2.2.0",
-    "eslint": "8.33.0",
+    "eslint": "8.34.0",
     "eslint-config-standard": "17.0.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-node": "11.1.0",
@@ -112,7 +111,7 @@
     "monaco-emacs": "^0.3.0",
     "monaco-vim": "^0.3.5",
     "postcss": "8.4.21",
-    "rollup": "3.12.1",
+    "rollup": "3.15.0",
     "rollup-plugin-json5": "1.0.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-string": "^3.0.0",
@@ -136,6 +135,6 @@
     "npm": "9.4.1"
   },
   "overrides": {
-    "rollup": "3.12.1"
+    "rollup": "3.15.0"
   }
 }
