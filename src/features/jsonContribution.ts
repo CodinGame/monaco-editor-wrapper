@@ -7,6 +7,11 @@ import { registerWorkerLoader } from '../worker'
 type Unpacked<T> = T extends (infer U)[] ? U : T
 type Schema = Unpacked<NonNullable<monaco.languages.json.DiagnosticsOptions['schemas']>>
 
+monaco.languages.json.jsonDefaults.setModeConfiguration({
+  ...monaco.languages.json.jsonDefaults.modeConfiguration,
+  tokens: false // Disable monarch tokenizer as we use TextMate here
+})
+
 const customSchemas: Schema[] = []
 function updateDiagnosticsOptions () {
   monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
