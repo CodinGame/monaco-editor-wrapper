@@ -1,8 +1,8 @@
 import * as monaco from 'monaco-editor'
 import { updateUserKeybindings } from 'vscode/service-override/keybindings'
 
-export function updateKeybindings (bindingsJson: string): void {
-  updateUserKeybindings(bindingsJson)
+export async function updateKeybindings (bindingsJson: string): Promise<void> {
+  await updateUserKeybindings(bindingsJson)
 }
 
 class PromiseDisposable implements monaco.IDisposable {

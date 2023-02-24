@@ -1,7 +1,7 @@
 import * as monaco from 'monaco-editor'
 import { StandaloneServices, IConfigurationChangeEvent, IConfigurationService } from 'vscode/services'
 import * as vscode from 'vscode'
-import { configurationRegistry, updateUserConfiguration, getUserConfiguration, IConfigurationNode, IConfigurationDefaults } from 'vscode/service-override/configuration'
+import { configurationRegistry, updateUserConfiguration, getUserConfiguration, onUserConfigurationChange, IConfigurationNode, IConfigurationDefaults } from 'vscode/service-override/configuration'
 import extensions from '../languages/extensions/extensions.json'
 import './files'
 
@@ -47,7 +47,8 @@ export function getConfiguration<C = Partial<monaco.editor.IEditorOptions>> (lan
 
 export {
   updateUserConfiguration,
-  getUserConfiguration
+  getUserConfiguration,
+  onUserConfigurationChange
 }
 
 export function registerConfigurations (configurations: IConfigurationNode[], validate?: boolean): void {
