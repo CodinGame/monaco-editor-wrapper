@@ -23,6 +23,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
@@ -31,3 +33,20 @@ jobs:
       run: npm ci
     - name: Build
       run: npm run build
+    - name: Generate release notes preview
+      id: build-release-notes
+      uses: guilhermetod/semantic-release-notes-preview@v1.0.0
+    - name: Comment release notes preview
+      if: steps.build-release-notes.outputs.releaseNotes
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.number }}
+        body: |
+          ## 👋 Hey there!
+          Thank you for you contribution. Below is a preview of the release notes if your PR gets merged.
+          Please, make sure it includes all your significant changes with descriptive messages.
+          Keep in mind that release notes are automatically generated from the commit messages according to [conventional commits](https://www.conventionalcommits.org/).
+
+          ---
+
+          ${{ steps.build-release-notes.outputs.releaseNotes }}
