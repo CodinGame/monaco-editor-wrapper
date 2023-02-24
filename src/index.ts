@@ -1,7 +1,7 @@
 import * as monaco from 'monaco-editor'
 import { createEditor, registerEditorOpenHandler, registerTextModelContentProvider } from './monaco'
 import { defineVSCodeTheme } from './theme'
-import { updateUserConfiguration, registerConfigurations, registerDefaultConfigurations, onConfigurationChanged, getConfiguration, getUserConfiguration } from './configuration'
+import { updateUserConfiguration, registerConfigurations, registerDefaultConfigurations, onConfigurationChanged, getConfiguration, getUserConfiguration, onUserConfigurationChange } from './configuration'
 import { getMonacoLanguage, loadLanguage } from './languages'
 import { updateKeybindings, updateEditorKeybindingsMode } from './keybindings'
 import './style'
@@ -17,6 +17,7 @@ export {
   registerDefaultConfigurations,
   updateUserConfiguration,
   getUserConfiguration,
+  onUserConfigurationChange,
   getConfiguration,
   onConfigurationChanged,
   updateEditorKeybindingsMode,

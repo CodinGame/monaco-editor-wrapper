@@ -73,9 +73,11 @@ Default Monaco theme shouldn't be used.
 ##### User configuration
 
 This library exposed some functions to manage the user global configuration:
-- `registerDefaultConfigurations` allows registering default values for some configuration keys which can be overridden
+- `registerDefaultConfigurations` Allows registering default values for some configuration keys which can be overridden
 - `updateUserConfiguration` Update the user configuration, overrides the default configuration, uses the same syntax as VS Code configuration
-- `getConfiguration` allows to get a given configuration key in a given language
-- `onConfigurationChanged` listen to configuration change
-- `updateKeybindings` allows to update the editor keybindings with the same syntax as in VS Code
-- `updateEditorKeybindingsMode` switch between `vim`, `emacs` or `classic` keybindings
+- `getUserConfiguartion` Get back the current user configuration
+- `onUserConfigurationChange` Get notified when the user configuration change (either after calling updateUserConfiguration or from internal configuration update)
+- `getConfiguration` Allows to get a given configuration key in a given language
+- `onConfigurationChanged` Listen to configuration change
+- `updateKeybindings` aAlows to update the editor keybindings with the same syntax as in VS Code
+- `updateEditorKeybindingsMode` Switch between `vim`, `emacs` or `classic` keybindings
