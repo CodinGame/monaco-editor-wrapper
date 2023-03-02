@@ -14,7 +14,7 @@ function isPasteAction (handlerId: string, payload: unknown): payload is PastePa
 export function lockCodeWithoutDecoration (
   editor: monaco.editor.IStandaloneCodeEditor,
   decorations: string[],
-  allowChangeFromSources: string[],
+  allowChangeFromSources: string[] = [],
   errorMessage?: string
 ): () => void {
   function displayLockedCodeError (position: monaco.Position) {
