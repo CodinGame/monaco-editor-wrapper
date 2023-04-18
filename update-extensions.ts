@@ -56,7 +56,8 @@ const extensions: Extension[] = [
     repository: 'scala/vscode-scala-syntax'
   }, {
     name: 'scalameta',
-    repository: 'scalameta/metals-vscode'
+    repository: 'scalameta/metals-vscode',
+    path: 'packages/metals-vscode/'
   }, {
     name: 'cobol',
     repository: 'eclipse/che-che4z-lsp-for-cobol',
@@ -111,7 +112,7 @@ const extensions: Extension[] = [
   }, {
     name: 'volar-vue',
     repository: 'johnsoncodehk/volar',
-    path: 'vue-language-tools/vscode-vue/'
+    path: 'packages/vscode-vue/'
   }, {
     name: 'svelte.svelte-vscode',
     repository: 'sveltejs/language-tools',
