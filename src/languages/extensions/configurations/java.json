@@ -219,6 +219,18 @@
         "description": "Specifies severity if the plugin execution is not covered by Maven build lifecycle.",
         "scope": 3
       },
+      "java.configuration.maven.defaultMojoExecutionAction": {
+        "type": "string",
+        "enum": [
+          "ignore",
+          "warn",
+          "error",
+          "execute"
+        ],
+        "default": "ignore",
+        "description": "Specifies default mojo execution action when no associated metadata can be detected.",
+        "scope": 3
+      },
       "java.configuration.workspaceCacheLimit": {
         "type": [
           "null",
@@ -581,7 +593,8 @@
                 "JavaSE-16",
                 "JavaSE-17",
                 "JavaSE-18",
-                "JavaSE-19"
+                "JavaSE-19",
+                "JavaSE-20"
               ],
               "description": "Java Execution Environment name. Must be unique."
             },
@@ -880,6 +893,22 @@
         "markdownDescription": "Specifies a common index location for all workspaces. See default values as follows:\n \nWindows: First use `\"$APPDATA\\\\.jdt\\\\index\"`, or `\"~\\\\.jdt\\\\index\"` if it does not exist\n \nmacOS: `\"~/Library/Caches/.jdt/index\"`\n \nLinux: First use `\"$XDG_CACHE_HOME/.jdt/index\"`, or `\"~/.cache/.jdt/index\"` if it does not exist",
         "default": "",
         "scope": 3
+      },
+      "java.refactoring.extract.interface.replace": {
+        "type": "boolean",
+        "markdownDescription": "Specify whether to replace all the occurrences of the subtype with the new extracted interface.",
+        "default": true,
+        "scope": 3
+      },
+      "redhat.telemetry.enabled": {
+        "type": "boolean",
+        "default": null,
+        "markdownDescription": "Enable usage data and errors to be sent to Red Hat servers. Read our [privacy statement](https://developers.redhat.com/article/tool-data-collection).",
+        "scope": 3,
+        "tags": [
+          "usesOnlineServices",
+          "telemetry"
+        ]
       }
     }
   }

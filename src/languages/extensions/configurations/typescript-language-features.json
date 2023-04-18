@@ -93,17 +93,6 @@
         "description": "Additional paths to discover TypeScript Language Service plugins.",
         "scope": 2
       },
-      "typescript.tsserver.trace": {
-        "type": "string",
-        "enum": [
-          "off",
-          "messages",
-          "verbose"
-        ],
-        "default": "off",
-        "description": "Enables tracing of messages sent to the TS server. This trace can be used to diagnose TS Server issues. The trace may contain file paths, source code, and other potentially sensitive information from your project.",
-        "scope": 3
-      },
       "javascript.suggest.completeFunctionCalls": {
         "type": "boolean",
         "default": false,
@@ -879,6 +868,18 @@
         "description": "Enable/disable introducing aliases for object shorthand properties during renames.",
         "scope": 5
       },
+      "javascript.preferences.renameMatchingJsxTags": {
+        "type": "boolean",
+        "default": true,
+        "description": "When on a JSX tag, try to rename the matching tag instead of renaming the symbol. Requires using TypeScript 5.1+ in the workspace.",
+        "scope": 5
+      },
+      "typescript.preferences.renameMatchingJsxTags": {
+        "type": "boolean",
+        "default": true,
+        "description": "When on a JSX tag, try to rename the matching tag instead of renaming the symbol. Requires using TypeScript 5.1+ in the workspace.",
+        "scope": 5
+      },
       "typescript.updateImportsOnFileMove.enabled": {
         "type": "string",
         "enum": [
@@ -1082,6 +1083,18 @@
         "tags": [
           "experimental"
         ]
+      },
+      "typescript.preferGoToSourceDefinition": {
+        "type": "boolean",
+        "default": false,
+        "description": "Makes Go to Definition avoid type declaration files when possible by triggering Go to Source Definition instead. This allows Go to Source Definition to be triggered with the mouse gesture. Requires using TypeScript 4.7+ in the workspace.",
+        "scope": 3
+      },
+      "javascript.preferGoToSourceDefinition": {
+        "type": "boolean",
+        "default": false,
+        "description": "Makes Go to Definition avoid type declaration files when possible by triggering Go to Source Definition instead. This allows Go to Source Definition to be triggered with the mouse gesture. Requires using TypeScript 4.7+ in the workspace.",
+        "scope": 3
       }
     }
   }

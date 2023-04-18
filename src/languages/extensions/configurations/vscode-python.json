@@ -1,6 +1,12 @@
 [
   {
     "properties": {
+      "python.activeStateToolPath": {
+        "default": "state",
+        "description": "Path to the State Tool executable for ActiveState runtimes (version 0.36+).",
+        "scope": 6,
+        "type": "string"
+      },
       "python.autoComplete.extraPaths": {
         "default": [],
         "description": "List of paths to libraries and the like that need to be imported by auto complete engine. E.g. when using Google App SDK, the paths are not in system path, hence need to be added into this list.",
@@ -16,7 +22,7 @@
       },
       "python.defaultInterpreterPath": {
         "default": "python",
-        "description": "Path to default Python to use when extension loads up for the first time, no longer used once an interpreter is selected for the workspace. See https://aka.ms/AAfekmf to understand when this is used",
+        "markdownDescription": "Path to default Python to use when extension loads up for the first time, no longer used once an interpreter is selected for the workspace. See [here](https://aka.ms/AAfekmf) to understand when this is used",
         "scope": 6,
         "type": "string"
       },
@@ -40,12 +46,19 @@
       },
       "python.experiments.optInto": {
         "default": [],
-        "description": "List of experiment to opt into. If empty, user is assigned the default experiment groups. See https://github.com/microsoft/vscode-python/wiki/AB-Experiments for more details.",
+        "markdownDescription": "List of experiment to opt into. If empty, user is assigned the default experiment groups. See [here](https://github.com/microsoft/vscode-python/wiki/AB-Experiments) for more details.",
         "items": {
           "enum": [
             "All",
             "pythonSurveyNotification",
-            "pythonPromptNewToolsExt"
+            "pythonPromptNewToolsExt",
+            "pythonTerminalEnvVarActivation"
+          ],
+          "enumDescriptions": [
+            "Combined list of all experiments.",
+            "Denotes the Python Survey Notification experiment.",
+            "Denotes the Python Prompt New Tools Extension experiment.",
+            "Enables use of environment variables to activate terminals instead of sending activation commands."
           ]
         },
         "scope": 2,
@@ -54,12 +67,19 @@
       },
       "python.experiments.optOutFrom": {
         "default": [],
-        "description": "List of experiment to opt out of. If empty, user is assigned the default experiment groups. See https://github.com/microsoft/vscode-python/wiki/AB-Experiments for more details.",
+        "markdownDescription": "List of experiment to opt out of. If empty, user is assigned the default experiment groups. See [here](https://github.com/microsoft/vscode-python/wiki/AB-Experiments) for more details.",
         "items": {
           "enum": [
             "All",
             "pythonSurveyNotification",
-            "pythonPromptNewToolsExt"
+            "pythonPromptNewToolsExt",
+            "pythonTerminalEnvVarActivation"
+          ],
+          "enumDescriptions": [
+            "Combined list of all experiments.",
+            "Denotes the Python Survey Notification experiment.",
+            "Denotes the Python Prompt New Tools Extension experiment.",
+            "Enables use of environment variables to activate terminals instead of sending activation commands."
           ]
         },
         "scope": 2,
@@ -550,14 +570,14 @@
         },
         "scope": 4,
         "type": "array",
-        "deprecationMessage": "This setting will be removed soon. Use `isort.args` instead."
+        "deprecationMessage": "This setting will be removed soon. Use 'isort.args' instead."
       },
       "python.sortImports.path": {
         "default": "",
         "description": "Path to isort script, default using inner version",
         "scope": 6,
         "type": "string",
-        "deprecationMessage": "This setting will be removed soon. Use `isort.path` instead."
+        "deprecationMessage": "This setting will be removed soon. Use 'isort.path' instead."
       },
       "python.tensorBoard.logDirectory": {
         "default": "",
@@ -573,7 +593,7 @@
       },
       "python.terminal.activateEnvironment": {
         "default": true,
-        "description": "Activate Python Environment in Terminal created using the Extension.",
+        "description": "Activate Python Environment in all Terminals created.",
         "scope": 4,
         "type": "boolean"
       },

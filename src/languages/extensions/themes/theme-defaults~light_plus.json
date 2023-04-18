@@ -1,6 +1,6 @@
 {
   "$schema": "vscode://schemas/color-theme",
-  "name": "Light+ (default light)",
+  "name": "Light+",
   "include": "./light_vs.json",
   "tokenColors": [
     {
@@ -173,7 +173,10 @@
       }
     },
     {
-      "scope": "constant.character",
+      "scope": [
+        "constant.character",
+        "constant.other.option"
+      ],
       "settings": {
         "foreground": "#0000ff"
       }

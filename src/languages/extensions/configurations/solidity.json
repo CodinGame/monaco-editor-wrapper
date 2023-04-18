@@ -106,6 +106,12 @@
         "description": "Default directory for Packages Dependencies, i.e: 'node_modules', 'lib'. This is used to avoid typing imports with that path prefix",
         "scope": 3
       },
+      "solidity.monoRepoSupport": {
+        "type": "boolean",
+        "default": false,
+        "description": "Enables mono repo support in the current workspace, a project folder will be signaled if a file is found on the current folder or above including: remappings.txt, truffle-config.js, brownie-config.yaml, foundry.toml, hardhat.config.js, dappfile",
+        "scope": 3
+      },
       "solidity.packageDefaultDependenciesContractsDirectory": {
         "type": "string",
         "default": "",

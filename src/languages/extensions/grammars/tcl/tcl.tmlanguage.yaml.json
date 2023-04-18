@@ -1113,7 +1113,7 @@
     "tcl-proc": {
       "patterns": [
         {
-          "begin": "(?<=^|[\\[{;])\\s*(::)?\\b(proc)\\b\\s+([^\\s\n]+)\\s+(?={|\\b|\\[|\\\\$)",
+          "begin": "(?<=^|[\\[{;])\\s*(::)?\\b(proc)\\b\\s+([^\\s\n]+)\\s+(?={|\\b|\\[|\"|\\\\$)",
           "end": "(?=(?<!\\\\)$)",
           "beginCaptures": {
             "1": {
@@ -1137,6 +1137,9 @@
             }
           },
           "patterns": [
+            {
+              "include": "#quoted-string"
+            },
             {
               "include": "#proc-arguments"
             },
@@ -4386,7 +4389,7 @@
         },
         {
           "begin": "\\s*+(?<!\\\\)(\")",
-          "end": "(?<!\\\\)(\")",
+          "end": "(?<!\\\\)((?:\\\\{2})*)(\")",
           "beginCaptures": {
             "1": {
               "name": "string.quoted.double.open.tcl"
@@ -4394,6 +4397,9 @@
           },
           "endCaptures": {
             "1": {
+              "name": "constant.character.escape"
+            },
+            "2": {
               "name": "string.quoted.double.close.tcl"
             }
           },

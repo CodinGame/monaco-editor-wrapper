@@ -126,6 +126,17 @@
     "scopeName": "source.json.comments"
   },
   {
+    "language": "julia",
+    "scopeName": "source.julia",
+    "embeddedLanguages": {
+      "meta.embedded.inline.cpp": "cpp",
+      "meta.embedded.inline.javascript": "javascript",
+      "meta.embedded.inline.python": "python",
+      "meta.embedded.inline.r": "r",
+      "meta.embedded.inline.sql": "sql"
+    }
+  },
+  {
     "language": "lua",
     "scopeName": "source.lua",
     "tokenTypes": {
@@ -268,7 +279,8 @@
       "storage.type.function.arrow",
       "keyword.operator.bitwise.shift",
       "meta.brace.angle",
-      "punctuation.definition.tag"
+      "punctuation.definition.tag",
+      "keyword.operator.assignment.compound.bitwise.ts"
     ],
     "tokenTypes": {
       "meta.template.expression": "other",
@@ -287,7 +299,8 @@
       "keyword.operator.relational",
       "storage.type.function.arrow",
       "keyword.operator.bitwise.shift",
-      "punctuation.definition.tag"
+      "punctuation.definition.tag",
+      "keyword.operator.assignment.compound.bitwise.ts"
     ],
     "embeddedLanguages": {
       "meta.tag.tsx": "jsx-tags",
@@ -740,7 +753,13 @@
   },
   {
     "language": "solidity",
-    "scopeName": "source.solidity"
+    "scopeName": "source.solidity",
+    "balancedBracketScopes": [
+      "*"
+    ],
+    "unbalancedBracketScopes": [
+      "meta.scope.case-pattern.solidity"
+    ]
   },
   {
     "language": "vue",
