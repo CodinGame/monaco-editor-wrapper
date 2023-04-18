@@ -22,6 +22,7 @@ const loader = {
   'source.js.regexp': async () => (await import(/* webpackChunkName: "grammar-source-js-regexp" */ /* webpackMode: "lazy" */ './grammars/javascript/Regular Expressions (JavaScript).tmLanguage.json')).default,
   'source.json': async () => (await import(/* webpackChunkName: "grammar-source-json" */ /* webpackMode: "lazy" */ './grammars/json/JSON.tmLanguage.json')).default,
   'source.json.comments': async () => (await import(/* webpackChunkName: "grammar-source-json-comments" */ /* webpackMode: "lazy" */ './grammars/json/JSONC.tmLanguage.json')).default,
+  'source.julia': async () => (await import(/* webpackChunkName: "grammar-source-julia" */ /* webpackMode: "lazy" */ './grammars/julia/julia.tmLanguage.json')).default,
   'source.lua': async () => (await import(/* webpackChunkName: "grammar-source-lua" */ /* webpackMode: "lazy" */ './grammars/lua/lua.tmLanguage.json')).default,
   'text.html.markdown': async () => (await import(/* webpackChunkName: "grammar-text-html-markdown" */ /* webpackMode: "lazy" */ './grammars/markdown-basics/markdown.tmLanguage.json')).default,
   'source.objc': async () => (await import(/* webpackChunkName: "grammar-source-objc" */ /* webpackMode: "lazy" */ './grammars/objective-c/objective-c.tmLanguage.json')).default,

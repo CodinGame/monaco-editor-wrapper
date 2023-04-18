@@ -276,6 +276,27 @@
     ]
   },
   {
+    "id": "julia",
+    "aliases": [
+      "Julia",
+      "julia"
+    ],
+    "extensions": [
+      ".jl"
+    ],
+    "firstLine": "^#!\\s*/.*\\bjulia[0-9.-]*\\b"
+  },
+  {
+    "id": "juliamarkdown",
+    "aliases": [
+      "Julia Markdown",
+      "juliamarkdown"
+    ],
+    "extensions": [
+      ".jmd"
+    ]
+  },
+  {
     "id": "lua",
     "extensions": [
       ".lua"
@@ -543,6 +564,9 @@
       "zlogout",
       "bashrc_Apple_Terminal",
       "zshrc_Apple_Terminal"
+    ],
+    "filenamePatterns": [
+      ".env.*"
     ],
     "firstLine": "^#!.*\\b(bash|fish|zsh|sh|ksh|dtksh|pdksh|mksh|ash|dash|yash|sh|csh|jcsh|tcsh|itcsh).*|^#\\s*-\\*-[^*]*mode:\\s*shell-script[^*]*-\\*-",
     "mimetypes": [

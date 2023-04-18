@@ -133,7 +133,7 @@
           "number"
         ],
         "default": null,
-        "description": "The port number to be used for the Dart DevTools.",
+        "description": "The port number to be used for the Dart DevTools (requires restart).",
         "scope": 3
       },
       "dart.devToolsReuseWindows": {
@@ -290,7 +290,7 @@
       "dart.enableCompletionCommitCharacters": {
         "type": "boolean",
         "default": false,
-        "markdownDescription": "Whether to automatically commit the selected completion item when pressing certain keys such as . , ( and [. This setting does not currently apply to LSP, see `#dart.previewCommitCharacters#`.",
+        "markdownDescription": "Whether to automatically commit the selected completion item when pressing certain keys such as . , ( and \\[. This setting does not currently apply to LSP, see `#dart.previewCommitCharacters#`.",
         "scope": 4
       },
       "dart.enableSdkFormatter": {
@@ -337,12 +337,6 @@
         "type": "boolean",
         "default": true,
         "description": "Whether to show CodeLens actions in the editor for opening online DartPad samples.",
-        "scope": 3
-      },
-      "dart.showIgnoreQuickFixes": {
-        "type": "boolean",
-        "default": true,
-        "description": "Whether to show quick fixes for ignoring hints and lints.",
         "scope": 3
       },
       "dart.showMainCodeLens": {
@@ -893,6 +887,12 @@
         "markdownDescription": "Whether to show logs from the `dart:developer` `log()` function in the debug console.",
         "scope": 4
       },
+      "dart.showDebuggerNumbersAsHex": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "Whether to show integers formatted as Hex in Variables, Watch, Debug Consoles.",
+        "scope": 3
+      },
       "dart.showDevToolsDebugToolBarButtons": {
         "type": "boolean",
         "default": true,
@@ -935,7 +935,7 @@
       "dart.vmAdditionalArgs": {
         "type": "array",
         "default": [],
-        "description": "Additional args to pass to the Dart VM when running/debugging command line apps or Dart test scripts.",
+        "markdownDescription": "Arguments to be passed to the Dart VM when running Dart CLI scripts.\n\nThese arguments appear between \"dart\" and \"run\":\n\n`dart (vmAdditionalArgs) run (toolArgs) bin/main.dart (args)`",
         "scope": 4,
         "items": {
           "type": "string"
@@ -1006,6 +1006,12 @@
           "type": "string"
         },
         "scope": 6
+      },
+      "dart.addSdkToTerminalPath": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "Whether to add your selected Dart/Flutter SDK path to the `PATH` environment variable for the embedded terminal. This is useful when switching SDKs via `#dart.sdkPaths#` / `#dart.flutterSdkPaths#` to ensure commands run from the terminal are the same version as being used by the editor/debugger (requires restart).",
+        "scope": 3
       }
     }
   },

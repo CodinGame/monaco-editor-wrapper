@@ -965,6 +965,12 @@
         },
         "additionalProperties": true
       },
+      "go.tasks.provideDefault": {
+        "default": true,
+        "description": "enable the default go build/test task provider.",
+        "scope": 3,
+        "type": "boolean"
+      },
       "go.terminal.activateEnvironment": {
         "default": true,
         "description": "Apply the Go & PATH environment variables used by the extension to all integrated terminals.",

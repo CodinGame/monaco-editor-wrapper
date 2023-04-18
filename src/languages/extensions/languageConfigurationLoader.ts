@@ -20,6 +20,7 @@ const loader = {
   'jsx-tags': async () => (await import(/* webpackChunkName: "language-configuration-jsx-tags" */ /* webpackMode: "lazy" */ './languageConfigurations/jsx-tags.json')).default,
   'json': async () => (await import(/* webpackChunkName: "language-configuration-json" */ /* webpackMode: "lazy" */ './languageConfigurations/json.json')).default,
   'jsonc': async () => (await import(/* webpackChunkName: "language-configuration-jsonc" */ /* webpackMode: "lazy" */ './languageConfigurations/jsonc.json')).default,
+  'julia': async () => (await import(/* webpackChunkName: "language-configuration-julia" */ /* webpackMode: "lazy" */ './languageConfigurations/julia.json')).default,
   'lua': async () => (await import(/* webpackChunkName: "language-configuration-lua" */ /* webpackMode: "lazy" */ './languageConfigurations/lua.json')).default,
   'markdown': async () => (await import(/* webpackChunkName: "language-configuration-markdown" */ /* webpackMode: "lazy" */ './languageConfigurations/markdown.json')).default,
   'objective-c': async () => (await import(/* webpackChunkName: "language-configuration-objective-c" */ /* webpackMode: "lazy" */ './languageConfigurations/objective-c.json')).default,

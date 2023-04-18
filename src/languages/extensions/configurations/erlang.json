@@ -73,12 +73,6 @@
         ],
         "scope": 3
       },
-      "erlang.eep48Help": {
-        "type": "boolean",
-        "default": true,
-        "description": "Enable/disable help based on Erlang documentation storage added in OTP 23. The setting is ignored in earlier versions.",
-        "scope": 3
-      },
       "erlang.formattingLineLength": {
         "type": "number",
         "default": 100,

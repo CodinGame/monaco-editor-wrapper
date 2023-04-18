@@ -1,28 +1,28 @@
 [
   {
     "id": "Default Dark+",
-    "label": "Dark+ (default dark)",
+    "label": "Dark+",
     "uiTheme": "vs-dark",
     "path": "./themes/dark_plus.json",
     "extension": "theme-defaults"
   },
   {
     "id": "Default Dark+ Experimental",
-    "label": "Dark+ V2 (Experimental)",
+    "label": "Dark+ Experimental",
     "uiTheme": "vs-dark",
     "path": "./themes/dark_plus_experimental.json",
     "extension": "theme-defaults"
   },
   {
     "id": "Default Light+",
-    "label": "Light+ (default light)",
+    "label": "Light+",
     "uiTheme": "vs",
     "path": "./themes/light_plus.json",
     "extension": "theme-defaults"
   },
   {
     "id": "Default Light+ Experimental",
-    "label": "Light+ V2 (Experimental)",
+    "label": "Light+ Experimental",
     "uiTheme": "vs",
     "path": "./themes/light_plus_experimental.json",
     "extension": "theme-defaults"
