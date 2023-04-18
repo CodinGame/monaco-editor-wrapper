@@ -22,7 +22,7 @@ interface Extension {
 
 const extensions: Extension[] = [
   ...['theme-defaults', 'clojure', 'coffeescript', 'cpp', 'csharp', 'css', 'fsharp', 'go',
-    'groovy', 'html', 'java', 'javascript', 'json', 'lua', 'markdown-basics',
+    'groovy', 'html', 'java', 'javascript', 'json', 'julia', 'lua', 'markdown-basics',
     'objective-c', 'perl', 'php', 'powershell', 'python', 'r', 'ruby',
     'rust', 'scss', 'shellscript', 'sql', 'swift', 'typescript-basics', 'typescript-language-features',
     'vb', 'xml', 'yaml'].map(language => ({
