@@ -2,7 +2,6 @@ import * as monaco from 'monaco-editor'
 import { StandaloneServices, IConfigurationChangeEvent, IConfigurationService } from 'vscode/services'
 import * as vscode from 'vscode'
 import { configurationRegistry, updateUserConfiguration, getUserConfiguration, onUserConfigurationChange, IConfigurationNode, IConfigurationDefaults } from 'vscode/service-override/configuration'
-import extensions from '../languages/extensions/extensions.json'
 import './files'
 
 configurationRegistry.registerDefaultConfigurations([{
@@ -29,10 +28,6 @@ configurationRegistry.registerDefaultConfigurations([{
       }
     }
   }
-}])
-
-configurationRegistry.registerDefaultConfigurations([{
-  overrides: extensions.configurationDefaults
 }])
 
 export function onConfigurationChanged (listener: (e: IConfigurationChangeEvent) => void): vscode.Disposable {
