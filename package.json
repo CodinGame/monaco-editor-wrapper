@@ -7,8 +7,10 @@
     "build": "npm run lint && npm run compile && npm run generate-types",
     "compile": "node --experimental-json-modules ./node_modules/.bin/rollup --config rollup.config.ts --configPlugin typescript",
     "generate-types": "tsc --project tsconfig.types.json",
-    "update-extensions": "node --loader ts-node/esm update-extensions.ts",
-    "lint": "eslint --ext .ts src update-extensions.ts"
+    "update-extensions": "node --loader ts-node/esm scripts/update-extensions.ts",
+    "download-extensions": "./scripts/download-extensions.sh",
+    "lint": "eslint --ext .ts src scripts/update-extensions.ts",
+    "preprepare": "npm run download-extensions"
   },
   "repository": {
     "type": "git",
