@@ -20,45 +20,6 @@
   "exports": {
     ".": {
       "default": "./dist/main.js"
-    },
-    "./features/jsonContribution": {
-      "types": "./dist/features/jsonContribution.d.ts",
-      "default": "./dist/features/jsonContribution.js"
-    },
-    "./features/cssContribution": {
-      "types": "./dist/features/cssContribution.d.ts",
-      "default": "./dist/features/cssContribution.js"
-    },
-    "./features/htmlContribution": {
-      "types": "./dist/features/htmlContribution.d.ts",
-      "default": "./dist/features/htmlContribution.js"
-    },
-    "./features/typescriptContribution": {
-      "types": "./dist/features/typescriptContribution.d.ts",
-      "default": "./dist/features/typescriptContribution.js"
-    },
-    "./features/extensionConfigurations": {
-      "types": "./dist/features/extensionConfigurations.d.ts",
-      "default": "./dist/features/extensionConfigurations.js"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "features/jsonContribution": [
-        "./dist/features/jsonContribution.d.ts"
-      ],
-      "features/cssContribution": [
-        "./dist/features/cssContribution.d.ts"
-      ],
-      "features/htmlContribution": [
-        "./dist/features/htmlContribution.d.ts"
-      ],
-      "features/typescriptContribution": [
-        "./dist/features/typescriptContribution.d.ts"
-      ],
-      "features/extensionConfigurations": [
-        "./dist/features/extensionConfigurations.d.ts"
-      ]
     }
   },
   "files": [

@@ -2,7 +2,6 @@ import * as monaco from 'monaco-editor'
 import { StandaloneServices, IConfigurationChangeEvent, IConfigurationService } from 'vscode/services'
 import * as vscode from 'vscode'
 import { configurationRegistry, updateUserConfiguration, getUserConfiguration, onUserConfigurationChange, IConfigurationNode, IConfigurationDefaults } from 'vscode/service-override/configuration'
-import './files'
 
 configurationRegistry.registerDefaultConfigurations([{
   overrides: {
