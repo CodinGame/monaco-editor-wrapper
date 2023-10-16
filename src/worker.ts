@@ -1,30 +1,20 @@
-import * as monaco from 'monaco-editor'
-import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
-interface WrappedWorker {
-  new (): Worker
-}
-
-export type WorkerLoader = () => WrappedWorker | Promise<WrappedWorker>
+export type WorkerLoader = () => Worker
 
 const workerLoaders: Partial<Record<string, WorkerLoader>> = {
-  editorWorkerService: () => EditorWorker
+  editorWorkerService: () => new Worker(new URL('monaco-editor/esm/vs/editor/editor.worker', import.meta.url)),
+  textMateWorker: () => new Worker(new URL('@codingame/monaco-vscode-textmate-service-override/worker', import.meta.url)),
+  languageDetectionWorkerService: () => new Worker(new URL('@codingame/monaco-vscode-language-detection-worker-service-override/worker', import.meta.url))
 }
 export function registerWorkerLoader (label: string, workerLoader: WorkerLoader): void {
   workerLoaders[label] = workerLoader
 }
 
-declare global {
-  interface Window extends monaco.Window {
-  }
-}
-
 // Do not use monaco-editor-webpack-plugin because it doesn't handle properly cross origin workers
 window.MonacoEnvironment = {
-  getWorker: async function (moduleId, label) {
+  getWorker: function (moduleId, label) {
     const workerFactory = workerLoaders[label]
     if (workerFactory != null) {
-      const Worker = await workerFactory()
-      return new Worker()
+      return workerFactory()
     }
     throw new Error(`Unimplemented worker ${label} (${moduleId})`)
   }
