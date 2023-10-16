@@ -17,7 +17,7 @@
       ]
     },
     "sourceMap": true,
-    "target": "es5"
+    "target": "es2020"
   },
   "include": ["src", "scripts/update-extensions.ts", "rollup.config.ts"],
   "exclude": [
