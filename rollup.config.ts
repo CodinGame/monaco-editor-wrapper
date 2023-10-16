@@ -17,7 +17,11 @@ const extensions = ['.js', '.ts']
 export default rollup.defineConfig({
   cache: false,
   input: {
-    main: 'src/index.ts'
+    main: 'src/index.ts',
+    'features/views': 'src/features/views.ts',
+    'features/viewPanels': 'src/features/viewPanels.ts',
+    'features/search': 'src/features/search.ts',
+    'features/debug': 'src/features/debug.ts'
   },
   external: function isExternal (source, importer, isResolved) {
     if (isResolved) {

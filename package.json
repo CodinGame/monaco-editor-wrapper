@@ -22,6 +22,38 @@
   "exports": {
     ".": {
       "default": "./dist/main.js"
+    },
+    "./features/views": {
+      "types": "./dist/features/views.d.ts",
+      "default": "./dist/features/views.js"
+    },
+    "./features/viewPanels": {
+      "types": "./dist/features/viewPanels.d.ts",
+      "default": "./dist/features/viewPanels.js"
+    },
+    "./features/debug": {
+      "types": "./dist/features/debug.d.ts",
+      "default": "./dist/features/debug.js"
+    },
+    "./features/search": {
+      "types": "./dist/features/search.d.ts",
+      "default": "./dist/features/search.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "features/views": [
+        "./dist/features/views.d.ts"
+      ],
+      "features/viewPanels": [
+        "./dist/features/viewPanels.d.ts"
+      ],
+      "features/debug": [
+        "./dist/features/debug.d.ts"
+      ],
+      "features/search": [
+        "./dist/features/search.d.ts"
+      ]
     }
   },
   "files": [
