@@ -1,14 +1,14 @@
 import * as monaco from 'monaco-editor'
-import { OpenEditor, IEditorOptions } from 'vscode/service-override/modelEditor'
+import { OpenEditor, IEditorOptions, IResolvedTextEditorModel } from '@codingame/monaco-vscode-editor-service-override'
+import { IReference } from 'vscode/monaco'
 import { createEditor } from '../monaco'
-import { getConfiguration } from '../configuration'
 
 let currentEditor: ({
   model: monaco.editor.ITextModel
   editor: monaco.editor.IStandaloneCodeEditor
 } & monaco.IDisposable) | null = null
-function openNewCodeEditor (model: monaco.editor.ITextModel) {
-  if (currentEditor != null && model === currentEditor.model) {
+async function openNewCodeEditor (modelRef: IReference<IResolvedTextEditorModel>) {
+  if (currentEditor != null && modelRef.object.textEditorModel === currentEditor.model) {
     return currentEditor.editor
   }
   if (currentEditor != null) {
@@ -33,23 +33,23 @@ function openNewCodeEditor (model: monaco.editor.ITextModel) {
 
   document.body.appendChild(container)
   try {
-    const editor = createEditor(
+    const editor = await createEditor(
       editorElem,
       {
-        model,
+        model: modelRef.object.textEditorModel,
         readOnly: true,
-        automaticLayout: true,
-        ...getConfiguration(model.getLanguageId(), 'editor')
+        automaticLayout: true
       }
     )
 
     currentEditor = {
       dispose: () => {
+        modelRef.dispose()
         editor.dispose()
         document.body.removeChild(container)
         currentEditor = null
       },
-      model,
+      model: modelRef.object.textEditorModel,
       editor
     }
 
@@ -69,7 +69,7 @@ function openNewCodeEditor (model: monaco.editor.ITextModel) {
   }
 }
 
-export type EditorOpenHandler = (model: monaco.editor.ITextModel, input: IEditorOptions | undefined, editor: monaco.editor.ICodeEditor | null, sideBySide?: boolean) => Promise<monaco.editor.ICodeEditor | null>
+export type EditorOpenHandler = (modelRef: IReference<IResolvedTextEditorModel>, input: IEditorOptions | undefined, editor: monaco.editor.ICodeEditor | null, sideBySide?: boolean) => Promise<monaco.editor.ICodeEditor | null>
 
 export default class EditorOpenHandlerRegistry {
   private handlers: EditorOpenHandler[] = []
@@ -86,27 +86,27 @@ export default class EditorOpenHandlerRegistry {
     }
   }
 
-  openCodeEditor: OpenEditor = async (model, options, sideBySide?) => {
+  openCodeEditor: OpenEditor = async (modelRef, options, sideBySide?) => {
     let modelEditor: monaco.editor.ICodeEditor | undefined
     for (const handler of this.handlers) {
-      const handlerEditor = await handler(model, options, null, sideBySide)
+      const handlerEditor = await handler(modelRef, options, null, sideBySide)
       if (handlerEditor != null) {
         modelEditor = handlerEditor
         break
       }
     }
     if (modelEditor == null) {
-      modelEditor = openNewCodeEditor(model)
+      modelEditor = await openNewCodeEditor(modelRef)
 
       // Destroy model ref when we close the editor popup
       const onModelUnmount = () => {
-        model.dispose()
+        modelRef.dispose()
       }
       const onDidDisposeDisposable = modelEditor.onDidDispose(() => {
         onModelUnmount()
       })
       const onDidChangeModelDisposable = modelEditor.onDidChangeModel((e) => {
-        if (e.newModelUrl == null || e.newModelUrl.toString() !== model.uri.toString()) {
+        if (e.newModelUrl == null || e.newModelUrl.toString() !== modelRef.object.textEditorModel.uri.toString()) {
           onModelUnmount()
           onDidDisposeDisposable.dispose()
           onDidChangeModelDisposable.dispose()

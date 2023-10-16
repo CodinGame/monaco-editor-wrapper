@@ -1,56 +1,23 @@
 import * as monaco from 'monaco-editor'
+import { IReference, ITextFileEditorModel, createConfiguredEditor, errorHandler, createModelReference as vscodeCreateModelReference } from 'vscode/monaco'
+import { initialize, editorOpenHandlerRegistry } from './services'
+import './extensions'
 import './languages'
 import './theme'
-import { StandaloneServices, ITextModelService, ITextModelContentProvider } from 'vscode/services'
-import getModelEditorServiceOverride from 'vscode/service-override/modelEditor'
-import getDialogServiceOverride from 'vscode/service-override/dialogs'
-import getConfigurationServiceOverride from 'vscode/service-override/configuration'
-import getKeybindingsServiceOverride from 'vscode/service-override/keybindings'
-import getTextmateServiceOverride from 'vscode/service-override/textmate'
-import getThemeServiceOverride from 'vscode/service-override/theme'
-import geTokenClassificationServiceOverride from 'vscode/service-override/tokenClassification'
-import getLanguageConfigurationServiceOverride from 'vscode/service-override/languageConfiguration'
-import getSnippetConfigurationServiceOverride from 'vscode/service-override/snippets'
-import getLanguagesServiceOverride from 'vscode/service-override/languages'
 import './worker'
-import { createConfiguredEditor, errorHandler } from 'vscode/monaco'
-import onigFile from 'vscode-oniguruma/release/onig.wasm'
-import setupExtensions from './extensions'
-import 'monaco-editor/esm/vs/editor/editor.all'
-import 'monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp'
+import setupExtensions from './editor'
+import 'monaco-editor'
 import 'monaco-editor/esm/vs/editor/standalone/browser/iPadShowKeyboard/iPadShowKeyboard'
-import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneHelpQuickAccess'
-import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoLineQuickAccess'
-import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoSymbolQuickAccess'
-import 'monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneCommandsQuickAccess'
-import 'monaco-editor/esm/vs/editor/standalone/browser/referenceSearch/standaloneReferenceSearch'
-import EditorOpenHandlerRegistry, { EditorOpenHandler } from './tools/EditorOpenHandlerRegistry'
-
-const editorOpenHandlerRegistry = new EditorOpenHandlerRegistry()
-
-StandaloneServices.initialize({
-  ...getModelEditorServiceOverride((model, input, sideBySide) => {
-    return editorOpenHandlerRegistry.openCodeEditor(model, input, sideBySide)
-  }),
-  ...getDialogServiceOverride(),
-  ...getConfigurationServiceOverride(),
-  ...getKeybindingsServiceOverride(),
-  ...getTextmateServiceOverride(async () => {
-    const response = await fetch(onigFile)
-    return await response.arrayBuffer()
-  }),
-  ...getThemeServiceOverride(),
-  ...geTokenClassificationServiceOverride(),
-  ...getLanguageConfigurationServiceOverride(),
-  ...getSnippetConfigurationServiceOverride(),
-  ...getLanguagesServiceOverride()
-})
+import { EditorOpenHandler } from './tools/EditorOpenHandlerRegistry'
 
 errorHandler.setUnexpectedErrorHandler(error => {
   console.warn('Unexpected error', error)
 })
 
-function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandaloneEditorConstructionOptions): monaco.editor.IStandaloneCodeEditor {
+const initializePromise = initialize()
+
+async function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandaloneEditorConstructionOptions): Promise<monaco.editor.IStandaloneCodeEditor> {
+  await initializePromise
   const editor = createConfiguredEditor(domElement, options)
 
   setupExtensions(editor)
@@ -58,9 +25,9 @@ function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandal
   return editor
 }
 
-function registerTextModelContentProvider (scheme: string, provider: ITextModelContentProvider): monaco.IDisposable {
-  const textModelService = StandaloneServices.get(ITextModelService)
-  return textModelService.registerTextModelContentProvider(scheme, provider)
+async function createModelReference (resource: monaco.Uri, content?: string): Promise<IReference<ITextFileEditorModel>> {
+  await initializePromise
+  return vscodeCreateModelReference(resource, content)
 }
 
 function registerEditorOpenHandler (handler: EditorOpenHandler): monaco.IDisposable {
@@ -68,7 +35,8 @@ function registerEditorOpenHandler (handler: EditorOpenHandler): monaco.IDisposa
 }
 
 export {
+  initializePromise,
   createEditor,
-  registerTextModelContentProvider,
+  createModelReference,
   registerEditorOpenHandler
 }
