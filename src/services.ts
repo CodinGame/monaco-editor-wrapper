@@ -24,11 +24,20 @@ const editorOpenHandlerRegistry = new EditorOpenHandlerRegistry()
 
 function getExtensionWorkerConfig () {
   // Hack bundler Worker detection to get the worker url
-  class Worker {
+  class FakeWorker {
     constructor (public url: string | URL, public options?: WorkerOptions) {
     }
   }
-  const fakeWorker = new Worker(new URL('vscode/workers/extensionHost.worker', import.meta.url))
+
+  // Replace the window.Worker class by a fake one so that webpack properly bundles the worker url
+  const OriginalWorker = self.Worker
+  self.Worker = FakeWorker as unknown as typeof Worker
+
+  const fakeWorker = new Worker(new URL('vscode/workers/extensionHost.worker', import.meta.url)) as unknown as FakeWorker
+
+  // restore the original Worker api
+  self.Worker = OriginalWorker
+
   return {
     url: fakeWorker.url.toString(),
     options: fakeWorker.options
