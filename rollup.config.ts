@@ -66,6 +66,7 @@ export default rollup.defineConfig({
 
         const {
           browser,
+          l10n,
           extensionDependencies, // for pure-d that requires hbenl.vscode-test-explorer
           ...remainingManifest
         } = manifest
