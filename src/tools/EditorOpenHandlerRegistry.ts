@@ -7,7 +7,7 @@ let currentEditor: ({
   model: monaco.editor.ITextModel
   editor: monaco.editor.IStandaloneCodeEditor
 } & monaco.IDisposable) | null = null
-async function openNewCodeEditor (modelRef: IReference<IResolvedTextEditorModel>) {
+function openNewCodeEditor (modelRef: IReference<IResolvedTextEditorModel>) {
   if (currentEditor != null && modelRef.object.textEditorModel === currentEditor.model) {
     return currentEditor.editor
   }
@@ -33,7 +33,7 @@ async function openNewCodeEditor (modelRef: IReference<IResolvedTextEditorModel>
 
   document.body.appendChild(container)
   try {
-    const editor = await createEditor(
+    const editor = createEditor(
       editorElem,
       {
         model: modelRef.object.textEditorModel,
@@ -96,7 +96,7 @@ export default class EditorOpenHandlerRegistry {
       }
     }
     if (modelEditor == null) {
-      modelEditor = await openNewCodeEditor(modelRef)
+      modelEditor = openNewCodeEditor(modelRef)
 
       // Destroy model ref when we close the editor popup
       const onModelUnmount = () => {

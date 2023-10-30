@@ -14,10 +14,13 @@ errorHandler.setUnexpectedErrorHandler(error => {
   console.warn('Unexpected error', error)
 })
 
-const initializePromise = initialize()
+let initialized = false
+const initializePromise = initialize().then(() => { initialized = true })
 
-async function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandaloneEditorConstructionOptions): Promise<monaco.editor.IStandaloneCodeEditor> {
-  await initializePromise
+function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandaloneEditorConstructionOptions): monaco.editor.IStandaloneCodeEditor {
+  if (!initialized) {
+    throw new Error('Monaco not initialized')
+  }
   const editor = createConfiguredEditor(domElement, options)
 
   setupExtensions(editor)
