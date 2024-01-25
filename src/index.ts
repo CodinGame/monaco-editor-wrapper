@@ -4,6 +4,7 @@ import { updateUserConfiguration, registerConfigurations, registerDefaultConfigu
 import { getMonacoLanguage, loadLanguage } from './languages'
 import { updateKeybindings, updateEditorKeybindingsMode } from './keybindings'
 import './style'
+import { setUseGlobalPicker } from './services'
 export * from './tools'
 
 export {
@@ -24,5 +25,6 @@ export {
 
   getMonacoLanguage,
   registerEditorOpenHandler,
-  loadLanguage
+  loadLanguage,
+  setUseGlobalPicker
 }

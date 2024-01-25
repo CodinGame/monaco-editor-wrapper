@@ -16,16 +16,19 @@ import getStorageServiceOverride from '@codingame/monaco-vscode-storage-service-
 import getLifecycleServiceOverride from '@codingame/monaco-vscode-lifecycle-service-override'
 import getQuickAccessServiceOverride from '@codingame/monaco-vscode-quickaccess-service-override'
 import { ILogService, LogLevel, StandaloneServices, initialize as initializeServices } from 'vscode/services'
-import { initialize as initializeExtensions } from 'vscode/extensions'
 import * as monaco from 'monaco-editor'
 import EditorOpenHandlerRegistry from './tools/EditorOpenHandlerRegistry'
 
 const editorOpenHandlerRegistry = new EditorOpenHandlerRegistry()
 
+let _useGlobalPicker: boolean = false
+export function setUseGlobalPicker (useGlobalPicker: boolean = true): void {
+  _useGlobalPicker = useGlobalPicker
+}
 
 export function useGlobalPicker (): boolean {
-  // TODO should picker and keybindings be global or per-editor
-  return false
+  // should picker and keybindings be global or per-editor
+  return _useGlobalPicker
 }
 
 let services: monaco.editor.IEditorOverrideServices = {
