@@ -22,27 +22,6 @@ import EditorOpenHandlerRegistry from './tools/EditorOpenHandlerRegistry'
 
 const editorOpenHandlerRegistry = new EditorOpenHandlerRegistry()
 
-function getExtensionWorkerConfig () {
-  // Hack bundler Worker detection to get the worker url
-  class FakeWorker {
-    constructor (public url: string | URL, public options?: WorkerOptions) {
-    }
-  }
-
-  // Replace the window.Worker class by a fake one so that webpack properly bundles the worker url
-  const OriginalWorker = self.Worker
-  self.Worker = FakeWorker as unknown as typeof Worker
-
-  const fakeWorker = new Worker(new URL('vscode/workers/extensionHost.worker', import.meta.url)) as unknown as FakeWorker
-
-  // restore the original Worker api
-  self.Worker = OriginalWorker
-
-  return {
-    url: fakeWorker.url.toString(),
-    options: fakeWorker.options
-  }
-}
 
 export function useGlobalPicker (): boolean {
   // TODO should picker and keybindings be global or per-editor
@@ -50,7 +29,7 @@ export function useGlobalPicker (): boolean {
 }
 
 let services: monaco.editor.IEditorOverrideServices = {
-  ...getExtensionServiceOverride(getExtensionWorkerConfig()),
+  ...getExtensionServiceOverride(),
   ...getModelServiceOverride(),
   ...getDialogsServiceOverride(),
   ...getConfigurationServiceOverride(monaco.Uri.file('/tmp/project')),

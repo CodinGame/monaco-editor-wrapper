@@ -38,6 +38,10 @@
     "./features/search": {
       "types": "./dist/features/search.d.ts",
       "default": "./dist/features/search.js"
+    },
+    "./features/extensionHostWorker": {
+      "types": "./dist/features/extensionHostWorker.d.ts",
+      "default": "./dist/features/extensionHostWorker.js"
     }
   },
   "typesVersions": {
@@ -53,6 +57,9 @@
       ],
       "features/search": [
         "./dist/features/search.d.ts"
+      ],
+      "features/extensionHostWorker": [
+        "./dist/features/extensionHostWorker.d.ts"
       ]
     }
   },
