@@ -1,7 +1,8 @@
 module.exports = {
   ...require('@codingame/semantic-release-config'),
   branches: [
-    'main'
+    'main',
+    { name: '*', channel: 'next', prerelease: true }
   ],
   plugins: [
     '@semantic-release/commit-analyzer',
