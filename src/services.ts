@@ -32,7 +32,7 @@ let services: monaco.editor.IEditorOverrideServices = {
   ...getExtensionServiceOverride(),
   ...getModelServiceOverride(),
   ...getDialogsServiceOverride(),
-  ...getConfigurationServiceOverride(monaco.Uri.file('/tmp/project')),
+  ...getConfigurationServiceOverride(),
   ...getKeybindingsServiceOverride({
     shouldUseGlobalKeybindings () {
       return useGlobalPicker()
@@ -69,10 +69,8 @@ export async function initialize (): Promise<void> {
   // wait a short time for the services to be registered
   await new Promise(resolve => setTimeout(resolve, 0))
 
-  await initializeServices(services)
+  await initializeServices(services, undefined, { workspaceProvider: { open: async () => false, workspace: { workspaceUri: monaco.Uri.file('/tmp/project') }, trusted: true } })
   StandaloneServices.get(ILogService).setLevel(LogLevel.Off)
-
-  await initializeExtensions()
 }
 
 export {
