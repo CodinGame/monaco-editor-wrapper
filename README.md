@@ -48,13 +48,6 @@ To enable them, import the following files:
 
 #### Additional apis
 
-##### Highlighting/theme
-
-This library uses VS Code themes instead of Monaco theme.
-To add your custom theme, use the `defineVSCodeTheme` method.
-
-Default Monaco theme shouldn't be used.
-
 ##### User configuration
 
 This library exposed some functions to manage the user global configuration:
