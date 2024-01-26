@@ -190,8 +190,8 @@
     "not IE_Mob 11"
   ],
   "volta": {
-    "node": "18.13.0",
-    "npm": "9.4.1"
+    "node": "20.10.0",
+    "npm": "10.4.0"
   },
   "overrides": {
     "monaco-editor": "$monaco-editor",
