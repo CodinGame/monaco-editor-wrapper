@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
       - run: npm ci
-      - run: npx commitlint --from HEAD~${{ github.event.pull_request.commits }} --to HEAD
+      - run: npx commitlint --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose
   check:
     name: Check build
     runs-on: ubuntu-latest
@@ -28,7 +28,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 16.x
+        node-version: 18.13.0
     - name: Install dependencies
       run: npm ci
     - name: Build
