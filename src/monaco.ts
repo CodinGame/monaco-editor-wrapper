@@ -6,8 +6,6 @@ import './languages'
 import './theme'
 import './worker'
 import setupExtensions from './editor'
-import 'monaco-editor'
-import 'monaco-editor/esm/vs/editor/standalone/browser/iPadShowKeyboard/iPadShowKeyboard'
 import { EditorOpenHandler } from './tools/EditorOpenHandlerRegistry'
 
 errorHandler.setUnexpectedErrorHandler(error => {
