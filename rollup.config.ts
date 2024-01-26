@@ -49,7 +49,6 @@ export default rollup.defineConfig({
       format: 'import'
     }),
     vsixPlugin({
-      rollupPlugins: [],
       transformManifest (manifest) {
         const {
           commands,
