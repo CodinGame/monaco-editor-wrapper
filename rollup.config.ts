@@ -41,7 +41,9 @@ export default rollup.defineConfig({
     },
     preserveModules: true,
     preserveModulesRoot: 'src',
-    entryFileNames: '[name].js'
+    assetFileNames: 'assets/[name][extname]',
+    entryFileNames: '[name].js',
+    chunkFileNames: '[name].js'
   }],
   plugins: [
     builtins(),
