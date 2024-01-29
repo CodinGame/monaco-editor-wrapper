@@ -19,6 +19,7 @@ import { ILogService, LogLevel, StandaloneServices, initialize as initializeServ
 import * as monaco from 'monaco-editor'
 import { initFile } from '@codingame/monaco-vscode-files-service-override'
 import EditorOpenHandlerRegistry from './tools/EditorOpenHandlerRegistry'
+import 'vscode/localExtensionHost'
 
 const editorOpenHandlerRegistry = new EditorOpenHandlerRegistry()
 
