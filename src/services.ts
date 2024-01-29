@@ -1,7 +1,7 @@
 import getExtensionServiceOverride from '@codingame/monaco-vscode-extensions-service-override'
 import getModelServiceOverride from '@codingame/monaco-vscode-model-service-override'
 import getDialogsServiceOverride from '@codingame/monaco-vscode-dialogs-service-override'
-import getConfigurationServiceOverride from '@codingame/monaco-vscode-configuration-service-override'
+import getConfigurationServiceOverride, { IStoredWorkspace } from '@codingame/monaco-vscode-configuration-service-override'
 import getKeybindingsServiceOverride from '@codingame/monaco-vscode-keybindings-service-override'
 import getTextmateServiceOverride from '@codingame/monaco-vscode-textmate-service-override'
 import getThemeServiceOverride from '@codingame/monaco-vscode-theme-service-override'
@@ -17,6 +17,7 @@ import getLifecycleServiceOverride from '@codingame/monaco-vscode-lifecycle-serv
 import getQuickAccessServiceOverride from '@codingame/monaco-vscode-quickaccess-service-override'
 import { ILogService, LogLevel, StandaloneServices, initialize as initializeServices } from 'vscode/services'
 import * as monaco from 'monaco-editor'
+import { initFile } from '@codingame/monaco-vscode-files-service-override'
 import EditorOpenHandlerRegistry from './tools/EditorOpenHandlerRegistry'
 
 const editorOpenHandlerRegistry = new EditorOpenHandlerRegistry()
@@ -72,7 +73,13 @@ export async function initialize (): Promise<void> {
   // wait a short time for the services to be registered
   await new Promise(resolve => setTimeout(resolve, 0))
 
-  await initializeServices(services, undefined, { workspaceProvider: { open: async () => false, workspace: { workspaceUri: monaco.Uri.file('/tmp/project') }, trusted: true } })
+  const workspaceFile = monaco.Uri.file('/workspace.code-workspace')
+  await initFile(workspaceFile, JSON.stringify(<IStoredWorkspace>{
+    folders: [{
+      path: '/tmp/project'
+    }]
+  }))
+  await initializeServices(services, undefined, { workspaceProvider: { open: async () => false, workspace: { workspaceUri: workspaceFile }, trusted: true } })
   StandaloneServices.get(ILogService).setLevel(LogLevel.Off)
 }
 
