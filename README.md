@@ -19,10 +19,6 @@ Monaco editor wrapper that adds some features and improvements to it:
   - It allows the opening of an overlay editor when navigating to an external file
   - It adds some language aliases
 
-### Requirements
-
-Webpack is required and it should be able to import a .wasm file as a file, using either the `file-loader` or [Asset modules](https://webpack.js.org/guides/asset-modules/)
-
 ### Installation
 
 ```bash
