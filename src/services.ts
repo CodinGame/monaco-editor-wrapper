@@ -15,6 +15,8 @@ import getEditorServiceOverride from '@codingame/monaco-vscode-editor-service-ov
 import getStorageServiceOverride from '@codingame/monaco-vscode-storage-service-override'
 import getLifecycleServiceOverride from '@codingame/monaco-vscode-lifecycle-service-override'
 import getQuickAccessServiceOverride from '@codingame/monaco-vscode-quickaccess-service-override'
+import getLogServiceOverride from '@codingame/monaco-vscode-log-service-override'
+import getWorkingCopyServiceOverride from '@codingame/monaco-vscode-working-copy-service-override'
 import { ILogService, LogLevel, StandaloneServices, initialize as initializeServices } from 'vscode/services'
 import * as monaco from 'monaco-editor'
 import { initFile } from '@codingame/monaco-vscode-files-service-override'
@@ -34,6 +36,7 @@ export function useGlobalPicker (): boolean {
 }
 
 let services: monaco.editor.IEditorOverrideServices = {
+  ...getLogServiceOverride(),
   ...getExtensionServiceOverride(),
   ...getModelServiceOverride(),
   ...getDialogsServiceOverride(),
@@ -60,7 +63,8 @@ let services: monaco.editor.IEditorOverrideServices = {
     shouldUseGlobalPicker () {
       return useGlobalPicker()
     }
-  })
+  }),
+  ...getWorkingCopyServiceOverride()
 }
 
 export function registerServices (newServices: monaco.editor.IEditorOverrideServices): void {
