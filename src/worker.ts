@@ -1,3 +1,4 @@
+import { Worker } from './tools/crossOriginWorker'
 export type WorkerLoader = () => Worker
 
 const workerLoaders: Partial<Record<string, WorkerLoader>> = {
