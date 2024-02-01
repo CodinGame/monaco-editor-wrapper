@@ -2,7 +2,7 @@ import { IDisposable } from 'monaco-editor'
 import * as monacoVim from 'monaco-vim'
 import * as monaco from 'monaco-editor'
 import { IJSONSchema } from 'vscode/monaco'
-import { configurationRegistry, ConfigurationScope } from 'vscode/service-override/configuration'
+import { configurationRegistry, ConfigurationScope } from '@codingame/monaco-vscode-configuration-service-override'
 import { getConfiguration, onConfigurationChanged } from '../configuration'
 
 const vimKeybindingsSchema: IJSONSchema = {

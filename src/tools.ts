@@ -262,7 +262,7 @@ export async function collapseCodeSections (editor: monaco.editor.IStandaloneCod
         positionLineNumber: r.endLineNumber,
         positionColumn: r.endColumn
       })))
-      await editor.getAction('editor.createFoldingRangeFromSelection').run()
+      await editor.getAction('editor.createFoldingRangeFromSelection')!.run()
       if (selections != null) {
         editor.setSelections(selections)
       }

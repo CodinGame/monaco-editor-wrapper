@@ -1,0 +1,137 @@
+[
+  {
+    "publisher": "Angular",
+    "name": "ng-template",
+    "version": "17.1.0"
+  },
+  {
+    "publisher": "webfreak",
+    "name": "code-d",
+    "version": "0.23.2"
+  },
+  {
+    "publisher": "Dart-Code",
+    "name": "dart-code",
+    "version": "3.81.20240117"
+  },
+  {
+    "publisher": "justusadam",
+    "name": "language-haskell",
+    "version": "3.6.0"
+  },
+  {
+    "publisher": "mathiasfrohlich",
+    "name": "Kotlin",
+    "version": "1.7.1"
+  },
+  {
+    "publisher": "ocamllabs",
+    "name": "ocaml-platform",
+    "version": "1.16.1"
+  },
+  {
+    "publisher": "alefragnani",
+    "name": "pascal",
+    "version": "9.6.0"
+  },
+  {
+    "publisher": "scala-lang",
+    "name": "scala",
+    "version": "0.5.7"
+  },
+  {
+    "publisher": "scalameta",
+    "name": "metals",
+    "version": "1.27.3"
+  },
+  {
+    "publisher": "broadcomMFD",
+    "name": "cobol-language-support",
+    "version": "2.1.0"
+  },
+  {
+    "publisher": "JakeBecker",
+    "name": "elixir-ls",
+    "version": "0.19.0"
+  },
+  {
+    "publisher": "pgourlain",
+    "name": "erlang",
+    "version": "0.9.8"
+  },
+  {
+    "publisher": "bitwisecook",
+    "name": "tcl",
+    "version": "0.4.3"
+  },
+  {
+    "publisher": "IMCTradingBV",
+    "name": "svlangserver",
+    "version": "0.4.1"
+  },
+  {
+    "publisher": "ckolkman",
+    "name": "vscode-postgres",
+    "version": "1.4.3"
+  },
+  {
+    "publisher": "redhat",
+    "name": "java",
+    "version": "1.27.2024012608"
+  },
+  {
+    "publisher": "sumneko",
+    "name": "lua",
+    "version": "3.7.4"
+  },
+  {
+    "publisher": "ms-vscode",
+    "name": "cpptools",
+    "version": "1.19.2"
+  },
+  {
+    "publisher": "ms-dotnettools",
+    "name": "csharp",
+    "version": "2.16.24"
+  },
+  {
+    "publisher": "ms-python",
+    "name": "python",
+    "version": "2023.25.10221012"
+  },
+  {
+    "publisher": "REditorSupport",
+    "name": "r",
+    "version": "2.8.2"
+  },
+  {
+    "publisher": "castwide",
+    "name": "solargraph",
+    "version": "0.24.1"
+  },
+  {
+    "publisher": "JuanBlanco",
+    "name": "solidity",
+    "version": "0.0.165"
+  },
+  {
+    "publisher": "johnsoncodehk",
+    "name": "vscode-angular",
+    "version": "1.0.22"
+  },
+  {
+    "publisher": "svelte",
+    "name": "svelte-vscode",
+    "version": "108.2.1"
+  },
+  {
+    "publisher": "batisteo",
+    "name": "vscode-django",
+    "version": "1.15.0"
+  },
+  {
+    "publisher": "golang",
+    "name": "Go",
+    "version": "0.40.3"
+  }
+]

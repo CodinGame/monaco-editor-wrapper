@@ -1,5 +1,5 @@
 import * as monaco from 'monaco-editor'
-import { updateUserKeybindings } from 'vscode/service-override/keybindings'
+import { updateUserKeybindings } from '@codingame/monaco-vscode-keybindings-service-override'
 
 export async function updateKeybindings (bindingsJson: string): Promise<void> {
   await updateUserKeybindings(bindingsJson)

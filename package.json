@@ -7,8 +7,10 @@
     "build": "npm run lint && npm run compile && npm run generate-types",
     "compile": "node --experimental-json-modules ./node_modules/.bin/rollup --config rollup.config.ts --configPlugin typescript",
     "generate-types": "tsc --project tsconfig.types.json",
-    "update-extensions": "node --loader ts-node/esm update-extensions.ts",
-    "lint": "eslint --ext .ts src update-extensions.ts"
+    "update-extensions": "node --loader ts-node/esm scripts/update-extensions.ts",
+    "download-extensions": "./scripts/download-extensions.sh",
+    "lint": "eslint --ext .ts src scripts/update-extensions.ts",
+    "preprepare": "npm run download-extensions"
   },
   "repository": {
     "type": "git",
@@ -21,43 +23,43 @@
     ".": {
       "default": "./dist/main.js"
     },
-    "./features/jsonContribution": {
-      "types": "./dist/features/jsonContribution.d.ts",
-      "default": "./dist/features/jsonContribution.js"
+    "./features/views": {
+      "types": "./dist/features/views.d.ts",
+      "default": "./dist/features/views.js"
     },
-    "./features/cssContribution": {
-      "types": "./dist/features/cssContribution.d.ts",
-      "default": "./dist/features/cssContribution.js"
+    "./features/viewPanels": {
+      "types": "./dist/features/viewPanels.d.ts",
+      "default": "./dist/features/viewPanels.js"
     },
-    "./features/htmlContribution": {
-      "types": "./dist/features/htmlContribution.d.ts",
-      "default": "./dist/features/htmlContribution.js"
+    "./features/debug": {
+      "types": "./dist/features/debug.d.ts",
+      "default": "./dist/features/debug.js"
     },
-    "./features/typescriptContribution": {
-      "types": "./dist/features/typescriptContribution.d.ts",
-      "default": "./dist/features/typescriptContribution.js"
+    "./features/search": {
+      "types": "./dist/features/search.d.ts",
+      "default": "./dist/features/search.js"
     },
-    "./features/extensionConfigurations": {
-      "types": "./dist/features/extensionConfigurations.d.ts",
-      "default": "./dist/features/extensionConfigurations.js"
+    "./features/extensionHostWorker": {
+      "types": "./dist/features/extensionHostWorker.d.ts",
+      "default": "./dist/features/extensionHostWorker.js"
     }
   },
   "typesVersions": {
     "*": {
-      "features/jsonContribution": [
-        "./dist/features/jsonContribution.d.ts"
+      "features/views": [
+        "./dist/features/views.d.ts"
       ],
-      "features/cssContribution": [
-        "./dist/features/cssContribution.d.ts"
+      "features/viewPanels": [
+        "./dist/features/viewPanels.d.ts"
       ],
-      "features/htmlContribution": [
-        "./dist/features/htmlContribution.d.ts"
+      "features/debug": [
+        "./dist/features/debug.d.ts"
       ],
-      "features/typescriptContribution": [
-        "./dist/features/typescriptContribution.d.ts"
+      "features/search": [
+        "./dist/features/search.d.ts"
       ],
-      "features/extensionConfigurations": [
-        "./dist/features/extensionConfigurations.d.ts"
+      "features/extensionHostWorker": [
+        "./dist/features/extensionHostWorker.d.ts"
       ]
     }
   },
@@ -66,62 +68,120 @@
     "stats.html"
   ],
   "dependencies": {
-    "monaco-editor": "^0.34.0",
-    "vscode": "npm:@codingame/monaco-vscode-api@~1.69.21",
-    "vscode-oniguruma": "^1.6.2",
-    "vscode-textmate": "^7.0.4"
+    "@codingame/monaco-vscode-accessibility-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-audio-cue-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-clojure-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-coffeescript-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-configuration-editing-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-configuration-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-cpp-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-csharp-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-css-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-debug-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-dialogs-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-diff-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-editor-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-extensions-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-fsharp-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-go-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-groovy-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-html-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-java-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-javascript-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-json-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-julia-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-keybindings-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-language-detection-worker-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-languages-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-lifecycle-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-log-service-override": "^2.0.1",
+    "@codingame/monaco-vscode-lua-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-markdown-basics-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-markdown-language-features-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-markdown-math-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-markers-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-media-preview-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-model-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-npm-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-objective-c-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-output-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-perl-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-php-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-powershell-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-preferences-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-python-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-quickaccess-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-r-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-references-view-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-ruby-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-rust-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-scss-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-search-result-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-search-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-shellscript-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-snippets-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-sql-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-storage-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-swift-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-textmate-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-theme-defaults-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-theme-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-theme-seti-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-typescript-basics-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-vb-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-view-status-bar-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-views-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-working-copy-service-override": "^2.0.1",
+    "@codingame/monaco-vscode-xml-default-extension": "~2.0.0",
+    "@codingame/monaco-vscode-yaml-default-extension": "~2.0.0",
+    "monaco-editor": "npm:@codingame/monaco-vscode-editor-api@~2.0.0",
+    "vscode": "npm:@codingame/monaco-vscode-api@~2.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.21.0",
-    "@babel/plugin-proposal-class-properties": "7.18.6",
-    "@babel/plugin-proposal-optional-chaining": "7.21.0",
-    "@babel/preset-env": "7.20.2",
-    "@babel/preset-typescript": "7.21.0",
-    "@babel/runtime": "7.21.0",
-    "@codingame/commitlint-config-codingame": "^1.0.5",
-    "@codingame/eslint-config": "^1.1.6",
-    "@codingame/semantic-release-config": "^1.2.0",
+    "@codingame/commitlint-config-codingame": "^1.0.7",
+    "@codingame/eslint-config": "^1.1.10",
+    "@codingame/monaco-vscode-rollup-vsix-plugin": "~2.0.0",
+    "@codingame/semantic-release-config": "^1.3.5",
     "@codingame/tsconfig": "^1.1.1",
-    "@commitlint/cli": "^17.4.4",
-    "@rollup/plugin-alias": "4.0.3",
-    "@rollup/plugin-babel": "6.0.3",
-    "@rollup/plugin-commonjs": "24.0.1",
-    "@rollup/plugin-json": "6.0.0",
-    "@rollup/plugin-node-resolve": "15.0.1",
-    "@rollup/plugin-typescript": "^11.0.0",
-    "@types/ini": "1.3.31",
-    "@types/js-yaml": "^4.0.5",
-    "@types/node": "18.11.18",
-    "@types/rollup-plugin-node-builtins": "^2.1.2",
-    "@types/vscode": "~1.69.1",
-    "@typescript-eslint/eslint-plugin": "5.53.0",
-    "@typescript-eslint/parser": "5.53.0",
-    "conventional-changelog-conventionalcommits": "^5.0.0",
+    "@commitlint/cli": "^18.6.0",
+    "@rollup/plugin-alias": "5.1.0",
+    "@rollup/plugin-commonjs": "25.0.7",
+    "@rollup/plugin-json": "6.1.0",
+    "@rollup/plugin-node-resolve": "15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/ini": "4.1.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "20.11.10",
+    "@types/rollup-plugin-node-builtins": "^2.1.5",
+    "@types/vscode": "~1.85.0",
+    "@typescript-eslint/eslint-plugin": "6.19.1",
+    "@typescript-eslint/parser": "6.19.1",
+    "@vscode/vsce": "^2.23.0",
+    "azure-devops-node-api": "^12.3.0",
+    "conventional-changelog-conventionalcommits": "^7.0.2",
     "cson-parser": "4.0.9",
-    "deep-equal": "2.2.0",
-    "eslint": "8.34.0",
-    "eslint-config-standard": "17.0.0",
-    "eslint-plugin-import": "2.27.5",
+    "deep-equal": "2.2.3",
+    "eslint": "8.56.0",
+    "eslint-config-standard": "17.1.0",
+    "eslint-plugin-import": "2.29.1",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "6.1.1",
-    "eslint-plugin-unused-imports": "2.0.0",
+    "eslint-plugin-unused-imports": "3.0.0",
     "fast-plist": "0.1.3",
-    "ini": "3.0.1",
+    "ini": "4.1.1",
     "js-yaml": "^4.1.0",
     "json5": "2.2.3",
     "monaco-emacs": "^0.3.0",
-    "monaco-vim": "^0.3.5",
-    "postcss": "8.4.21",
-    "rollup": "3.17.2",
-    "rollup-plugin-json5": "1.0.0",
+    "monaco-vim": "^0.4.1",
+    "postcss": "8.4.33",
+    "rollup": "4.9.6",
+    "rollup-plugin-glob-import": "^0.5.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-string": "^3.0.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-visualizer": "5.9.0",
-    "rollup-plugin-web-worker-loader": "1.6.1",
-    "ts-node": "10.9.1",
-    "tslib": "^2.5.0",
-    "typescript": "4.9.5"
+    "rollup-plugin-visualizer": "5.12.0",
+    "ts-node": "10.9.2",
+    "tslib": "^2.6.2",
+    "typescript": "5.3.3"
   },
   "browserslist": [
     "defaults",
@@ -132,10 +192,12 @@
     "not IE_Mob 11"
   ],
   "volta": {
-    "node": "18.13.0",
-    "npm": "9.4.1"
+    "node": "20.10.0",
+    "npm": "10.4.0"
   },
   "overrides": {
-    "rollup": "3.17.2"
+    "monaco-editor": "$monaco-editor",
+    "rollup": "4.9.6",
+    "typescript": "5.3.3"
   }
 }

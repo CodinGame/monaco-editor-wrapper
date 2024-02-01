@@ -19,10 +19,6 @@ Monaco editor wrapper that adds some features and improvements to it:
   - It allows the opening of an overlay editor when navigating to an external file
   - It adds some language aliases
 
-### Requirements
-
-Webpack is required and it should be able to import a .wasm file as a file, using either the `file-loader` or [Asset modules](https://webpack.js.org/guides/asset-modules/)
-
 ### Installation
 
 ```bash
@@ -30,21 +26,6 @@ npm install @codingame/monaco-editor-wrapper
 ```
 
 ### Usage
-
-:warning: You should NEVER import `monaco-editor` directly in your code.
-`monaco-editor/esm/vs/editor/editor.api` should be used instead or Monaco will load all languages/worker and break the loading.
-There are 2 solutions:
-- if webpack is used, a resolve alias can be used:
-```javascript
-{
-  resolve: {
-    alias: {
-      'monaco-editor$': require.resolve('monaco-editor/esm/vs/editor/editor.api')
-    }
-  }
-}
-```
-- you can directly use the `monaco` object exported from this library
 
 #### Simple usage
 
@@ -62,13 +43,6 @@ To enable them, import the following files:
 - HTML: `import '@codingame/monaco-editor-wrapper/features/htmlContribution'`
 
 #### Additional apis
-
-##### Highlighting/theme
-
-This library uses VS Code themes instead of Monaco theme.
-To add your custom theme, use the `defineVSCodeTheme` method.
-
-Default Monaco theme shouldn't be used.
 
 ##### User configuration
 
