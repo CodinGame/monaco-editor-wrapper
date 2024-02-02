@@ -82,6 +82,7 @@
     "@codingame/monaco-vscode-diff-default-extension": "~2.0.0",
     "@codingame/monaco-vscode-editor-service-override": "~2.0.0",
     "@codingame/monaco-vscode-extensions-service-override": "~2.0.0",
+    "@codingame/monaco-vscode-files-service-override": "~2.0.2",
     "@codingame/monaco-vscode-fsharp-default-extension": "~2.0.0",
     "@codingame/monaco-vscode-go-default-extension": "~2.0.0",
     "@codingame/monaco-vscode-groovy-default-extension": "~2.0.0",
