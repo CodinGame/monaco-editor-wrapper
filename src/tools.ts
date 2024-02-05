@@ -1,4 +1,5 @@
 import * as monaco from 'monaco-editor'
+import { ContextKeyExpr, DisposableStore, KeybindingsRegistry } from 'vscode/monaco'
 
 interface PastePayload {
   text: string
@@ -315,4 +316,278 @@ export async function collapseCodeSections (editor: monaco.editor.ICodeEditor, s
       }
     }
   }
+}
+
+interface IDecorationProvider {
+  provideDecorations (model: monaco.editor.ITextModel): monaco.editor.IModelDeltaDecoration[]
+}
+
+export function registerTextDecorationProvider (provider: IDecorationProvider): monaco.IDisposable {
+  const disposableStore = new DisposableStore()
+
+  const watchEditor = (editor: monaco.editor.ICodeEditor): monaco.IDisposable => {
+    const disposableStore = new DisposableStore()
+    const decorationCollection = editor.createDecorationsCollection()
+
+    const checkEditor = () => {
+      const model = editor.getModel()
+      if (model != null) {
+        decorationCollection.set(provider.provideDecorations(model))
+      } else {
+        decorationCollection.clear()
+      }
+    }
+
+    disposableStore.add(editor.onDidChangeModel(checkEditor))
+    disposableStore.add(editor.onDidChangeModelContent(checkEditor))
+    disposableStore.add({
+      dispose () {
+        decorationCollection.clear()
+      }
+    })
+    checkEditor()
+    return disposableStore
+  }
+
+  monaco.editor.getEditors().forEach(editor => disposableStore.add(watchEditor(editor)))
+  disposableStore.add(monaco.editor.onDidCreateEditor(editor => disposableStore.add(watchEditor(editor))))
+
+  return disposableStore
+}
+
+export function runOnAllEditors (cb: (editor: monaco.editor.ICodeEditor) => monaco.IDisposable): monaco.IDisposable {
+  const disposableStore = new DisposableStore()
+
+  const handleEditor = (editor: monaco.editor.ICodeEditor) => {
+    const disposable = cb(editor)
+    disposableStore.add(disposable)
+    const disposeEventDisposable = editor.onDidDispose(() => {
+      disposableStore.delete(disposable)
+      disposableStore.delete(disposeEventDisposable)
+    })
+    disposableStore.add(disposeEventDisposable)
+  }
+  monaco.editor.getEditors().forEach(handleEditor)
+  disposableStore.add(monaco.editor.onDidCreateEditor(handleEditor))
+
+  return disposableStore
+}
+
+export function preventAlwaysConsumeTouchEvent (editor: monaco.editor.ICodeEditor): void {
+  let firstX = 0
+  let firstY = 0
+  let atTop = false
+  let atBottom = false
+  let atLeft = false
+  let atRight = false
+  let useBrowserBehavior: null | boolean = null
+
+  editor.onDidChangeModel(() => {
+    const domNode = editor.getDomNode()
+    if (domNode == null) {
+      return
+    }
+    domNode.addEventListener('touchstart', (e) => {
+      const firstTouch = e.targetTouches.item(0)
+      if (firstTouch == null) {
+        return
+      }
+
+      // Prevent monaco-editor from trying to call preventDefault on the touchstart event
+      // so we'll be able to use the default behavior of the touchmove event
+      e.preventDefault = () => {}
+
+      firstX = firstTouch.clientX
+      firstY = firstTouch.clientY
+
+      const layoutInfo = editor.getLayoutInfo()
+      atTop = editor.getScrollTop() <= 0
+      atBottom = editor.getScrollTop() >= editor.getContentHeight() - layoutInfo.height
+      atLeft = editor.getScrollLeft() <= 0
+      atRight = editor.getScrollLeft() >= editor.getContentWidth() - layoutInfo.width
+      useBrowserBehavior = null
+    })
+    domNode.addEventListener('touchmove', (e) => {
+      const firstTouch = e.changedTouches.item(0)
+      if (firstTouch == null) {
+        return
+      }
+
+      if (useBrowserBehavior == null) {
+        const dx = firstTouch.clientX - firstX
+        const dy = firstTouch.clientY - firstY
+        if (Math.abs(dx) > Math.abs(dy)) {
+          // It's an horizontal scroll
+          useBrowserBehavior = (dx < 0 && atRight) || (dx > 0 && atLeft)
+        } else {
+          // It's a vertical scroll
+          useBrowserBehavior = (dy < 0 && atBottom) || (dy > 0 && atTop)
+        }
+      }
+      if (useBrowserBehavior) {
+        // Stop the event before monaco tries to preventDefault on it
+        e.stopPropagation()
+      }
+    })
+    domNode.addEventListener('touchend', (e) => {
+      if (useBrowserBehavior ?? false) {
+        // Prevent monaco from trying to open its context menu
+        // It thinks it's a long press because it didn't receive the move events
+        e.stopPropagation()
+      }
+    })
+  })
+}
+
+// https://github.com/microsoft/monaco-editor/issues/568
+class PlaceholderContentWidget implements monaco.editor.IContentWidget {
+  private static readonly ID = 'editor.widget.placeholderHint'
+
+  private domNode: HTMLElement | undefined
+
+  constructor (
+    private readonly editor: monaco.editor.ICodeEditor,
+    private readonly placeholder: string
+  ) {}
+
+  getId (): string {
+    return PlaceholderContentWidget.ID
+  }
+
+  getDomNode (): HTMLElement {
+    if (this.domNode == null) {
+      this.domNode = document.createElement('pre')
+      this.domNode.style.width = 'max-content'
+      this.domNode.textContent = this.placeholder
+      this.domNode.style.pointerEvents = 'none'
+      this.domNode.style.color = '#aaa'
+      this.domNode.style.margin = '0'
+
+      this.editor.applyFontInfo(this.domNode)
+    }
+
+    return this.domNode
+  }
+
+  getPosition (): monaco.editor.IContentWidgetPosition | null {
+    return {
+      position: { lineNumber: 1, column: 1 },
+      preference: [monaco.editor.ContentWidgetPositionPreference.EXACT]
+    }
+  }
+}
+
+export function addPlaceholder (
+  editor: monaco.editor.ICodeEditor,
+  placeholder: string
+): monaco.IDisposable {
+  const widget = new PlaceholderContentWidget(editor, placeholder)
+
+  function onDidChangeModelContent (): void {
+    if (editor.getValue() === '') {
+      editor.addContentWidget(widget)
+    } else {
+      editor.removeContentWidget(widget)
+    }
+  }
+
+  onDidChangeModelContent()
+  const changeDisposable = editor.onDidChangeModelContent(() => onDidChangeModelContent())
+  return {
+    dispose () {
+      changeDisposable.dispose()
+      editor.removeContentWidget(widget)
+    }
+  }
+}
+
+export function mapClipboard (
+  editor: monaco.editor.ICodeEditor,
+  {
+    toClipboard,
+    fromClipboard
+  }: {
+    toClipboard: (data: string) => string
+    fromClipboard: (data: string) => string
+  }
+): monaco.IDisposable {
+  const disposableStore = new DisposableStore()
+  let copiedText = ''
+
+  disposableStore.add(
+    KeybindingsRegistry.registerCommandAndKeybindingRule({
+      id: 'customCopy',
+      weight: 1000,
+      handler: () => {
+        copiedText = editor.getModel()!.getValueInRange(editor.getSelection()!)
+        document.execCommand('copy')
+      },
+      when: ContextKeyExpr.equals('editorId', editor.getId()),
+      primary: monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyC
+    })
+  )
+
+  disposableStore.add(
+    KeybindingsRegistry.registerCommandAndKeybindingRule({
+      id: 'customCut',
+      weight: 1000,
+      handler: () => {
+        copiedText = editor.getModel()!.getValueInRange(editor.getSelection()!)
+        document.execCommand('copy')
+      },
+      when: ContextKeyExpr.equals('editorId', editor.getId()),
+      primary: monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyX
+    })
+  )
+
+  const originalTrigger = editor.trigger
+  editor.trigger = function (source, handlerId, payload) {
+    if (handlerId === 'editor.action.clipboardCopyAction') {
+      copiedText = editor.getModel()!.getValueInRange(editor.getSelection()!)
+    } else if (handlerId === 'editor.action.clipboardCutAction') {
+      copiedText = editor.getModel()!.getValueInRange(editor.getSelection()!)
+    } else if (handlerId === 'paste') {
+      const newText = fromClipboard(payload.text)
+      if (newText !== payload.text) {
+        payload = {
+          ...payload,
+          text: newText
+        }
+      }
+    }
+    originalTrigger.call(this, source, handlerId, payload)
+  }
+  disposableStore.add({
+    dispose () {
+      editor.trigger = originalTrigger
+    }
+  })
+
+  function mapCopy (event: ClipboardEvent): void {
+    const clipdata = event.clipboardData ?? (window as unknown as { clipboardData: DataTransfer }).clipboardData
+    let content = clipdata.getData('Text')
+    if (content.length === 0) {
+      content = copiedText
+    }
+    const transformed = toClipboard(content)
+    if (transformed !== content) {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (clipdata.types != null) {
+        clipdata.types.forEach(type => clipdata.setData(type, toClipboard(content)))
+      } else {
+        clipdata.setData('text/plain', toClipboard(content))
+      }
+    }
+  }
+  const editorDomNode = editor.getContainerDomNode()
+  editorDomNode.addEventListener('copy', mapCopy)
+  editorDomNode.addEventListener('cut', mapCopy)
+  disposableStore.add({
+    dispose () {
+      editorDomNode.removeEventListener('copy', mapCopy)
+      editorDomNode.removeEventListener('cut', mapCopy)
+    }
+  })
+
+  return disposableStore
 }
