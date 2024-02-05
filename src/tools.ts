@@ -16,7 +16,8 @@ export function lockCodeWithoutDecoration (
   decorations: string[],
   allowChangeFromSources: string[] = [],
   errorMessage?: string
-): () => void {
+): monaco.IDisposable {
+  const disposableStore = new DisposableStore()
   function displayLockedCodeError (position: monaco.Position) {
     if (errorMessage == null) {
       return
@@ -124,38 +125,42 @@ export function lockCodeWithoutDecoration (
       model.applyEdits = originalApplyEdit as typeof model.applyEdits
     }
   }
-  const editorChangeModelDisposable = editor.onDidChangeModel(lockModel)
+  disposableStore.add(editor.onDidChangeModel(lockModel))
   lockModel()
 
   // Handle selection of the last line of an editable range
-  const selectionDisposable = editor.onDidChangeCursorSelection(e => {
-    if (canEditRange(e.selection)) {
-      return
-    }
-    const model = editor.getModel()
-    if (model == null) {
-      return
-    }
-    const shiftedRange = monaco.Range.fromPositions(
-      model.getPositionAt(model.getOffsetAt(e.selection.getStartPosition()) - 1),
-      model.getPositionAt(model.getOffsetAt(e.selection.getEndPosition()) - 1)
-    )
-    if (canEditRange(shiftedRange)) {
-      editor.setSelection(shiftedRange)
+  disposableStore.add(
+    editor.onDidChangeCursorSelection((e) => {
+      if (canEditRange(e.selection)) {
+        return
+      }
+      const model = editor.getModel()
+      if (model == null) {
+        return
+      }
+      const shiftedRange = monaco.Range.fromPositions(
+        model.getPositionAt(model.getOffsetAt(e.selection.getStartPosition()) - 1),
+        model.getPositionAt(model.getOffsetAt(e.selection.getEndPosition()) - 1)
+      )
+      if (canEditRange(shiftedRange)) {
+        editor.setSelection(shiftedRange)
+      }
+    })
+  )
+
+  disposableStore.add({
+    dispose () {
+      restoreModelApplyEdit()
+      editor.executeEdits = originalExecuteEdit
+      editor.executeCommands = originalExecuteCommands
+      editor.trigger = originalTrigger
     }
   })
 
-  return () => {
-    selectionDisposable.dispose()
-    restoreModelApplyEdit()
-    editorChangeModelDisposable.dispose()
-    editor.executeEdits = originalExecuteEdit
-    editor.executeCommands = originalExecuteCommands
-    editor.trigger = originalTrigger
-  }
+  return disposableStore
 }
 
-export function hideCodeWithoutDecoration (editor: monaco.editor.IStandaloneCodeEditor, decorations: string[]): () => void {
+export function hideCodeWithoutDecoration (editor: monaco.editor.IStandaloneCodeEditor, decorations: string[]): monaco.IDisposable {
   let otherHiddenAreas: monaco.IRange[] = editor._getViewModel()?.getHiddenAreas() ?? []
   function getHiddenAreas () {
     const model = editor.getModel()!
@@ -212,12 +217,17 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.IStandaloneCode
     updateHiddenAreas()
   }
 
+  const disposableStore = new DisposableStore()
   updateHiddenAreas()
 
-  return () => {
-    editor.setHiddenAreas = originalSetHiddenAreas
-    editor.setHiddenAreas(otherHiddenAreas)
-  }
+  disposableStore.add({
+    dispose () {
+      editor.setHiddenAreas = originalSetHiddenAreas
+      editor.setHiddenAreas(otherHiddenAreas)
+    }
+  })
+
+  return disposableStore
 }
 
 /**
