@@ -12,8 +12,8 @@ function isPasteAction (handlerId: string, payload: unknown): payload is PastePa
 }
 
 export function lockCodeWithoutDecoration (
-  editor: monaco.editor.IStandaloneCodeEditor,
-  decorations: string[],
+  editor: monaco.editor.ICodeEditor,
+  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean,
   allowChangeFromSources: string[] = [],
   errorMessage?: string
 ): monaco.IDisposable {
@@ -30,8 +30,14 @@ export function lockCodeWithoutDecoration (
   function canEditRange (range: monaco.IRange) {
     const model = editor.getModel()
     if (model != null) {
-      const editableRanges = decorations.map(decoration => model.getDecorationRange(decoration))
-      return editableRanges.some(editableRange => editableRange?.containsRange(range) ?? false)
+      const editableRanges = model
+        .getAllDecorations()
+        .filter(decorationFilter)
+        .map((decoration) => decoration.range)
+      if (editableRanges.length === 0) {
+        return true
+      }
+      return editableRanges.some((editableRange) => editableRange.containsRange(range))
     }
     return false
   }
@@ -52,7 +58,13 @@ export function lockCodeWithoutDecoration (
   const originalTrigger = editor.trigger
   editor.trigger = function (source, handlerId, payload) {
     // Try to transform whole file pasting into a paste in the editable area only
-    const lastEditableRange = decorations.length > 0 ? editor.getModel()?.getDecorationRange(decorations[decorations.length - 1]!) : null
+    const editableRanges = editor
+      .getModel()!
+      .getAllDecorations()
+      .filter(decorationFilter)
+      .map((decoration) => decoration.range)
+    const lastEditableRange =
+      editableRanges.length > 0 ? editableRanges[editableRanges.length - 1] : undefined
     if (isPasteAction(handlerId, payload) && lastEditableRange != null) {
       const selections = editor.getSelections()
       const model = editor.getModel()!
@@ -63,10 +75,12 @@ export function lockCodeWithoutDecoration (
         if (wholeFileSelected) {
           const currentEditorValue = editor.getValue()
           const before = model.getOffsetAt(lastEditableRange.getStartPosition())
-          const after = currentEditorValue.length - model.getOffsetAt(lastEditableRange.getEndPosition())
+          const after =
+            currentEditorValue.length - model.getOffsetAt(lastEditableRange.getEndPosition())
           if (
             currentEditorValue.slice(0, before) === payload.text.slice(0, before) &&
-            currentEditorValue.slice(currentEditorValue.length - after) === payload.text.slice(payload.text.length - after)
+            currentEditorValue.slice(currentEditorValue.length - after) ===
+              payload.text.slice(payload.text.length - after)
           ) {
             editor.setSelection(lastEditableRange)
             const newPayload: PastePayload = {
@@ -81,7 +95,7 @@ export function lockCodeWithoutDecoration (
 
     if (['type', 'paste', 'cut'].includes(handlerId)) {
       const selections = editor.getSelections()
-      if (selections != null && selections.some(range => !canEditRange(range))) {
+      if (selections != null && selections.some((range) => !canEditRange(range))) {
         displayLockedCodeError(editor.getPosition()!)
         return
       }
@@ -107,16 +121,23 @@ export function lockCodeWithoutDecoration (
     if (model == null) {
       return
     }
-    const originalApplyEdit: (operations: monaco.editor.IIdentifiedSingleEditOperation[], computeUndoEdits?: boolean) => void = model.applyEdits
-    model.applyEdits = ((operations: monaco.editor.IIdentifiedSingleEditOperation[], computeUndoEdits?: boolean) => {
+    const originalApplyEdit: (
+      operations: monaco.editor.IIdentifiedSingleEditOperation[],
+      computeUndoEdits?: boolean
+    ) => void = model.applyEdits
+    model.applyEdits = ((
+      operations: monaco.editor.IIdentifiedSingleEditOperation[],
+      computeUndoEdits?: boolean
+    ) => {
       if (currentEditSource != null && allowChangeFromSources.includes(currentEditSource)) {
         return originalApplyEdit.call(model, operations, computeUndoEdits!)
       }
-      const filteredOperations = operations
-        .filter(operation => canEditRange(operation.range))
+      const filteredOperations = operations.filter((operation) => canEditRange(operation.range))
       if (filteredOperations.length === 0 && operations.length > 0) {
         const firstRange = operations[0]!.range
-        displayLockedCodeError(new monaco.Position(firstRange.startLineNumber, firstRange.startColumn))
+        displayLockedCodeError(
+          new monaco.Position(firstRange.startLineNumber, firstRange.startColumn)
+        )
       }
       return originalApplyEdit.call(model, filteredOperations, computeUndoEdits!)
     }) as typeof model.applyEdits
@@ -160,13 +181,22 @@ export function lockCodeWithoutDecoration (
   return disposableStore
 }
 
-export function hideCodeWithoutDecoration (editor: monaco.editor.IStandaloneCodeEditor, decorations: string[]): monaco.IDisposable {
+export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean): monaco.IDisposable {
   let otherHiddenAreas: monaco.IRange[] = editor._getViewModel()?.getHiddenAreas() ?? []
   function getHiddenAreas () {
-    const model = editor.getModel()!
+    const model = editor.getModel()
+    if (model == null) {
+      return []
+    }
+
+    const decorations = model.getAllDecorations()
+      .filter(decorationFilter)
+    if (decorations.length === 0) {
+      return otherHiddenAreas
+    }
 
     const ranges = decorations
-      .map(decoration => model.getDecorationRange(decoration)!)
+      .map(decoration => decoration.range)
       .sort((a, b) => a.startLineNumber - b.startLineNumber)
       // merge ranges
       .reduce<monaco.Range[]>((acc, range) => {
@@ -218,6 +248,14 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.IStandaloneCode
   }
 
   const disposableStore = new DisposableStore()
+
+  disposableStore.add(editor.onDidChangeModel(() => {
+    otherHiddenAreas = editor._getViewModel()?.getHiddenAreas() ?? []
+    updateHiddenAreas()
+  }))
+  disposableStore.add(editor.onDidChangeModelDecorations(() => {
+    updateHiddenAreas()
+  }))
   updateHiddenAreas()
 
   disposableStore.add({
