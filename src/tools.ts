@@ -224,7 +224,7 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.IStandaloneCode
 /**
  * Collapse everything between startToken and endToken
  */
-export async function collapseCodeSections (editor: monaco.editor.IStandaloneCodeEditor, startToken: string, endToken: string, isRegex: boolean = false): Promise<void> {
+export async function collapseCodeSections (editor: monaco.editor.ICodeEditor, startToken: string, endToken: string, isRegex: boolean = false): Promise<void> {
   const editorModel = editor.getModel()
   const ranges: monaco.IRange[] = []
   if (editorModel != null) {

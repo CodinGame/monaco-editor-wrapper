@@ -5,7 +5,7 @@ import { createEditor } from '../monaco'
 
 let currentEditor: ({
   model: monaco.editor.ITextModel
-  editor: monaco.editor.IStandaloneCodeEditor
+  editor: monaco.editor.ICodeEditor
 } & monaco.IDisposable) | null = null
 function openNewCodeEditor (modelRef: IReference<IResolvedTextEditorModel>) {
   if (currentEditor != null && modelRef.object.textEditorModel === currentEditor.model) {
