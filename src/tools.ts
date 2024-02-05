@@ -156,8 +156,7 @@ export function lockCodeWithoutDecoration (
 }
 
 export function hideCodeWithoutDecoration (editor: monaco.editor.IStandaloneCodeEditor, decorations: string[]): () => void {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let otherHiddenAreas: monaco.IRange[] = (editor as any)._getViewModel()._lines.getHiddenAreas()
+  let otherHiddenAreas: monaco.IRange[] = editor._getViewModel()?.getHiddenAreas() ?? []
   function getHiddenAreas () {
     const model = editor.getModel()!
 
