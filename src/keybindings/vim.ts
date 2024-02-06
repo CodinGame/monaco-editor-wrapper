@@ -92,6 +92,6 @@ onConfigurationChanged(() => {
   }
 })
 
-export function initVimMode (editor: monaco.editor.IStandaloneCodeEditor, statusBarElement: Element): IDisposable {
+export function initVimMode (editor: monaco.editor.ICodeEditor, statusBarElement: Element): IDisposable {
   return monacoVim.initVimMode(editor, statusBarElement)
 }
