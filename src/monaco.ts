@@ -1,7 +1,6 @@
 import * as monaco from 'monaco-editor'
 import { IReference, ITextFileEditorModel, createConfiguredEditor, errorHandler, createModelReference as vscodeCreateModelReference } from 'vscode/monaco'
 import { initialize, editorOpenHandlerRegistry } from './services'
-import './extensions'
 import './languages'
 import './theme'
 import './worker'
