@@ -2,7 +2,6 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import commonjs from '@rollup/plugin-commonjs'
 import alias from '@rollup/plugin-alias'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
-import { string } from 'rollup-plugin-string'
 import typescript from '@rollup/plugin-typescript'
 import * as rollup from 'rollup'
 import builtins from 'rollup-plugin-node-builtins'
@@ -95,9 +94,6 @@ export default rollup.defineConfig({
         find: /^monaco-editor-core\//,
         replacement: 'monaco-editor/'
       }]
-    }),
-    string({
-      include: /.*\.d\.ts$/
     }),
     {
       name: 'dynamic-import-polyfill',
