@@ -5,8 +5,9 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import * as rollup from 'rollup'
 import builtins from 'rollup-plugin-node-builtins'
-import globImport from 'rollup-plugin-glob-import'
 import vsixPlugin from '@codingame/monaco-vscode-rollup-vsix-plugin'
+import glob from 'fast-glob'
+import path from 'path'
 import pkg from './package.json' assert { type: 'json' }
 
 const externals = Object.keys(pkg.dependencies)
@@ -46,9 +47,30 @@ export default rollup.defineConfig({
   }],
   plugins: [
     builtins(),
-    globImport({
-      format: 'import'
-    }),
+    {
+      name: 'glob-vsix-import',
+      async resolveId (source, importer) {
+        if (source.endsWith('*.vsix')) {
+          return `glob:${path.resolve(path.dirname(importer!), source)}`
+        }
+        return undefined
+      },
+      async load (importee) {
+        if (importee.startsWith('glob:')) {
+          const files = await glob(importee.slice(5))
+
+          return `
+${files.map((file, index) => `import { whenReady as whenReady${index} } from '${file}'`).join('\n')}
+export async function whenReady () {
+  await Promise.all([
+${files.map((_, index) => `    whenReady${index}()`).join(',\n')}
+  ])
+}
+`
+        }
+        return undefined
+      }
+    },
     vsixPlugin({
       transformManifest (manifest) {
         const {
