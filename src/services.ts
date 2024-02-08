@@ -21,6 +21,7 @@ import { ILogService, LogLevel, StandaloneServices, initialize as initializeServ
 import * as monaco from 'monaco-editor'
 import { initFile } from '@codingame/monaco-vscode-files-service-override'
 import EditorOpenHandlerRegistry from './tools/EditorOpenHandlerRegistry'
+import { whenReady as whenExtensionsReady } from './extensions'
 import 'vscode/localExtensionHost'
 
 const editorOpenHandlerRegistry = new EditorOpenHandlerRegistry()
@@ -86,6 +87,8 @@ export async function initialize (): Promise<void> {
   }))
   await initializeServices(services, undefined, { workspaceProvider: { open: async () => false, workspace: { workspaceUri: workspaceFile }, trusted: true } })
   StandaloneServices.get(ILogService).setLevel(LogLevel.Off)
+
+  await whenExtensionsReady()
 }
 
 export {
