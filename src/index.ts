@@ -1,3 +1,4 @@
+import './hack'
 import * as monaco from 'monaco-editor'
 import { createEditor, createModelReference, registerEditorOpenHandler, initializePromise } from './monaco'
 import { updateUserConfiguration, registerConfigurations, registerDefaultConfigurations, onConfigurationChanged, getConfiguration, getUserConfiguration, onUserConfigurationChange } from './configuration'

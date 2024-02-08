@@ -7,12 +7,6 @@ import './worker'
 import setupExtensions from './editor'
 import { EditorOpenHandler } from './tools/EditorOpenHandlerRegistry'
 
-// see https://github.com/microsoft/monaco-editor/issues/4378
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(<any>global).vscode = {
-  process: false
-}
-
 errorHandler.setUnexpectedErrorHandler(error => {
   console.warn('Unexpected error', error)
 })
