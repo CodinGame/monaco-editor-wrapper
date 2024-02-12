@@ -76,6 +76,10 @@ export function registerServices (newServices: monaco.editor.IEditorOverrideServ
 }
 
 export async function initialize (): Promise<void> {
+  if (typeof process !== 'undefined') {
+    console.warn('`process` detected. It may have negative impacts on VSCode behavior')
+  }
+
   // wait a short time for the services to be registered
   await new Promise(resolve => setTimeout(resolve, 0))
 
