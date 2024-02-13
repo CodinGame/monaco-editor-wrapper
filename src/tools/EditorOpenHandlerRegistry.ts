@@ -1,7 +1,6 @@
 import * as monaco from 'monaco-editor'
 import { OpenEditor, IEditorOptions, IResolvedTextEditorModel } from '@codingame/monaco-vscode-editor-service-override'
 import { IReference } from 'vscode/monaco'
-import { createEditor } from '../monaco'
 
 let currentEditor: ({
   model: monaco.editor.ITextModel
@@ -33,7 +32,7 @@ function openNewCodeEditor (modelRef: IReference<IResolvedTextEditorModel>) {
 
   document.body.appendChild(container)
   try {
-    const editor = createEditor(
+    const editor = monaco.editor.create(
       editorElem,
       {
         model: modelRef.object.textEditorModel,

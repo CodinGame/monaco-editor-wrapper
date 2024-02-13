@@ -1,6 +1,6 @@
 import * as monaco from 'monaco-editor'
 import { IReference, ITextFileEditorModel, createConfiguredEditor, errorHandler, createModelReference as vscodeCreateModelReference } from 'vscode/monaco'
-import { initialize, editorOpenHandlerRegistry } from './services'
+import { editorOpenHandlerRegistry, initializePromise, isInitialized } from './services'
 import './languages'
 import './theme'
 import './worker'
@@ -11,11 +11,8 @@ errorHandler.setUnexpectedErrorHandler(error => {
   console.warn('Unexpected error', error)
 })
 
-let initialized = false
-const initializePromise = initialize().then(() => { initialized = true })
-
 function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandaloneEditorConstructionOptions): monaco.editor.IStandaloneCodeEditor {
-  if (!initialized) {
+  if (!isInitialized()) {
     throw new Error('Monaco not initialized')
   }
   const editor = createConfiguredEditor(domElement, options)
@@ -35,7 +32,6 @@ function registerEditorOpenHandler (handler: EditorOpenHandler): monaco.IDisposa
 }
 
 export {
-  initializePromise,
   createEditor,
   createModelReference,
   registerEditorOpenHandler
