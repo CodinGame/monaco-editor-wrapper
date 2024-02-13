@@ -19,6 +19,7 @@
   "main": "dist/main.js",
   "module": "dist/main.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
       "default": "./dist/main.js"
