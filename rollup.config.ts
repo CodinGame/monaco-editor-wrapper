@@ -26,15 +26,6 @@ export default rollup.defineConfig({
     'features/notifications': 'src/features/notifications.ts',
     'features/extensionGallery': 'src/features/extensionGallery.ts'
   },
-  external: function isExternal (source, importer, isResolved) {
-    if (isResolved) {
-      return false
-    }
-    if (/\.wasm$/.test(source)) {
-      return true
-    }
-    return externals.some(external => source === external || source.startsWith(`${external}/`))
-  },
   output: [{
     dir: 'dist',
     format: 'esm',
@@ -49,6 +40,18 @@ export default rollup.defineConfig({
   }],
   plugins: [
     builtins(),
+    {
+      name: 'external-resolver',
+      resolveId (id) {
+        if (/\.wasm$/.test(id) || externals.some(external => id === external || id.startsWith(`${external}/`))) {
+          return {
+            id,
+            external: true
+          }
+        }
+        return undefined
+      }
+    },
     {
       name: 'glob-vsix-import',
       async resolveId (source, importer) {
