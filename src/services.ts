@@ -17,9 +17,10 @@ import getLifecycleServiceOverride from '@codingame/monaco-vscode-lifecycle-serv
 import getQuickAccessServiceOverride from '@codingame/monaco-vscode-quickaccess-service-override'
 import getLogServiceOverride from '@codingame/monaco-vscode-log-service-override'
 import getWorkingCopyServiceOverride from '@codingame/monaco-vscode-working-copy-service-override'
-import { ILogService, LogLevel, StandaloneServices, initialize as initializeServices } from 'vscode/services'
+import { initialize as initializeServices } from 'vscode/services'
 import * as monaco from 'monaco-editor'
 import { initFile } from '@codingame/monaco-vscode-files-service-override'
+import { IWorkbenchConstructionOptions, IWorkspaceProvider } from 'vscode/vscode/vs/workbench/browser/web.api'
 import EditorOpenHandlerRegistry from './tools/EditorOpenHandlerRegistry'
 import { whenReady as whenExtensionsReady } from './extensions'
 import 'vscode/localExtensionHost'
@@ -75,24 +76,49 @@ export function registerServices (newServices: monaco.editor.IEditorOverrideServ
   }
 }
 
-export async function initialize (): Promise<void> {
-  if (typeof process !== 'undefined') {
-    console.warn('`process` detected. It may have negative impacts on VSCode behavior')
-  }
-
-  // wait a short time for the services to be registered
-  await new Promise(resolve => setTimeout(resolve, 0))
-
-  const workspaceFile = monaco.Uri.file('/workspace.code-workspace')
+export async function generateAndInitializeWorkspace (workspaceFile = monaco.Uri.file('/workspace.code-workspace'), label?: string): Promise<IWorkspaceProvider> {
   await initFile(workspaceFile, JSON.stringify(<IStoredWorkspace>{
     folders: [{
       path: '/tmp/project'
     }]
   }))
-  await initializeServices(services, undefined, { workspaceProvider: { open: async () => false, workspace: { workspaceUri: workspaceFile }, trusted: true } })
-  StandaloneServices.get(ILogService).setLevel(LogLevel.Off)
+  return {
+    open: async () => false,
+    workspace: {
+      workspaceUri: workspaceFile,
+      label
+    },
+    trusted: true
+  }
+}
+
+let initialized = false
+let setInitialized: () => void | undefined
+export const initializePromise = new Promise<void>((resolve) => {
+  setInitialized = resolve
+})
+void initializePromise.then(() => {
+  initialized = true
+})
+
+export function isInitialized (): boolean {
+  return initialized
+}
+
+export async function initialize (constructionOptions?: IWorkbenchConstructionOptions, container?: HTMLElement): Promise<void> {
+  if (typeof process !== 'undefined') {
+    console.warn('`process` detected. It may have negative impacts on VSCode behavior')
+  }
+
+  constructionOptions ??= {
+    workspaceProvider: await generateAndInitializeWorkspace()
+  }
+
+  await initializeServices(services, container, constructionOptions)
 
   await whenExtensionsReady()
+
+  setInitialized()
 }
 
 export {
