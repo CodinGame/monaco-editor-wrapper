@@ -211,6 +211,9 @@
     "node": "20.10.0",
     "npm": "10.4.0"
   },
+  "release": {
+    "extends": "@codingame/semantic-release-config-github"
+  },
   "overrides": {
     "monaco-editor": "$monaco-editor",
     "rollup": "4.10.0",
