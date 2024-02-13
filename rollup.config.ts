@@ -22,7 +22,9 @@ export default rollup.defineConfig({
     'features/viewPanels': 'src/features/viewPanels.ts',
     'features/search': 'src/features/search.ts',
     'features/debug': 'src/features/debug.ts',
-    'features/extensionHostWorker': 'src/features/extensionHostWorker.ts'
+    'features/extensionHostWorker': 'src/features/extensionHostWorker.ts',
+    'features/notifications': 'src/features/notifications.ts',
+    'features/extensionGallery': 'src/features/extensionGallery.ts'
   },
   external: function isExternal (source, importer, isResolved) {
     if (isResolved) {

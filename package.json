@@ -42,6 +42,14 @@
     "./features/extensionHostWorker": {
       "types": "./dist/features/extensionHostWorker.d.ts",
       "default": "./dist/features/extensionHostWorker.js"
+    },
+    "./features/notifications": {
+      "types": "./dist/features/notifications.d.ts",
+      "default": "./dist/features/notifications.js"
+    },
+    "./features/extensionGallery": {
+      "types": "./dist/features/extensionGallery.d.ts",
+      "default": "./dist/features/extensionGallery.js"
     }
   },
   "typesVersions": {
@@ -60,6 +68,12 @@
       ],
       "features/extensionHostWorker": [
         "./dist/features/extensionHostWorker.d.ts"
+      ],
+      "features/notitications": [
+        "./dist/features/notitications.d.ts"
+      ],
+      "features/extensionGallery": [
+        "./dist/features/extensionGallery.d.ts"
       ]
     }
   },
@@ -81,6 +95,7 @@
     "@codingame/monaco-vscode-dialogs-service-override": "^2.1.1",
     "@codingame/monaco-vscode-diff-default-extension": "^2.1.1",
     "@codingame/monaco-vscode-editor-service-override": "^2.1.1",
+    "@codingame/monaco-vscode-extension-gallery-service-override": "^2.1.3",
     "@codingame/monaco-vscode-extensions-service-override": "^2.1.1",
     "@codingame/monaco-vscode-files-service-override": "^2.1.1",
     "@codingame/monaco-vscode-fsharp-default-extension": "^2.1.1",
@@ -103,6 +118,7 @@
     "@codingame/monaco-vscode-markers-service-override": "^2.1.1",
     "@codingame/monaco-vscode-media-preview-default-extension": "^2.1.1",
     "@codingame/monaco-vscode-model-service-override": "^2.1.1",
+    "@codingame/monaco-vscode-notifications-service-override": "^2.1.1",
     "@codingame/monaco-vscode-npm-default-extension": "^2.1.1",
     "@codingame/monaco-vscode-objective-c-default-extension": "^2.1.1",
     "@codingame/monaco-vscode-output-service-override": "^2.1.1",
