@@ -9,6 +9,7 @@ import vsixPlugin from '@codingame/monaco-vscode-rollup-vsix-plugin'
 import glob from 'fast-glob'
 import path from 'path'
 import pkg from './package.json' assert { type: 'json' }
+import { addExtension } from '@rollup/pluginutils'
 
 const externals = Object.keys(pkg.dependencies)
 
@@ -43,6 +44,20 @@ export default rollup.defineConfig({
     {
       name: 'external-resolver',
       resolveId (id) {
+        // monaco-editor can safely be imported with monaco-vscode-api
+        if (id === 'monaco-editor/esm/vs/editor/editor.api') {
+          return {
+            id: 'monaco-editor',
+            external: 'absolute'
+          }
+        }
+        // Add missing .js extension to respect ESM strict mode
+        if (id.startsWith('monaco-editor/esm')) {
+          return {
+            id: addExtension(id, '.js'),
+            external: 'absolute'
+          }
+        }
         if (/\.wasm$/.test(id) || externals.some(external => id === external || id.startsWith(`${external}/`))) {
           return {
             id,
