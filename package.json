@@ -51,6 +51,10 @@
     "./features/extensionGallery": {
       "types": "./dist/features/extensionGallery.d.ts",
       "default": "./dist/features/extensionGallery.js"
+    },
+    "./features/workbench": {
+      "types": "./dist/features/workbench.d.ts",
+      "default": "./dist/features/workbench.js"
     }
   },
   "typesVersions": {
