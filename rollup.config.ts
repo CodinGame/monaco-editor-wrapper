@@ -25,7 +25,8 @@ export default rollup.defineConfig({
     'features/debug': 'src/features/debug.ts',
     'features/extensionHostWorker': 'src/features/extensionHostWorker.ts',
     'features/notifications': 'src/features/notifications.ts',
-    'features/extensionGallery': 'src/features/extensionGallery.ts'
+    'features/extensionGallery': 'src/features/extensionGallery.ts',
+    'features/workbench': 'src/features/workbench.ts'
   },
   output: [{
     dir: 'dist',
