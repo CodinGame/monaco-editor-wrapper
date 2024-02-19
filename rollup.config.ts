@@ -104,17 +104,23 @@ ${files.map((_, index) => `    whenReady${index}()`).join(',\n')}
           breakpoints,
           taskDefinitions,
           viewsWelcome,
+          terminal,
+          viewsContainers,
           ...remainingContribute
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } = manifest.contributes as any
+        } = manifest.contributes ?? {}
 
         const {
+          activationEvents,
+          devDependencies,
+          dependencies,
+          scripts,
           browser,
           main,
           l10n,
           extensionDependencies, // for pure-d that requires hbenl.vscode-test-explorer
           ...remainingManifest
-        } = manifest
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } = manifest as any
 
         return {
           ...remainingManifest,
