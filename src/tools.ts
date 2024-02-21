@@ -182,18 +182,20 @@ export function lockCodeWithoutDecoration (
   return disposableStore
 }
 
+let hideCodeWithoutDecorationCounter = 0
 export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean): monaco.IDisposable {
-  let otherHiddenAreas: monaco.IRange[] = editor._getViewModel()?.getHiddenAreas() ?? []
-  function getHiddenAreas () {
+  const hideId = `hideCodeWithoutDecoration:${hideCodeWithoutDecorationCounter++}`
+
+  function updateHiddenAreas (): void {
     const model = editor.getModel()
     if (model == null) {
-      return []
+      return
     }
 
     const decorations = model.getAllDecorations()
       .filter(decorationFilter)
     if (decorations.length === 0) {
-      return otherHiddenAreas
+      return
     }
 
     const ranges = decorations
@@ -218,40 +220,22 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
         }
       }, [])
 
-    let hiddenAreas: monaco.IRange[] = [...otherHiddenAreas]
+    const hiddenAreas: monaco.IRange[] = []
     let position = new monaco.Position(1, 1)
     for (const range of ranges) {
       const startPosition = model.modifyPosition(range.getStartPosition(), -1)
       const endPosition = model.modifyPosition(range.getEndPosition(), 1)
-      hiddenAreas = [
-        ...hiddenAreas,
-        monaco.Range.fromPositions(position, startPosition)
-      ]
+      hiddenAreas.push(monaco.Range.fromPositions(position, startPosition))
       position = endPosition
     }
-    hiddenAreas = [
-      ...hiddenAreas,
-      monaco.Range.fromPositions(position, model.getFullModelRange().getEndPosition())
-    ]
+    hiddenAreas.push(monaco.Range.fromPositions(position, model.getFullModelRange().getEndPosition()))
 
-    return hiddenAreas
-  }
-
-  const originalSetHiddenAreas = editor.setHiddenAreas.bind(editor)
-  function updateHiddenAreas () {
-    originalSetHiddenAreas(getHiddenAreas())
-  }
-
-  // Hack to make it work with the folding service calling setHiddenAreas with its own areas
-  editor.setHiddenAreas = (ranges) => {
-    otherHiddenAreas = ranges
-    updateHiddenAreas()
+    editor.setHiddenAreas(hiddenAreas, hideId)
   }
 
   const disposableStore = new DisposableStore()
 
   disposableStore.add(editor.onDidChangeModel(() => {
-    otherHiddenAreas = editor._getViewModel()?.getHiddenAreas() ?? []
     updateHiddenAreas()
   }))
   disposableStore.add(editor.onDidChangeModelDecorations(() => {
@@ -261,8 +245,7 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
 
   disposableStore.add({
     dispose () {
-      editor.setHiddenAreas = originalSetHiddenAreas
-      editor.setHiddenAreas(otherHiddenAreas)
+      editor.setHiddenAreas([], hideId)
     }
   })
 
