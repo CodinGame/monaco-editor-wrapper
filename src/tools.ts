@@ -516,7 +516,7 @@ export function mapClipboard (
       weight: 1000,
       handler: () => {
         copiedText = editor.getModel()!.getValueInRange(editor.getSelection()!)
-        document.execCommand('copy')
+        document.execCommand('cut')
       },
       when: ContextKeyExpr.equals('editorId', editor.getId()),
       primary: monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyX
