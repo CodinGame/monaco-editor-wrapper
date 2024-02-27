@@ -1,5 +1,5 @@
 import * as monaco from 'monaco-editor'
-import { ContextKeyExpr, DisposableStore, KeybindingsRegistry } from 'vscode/monaco'
+import { DisposableStore } from 'vscode/monaco'
 
 interface PastePayload {
   text: string
@@ -496,32 +496,6 @@ export function mapClipboard (
 ): monaco.IDisposable {
   const disposableStore = new DisposableStore()
   let copiedText = ''
-
-  disposableStore.add(
-    KeybindingsRegistry.registerCommandAndKeybindingRule({
-      id: 'customCopy',
-      weight: 1000,
-      handler: () => {
-        copiedText = editor.getModel()!.getValueInRange(editor.getSelection()!)
-        document.execCommand('copy')
-      },
-      when: ContextKeyExpr.equals('editorId', editor.getId()),
-      primary: monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyC
-    })
-  )
-
-  disposableStore.add(
-    KeybindingsRegistry.registerCommandAndKeybindingRule({
-      id: 'customCut',
-      weight: 1000,
-      handler: () => {
-        copiedText = editor.getModel()!.getValueInRange(editor.getSelection()!)
-        document.execCommand('copy')
-      },
-      when: ContextKeyExpr.equals('editorId', editor.getId()),
-      primary: monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyX
-    })
-  )
 
   const originalTrigger = editor.trigger
   editor.trigger = function (source, handlerId, payload) {
