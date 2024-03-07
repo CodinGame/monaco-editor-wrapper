@@ -6,7 +6,6 @@ import getKeybindingsServiceOverride from '@codingame/monaco-vscode-keybindings-
 import getTextmateServiceOverride from '@codingame/monaco-vscode-textmate-service-override'
 import getThemeServiceOverride from '@codingame/monaco-vscode-theme-service-override'
 import getLanguagesServiceOverride from '@codingame/monaco-vscode-languages-service-override'
-import getAudioCueServiceOverride from '@codingame/monaco-vscode-audio-cue-service-override'
 import getPreferencesServiceOverride from '@codingame/monaco-vscode-preferences-service-override'
 import getSnippetServiceOverride from '@codingame/monaco-vscode-snippets-service-override'
 import getAccessibilityServiceOverride from '@codingame/monaco-vscode-accessibility-service-override'
@@ -52,7 +51,6 @@ let services: monaco.editor.IEditorOverrideServices = {
   ...getTextmateServiceOverride(),
   ...getThemeServiceOverride(),
   ...getLanguagesServiceOverride(),
-  ...getAudioCueServiceOverride(),
   ...getPreferencesServiceOverride(),
   ...getSnippetServiceOverride(),
   ...getLanguageDetectionWorkerServiceOverride(),

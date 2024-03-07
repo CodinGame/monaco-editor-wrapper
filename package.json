@@ -88,7 +88,6 @@
   ],
   "dependencies": {
     "@codingame/monaco-vscode-accessibility-service-override": "^3.0.0",
-    "@codingame/monaco-vscode-audio-cue-service-override": "^2.2.2",
     "@codingame/monaco-vscode-clojure-default-extension": "^3.0.0",
     "@codingame/monaco-vscode-coffeescript-default-extension": "^3.0.0",
     "@codingame/monaco-vscode-configuration-editing-default-extension": "^3.0.0",
