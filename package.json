@@ -123,6 +123,7 @@
     "@codingame/monaco-vscode-markers-service-override": "^3.0.0",
     "@codingame/monaco-vscode-media-preview-default-extension": "^3.0.0",
     "@codingame/monaco-vscode-model-service-override": "^3.0.0",
+    "@codingame/monaco-vscode-multi-diff-editor-service-override": "^3.0.0",
     "@codingame/monaco-vscode-notifications-service-override": "^3.0.0",
     "@codingame/monaco-vscode-npm-default-extension": "^3.0.0",
     "@codingame/monaco-vscode-objective-c-default-extension": "^3.0.0",

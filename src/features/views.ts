@@ -1,6 +1,7 @@
 import getViewsServiceOverride from '@codingame/monaco-vscode-views-service-override'
 import getStatusBarServiceOverride from '@codingame/monaco-vscode-view-status-bar-service-override'
 import getQuickAccessServiceOverride from '@codingame/monaco-vscode-quickaccess-service-override'
+import getMultiDiffEditorServiceOverride from '@codingame/monaco-vscode-multi-diff-editor-service-override'
 import { editorOpenHandlerRegistry, registerServices, useGlobalPicker } from '../services'
 
 import '@codingame/monaco-vscode-theme-seti-default-extension'
@@ -13,6 +14,7 @@ registerServices({
   ...getViewsServiceOverride((model, input, sideBySide) => {
     return editorOpenHandlerRegistry.openCodeEditor(model, input, sideBySide)
   }),
+  ...getMultiDiffEditorServiceOverride(),
   ...getStatusBarServiceOverride(),
   ...getQuickAccessServiceOverride({
     shouldUseGlobalPicker () {
