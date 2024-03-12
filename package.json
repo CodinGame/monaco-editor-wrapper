@@ -100,6 +100,7 @@
     "@codingame/monaco-vscode-diff-default-extension": "^3.1.0",
     "@codingame/monaco-vscode-editor-service-override": "^3.1.0",
     "@codingame/monaco-vscode-emmet-service-override": "^3.1.0",
+    "@codingame/monaco-vscode-explorer-service-override": "^3.1.0",
     "@codingame/monaco-vscode-extension-gallery-service-override": "^3.1.0",
     "@codingame/monaco-vscode-extensions-service-override": "^3.1.0",
     "@codingame/monaco-vscode-files-service-override": "^3.1.0",
