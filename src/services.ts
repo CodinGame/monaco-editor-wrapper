@@ -58,7 +58,11 @@ let services: monaco.editor.IEditorOverrideServices = {
     return editorOpenHandlerRegistry.openCodeEditor(model, input, sideBySide)
   }),
   ...getAccessibilityServiceOverride(),
-  ...getStorageServiceOverride(),
+  ...getStorageServiceOverride({
+    fallbackOverride: {
+      'workbench.activity.showAccounts': false
+    }
+  }),
   ...getLifecycleServiceOverride(),
   ...getQuickAccessServiceOverride({
     shouldUseGlobalPicker () {
