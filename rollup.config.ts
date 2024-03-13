@@ -7,9 +7,9 @@ import * as rollup from 'rollup'
 import builtins from 'rollup-plugin-node-builtins'
 import vsixPlugin from '@codingame/monaco-vscode-rollup-vsix-plugin'
 import glob from 'fast-glob'
+import { addExtension } from '@rollup/pluginutils'
 import path from 'path'
 import pkg from './package.json' assert { type: 'json' }
-import { addExtension } from '@rollup/pluginutils'
 
 const externals = Object.keys(pkg.dependencies)
 
@@ -23,6 +23,7 @@ export default rollup.defineConfig({
     'features/viewPanels': 'src/features/viewPanels.ts',
     'features/search': 'src/features/search.ts',
     'features/debug': 'src/features/debug.ts',
+    'features/testing': 'src/features/testing.ts',
     'features/extensionHostWorker': 'src/features/extensionHostWorker.ts',
     'features/notifications': 'src/features/notifications.ts',
     'features/extensionGallery': 'src/features/extensionGallery.ts',
