@@ -40,6 +40,10 @@
       "types": "./dist/features/testing.d.ts",
       "default": "./dist/features/testing.js"
     },
+    "./features/terminal": {
+      "types": "./dist/features/terminal.d.ts",
+      "default": "./dist/features/terminal.js"
+    },
     "./features/search": {
       "types": "./dist/features/search.d.ts",
       "default": "./dist/features/search.js"
@@ -74,6 +78,9 @@
       ],
       "features/testing": [
         "./dist/features/debug.d.ts"
+      ],
+      "features/terminal": [
+        "./dist/features/terminal.d.ts"
       ],
       "features/search": [
         "./dist/features/search.d.ts"
@@ -155,6 +162,7 @@
     "@codingame/monaco-vscode-sql-default-extension": "^3.1.0",
     "@codingame/monaco-vscode-storage-service-override": "^3.1.0",
     "@codingame/monaco-vscode-swift-default-extension": "^3.1.0",
+    "@codingame/monaco-vscode-terminal-service-override": "^3.1.1",
     "@codingame/monaco-vscode-testing-service-override": "^3.1.1",
     "@codingame/monaco-vscode-textmate-service-override": "^3.1.0",
     "@codingame/monaco-vscode-theme-defaults-default-extension": "^3.1.0",

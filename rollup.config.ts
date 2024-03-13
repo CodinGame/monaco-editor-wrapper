@@ -24,6 +24,7 @@ export default rollup.defineConfig({
     'features/search': 'src/features/search.ts',
     'features/debug': 'src/features/debug.ts',
     'features/testing': 'src/features/testing.ts',
+    'features/terminal': 'src/features/terminal.ts',
     'features/extensionHostWorker': 'src/features/extensionHostWorker.ts',
     'features/notifications': 'src/features/notifications.ts',
     'features/extensionGallery': 'src/features/extensionGallery.ts',
