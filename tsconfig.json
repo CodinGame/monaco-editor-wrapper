@@ -23,10 +23,5 @@
   "exclude": [
     "dist",
     "node_modules"
-  ],
-  "ts-node": {
-    "compilerOptions": {
-      "module": "commonjs"
-    }
-  }
+  ]
 }

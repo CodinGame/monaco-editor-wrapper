@@ -2,7 +2,7 @@
   {
     "publisher": "Angular",
     "name": "ng-template",
-    "version": "17.1.0"
+    "version": "17.3.1"
   },
   {
     "publisher": "webfreak",
@@ -12,7 +12,7 @@
   {
     "publisher": "Dart-Code",
     "name": "dart-code",
-    "version": "3.81.20240117"
+    "version": "3.87.20240402"
   },
   {
     "publisher": "justusadam",
@@ -27,12 +27,12 @@
   {
     "publisher": "ocamllabs",
     "name": "ocaml-platform",
-    "version": "1.16.1"
+    "version": "1.18.1"
   },
   {
     "publisher": "alefragnani",
     "name": "pascal",
-    "version": "9.6.0"
+    "version": "9.8.0"
   },
   {
     "publisher": "scala-lang",
@@ -42,22 +42,22 @@
   {
     "publisher": "scalameta",
     "name": "metals",
-    "version": "1.27.3"
+    "version": "1.29.10"
   },
   {
     "publisher": "broadcomMFD",
     "name": "cobol-language-support",
-    "version": "2.1.0"
+    "version": "2.1.2"
   },
   {
     "publisher": "JakeBecker",
     "name": "elixir-ls",
-    "version": "0.19.0"
+    "version": "0.20.0"
   },
   {
     "publisher": "pgourlain",
     "name": "erlang",
-    "version": "0.9.8"
+    "version": "0.9.9"
   },
   {
     "publisher": "bitwisecook",
@@ -77,7 +77,7 @@
   {
     "publisher": "redhat",
     "name": "java",
-    "version": "1.27.2024012608"
+    "version": "1.30.2024041208"
   },
   {
     "publisher": "sumneko",
@@ -87,17 +87,17 @@
   {
     "publisher": "ms-vscode",
     "name": "cpptools",
-    "version": "1.19.2"
+    "version": "1.20.1"
   },
   {
     "publisher": "ms-dotnettools",
     "name": "csharp",
-    "version": "2.16.24"
+    "version": "2.24.17"
   },
   {
     "publisher": "ms-python",
     "name": "python",
-    "version": "2023.25.10221012"
+    "version": "2024.5.11021008"
   },
   {
     "publisher": "REditorSupport",
@@ -112,17 +112,12 @@
   {
     "publisher": "JuanBlanco",
     "name": "solidity",
-    "version": "0.0.165"
-  },
-  {
-    "publisher": "johnsoncodehk",
-    "name": "vscode-angular",
-    "version": "1.0.22"
+    "version": "0.0.174"
   },
   {
     "publisher": "svelte",
     "name": "svelte-vscode",
-    "version": "108.2.1"
+    "version": "108.3.4"
   },
   {
     "publisher": "batisteo",
@@ -132,6 +127,6 @@
   {
     "publisher": "golang",
     "name": "Go",
-    "version": "0.40.3"
+    "version": "0.41.2"
   }
 ]
