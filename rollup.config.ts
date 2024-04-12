@@ -4,7 +4,6 @@ import alias from '@rollup/plugin-alias'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import * as rollup from 'rollup'
-import builtins from 'rollup-plugin-node-builtins'
 import vsixPlugin from '@codingame/monaco-vscode-rollup-vsix-plugin'
 import glob from 'fast-glob'
 import { addExtension } from '@rollup/pluginutils'
@@ -43,7 +42,6 @@ export default rollup.defineConfig({
     chunkFileNames: '[name].js'
   }],
   plugins: [
-    builtins(),
     {
       name: 'external-resolver',
       resolveId (id) {
