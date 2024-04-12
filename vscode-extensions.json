@@ -115,11 +115,6 @@
     "version": "0.0.165"
   },
   {
-    "publisher": "johnsoncodehk",
-    "name": "vscode-angular",
-    "version": "1.0.22"
-  },
-  {
     "publisher": "svelte",
     "name": "svelte-vscode",
     "version": "108.2.1"
