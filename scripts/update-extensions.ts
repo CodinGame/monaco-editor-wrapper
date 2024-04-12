@@ -1,6 +1,6 @@
 // @ts-ignore
-import { getPublicGalleryAPI } from '@vscode/vsce/out/util'
-import { ExtensionQueryFlags, PublishedExtension, ExtensionVersion } from 'azure-devops-node-api/interfaces/GalleryInterfaces'
+import { getPublicGalleryAPI } from '@vscode/vsce/out/util.js'
+import { ExtensionQueryFlags, PublishedExtension, ExtensionVersion } from 'azure-devops-node-api/interfaces/GalleryInterfaces.js'
 import fs from 'fs/promises'
 
 async function getLastVersion (publisher: string, name: string): Promise<ExtensionVersion> {
