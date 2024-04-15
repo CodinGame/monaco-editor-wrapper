@@ -19,11 +19,18 @@ import getWorkingCopyServiceOverride from '@codingame/monaco-vscode-working-copy
 import getEmmetServiceOverride from '@codingame/monaco-vscode-emmet-service-override'
 import { initialize as initializeServices } from 'vscode/services'
 import * as monaco from 'monaco-editor'
-import { initFile } from '@codingame/monaco-vscode-files-service-override'
+import { RegisteredFile, RegisteredFileSystemProvider, initFile, registerFileSystemOverlay } from '@codingame/monaco-vscode-files-service-override'
 import { IWorkbenchConstructionOptions, IWorkspaceProvider } from 'vscode/vscode/vs/workbench/browser/web.api'
 import EditorOpenHandlerRegistry from './tools/EditorOpenHandlerRegistry'
 import { whenReady as whenExtensionsReady } from './extensions'
 import 'vscode/localExtensionHost'
+
+const defaultFilesystemProvider = new RegisteredFileSystemProvider(false)
+registerFileSystemOverlay(1, defaultFilesystemProvider)
+
+export function registerFile (file: RegisteredFile): monaco.IDisposable {
+  return defaultFilesystemProvider.registerFile(file)
+}
 
 const editorOpenHandlerRegistry = new EditorOpenHandlerRegistry()
 

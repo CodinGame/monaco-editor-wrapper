@@ -3,7 +3,7 @@ import { createEditor, createModelReference, registerEditorOpenHandler } from '.
 import { updateUserConfiguration, registerConfigurations, registerDefaultConfigurations, onConfigurationChanged, getConfiguration, getUserConfiguration, onUserConfigurationChange } from './configuration'
 import { getMonacoLanguage, loadLanguage } from './languages'
 import { updateKeybindings, updateEditorKeybindingsMode } from './keybindings'
-import { generateAndInitializeWorkspace, initialize, initializePromise, isInitialized, registerServices, setUseGlobalPicker } from './services'
+import { generateAndInitializeWorkspace, initialize, initializePromise, isInitialized, registerFile, registerServices, setUseGlobalPicker } from './services'
 import './style'
 export * from './tools'
 
@@ -16,6 +16,7 @@ export {
   initializePromise,
   createEditor,
   createModelReference,
+  registerFile,
 
   registerConfigurations,
   registerDefaultConfigurations,
