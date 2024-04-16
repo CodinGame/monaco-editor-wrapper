@@ -34,14 +34,14 @@ export function registerFile (file: RegisteredFile): monaco.IDisposable {
 
 const editorOpenHandlerRegistry = new EditorOpenHandlerRegistry()
 
-let _useGlobalPicker: boolean = false
-export function setUseGlobalPicker (useGlobalPicker: boolean = true): void {
+let _useGlobalPicker: boolean | (() => boolean) = false
+export function setUseGlobalPicker (useGlobalPicker: boolean | (() => boolean) = true): void {
   _useGlobalPicker = useGlobalPicker
 }
 
 export function useGlobalPicker (): boolean {
   // should picker and keybindings be global or per-editor
-  return _useGlobalPicker
+  return typeof _useGlobalPicker === 'function' ? _useGlobalPicker() : _useGlobalPicker
 }
 
 let services: monaco.editor.IEditorOverrideServices = {
