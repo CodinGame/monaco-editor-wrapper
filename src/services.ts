@@ -116,13 +116,16 @@ export function isInitialized (): boolean {
   return initialized
 }
 
-export async function initialize (constructionOptions?: IWorkbenchConstructionOptions, container?: HTMLElement): Promise<void> {
+export async function initialize (constructionOptions: IWorkbenchConstructionOptions = {}, container?: HTMLElement): Promise<void> {
   if (typeof process !== 'undefined') {
     console.warn('`process` detected. It may have negative impacts on VSCode behavior')
   }
 
-  constructionOptions ??= {
-    workspaceProvider: await generateAndInitializeWorkspace()
+  if (constructionOptions.workspaceProvider == null) {
+    constructionOptions = {
+      ...constructionOptions,
+      workspaceProvider: await generateAndInitializeWorkspace()
+    }
   }
 
   await initializeServices(services, container, constructionOptions)
