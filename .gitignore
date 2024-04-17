@@ -2,4 +2,4 @@ dist/*
 stats.html
 .vscode
 node_modules
-extensions
+/extensions

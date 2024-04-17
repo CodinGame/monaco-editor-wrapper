@@ -2,9 +2,8 @@ import * as monaco from 'monaco-editor'
 import { IReference, ITextFileEditorModel, createConfiguredEditor, errorHandler, createModelReference as vscodeCreateModelReference } from 'vscode/monaco'
 import { editorOpenHandlerRegistry, initializePromise, isInitialized } from './services'
 import './languages'
-import './theme'
 import './worker'
-import setupExtensions from './editor'
+import './extensions'
 import { EditorOpenHandler } from './tools/EditorOpenHandlerRegistry'
 
 errorHandler.setUnexpectedErrorHandler(error => {
@@ -15,11 +14,7 @@ function createEditor (domElement: HTMLElement, options?: monaco.editor.IStandal
   if (!isInitialized()) {
     throw new Error('Monaco not initialized')
   }
-  const editor = createConfiguredEditor(domElement, options)
-
-  setupExtensions(editor)
-
-  return editor
+  return createConfiguredEditor(domElement, options)
 }
 
 async function createModelReference (resource: monaco.Uri, content?: string): Promise<IReference<ITextFileEditorModel>> {
