@@ -44,18 +44,9 @@ export default rollup.defineConfig({
   }],
   plugins: [
     importMetaAssets({
-      include: ['**/customExtensions/*.ts']
+      include: ['**/*.ts', '**/*.js'],
+      exclude: ['**/worker.ts', '**/features/*.ts']
     }),
-    {
-      name: 'resolve-asset-url',
-      resolveFileUrl (options) {
-        let relativePath = options.relativePath
-        if (!relativePath.startsWith('.')) {
-          relativePath = `./${options.relativePath}`
-        }
-        return `'${relativePath}'`
-      }
-    },
     {
       name: 'external-resolver',
       resolveId (id) {
