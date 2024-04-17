@@ -24,6 +24,9 @@ import { IWorkbenchConstructionOptions, IWorkspaceProvider } from 'vscode/vscode
 import EditorOpenHandlerRegistry from './tools/EditorOpenHandlerRegistry'
 import { whenReady as whenExtensionsReady } from './extensions'
 import 'vscode/localExtensionHost'
+import './customExtensions'
+import './languages'
+import './worker'
 
 const defaultFilesystemProvider = new RegisteredFileSystemProvider(false)
 registerFileSystemOverlay(1, defaultFilesystemProvider)

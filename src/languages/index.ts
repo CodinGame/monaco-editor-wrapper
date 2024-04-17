@@ -1,5 +1,5 @@
 import * as monaco from 'monaco-editor'
-import { StandaloneServices, ILanguageService } from 'vscode/services'
+import { StandaloneServices, ILanguageService, getService } from 'vscode/services'
 
 const customAliases: Partial<Record<string, string[]>> = {
   csharp: ['c#'],
@@ -38,7 +38,7 @@ function getMonacoLanguage (languageOrModeId: string): string {
 }
 
 async function loadLanguage (languageId: string): Promise<void> {
-  StandaloneServices.get(ILanguageService).createById(languageId)
+  (await getService(ILanguageService)).createById(languageId)
 }
 
 export {

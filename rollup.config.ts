@@ -7,6 +7,7 @@ import * as rollup from 'rollup'
 import vsixPlugin from '@codingame/monaco-vscode-rollup-vsix-plugin'
 import glob from 'fast-glob'
 import { addExtension } from '@rollup/pluginutils'
+import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets'
 import path from 'path'
 import pkg from './package.json' assert { type: 'json' }
 
@@ -42,6 +43,19 @@ export default rollup.defineConfig({
     chunkFileNames: '[name].js'
   }],
   plugins: [
+    importMetaAssets({
+      include: ['**/customExtensions/*.ts']
+    }),
+    {
+      name: 'resolve-asset-url',
+      resolveFileUrl (options) {
+        let relativePath = options.relativePath
+        if (!relativePath.startsWith('.')) {
+          relativePath = `./${options.relativePath}`
+        }
+        return `'${relativePath}'`
+      }
+    },
     {
       name: 'external-resolver',
       resolveId (id) {

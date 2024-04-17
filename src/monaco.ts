@@ -1,9 +1,6 @@
 import * as monaco from 'monaco-editor'
 import { IReference, ITextFileEditorModel, createConfiguredEditor, errorHandler, createModelReference as vscodeCreateModelReference } from 'vscode/monaco'
 import { editorOpenHandlerRegistry, initializePromise, isInitialized } from './services'
-import './languages'
-import './worker'
-import './extensions'
 import { EditorOpenHandler } from './tools/EditorOpenHandlerRegistry'
 
 errorHandler.setUnexpectedErrorHandler(error => {
