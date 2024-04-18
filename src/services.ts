@@ -19,7 +19,7 @@ import getWorkingCopyServiceOverride from '@codingame/monaco-vscode-working-copy
 import getEmmetServiceOverride from '@codingame/monaco-vscode-emmet-service-override'
 import { initialize as initializeServices } from 'vscode/services'
 import * as monaco from 'monaco-editor'
-import { RegisteredFile, RegisteredFileSystemProvider, initFile, registerFileSystemOverlay } from '@codingame/monaco-vscode-files-service-override'
+import { RegisteredFile, RegisteredFileSystemProvider, initFile, registerCustomProvider, OverlayFileSystemProvider, EmptyFileSystemProvider } from '@codingame/monaco-vscode-files-service-override'
 import { IWorkbenchConstructionOptions, IWorkspaceProvider } from 'vscode/vscode/vs/workbench/browser/web.api'
 import EditorOpenHandlerRegistry from './tools/EditorOpenHandlerRegistry'
 import { whenReady as whenExtensionsReady } from './extensions'
@@ -28,8 +28,14 @@ import './customExtensions'
 import './languages'
 import './worker'
 
+// Overwrite the default overlay filesystem to remove the InMemoryFileSystemProvider fallback
+const overlayFileSystem = new OverlayFileSystemProvider()
+overlayFileSystem.register(0, new EmptyFileSystemProvider())
+
 const defaultFilesystemProvider = new RegisteredFileSystemProvider(false)
-registerFileSystemOverlay(1, defaultFilesystemProvider)
+overlayFileSystem.register(1, defaultFilesystemProvider)
+
+registerCustomProvider('file', overlayFileSystem)
 
 export function registerFile (file: RegisteredFile): monaco.IDisposable {
   return defaultFilesystemProvider.registerFile(file)
