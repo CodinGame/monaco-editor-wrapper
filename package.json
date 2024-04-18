@@ -177,7 +177,6 @@
     "@codingame/monaco-vscode-working-copy-service-override": "^4.4.0",
     "@codingame/monaco-vscode-xml-default-extension": "^4.4.0",
     "@codingame/monaco-vscode-yaml-default-extension": "^4.4.0",
-    "@codingame/semantic-release-config-github": "^1.0.0",
     "monaco-editor": "npm:@codingame/monaco-vscode-editor-api@^4.4.0",
     "vscode": "npm:@codingame/monaco-vscode-api@^4.4.0"
   },
@@ -185,6 +184,7 @@
     "@codingame/commitlint-config-codingame": "^1.1.1",
     "@codingame/eslint-config": "^1.1.10",
     "@codingame/monaco-vscode-rollup-vsix-plugin": "^4.4.0",
+    "@codingame/semantic-release-config-github": "^1.0.0",
     "@codingame/tsconfig": "^1.1.1",
     "@commitlint/cli": "^19.2.2",
     "@rollup/plugin-alias": "5.1.0",
