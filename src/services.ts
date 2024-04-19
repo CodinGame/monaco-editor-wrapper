@@ -19,7 +19,7 @@ import getWorkingCopyServiceOverride from '@codingame/monaco-vscode-working-copy
 import getEmmetServiceOverride from '@codingame/monaco-vscode-emmet-service-override'
 import { initialize as initializeServices } from 'vscode/services'
 import * as monaco from 'monaco-editor'
-import { RegisteredFile, RegisteredFileSystemProvider, initFile, registerCustomProvider, OverlayFileSystemProvider, EmptyFileSystemProvider } from '@codingame/monaco-vscode-files-service-override'
+import { RegisteredFile, RegisteredFileSystemProvider, registerCustomProvider, OverlayFileSystemProvider, EmptyFileSystemProvider, RegisteredMemoryFile } from '@codingame/monaco-vscode-files-service-override'
 import { IWorkbenchConstructionOptions, IWorkspaceProvider } from 'vscode/vscode/vs/workbench/browser/web.api'
 import EditorOpenHandlerRegistry from './tools/EditorOpenHandlerRegistry'
 import { whenReady as whenExtensionsReady } from './extensions'
@@ -97,11 +97,11 @@ export function registerServices (newServices: monaco.editor.IEditorOverrideServ
 }
 
 export async function generateAndInitializeWorkspace (workspaceFile = monaco.Uri.file('/workspace.code-workspace'), label?: string): Promise<IWorkspaceProvider> {
-  await initFile(workspaceFile, JSON.stringify(<IStoredWorkspace>{
+  registerFile(new RegisteredMemoryFile(workspaceFile, JSON.stringify(<IStoredWorkspace>{
     folders: [{
       path: '/tmp/project'
     }]
-  }))
+  })))
   return {
     open: async () => false,
     workspace: {
