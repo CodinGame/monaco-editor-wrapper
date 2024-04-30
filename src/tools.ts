@@ -464,6 +464,8 @@ export function addPlaceholder (
   editor: monaco.editor.ICodeEditor,
   placeholder: string
 ): monaco.IDisposable {
+  const disposableStore = new DisposableStore()
+
   const widget = new PlaceholderContentWidget(editor, placeholder)
 
   function onDidChangeModelContent (): void {
@@ -475,13 +477,14 @@ export function addPlaceholder (
   }
 
   onDidChangeModelContent()
-  const changeDisposable = editor.onDidChangeModelContent(() => onDidChangeModelContent())
-  return {
+  disposableStore.add(editor.onDidChangeModelContent(onDidChangeModelContent))
+  disposableStore.add(editor.onDidChangeModel(onDidChangeModelContent))
+  disposableStore.add({
     dispose () {
-      changeDisposable.dispose()
       editor.removeContentWidget(widget)
     }
-  }
+  })
+  return disposableStore
 }
 
 export function mapClipboard (
