@@ -231,6 +231,23 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
     hiddenAreas.push(monaco.Range.fromPositions(position, model.getFullModelRange().getEndPosition()))
 
     editor.setHiddenAreas(hiddenAreas, hideId)
+
+    // Make sure only visible code is selected
+    const selections = editor.getSelections()
+    if (selections != null) {
+      const visibleRanges = editor._getViewModel()!.getModelVisibleRanges()
+      let newSelections = selections.flatMap(selection =>
+        visibleRanges.map(visibleRange => selection.intersectRanges(visibleRange))
+          .filter((range): range is monaco.Range => range != null)
+          .map(range => monaco.Selection.fromRange(range, selection.getDirection()))
+      )
+      if (newSelections.length === 0 && visibleRanges.length > 0) {
+        newSelections = [monaco.Selection.fromPositions(visibleRanges[0]!.getStartPosition())]
+      }
+      if (newSelections.length > 0) {
+        editor.setSelections(newSelections)
+      }
+    }
   }
 
   const disposableStore = new DisposableStore()
