@@ -236,16 +236,16 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
     const selections = editor.getSelections()
     if (selections != null) {
       const visibleRanges = editor._getViewModel()!.getModelVisibleRanges()
-      let newSelection = selections.flatMap(selection =>
+      let newSelections = selections.flatMap(selection =>
         visibleRanges.map(visibleRange => selection.intersectRanges(visibleRange))
           .filter((range): range is monaco.Range => range != null)
           .map(range => monaco.Selection.fromRange(range, selection.getDirection()))
       )
-      if (newSelection.length === 0 && visibleRanges.length > 0) {
-        newSelection = [monaco.Selection.fromPositions(visibleRanges[0]!.getStartPosition())]
+      if (newSelections.length === 0 && visibleRanges.length > 0) {
+        newSelections = [monaco.Selection.fromPositions(visibleRanges[0]!.getStartPosition())]
       }
-      if (newSelection.length > 0) {
-        editor.setSelections(newSelection)
+      if (newSelections.length > 0) {
+        editor.setSelections(newSelections)
       }
     }
   }
