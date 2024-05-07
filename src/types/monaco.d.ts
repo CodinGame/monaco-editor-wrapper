@@ -1,4 +1,4 @@
-import { IRange } from 'monaco-editor'
+import { IRange, Range } from 'monaco-editor'
 
 declare module 'monaco-editor' {
     namespace editor {
@@ -8,7 +8,8 @@ declare module 'monaco-editor' {
             setHiddenAreas(ranges: IRange[], source?: unknown): void
 
             _getViewModel(): {
-                getHiddenAreas(): IRange[]
+                getHiddenAreas(): Range[]
+                getModelVisibleRanges(): Range[]
             } | undefined
         }
     }
