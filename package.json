@@ -202,7 +202,7 @@
     "@vscode/vsce": "^2.26.1",
     "@web/rollup-plugin-import-meta-assets": "^2.2.1",
     "azure-devops-node-api": "^13.0.0",
-    "conventional-changelog-conventionalcommits": "^8.0.0",
+    "conventional-changelog-conventionalcommits": "^7.0.2",
     "cson-parser": "4.0.9",
     "deep-equal": "2.2.3",
     "eslint": "8.57.0",
