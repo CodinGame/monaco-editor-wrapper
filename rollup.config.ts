@@ -4,7 +4,7 @@ import alias from '@rollup/plugin-alias'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import * as rollup from 'rollup'
-import vsixPlugin from '@codingame/monaco-vscode-rollup-vsix-plugin'
+import vsixPlugin, { IExtensionManifest } from '@codingame/monaco-vscode-rollup-vsix-plugin'
 import glob from 'fast-glob'
 import { addExtension } from '@rollup/pluginutils'
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets'
@@ -111,8 +111,11 @@ ${files.map((_, index) => `    whenReady${index}()`).join(',\n')}
           viewsWelcome,
           terminal,
           viewsContainers,
+          typescriptServerPlugins,
           ...remainingContribute
-        } = manifest.contributes ?? {}
+        } = ((manifest.contributes ?? {}) as (IExtensionManifest['contributes'] & {
+          typescriptServerPlugins: unknown // typescript extension specific field
+        }))
 
         const {
           activationEvents,
