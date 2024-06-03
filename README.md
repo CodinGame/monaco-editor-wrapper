@@ -70,7 +70,7 @@ You also need to import `@codingame/monaco-editor-wrapper/features/extensionHost
 This library exposed some functions to manage the user global configuration:
 - `registerDefaultConfigurations` Allows registering default values for some configuration keys which can be overridden
 - `updateUserConfiguration` Update the user configuration, overrides the default configuration, uses the same syntax as VS Code configuration
-- `getUserConfiguartion` Get back the current user configuration
+- `getUserConfiguration` Get back the current user configuration
 - `onUserConfigurationChange` Get notified when the user configuration change (either after calling updateUserConfiguration or from internal configuration update)
 - `getConfiguration` Allows to get a given configuration key in a given language
 - `onConfigurationChanged` Listen to configuration change
