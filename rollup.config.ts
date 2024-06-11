@@ -28,7 +28,8 @@ export default rollup.defineConfig({
     'features/extensionHostWorker': 'src/features/extensionHostWorker.ts',
     'features/notifications': 'src/features/notifications.ts',
     'features/extensionGallery': 'src/features/extensionGallery.ts',
-    'features/workbench': 'src/features/workbench.ts'
+    'features/workbench': 'src/features/workbench.ts',
+    'features/profile': 'src/features/profile.ts'
   },
   output: [{
     dir: 'dist',
