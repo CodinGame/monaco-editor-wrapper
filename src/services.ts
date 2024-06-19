@@ -96,7 +96,7 @@ export function registerServices (newServices: monaco.editor.IEditorOverrideServ
   }
 }
 
-export async function generateAndInitializeWorkspace (workspaceFile = monaco.Uri.file('/workspace.code-workspace'), label?: string): Promise<IWorkspaceProvider> {
+export function generateAndInitializeWorkspace (workspaceFile = monaco.Uri.file('/workspace.code-workspace'), label?: string): IWorkspaceProvider {
   registerFile(new RegisteredMemoryFile(workspaceFile, JSON.stringify(<IStoredWorkspace>{
     folders: [{
       path: '/tmp/project'
@@ -129,7 +129,7 @@ export async function initialize (constructionOptions: IWorkbenchConstructionOpt
   if (constructionOptions.workspaceProvider == null) {
     constructionOptions = {
       ...constructionOptions,
-      workspaceProvider: await generateAndInitializeWorkspace()
+      workspaceProvider: generateAndInitializeWorkspace()
     }
   }
 
