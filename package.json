@@ -63,6 +63,10 @@
     "./features/workbench": {
       "types": "./dist/features/workbench.d.ts",
       "default": "./dist/features/workbench.js"
+    },
+    "./features/profile": {
+      "types": "./dist/features/profile.d.ts",
+      "default": "./dist/features/profile.js"
     }
   },
   "typesVersions": {
@@ -93,6 +97,9 @@
       ],
       "features/extensionGallery": [
         "./dist/features/extensionGallery.d.ts"
+      ],
+      "features/profile": [
+        "./dist/features/profile.d.ts"
       ]
     }
   },
