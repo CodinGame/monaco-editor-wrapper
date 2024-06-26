@@ -115,6 +115,6 @@ monaco.languages.onLanguage('javascript', async () => {
   }
 })
 
-const workerLoader = () => new Worker(new URL('@codingame/monaco-vscode-standalone-typescript-language-features/worker', import.meta.url))
+const workerLoader = () => new Worker(new URL('@codingame/monaco-vscode-standalone-typescript-language-features/worker', import.meta.url), { type: 'module' })
 registerWorkerLoader('typescript', workerLoader)
 registerWorkerLoader('javascript', workerLoader)
