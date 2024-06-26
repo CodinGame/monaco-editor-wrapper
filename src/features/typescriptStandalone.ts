@@ -3,6 +3,7 @@ import * as monaco from 'monaco-editor'
 import { FileSystemProviderCapabilities, FileSystemProviderError, FileSystemProviderErrorCode, FileType, IFileSystemProviderWithFileReadWriteCapability, IStat, registerFileSystemOverlay } from '@codingame/monaco-vscode-files-service-override'
 import * as vscode from 'vscode'
 import { registerWorkerLoader } from '../worker.js'
+import { Worker } from '../tools/crossOriginWorker'
 
 const global = `
 declare global {
