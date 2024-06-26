@@ -6,9 +6,10 @@ import typescript from '@rollup/plugin-typescript'
 import * as rollup from 'rollup'
 import vsixPlugin, { IExtensionManifest } from '@codingame/monaco-vscode-rollup-vsix-plugin'
 import glob from 'fast-glob'
-import { addExtension } from '@rollup/pluginutils'
+import { addExtension, dataToEsm } from '@rollup/pluginutils'
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets'
 import path from 'path'
+import fs from 'fs'
 import pkg from './package.json' assert { type: 'json' }
 
 const externals = Object.keys(pkg.dependencies)
@@ -29,7 +30,8 @@ export default rollup.defineConfig({
     'features/notifications': 'src/features/notifications.ts',
     'features/extensionGallery': 'src/features/extensionGallery.ts',
     'features/workbench': 'src/features/workbench.ts',
-    'features/profile': 'src/features/profile.ts'
+    'features/profile': 'src/features/profile.ts',
+    'features/typescriptStandalone': 'src/features/typescriptStandalone.ts'
   },
   output: [{
     dir: 'dist',
@@ -75,16 +77,43 @@ export default rollup.defineConfig({
       }
     },
     {
-      name: 'glob-vsix-import',
+      name: 'd-ts-glob-import',
       async resolveId (source, importer) {
-        if (source.endsWith('*.vsix')) {
-          return `glob:${path.resolve(path.dirname(importer!), source)}`
+        if (source.startsWith('types:')) {
+          return `types:${path.resolve(path.dirname(importer!), source.slice(6))}`
         }
         return undefined
       },
       async load (importee) {
-        if (importee.startsWith('glob:')) {
-          const files = await glob(importee.slice(5))
+        if (importee.startsWith('types:')) {
+          const cwd = importee.slice(6)
+          const files = await glob('**/*.d.ts', {
+            cwd
+          })
+
+          const data = Object.fromEntries(await Promise.all(files.map(async f => {
+            const data = await fs.promises.readFile(path.resolve(cwd, f))
+            return [
+              f,
+              data.toString('utf-8')
+            ]
+          })))
+          return dataToEsm(data)
+        }
+        return undefined
+      }
+    },
+    {
+      name: 'glob-vsix-import',
+      async resolveId (source, importer) {
+        if (source.endsWith('*.vsix')) {
+          return `vsixGlob:${path.resolve(path.dirname(importer!), source)}`
+        }
+        return undefined
+      },
+      async load (importee) {
+        if (importee.startsWith('vsixGlob:')) {
+          const files = await glob(importee.slice(9))
 
           return `
 ${files.map((file, index) => `import { whenReady as whenReady${index} } from '${file}'`).join('\n')}

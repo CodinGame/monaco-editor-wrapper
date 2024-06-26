@@ -47,6 +47,7 @@ Those feature can be used in the workbench feature is enabled:
 - `@codingame/monaco-editor-wrapper/features/extensionGallery` enables the extension gallery panel and the possibility to install extensions from the marketplace
 - `@codingame/monaco-editor-wrapper/features/terminal` enables the terminal panel
 - `@codingame/monaco-editor-wrapper/features/testing` enables the testing panels
+- `@codingame/monaco-editor-wrapper/features/typescriptStandalone` enables the monaco standalone typescript language feature worker
 
 ### Embed language IntelliSense
 

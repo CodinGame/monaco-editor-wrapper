@@ -67,6 +67,10 @@
     "./features/profile": {
       "types": "./dist/features/profile.d.ts",
       "default": "./dist/features/profile.js"
+    },
+    "./features/typescriptStandalone": {
+      "types": "./dist/features/typescriptStandalone.d.ts",
+      "default": "./dist/features/typescriptStandalone.js"
     }
   },
   "typesVersions": {
@@ -100,6 +104,9 @@
       ],
       "features/profile": [
         "./dist/features/profile.d.ts"
+      ],
+      "features/typescriptStandalone": [
+        "./dist/features/typescriptStandalone.d.ts"
       ]
     }
   },
@@ -167,6 +174,7 @@
     "@codingame/monaco-vscode-shellscript-default-extension": "^6.0.1",
     "@codingame/monaco-vscode-snippets-service-override": "^6.0.1",
     "@codingame/monaco-vscode-sql-default-extension": "^6.0.1",
+    "@codingame/monaco-vscode-standalone-typescript-language-features": "^6.0.3",
     "@codingame/monaco-vscode-storage-service-override": "^6.0.1",
     "@codingame/monaco-vscode-swift-default-extension": "^6.0.1",
     "@codingame/monaco-vscode-terminal-service-override": "^6.0.1",
@@ -177,6 +185,7 @@
     "@codingame/monaco-vscode-theme-seti-default-extension": "^6.0.1",
     "@codingame/monaco-vscode-timeline-service-override": "^6.0.1",
     "@codingame/monaco-vscode-typescript-basics-default-extension": "^6.0.1",
+    "@codingame/monaco-vscode-user-data-profile-service-override": "^6.0.1",
     "@codingame/monaco-vscode-vb-default-extension": "^6.0.1",
     "@codingame/monaco-vscode-view-status-bar-service-override": "^6.0.1",
     "@codingame/monaco-vscode-views-service-override": "^6.0.1",
@@ -184,8 +193,8 @@
     "@codingame/monaco-vscode-working-copy-service-override": "^6.0.1",
     "@codingame/monaco-vscode-xml-default-extension": "^6.0.1",
     "@codingame/monaco-vscode-yaml-default-extension": "^6.0.1",
-    "@codingame/monaco-vscode-user-data-profile-service-override": "^6.0.1",
     "monaco-editor": "npm:@codingame/monaco-vscode-editor-api@^6.0.1",
+    "typescript-worker-node-types": "npm:@types/node@^16.11.7",
     "vscode": "npm:@codingame/monaco-vscode-api@^6.0.1"
   },
   "devDependencies": {
