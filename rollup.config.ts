@@ -31,7 +31,8 @@ export default rollup.defineConfig({
     'features/extensionGallery': 'src/features/extensionGallery.ts',
     'features/workbench': 'src/features/workbench.ts',
     'features/profile': 'src/features/profile.ts',
-    'features/typescriptStandalone': 'src/features/typescriptStandalone.ts'
+    'features/typescriptStandalone': 'src/features/typescriptStandalone.ts',
+    'features/workingCopy': 'src/features/workingCopy.ts'
   },
   output: [{
     dir: 'dist',

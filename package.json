@@ -71,6 +71,10 @@
     "./features/typescriptStandalone": {
       "types": "./dist/features/typescriptStandalone.d.ts",
       "default": "./dist/features/typescriptStandalone.js"
+    },
+    "./features/workingCopy": {
+      "types": "./dist/features/workingCopy.d.ts",
+      "default": "./dist/features/workingCopy.js"
     }
   },
   "typesVersions": {
@@ -107,6 +111,9 @@
       ],
       "features/typescriptStandalone": [
         "./dist/features/typescriptStandalone.d.ts"
+      ],
+      "features/workingCopy": [
+        "./dist/features/workingCopy.d.ts"
       ]
     }
   },

@@ -40,14 +40,14 @@ There are some optional features that can be enabled by importing a specific exp
 - `@codingame/monaco-editor-wrapper/features/extensionHostWorker` enables the worker extension host which allows to run VSCode extensions
 - `@codingame/monaco-editor-wrapper/features/notifications` enables the VSCode notifications instead of logging into the console
 - `@codingame/monaco-editor-wrapper/features/workbench` allows to use the full VSCode workbench
+- `@codingame/monaco-editor-wrapper/features/typescriptStandalone` enables the monaco standalone typescript language feature worker
 
-Those feature can be used in the workbench feature is enabled:
+Those feature can be used if the workbench feature is enabled:
 - `@codingame/monaco-editor-wrapper/features/viewPanels` enables a few panels (timeline, outline, output, markers, explorer)
 - `@codingame/monaco-editor-wrapper/features/search` enables the search panel
 - `@codingame/monaco-editor-wrapper/features/extensionGallery` enables the extension gallery panel and the possibility to install extensions from the marketplace
 - `@codingame/monaco-editor-wrapper/features/terminal` enables the terminal panel
 - `@codingame/monaco-editor-wrapper/features/testing` enables the testing panels
-- `@codingame/monaco-editor-wrapper/features/typescriptStandalone` enables the monaco standalone typescript language feature worker
 
 ### Embed language IntelliSense
 
