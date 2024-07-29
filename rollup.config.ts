@@ -32,7 +32,7 @@ export default rollup.defineConfig({
     'features/workbench': 'src/features/workbench.ts',
     'features/profile': 'src/features/profile.ts',
     'features/typescriptStandalone': 'src/features/typescriptStandalone.ts',
-    'features/workingCopy': 'src/features/workingCopy.ts'
+    'features/workingCopyBackup': 'src/features/workingCopyBackup.ts'
   },
   output: [{
     dir: 'dist',

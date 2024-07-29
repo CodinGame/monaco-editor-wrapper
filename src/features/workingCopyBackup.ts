@@ -2,5 +2,7 @@ import getWorkingCopyServiceOverride from '@codingame/monaco-vscode-working-copy
 import { registerServices } from '../services'
 
 registerServices({
-  ...getWorkingCopyServiceOverride()
+  ...getWorkingCopyServiceOverride({
+    storage: 'userData'
+  })
 })

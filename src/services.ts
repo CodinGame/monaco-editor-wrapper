@@ -16,6 +16,7 @@ import getLifecycleServiceOverride from '@codingame/monaco-vscode-lifecycle-serv
 import getQuickAccessServiceOverride from '@codingame/monaco-vscode-quickaccess-service-override'
 import getLogServiceOverride from '@codingame/monaco-vscode-log-service-override'
 import getEmmetServiceOverride from '@codingame/monaco-vscode-emmet-service-override'
+import getWorkingCopyServiceOverride from '@codingame/monaco-vscode-working-copy-service-override'
 import { initialize as initializeServices } from 'vscode/services'
 import * as monaco from 'monaco-editor'
 import { RegisteredFile, RegisteredFileSystemProvider, registerCustomProvider, OverlayFileSystemProvider, EmptyFileSystemProvider, RegisteredMemoryFile } from '@codingame/monaco-vscode-files-service-override'
@@ -84,7 +85,10 @@ let services: monaco.editor.IEditorOverrideServices = {
       return useGlobalPicker()
     }
   }),
-  ...getEmmetServiceOverride()
+  ...getEmmetServiceOverride(),
+  ...getWorkingCopyServiceOverride({
+    storage: null
+  })
 }
 
 export function registerServices (newServices: monaco.editor.IEditorOverrideServices): void {
@@ -131,7 +135,9 @@ export async function initialize (constructionOptions: IWorkbenchConstructionOpt
     }
   }
 
-  await initializeServices(services, container, constructionOptions)
+  await initializeServices(services, container, constructionOptions, {
+    userHome: monaco.Uri.file('/')
+  })
 
   await whenExtensionsReady()
 
