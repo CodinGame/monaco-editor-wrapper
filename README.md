@@ -4,7 +4,6 @@
 Monaco editor wrapper uses and configures [monaco-vscode-api](https://www.npmjs.com/package/@codingame/monaco-vscode-api) for you
 
 It also includes some tools allowing to add some missing features to monaco-editor:
-- placeholder
 - `preventAlwaysConsumeTouchEvent`, mobile feature corresponding to the `alwaysConsumeMouseWheel` monaco-editor option
 - `collapseCodeSections` allows to create and collapse a code section between 2 tokens
 - `registerTextDecorationProvider` allows to compute decorations on all existing editors
