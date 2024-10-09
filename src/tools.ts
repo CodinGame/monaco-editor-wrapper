@@ -1,5 +1,6 @@
 import * as monaco from 'monaco-editor'
 import { DisposableStore } from 'vscode/monaco'
+import { IIdentifiedSingleEditOperation, ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
 
 interface PastePayload {
   text: string
@@ -12,11 +13,38 @@ function isPasteAction (handlerId: string, payload: unknown): payload is PastePa
   return handlerId === 'paste'
 }
 
+export interface LockCodeOptions {
+  /**
+   * Error message displayed in a tooltip when an edit failed
+   */
+  errorMessage?: string
+  /**
+   * Allows edit coming from a specific source
+   */
+  allowChangeFromSources: string[]
+  /**
+   * Only take some decorations into account
+   */
+  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
+  /**
+   * if true: when an edit block comes, either all the edit are applied or none
+   */
+  transactionMode?: boolean
+  /**
+   * Should undo/redo be ignored
+   */
+  allowUndoRedo?: boolean
+}
+
 export function lockCodeWithoutDecoration (
   editor: monaco.editor.ICodeEditor,
-  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean,
-  allowChangeFromSources: string[] = [],
-  errorMessage?: string
+  {
+    errorMessage,
+    allowChangeFromSources = [],
+    decorationFilter = () => true,
+    transactionMode = true,
+    allowUndoRedo = true
+  }: LockCodeOptions
 ): monaco.IDisposable {
   const disposableStore = new DisposableStore()
   function displayLockedCodeError (position: monaco.Position) {
@@ -41,19 +69,6 @@ export function lockCodeWithoutDecoration (
       return editableRanges.some((editableRange) => editableRange.containsRange(range))
     }
     return false
-  }
-
-  const originalExecuteCommands = editor.executeCommands
-  editor.executeCommands = function (name, commands) {
-    for (const command of commands) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const range: monaco.Range | undefined = (command as any)?._range
-      if (range != null && !canEditRange(range)) {
-        displayLockedCodeError(range.getEndPosition())
-        return
-      }
-    }
-    return originalExecuteCommands.call(editor, name, commands)
   }
 
   const originalTrigger = editor.trigger
@@ -94,13 +109,6 @@ export function lockCodeWithoutDecoration (
       }
     }
 
-    if (['type', 'paste', 'cut'].includes(handlerId)) {
-      const selections = editor.getSelections()
-      if (selections != null && selections.some((range) => !canEditRange(range))) {
-        displayLockedCodeError(editor.getPosition()!)
-        return
-      }
-    }
     return originalTrigger.call(editor, source, handlerId, payload)
   }
 
@@ -115,36 +123,55 @@ export function lockCodeWithoutDecoration (
     }
   }
 
-  let restoreModelApplyEdit: () => void = () => {}
+  interface AugmentedITextModel extends monaco.editor.ITextModel {
+    _validateEditOperations(rawOperations: readonly IIdentifiedSingleEditOperation[]): ValidAnnotatedEditOperation[]
+    _isUndoing: boolean
+    _isRedoing: boolean
+  }
+
+  let restoreModel: (() => void) | undefined
   function lockModel () {
-    restoreModelApplyEdit()
-    const model = editor.getModel()
+    restoreModel?.()
+    const model = editor.getModel() as AugmentedITextModel | undefined
+
     if (model == null) {
       return
     }
-    const originalApplyEdit: (
-      operations: monaco.editor.IIdentifiedSingleEditOperation[],
-      computeUndoEdits?: boolean
-    ) => void = model.applyEdits
-    model.applyEdits = ((
-      operations: monaco.editor.IIdentifiedSingleEditOperation[],
-      computeUndoEdits?: boolean
-    ) => {
-      if (currentEditSource != null && allowChangeFromSources.includes(currentEditSource)) {
-        return originalApplyEdit.call(model, operations, computeUndoEdits!)
-      }
-      const filteredOperations = operations.filter((operation) => canEditRange(operation.range))
-      if (filteredOperations.length === 0 && operations.length > 0) {
-        const firstRange = operations[0]!.range
-        displayLockedCodeError(
-          new monaco.Position(firstRange.startLineNumber, firstRange.startColumn)
-        )
-      }
-      return originalApplyEdit.call(model, filteredOperations, computeUndoEdits!)
-    }) as typeof model.applyEdits
 
-    restoreModelApplyEdit = () => {
-      model.applyEdits = originalApplyEdit as typeof model.applyEdits
+    const original = model._validateEditOperations
+    model._validateEditOperations = function (this: AugmentedITextModel, rawOperations) {
+      const editorOperations: ValidAnnotatedEditOperation[] = original.call(this, rawOperations)
+
+      if (currentEditSource != null && allowChangeFromSources.includes(currentEditSource)) {
+        return editorOperations
+      }
+
+      if (allowUndoRedo && (this._isUndoing || this._isRedoing)) {
+        return editorOperations
+      }
+
+      if (transactionMode) {
+        const firstForbiddenOperation = editorOperations.find(operation => !canEditRange(operation.range))
+        if (firstForbiddenOperation != null) {
+          displayLockedCodeError(
+            new monaco.Position(firstForbiddenOperation.range.startLineNumber, firstForbiddenOperation.range.startColumn))
+          return []
+        } else {
+          return editorOperations
+        }
+      } else {
+        return editorOperations.filter(operation => {
+          if (!canEditRange(operation.range)) {
+            displayLockedCodeError(
+              new monaco.Position(operation.range.startLineNumber, operation.range.startColumn))
+            return false
+          }
+          return true
+        })
+      }
+    }
+    restoreModel = () => {
+      model._validateEditOperations = original
     }
   }
   disposableStore.add(editor.onDidChangeModel(lockModel))
@@ -172,9 +199,8 @@ export function lockCodeWithoutDecoration (
 
   disposableStore.add({
     dispose () {
-      restoreModelApplyEdit()
+      restoreModel?.()
       editor.executeEdits = originalExecuteEdit
-      editor.executeCommands = originalExecuteCommands
       editor.trigger = originalTrigger
     }
   })
