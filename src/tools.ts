@@ -176,6 +176,7 @@ export function lockCodeWithoutDecoration (
   }
   disposableStore.add(editor.onDidChangeModel(lockModel))
   lockModel()
+  disposableStore.add(editor.onDidDispose(() => restoreModel?.()))
 
   // Handle selection of the last line of an editable range
   disposableStore.add(
