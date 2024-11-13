@@ -10,6 +10,7 @@ It also includes some tools allowing to add some missing features to monaco-edit
 - `hideCodeWithoutDecoration` allows to hide code parts that have a specific decoration
 - `lockCodeWithoutDecoration` allows to make read-only code parts that have a specific decoration
 - `updateEditorKeybindingsMode` allows to apply vim or emacs keybindings
+- `extractRangesFromTokens` allows to extract a code section between 2 tokens
 
 ### Installation
 
