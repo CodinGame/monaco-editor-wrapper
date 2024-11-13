@@ -334,10 +334,9 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
 }
 
 /**
- * Collapse everything between startToken and endToken
+ * Collapse everything from ranges
  */
-export async function collapseCodeSections (editor: monaco.editor.ICodeEditor, startToken: string, endToken: string, isRegex: boolean = false): Promise<void> {
-  const ranges: monaco.IRange[] = extractRangesFromTokens(editor, startToken, endToken, isRegex)
+export async function collapseCodeSectionsFromRanges (editor: monaco.editor.ICodeEditor, ranges: monaco.IRange[]): Promise<void> {
   if (ranges.length > 0) {
     const selections = editor.getSelections()
     editor.setSelections(ranges.map(r => ({
@@ -351,6 +350,14 @@ export async function collapseCodeSections (editor: monaco.editor.ICodeEditor, s
       editor.setSelections(selections)
     }
   }
+}
+
+/**
+ * Collapse everything between startToken and endToken
+ */
+export async function collapseCodeSections (editor: monaco.editor.ICodeEditor, startToken: string, endToken: string, isRegex: boolean = false): Promise<void> {
+  const ranges: monaco.IRange[] = extractRangesFromTokens(editor, startToken, endToken, isRegex)
+  await collapseCodeSectionsFromRanges(editor, ranges)
 }
 
 interface IDecorationProvider {
