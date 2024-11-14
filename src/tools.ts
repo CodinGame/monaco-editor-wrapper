@@ -13,6 +13,21 @@ function isPasteAction (handlerId: string, payload: unknown): payload is PastePa
   return handlerId === 'paste'
 }
 
+function getRangesFromDecorations (
+  editor: monaco.editor.ICodeEditor,
+  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
+): monaco.Range[] {
+  const model = editor.getModel()
+  if (model == null) {
+    return []
+  }
+
+  return model
+    .getAllDecorations()
+    .filter(decorationFilter)
+    .map((decoration) => decoration.range)
+}
+
 /**
  * Exctract ranges between startToken and endToken
  */
@@ -73,15 +88,20 @@ export interface LockCodeOptions {
   allowUndoRedo?: boolean
 }
 
-export function lockCodeWithoutDecoration (
+function lockCodeWithRanges (
   editor: monaco.editor.ICodeEditor,
   {
     errorMessage,
     allowChangeFromSources = [],
-    decorationFilter = () => true,
     transactionMode = true,
     allowUndoRedo = true
-  }: LockCodeOptions
+  }: Omit<LockCodeOptions, 'decorationFilter'>,
+  ranges: monaco.Range[],
+  /**
+   * If true, the code within the ranges will be locked.
+   * All the code outside of the ranges will be lock otherwise.
+   */
+  fromRanges: boolean
 ): monaco.IDisposable {
   const disposableStore = new DisposableStore()
   function displayLockedCodeError (position: monaco.Position) {
@@ -94,30 +114,21 @@ export function lockCodeWithoutDecoration (
   }
 
   function canEditRange (range: monaco.IRange) {
-    const model = editor.getModel()
-    if (model != null) {
-      const editableRanges = model
-        .getAllDecorations()
-        .filter(decorationFilter)
-        .map((decoration) => decoration.range)
-      if (editableRanges.length === 0) {
-        return true
-      }
-      return editableRanges.some((editableRange) => editableRange.containsRange(range))
+    if (editor.getModel() == null) {
+      return false
     }
-    return false
+    if (ranges.length === 0) {
+      return true
+    }
+    return fromRanges
+      ? ranges.every((uneditableRange) => !uneditableRange.containsRange(range))
+      : ranges.some((editableRange) => editableRange.containsRange(range))
   }
 
   const originalTrigger = editor.trigger
   editor.trigger = function (source, handlerId, payload) {
-    // Try to transform whole file pasting into a paste in the editable area only
-    const editableRanges = editor
-      .getModel()!
-      .getAllDecorations()
-      .filter(decorationFilter)
-      .map((decoration) => decoration.range)
     const lastEditableRange =
-      editableRanges.length > 0 ? editableRanges[editableRanges.length - 1] : undefined
+      ranges.length > 0 ? ranges[ranges.length - 1] : undefined
     if (isPasteAction(handlerId, payload) && lastEditableRange != null) {
       const selections = editor.getSelections()
       const model = editor.getModel()!
@@ -244,6 +255,25 @@ export function lockCodeWithoutDecoration (
   })
 
   return disposableStore
+}
+
+function lockCodeWithDecoration (
+  editor: monaco.editor.ICodeEditor,
+  {
+    errorMessage,
+    allowChangeFromSources = [],
+    decorationFilter = () => true,
+    transactionMode = true,
+    allowUndoRedo = true
+  }: LockCodeOptions,
+  /**
+   * If true, the code within the ranges will be locked.
+   * All the code outside of the ranges will be lock otherwise.
+   */
+  fromRanges: boolean
+): monaco.IDisposable {
+  const ranges = getRangesFromDecorations(editor, decorationFilter)
+  return lockCodeWithRanges(editor, { errorMessage, allowChangeFromSources, transactionMode, allowUndoRedo }, ranges, fromRanges)
 }
 
 let hideCodeWithoutDecorationCounter = 0
