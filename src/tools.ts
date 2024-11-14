@@ -276,6 +276,36 @@ function lockCodeWithDecoration (
   return lockCodeWithRanges(editor, { errorMessage, allowChangeFromSources, transactionMode, allowUndoRedo }, ranges, fromRanges)
 }
 
+export function lockCodeSectionsFromRanges (
+  editor: monaco.editor.ICodeEditor,
+  lockOptions: Omit<LockCodeOptions, 'decorationFilter'>,
+  ranges: monaco.Range[]
+): monaco.IDisposable {
+  return lockCodeWithRanges(editor, lockOptions, ranges, true)
+}
+
+export function lockCodeSectionsWithoutRanges (
+  editor: monaco.editor.ICodeEditor,
+  lockOptions: Omit<LockCodeOptions, 'decorationFilter'>,
+  ranges: monaco.Range[]
+): monaco.IDisposable {
+  return lockCodeWithRanges(editor, lockOptions, ranges, false)
+}
+
+export function lockCodeFromDecoration (
+  editor: monaco.editor.ICodeEditor,
+  lockOptions: LockCodeOptions
+): monaco.IDisposable {
+  return lockCodeWithDecoration(editor, lockOptions, true)
+}
+
+export function lockCodeWithoutDecoration (
+  editor: monaco.editor.ICodeEditor,
+  lockOptions: LockCodeOptions
+): monaco.IDisposable {
+  return lockCodeWithDecoration(editor, lockOptions, false)
+}
+
 let hideCodeWithoutDecorationCounter = 0
 export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean): monaco.IDisposable {
   const hideId = `hideCodeWithoutDecoration:${hideCodeWithoutDecorationCounter++}`
