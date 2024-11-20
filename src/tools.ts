@@ -268,51 +268,6 @@ function lockCodeWithDecoration (
   return disposableStore
 }
 
-function lockCodeWithRanges (
-  editor: monaco.editor.ICodeEditor,
-  {
-    errorMessage,
-    allowChangeFromSources = [],
-    transactionMode = true,
-    allowUndoRedo = true
-  }: Omit<LockCodeOptions, 'decorationFilter'>,
-  ranges: monaco.Range[],
-  decorationOptions: monaco.editor.IModelDecorationOptions,
-  /**
-   * If true, the code within the ranges will be locked.
-   * All the code outside of the ranges will be lock otherwise.
-   */
-  fromRanges: boolean
-): monaco.IDisposable {
-  const decorations = createDecorationsForRanges(editor, ranges, decorationOptions)
-  return lockCodeWithDecoration(editor, {
-    decorationFilter: (deco) =>
-      decorations.has(deco),
-    errorMessage,
-    allowChangeFromSources,
-    transactionMode,
-    allowUndoRedo
-  }, fromRanges)
-}
-
-export function lockCodeSectionsFromRanges (
-  editor: monaco.editor.ICodeEditor,
-  lockOptions: Omit<LockCodeOptions, 'decorationFilter'>,
-  ranges: monaco.Range[],
-  decorationOptions: monaco.editor.IModelDecorationOptions
-): monaco.IDisposable {
-  return lockCodeWithRanges(editor, lockOptions, ranges, decorationOptions, true)
-}
-
-export function lockCodeSectionsWithoutRanges (
-  editor: monaco.editor.ICodeEditor,
-  lockOptions: Omit<LockCodeOptions, 'decorationFilter'>,
-  ranges: monaco.Range[],
-  decorationOptions: monaco.editor.IModelDecorationOptions
-): monaco.IDisposable {
-  return lockCodeWithRanges(editor, lockOptions, ranges, decorationOptions, false)
-}
-
 export function lockCodeFromDecoration (
   editor: monaco.editor.ICodeEditor,
   lockOptions: LockCodeOptions
