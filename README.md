@@ -9,7 +9,7 @@ It also includes some tools allowing to add some missing features to monaco-edit
 - `collapseCodeSections` allows to create and collapse a code section between 2 tokens
 - `registerTextDecorationProvider` allows to compute decorations on all existing editors
 - `hideCodeWithoutDecoration` allows to hide code parts that have a specific decoration
-- `lockCodeFromDecoration` allows to make read-only code parts within a specific decoration
+- `lockCodeWithDecoration` allows to make read-only code parts within a specific decoration
 - `lockCodeWithoutDecoration` allows to make read-only code parts outside of a specific decoration
 - `updateEditorKeybindingsMode` allows to apply vim or emacs keybindings
 - `extractRangesFromTokens` allows to extract a code section between 2 tokens

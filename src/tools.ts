@@ -97,7 +97,7 @@ export interface LockCodeOptions {
   allowUndoRedo?: boolean
 }
 
-function lockCodeWithDecoration (
+function lockCodeUsingDecoration (
   editor: monaco.editor.ICodeEditor,
   {
     errorMessage,
@@ -107,10 +107,10 @@ function lockCodeWithDecoration (
     allowUndoRedo = true
   }: LockCodeOptions,
   /**
-   * If true, the code within the ranges will be locked.
-   * All the code outside of the ranges will be lock otherwise.
+   * If true, the code within the decoration will be locked.
+   * All the code outside of the decoration will be locked otherwise.
    */
-  fromRanges: boolean
+  withDecoration: boolean
 ): monaco.IDisposable {
   const disposableStore = new DisposableStore()
   function displayLockedCodeError (position: monaco.Position) {
@@ -130,7 +130,7 @@ function lockCodeWithDecoration (
     if (ranges.length === 0) {
       return true
     }
-    return fromRanges
+    return withDecoration
       ? ranges.every((uneditableRange) => !uneditableRange.containsRange(range))
       : ranges.some((editableRange) => editableRange.containsRange(range))
   }
@@ -268,18 +268,18 @@ function lockCodeWithDecoration (
   return disposableStore
 }
 
-export function lockCodeFromDecoration (
+export function lockCodeWithDecoration (
   editor: monaco.editor.ICodeEditor,
   lockOptions: LockCodeOptions
 ): monaco.IDisposable {
-  return lockCodeWithDecoration(editor, lockOptions, true)
+  return lockCodeUsingDecoration(editor, lockOptions, true)
 }
 
 export function lockCodeWithoutDecoration (
   editor: monaco.editor.ICodeEditor,
   lockOptions: LockCodeOptions
 ): monaco.IDisposable {
-  return lockCodeWithDecoration(editor, lockOptions, false)
+  return lockCodeUsingDecoration(editor, lockOptions, false)
 }
 
 let hideCodeWithoutDecorationCounter = 0
