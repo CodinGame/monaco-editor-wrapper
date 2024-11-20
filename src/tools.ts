@@ -65,15 +65,6 @@ export function extractRangesFromTokens (editor: monaco.editor.ICodeEditor, star
   return []
 }
 
-export function createDecorationsForRanges (
-  editor: monaco.editor.ICodeEditor,
-  ranges: monaco.IRange[],
-  options: monaco.editor.IModelDecorationOptions
-): monaco.editor.IEditorDecorationsCollection {
-  const decorations = ranges.map((range) => ({ options, range }))
-  return editor.createDecorationsCollection(decorations)
-}
-
 export interface LockCodeOptions {
   /**
    * Error message displayed in a tooltip when an edit failed
