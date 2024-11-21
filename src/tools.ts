@@ -13,6 +13,58 @@ function isPasteAction (handlerId: string, payload: unknown): payload is PastePa
   return handlerId === 'paste'
 }
 
+function getRangesFromDecorations (
+  editor: monaco.editor.ICodeEditor,
+  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
+): monaco.Range[] {
+  const model = editor.getModel()
+  if (model == null) {
+    return []
+  }
+
+  return model
+    .getAllDecorations()
+    .filter(decorationFilter)
+    .map((decoration) => decoration.range)
+}
+
+/**
+ * Exctract ranges between startToken and endToken
+ */
+export function extractRangesFromTokens (editor: monaco.editor.ICodeEditor, startToken: string, endToken: string, isRegex: boolean = false): monaco.Range[] {
+  const editorModel = editor.getModel()
+  const ranges: monaco.Range[] = []
+  if (editorModel != null) {
+    let currentPosition = editorModel.getFullModelRange().getStartPosition()
+    let match: monaco.editor.FindMatch | null
+    while ((match = editorModel.findNextMatch(startToken,
+      /* searchStart */currentPosition,
+      /* isRegex */isRegex,
+      /* matchCase */true,
+      /* wordSeparators */null,
+      /* captureMatches */false
+    )) != null) {
+      if (match.range.getStartPosition().isBefore(currentPosition)) {
+        break
+      }
+      const matchEnd = editorModel.findNextMatch(endToken,
+        /* searchStart */match.range.getEndPosition(),
+        /* isRegex */isRegex,
+        /* matchCase */true,
+        /* wordSeparators */null,
+        /* captureMatches */false
+      )
+      if (matchEnd != null && matchEnd.range.getStartPosition().isBefore(match.range.getStartPosition())) {
+        break
+      }
+      currentPosition = matchEnd?.range.getEndPosition() ?? editorModel.getFullModelRange().getEndPosition()
+      ranges.push(monaco.Range.fromPositions(match.range.getStartPosition(), currentPosition))
+    }
+    return ranges
+  }
+  return []
+}
+
 export interface LockCodeOptions {
   /**
    * Error message displayed in a tooltip when an edit failed
@@ -36,7 +88,7 @@ export interface LockCodeOptions {
   allowUndoRedo?: boolean
 }
 
-export function lockCodeWithoutDecoration (
+function lockCodeUsingDecoration (
   editor: monaco.editor.ICodeEditor,
   {
     errorMessage,
@@ -44,7 +96,12 @@ export function lockCodeWithoutDecoration (
     decorationFilter = () => true,
     transactionMode = true,
     allowUndoRedo = true
-  }: LockCodeOptions
+  }: LockCodeOptions,
+  /**
+   * If true, the code within the decoration will be locked.
+   * All the code outside of the decoration will be locked otherwise.
+   */
+  withDecoration: boolean
 ): monaco.IDisposable {
   const disposableStore = new DisposableStore()
   function displayLockedCodeError (position: monaco.Position) {
@@ -57,30 +114,24 @@ export function lockCodeWithoutDecoration (
   }
 
   function canEditRange (range: monaco.IRange) {
-    const model = editor.getModel()
-    if (model != null) {
-      const editableRanges = model
-        .getAllDecorations()
-        .filter(decorationFilter)
-        .map((decoration) => decoration.range)
-      if (editableRanges.length === 0) {
-        return true
-      }
-      return editableRanges.some((editableRange) => editableRange.containsRange(range))
+    if (editor.getModel() == null) {
+      return false
     }
-    return false
+    const ranges = getRangesFromDecorations(editor, decorationFilter)
+    if (ranges.length === 0) {
+      return true
+    }
+    return withDecoration
+      ? ranges.every((uneditableRange) => !uneditableRange.containsRange(range))
+      : ranges.some((editableRange) => editableRange.containsRange(range))
   }
 
   const originalTrigger = editor.trigger
   editor.trigger = function (source, handlerId, payload) {
     // Try to transform whole file pasting into a paste in the editable area only
-    const editableRanges = editor
-      .getModel()!
-      .getAllDecorations()
-      .filter(decorationFilter)
-      .map((decoration) => decoration.range)
+    const ranges = getRangesFromDecorations(editor, decorationFilter)
     const lastEditableRange =
-      editableRanges.length > 0 ? editableRanges[editableRanges.length - 1] : undefined
+      ranges.length > 0 ? ranges[ranges.length - 1] : undefined
     if (isPasteAction(handlerId, payload) && lastEditableRange != null) {
       const selections = editor.getSelections()
       const model = editor.getModel()!
@@ -209,6 +260,20 @@ export function lockCodeWithoutDecoration (
   return disposableStore
 }
 
+export function lockCodeWithDecoration (
+  editor: monaco.editor.ICodeEditor,
+  lockOptions: LockCodeOptions
+): monaco.IDisposable {
+  return lockCodeUsingDecoration(editor, lockOptions, true)
+}
+
+export function lockCodeWithoutDecoration (
+  editor: monaco.editor.ICodeEditor,
+  lockOptions: LockCodeOptions
+): monaco.IDisposable {
+  return lockCodeUsingDecoration(editor, lockOptions, false)
+}
+
 let hideCodeWithoutDecorationCounter = 0
 export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean): monaco.IDisposable {
   const hideId = `hideCodeWithoutDecoration:${hideCodeWithoutDecorationCounter++}`
@@ -297,52 +362,30 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
 }
 
 /**
+ * Collapse everything from ranges
+ */
+export async function collapseCodeSectionsFromRanges (editor: monaco.editor.ICodeEditor, ranges: monaco.IRange[]): Promise<void> {
+  if (ranges.length > 0) {
+    const selections = editor.getSelections()
+    editor.setSelections(ranges.map(r => ({
+      selectionStartLineNumber: r.startLineNumber,
+      selectionStartColumn: r.startColumn,
+      positionLineNumber: r.endLineNumber,
+      positionColumn: r.endColumn
+    })))
+    await editor.getAction('editor.createFoldingRangeFromSelection')!.run()
+    if (selections != null) {
+      editor.setSelections(selections)
+    }
+  }
+}
+
+/**
  * Collapse everything between startToken and endToken
  */
 export async function collapseCodeSections (editor: monaco.editor.ICodeEditor, startToken: string, endToken: string, isRegex: boolean = false): Promise<void> {
-  const editorModel = editor.getModel()
-  const ranges: monaco.IRange[] = []
-  if (editorModel != null) {
-    let currentPosition = editorModel.getFullModelRange().getStartPosition()
-    let match: monaco.editor.FindMatch | null
-    while ((match = editorModel.findNextMatch(startToken,
-      /* searchStart */currentPosition,
-      /* isRegex */isRegex,
-      /* matchCase */true,
-      /* wordSeparators */null,
-      /* captureMatches */false
-    )) != null) {
-      if (match.range.getStartPosition().isBefore(currentPosition)) {
-        break
-      }
-      const matchEnd = editorModel.findNextMatch(endToken,
-        /* searchStart */match.range.getEndPosition(),
-        /* isRegex */isRegex,
-        /* matchCase */true,
-        /* wordSeparators */null,
-        /* captureMatches */false
-      )
-      if (matchEnd != null && matchEnd.range.getStartPosition().isBefore(match.range.getStartPosition())) {
-        break
-      }
-      currentPosition = matchEnd?.range.getEndPosition() ?? editorModel.getFullModelRange().getEndPosition()
-      ranges.push(monaco.Range.fromPositions(match.range.getStartPosition(), currentPosition))
-    }
-
-    if (ranges.length > 0) {
-      const selections = editor.getSelections()
-      editor.setSelections(ranges.map(r => ({
-        selectionStartLineNumber: r.startLineNumber,
-        selectionStartColumn: r.startColumn,
-        positionLineNumber: r.endLineNumber,
-        positionColumn: r.endColumn
-      })))
-      await editor.getAction('editor.createFoldingRangeFromSelection')!.run()
-      if (selections != null) {
-        editor.setSelections(selections)
-      }
-    }
-  }
+  const ranges: monaco.IRange[] = extractRangesFromTokens(editor, startToken, endToken, isRegex)
+  await collapseCodeSectionsFromRanges(editor, ranges)
 }
 
 interface IDecorationProvider {

@@ -5,11 +5,14 @@ Monaco editor wrapper uses and configures [monaco-vscode-api](https://www.npmjs.
 
 It also includes some tools allowing to add some missing features to monaco-editor:
 - `preventAlwaysConsumeTouchEvent`, mobile feature corresponding to the `alwaysConsumeMouseWheel` monaco-editor option
+- `collapseCodeSectionsFromRanges` allows to create and collapse a code section
 - `collapseCodeSections` allows to create and collapse a code section between 2 tokens
 - `registerTextDecorationProvider` allows to compute decorations on all existing editors
 - `hideCodeWithoutDecoration` allows to hide code parts that have a specific decoration
-- `lockCodeWithoutDecoration` allows to make read-only code parts that have a specific decoration
+- `lockCodeWithDecoration` allows to make read-only code parts within a specific decoration
+- `lockCodeWithoutDecoration` allows to make read-only code parts outside of a specific decoration
 - `updateEditorKeybindingsMode` allows to apply vim or emacs keybindings
+- `extractRangesFromTokens` allows to extract the code sections between a start token and an end token
 
 ### Installation
 
