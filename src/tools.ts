@@ -128,6 +128,7 @@ function lockCodeUsingDecoration (
 
   const originalTrigger = editor.trigger
   editor.trigger = function (source, handlerId, payload) {
+    // Try to transform whole file pasting into a paste in the editable area only
     const ranges = getRangesFromDecorations(editor, decorationFilter)
     const lastEditableRange =
       ranges.length > 0 ? ranges[ranges.length - 1] : undefined
