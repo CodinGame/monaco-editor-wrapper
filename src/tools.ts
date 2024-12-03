@@ -122,7 +122,7 @@ function lockCodeUsingDecoration (
       return true
     }
     return withDecoration
-      ? ranges.every((uneditableRange) => !uneditableRange.containsRange(range))
+      ? ranges.every((uneditableRange) => !monaco.Range.areIntersecting(uneditableRange, range))
       : ranges.some((editableRange) => editableRange.containsRange(range))
   }
 
