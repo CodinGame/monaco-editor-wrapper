@@ -28,6 +28,21 @@ function getRangesFromDecorations (
     .map((decoration) => decoration.range)
 }
 
+function getEditableRange (fullModelRange: monaco.Range, ranges: monaco.Range[], withDecoration: boolean): monaco.Range | undefined {
+  if (ranges.length <= 0) {
+    return undefined
+  }
+
+  if (!withDecoration) {
+    return ranges[ranges.length - 1]
+  }
+
+  const firstUneditableRange = ranges[0]
+  return firstUneditableRange != null
+    ? new monaco.Range(fullModelRange.startLineNumber, fullModelRange.startColumn, firstUneditableRange.startLineNumber, firstUneditableRange.startColumn)
+    : undefined
+}
+
 /**
  * Exctract ranges between startToken and endToken
  */
@@ -129,27 +144,26 @@ function lockCodeUsingDecoration (
   const originalTrigger = editor.trigger
   editor.trigger = function (source, handlerId, payload) {
     // Try to transform whole file pasting into a paste in the editable area only
+    const model = editor.getModel()!
+    const fullModelRange = model.getFullModelRange()
     const ranges = getRangesFromDecorations(editor, decorationFilter)
-    const lastEditableRange =
-      ranges.length > 0 ? ranges[ranges.length - 1] : undefined
-    if (isPasteAction(handlerId, payload) && lastEditableRange != null) {
+    const editableRange = getEditableRange(fullModelRange, ranges, withDecoration)
+    if (isPasteAction(handlerId, payload) && editableRange != null) {
       const selections = editor.getSelections()
-      const model = editor.getModel()!
       if (selections != null && selections.length === 1) {
         const selection = selections[0]!
-        const fullModelRange = model.getFullModelRange()
         const wholeFileSelected = fullModelRange.equalsRange(selection)
         if (wholeFileSelected) {
           const currentEditorValue = editor.getValue()
-          const before = model.getOffsetAt(lastEditableRange.getStartPosition())
+          const before = model.getOffsetAt(editableRange.getStartPosition())
           const after =
-            currentEditorValue.length - model.getOffsetAt(lastEditableRange.getEndPosition())
+            currentEditorValue.length - model.getOffsetAt(editableRange.getEndPosition())
           if (
             currentEditorValue.slice(0, before) === payload.text.slice(0, before) &&
             currentEditorValue.slice(currentEditorValue.length - after) ===
               payload.text.slice(payload.text.length - after)
           ) {
-            editor.setSelection(lastEditableRange)
+            editor.setSelection(editableRange)
             const newPayload: PastePayload = {
               ...payload,
               text: payload.text.slice(before, payload.text.length - after)
