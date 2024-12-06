@@ -43,6 +43,122 @@ function getEditableRange (fullModelRange: monaco.Range, ranges: monaco.Range[],
     : undefined
 }
 
+function minusRanges (uniqueRange: monaco.Range, ranges: monaco.Range[]): monaco.Range[] {
+  const newRanges: monaco.Range[] = []
+  let lastEndLineNumber = uniqueRange.startLineNumber
+  let lastEndColumn = uniqueRange.startColumn
+
+  for (const range of ranges) {
+    const newRange = new monaco.Range(lastEndLineNumber, lastEndColumn, range.startLineNumber, range.startColumn)
+    lastEndLineNumber = range.endLineNumber
+    lastEndColumn = range.endColumn
+    newRanges.push(newRange)
+  }
+
+  if (lastEndLineNumber < uniqueRange.endLineNumber || lastEndColumn < uniqueRange.endColumn) {
+    newRanges.push(new monaco.Range(lastEndLineNumber, lastEndColumn, uniqueRange.endLineNumber, uniqueRange.endColumn))
+  }
+
+  return newRanges
+}
+
+function createNewOperation (
+  oldOperation: ValidAnnotatedEditOperation,
+  newRange: monaco.Range,
+  newText: string,
+  index: number
+): ValidAnnotatedEditOperation {
+  const identifier = oldOperation.identifier != null
+    ? { major: oldOperation.identifier.major, minor: oldOperation.identifier.minor + index }
+    : null
+  return new ValidAnnotatedEditOperation(
+    identifier,
+    newRange,
+    newText,
+    oldOperation.forceMoveMarkers,
+    oldOperation.isAutoWhitespaceEdit,
+    oldOperation._isTracked
+  )
+}
+
+function computeNewOperationsForLockedCode (
+  editor: monaco.editor.ICodeEditor,
+  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean,
+  editorOperations: ValidAnnotatedEditOperation[],
+  withDecoration: boolean,
+  displayLockedCodeError: (position: monaco.Position) => void
+): ValidAnnotatedEditOperation[] {
+  const model = editor.getModel()
+  if (model == null) {
+    return []
+  }
+
+  const fullModelRange = model.getFullModelRange()
+  const ranges = getRangesFromDecorations(editor, decorationFilter)
+  const uneditableRanges = withDecoration ? ranges : minusRanges(fullModelRange, ranges)
+  if (uneditableRanges.length <= 0) {
+    return editorOperations
+  }
+
+  const newOperations: ValidAnnotatedEditOperation[] = []
+  for (const operation of editorOperations) {
+    const operationRange = operation.range
+    const uneditableRangesThatIntersects = uneditableRanges.filter(range => monaco.Range.areIntersecting(range, operationRange))
+
+    // The operation range doesn't intersect with an uneditable range
+    if (uneditableRangesThatIntersects.length <= 0) {
+      newOperations.push(operation)
+      continue
+    }
+
+    // The operation range is entirely in an uneditable range
+    if (uneditableRangesThatIntersects.some(range => range.containsRange(operationRange))) {
+      displayLockedCodeError(
+        new monaco.Position(operationRange.startLineNumber, operationRange.startColumn))
+      continue
+    }
+
+    const newOperationRanges = minusRanges(operationRange, uneditableRangesThatIntersects)
+    const editorValue = editor.getValue()
+    let currentUneditableRangeIndex = 0
+    let currentNewOperationRangeIndex = 0
+    let remainingOperationText = operation.text
+    do {
+      const currentNewOperationRange = newOperationRanges[currentNewOperationRangeIndex]
+      if (currentNewOperationRange == null || remainingOperationText == null) {
+        break
+      }
+
+      const currentUneditableRange = uneditableRangesThatIntersects[currentUneditableRangeIndex]
+      if (currentUneditableRange == null) {
+        newOperations.push(createNewOperation(operation, currentNewOperationRange, remainingOperationText, currentNewOperationRangeIndex))
+        break
+      }
+
+      const uneditableRangeValue = editorValue.slice(model.getOffsetAt(currentUneditableRange.getStartPosition()), model.getOffsetAt(currentUneditableRange.getEndPosition()))
+      const uneditableIndexInText = remainingOperationText.indexOf(uneditableRangeValue)
+      if (uneditableIndexInText === -1) {
+        // The uneditable text is not in the remaining operation text
+        newOperations.push(createNewOperation(operation, currentNewOperationRange, remainingOperationText, currentNewOperationRangeIndex))
+        remainingOperationText = null
+      } else if (uneditableIndexInText === 0) {
+        // The uneditable text is at the beginning of the remaining operation text
+        currentUneditableRangeIndex++
+        remainingOperationText = remainingOperationText.slice(uneditableIndexInText + uneditableRangeValue.length)
+      } else {
+        // The uneditable text is in the middle or at the end of the remaining operation text
+        newOperations.push(
+          createNewOperation(operation, currentNewOperationRange, remainingOperationText.slice(0, uneditableIndexInText), currentNewOperationRangeIndex)
+        )
+        currentNewOperationRangeIndex++
+        remainingOperationText = remainingOperationText.slice(uneditableIndexInText + uneditableRangeValue.length)
+      }
+    } while (remainingOperationText != null && remainingOperationText.length > 0)
+  }
+
+  return newOperations
+}
+
 /**
  * Exctract ranges between startToken and endToken
  */
@@ -205,7 +321,7 @@ function lockCodeUsingDecoration (
 
     const original = model._validateEditOperations
     model._validateEditOperations = function (this: AugmentedITextModel, rawOperations) {
-      const editorOperations: ValidAnnotatedEditOperation[] = original.call(this, rawOperations)
+      let editorOperations: ValidAnnotatedEditOperation[] = original.call(this, rawOperations)
 
       if (currentEditSource != null && allowChangeFromSources.includes(currentEditSource)) {
         return editorOperations
@@ -215,6 +331,7 @@ function lockCodeUsingDecoration (
         return editorOperations
       }
 
+      editorOperations = computeNewOperationsForLockedCode(editor, decorationFilter, editorOperations, withDecoration, displayLockedCodeError)
       if (transactionMode) {
         const firstForbiddenOperation = editorOperations.find(operation => !canEditRange(operation.range))
         if (firstForbiddenOperation != null) {
