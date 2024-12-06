@@ -19,18 +19,16 @@ function getRangesFromDecorations (
 
 function minusRanges (uniqueRange: monaco.Range, ranges: monaco.Range[]): monaco.Range[] {
   const newRanges: monaco.Range[] = []
-  let lastEndLineNumber = uniqueRange.startLineNumber
-  let lastEndColumn = uniqueRange.startColumn
+  let lastEndPosition = uniqueRange.getStartPosition()
 
   for (const range of ranges) {
-    const newRange = new monaco.Range(lastEndLineNumber, lastEndColumn, range.startLineNumber, range.startColumn)
-    lastEndLineNumber = range.endLineNumber
-    lastEndColumn = range.endColumn
+    const newRange = monaco.Range.fromPositions(lastEndPosition, range.getStartPosition())
+    lastEndPosition = range.getEndPosition()
     newRanges.push(newRange)
   }
 
-  if (lastEndLineNumber < uniqueRange.endLineNumber || lastEndColumn < uniqueRange.endColumn) {
-    newRanges.push(new monaco.Range(lastEndLineNumber, lastEndColumn, uniqueRange.endLineNumber, uniqueRange.endColumn))
+  if (lastEndPosition.isBefore(uniqueRange.getEndPosition())) {
+    newRanges.push(monaco.Range.fromPositions(lastEndPosition, uniqueRange.getEndPosition()))
   }
 
   return newRanges
