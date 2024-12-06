@@ -124,6 +124,7 @@ function computeNewOperationsForLockedCode (
         newOperations.push(
           createNewOperation(operation, currentNewOperationRange, remainingOperationText.slice(0, uneditableIndexInText), currentNewOperationRangeIndex)
         )
+        currentUneditableRangeIndex++
         currentNewOperationRangeIndex++
         remainingOperationText = remainingOperationText.slice(uneditableIndexInText + uneditableRangeValue.length)
       }
