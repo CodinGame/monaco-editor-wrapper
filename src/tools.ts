@@ -2,17 +2,6 @@ import * as monaco from 'monaco-editor'
 import { DisposableStore } from 'vscode/monaco'
 import { IIdentifiedSingleEditOperation, ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
 
-interface PastePayload {
-  text: string
-  pasteOnNewLine: boolean
-  multicursorText: string[] | null
-  mode: string | null
-}
-
-function isPasteAction (handlerId: string, payload: unknown): payload is PastePayload {
-  return handlerId === 'paste'
-}
-
 function getRangesFromDecorations (
   editor: monaco.editor.ICodeEditor,
   decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
@@ -26,21 +15,6 @@ function getRangesFromDecorations (
     .getAllDecorations()
     .filter(decorationFilter)
     .map((decoration) => decoration.range)
-}
-
-function getEditableRange (fullModelRange: monaco.Range, ranges: monaco.Range[], withDecoration: boolean): monaco.Range | undefined {
-  if (ranges.length <= 0) {
-    return undefined
-  }
-
-  if (!withDecoration) {
-    return ranges[ranges.length - 1]
-  }
-
-  const firstUneditableRange = ranges[0]
-  return firstUneditableRange != null
-    ? new monaco.Range(fullModelRange.startLineNumber, fullModelRange.startColumn, firstUneditableRange.startLineNumber, firstUneditableRange.startColumn)
-    : undefined
 }
 
 function minusRanges (uniqueRange: monaco.Range, ranges: monaco.Range[]): monaco.Range[] {
@@ -257,42 +231,6 @@ function lockCodeUsingDecoration (
       : ranges.some((editableRange) => editableRange.containsRange(range))
   }
 
-  const originalTrigger = editor.trigger
-  editor.trigger = function (source, handlerId, payload) {
-    // Try to transform whole file pasting into a paste in the editable area only
-    const model = editor.getModel()!
-    const fullModelRange = model.getFullModelRange()
-    const ranges = getRangesFromDecorations(editor, decorationFilter)
-    const editableRange = getEditableRange(fullModelRange, ranges, withDecoration)
-    if (isPasteAction(handlerId, payload) && editableRange != null) {
-      const selections = editor.getSelections()
-      if (selections != null && selections.length === 1) {
-        const selection = selections[0]!
-        const wholeFileSelected = fullModelRange.equalsRange(selection)
-        if (wholeFileSelected) {
-          const currentEditorValue = editor.getValue()
-          const before = model.getOffsetAt(editableRange.getStartPosition())
-          const after =
-            currentEditorValue.length - model.getOffsetAt(editableRange.getEndPosition())
-          if (
-            currentEditorValue.slice(0, before) === payload.text.slice(0, before) &&
-            currentEditorValue.slice(currentEditorValue.length - after) ===
-              payload.text.slice(payload.text.length - after)
-          ) {
-            editor.setSelection(editableRange)
-            const newPayload: PastePayload = {
-              ...payload,
-              text: payload.text.slice(before, payload.text.length - after)
-            }
-            payload = newPayload
-          }
-        }
-      }
-    }
-
-    return originalTrigger.call(editor, source, handlerId, payload)
-  }
-
   let currentEditSource: string | null | undefined
   const originalExecuteEdit = editor.executeEdits
   editor.executeEdits = (source, edits, endCursorState) => {
@@ -384,7 +322,6 @@ function lockCodeUsingDecoration (
     dispose () {
       restoreModel?.()
       editor.executeEdits = originalExecuteEdit
-      editor.trigger = originalTrigger
     }
   })
 
