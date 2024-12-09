@@ -1,32 +1,8 @@
 import * as monaco from 'monaco-editor'
 import { DisposableStore } from 'vscode/monaco'
 import { IIdentifiedSingleEditOperation, ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
-
-interface PastePayload {
-  text: string
-  pasteOnNewLine: boolean
-  multicursorText: string[] | null
-  mode: string | null
-}
-
-function isPasteAction (handlerId: string, payload: unknown): payload is PastePayload {
-  return handlerId === 'paste'
-}
-
-function getRangesFromDecorations (
-  editor: monaco.editor.ICodeEditor,
-  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
-): monaco.Range[] {
-  const model = editor.getModel()
-  if (model == null) {
-    return []
-  }
-
-  return model
-    .getAllDecorations()
-    .filter(decorationFilter)
-    .map((decoration) => decoration.range)
-}
+import { getRangesFromDecorations } from './tools/utils/rangeUtils'
+import { computeNewOperationsForLockedCode } from './tools/utils/editorOperationUtils'
 
 /**
  * Exctract ranges between startToken and endToken
@@ -126,43 +102,6 @@ function lockCodeUsingDecoration (
       : ranges.some((editableRange) => editableRange.containsRange(range))
   }
 
-  const originalTrigger = editor.trigger
-  editor.trigger = function (source, handlerId, payload) {
-    // Try to transform whole file pasting into a paste in the editable area only
-    const ranges = getRangesFromDecorations(editor, decorationFilter)
-    const lastEditableRange =
-      ranges.length > 0 ? ranges[ranges.length - 1] : undefined
-    if (isPasteAction(handlerId, payload) && lastEditableRange != null) {
-      const selections = editor.getSelections()
-      const model = editor.getModel()!
-      if (selections != null && selections.length === 1) {
-        const selection = selections[0]!
-        const fullModelRange = model.getFullModelRange()
-        const wholeFileSelected = fullModelRange.equalsRange(selection)
-        if (wholeFileSelected) {
-          const currentEditorValue = editor.getValue()
-          const before = model.getOffsetAt(lastEditableRange.getStartPosition())
-          const after =
-            currentEditorValue.length - model.getOffsetAt(lastEditableRange.getEndPosition())
-          if (
-            currentEditorValue.slice(0, before) === payload.text.slice(0, before) &&
-            currentEditorValue.slice(currentEditorValue.length - after) ===
-              payload.text.slice(payload.text.length - after)
-          ) {
-            editor.setSelection(lastEditableRange)
-            const newPayload: PastePayload = {
-              ...payload,
-              text: payload.text.slice(before, payload.text.length - after)
-            }
-            payload = newPayload
-          }
-        }
-      }
-    }
-
-    return originalTrigger.call(editor, source, handlerId, payload)
-  }
-
   let currentEditSource: string | null | undefined
   const originalExecuteEdit = editor.executeEdits
   editor.executeEdits = (source, edits, endCursorState) => {
@@ -191,7 +130,7 @@ function lockCodeUsingDecoration (
 
     const original = model._validateEditOperations
     model._validateEditOperations = function (this: AugmentedITextModel, rawOperations) {
-      const editorOperations: ValidAnnotatedEditOperation[] = original.call(this, rawOperations)
+      let editorOperations: ValidAnnotatedEditOperation[] = original.call(this, rawOperations)
 
       if (currentEditSource != null && allowChangeFromSources.includes(currentEditSource)) {
         return editorOperations
@@ -201,6 +140,7 @@ function lockCodeUsingDecoration (
         return editorOperations
       }
 
+      editorOperations = computeNewOperationsForLockedCode(editor, decorationFilter, editorOperations, withDecoration)
       if (transactionMode) {
         const firstForbiddenOperation = editorOperations.find(operation => !canEditRange(operation.range))
         if (firstForbiddenOperation != null) {
@@ -253,7 +193,6 @@ function lockCodeUsingDecoration (
     dispose () {
       restoreModel?.()
       editor.executeEdits = originalExecuteEdit
-      editor.trigger = originalTrigger
     }
   })
 
