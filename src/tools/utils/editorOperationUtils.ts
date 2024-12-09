@@ -21,83 +21,71 @@ function createNewOperation (
   )
 }
 
-function getLockedRangeValueIndexesInText (
-  editor: monaco.editor.ICodeEditor,
-  range: monaco.Range,
-  text: string
-): {
-  startIndex: number | null
-  endIndex: number | null
-} {
-  const model = editor.getModel()
-  if (model == null) {
-    return { startIndex: null, endIndex: null }
+function createNewOperationsFromRanges (
+  oldOperation: ValidAnnotatedEditOperation,
+  editableRanges: monaco.Range[],
+  splitText: (string | null)[]
+): ValidAnnotatedEditOperation[] {
+  if (editableRanges.length <= 0) {
+    return []
   }
 
-  const rangeValue = model.getValueInRange(range)
-  const startIndex = text.indexOf(rangeValue)
-  return {
-    startIndex,
-    endIndex: startIndex + rangeValue.length
+  if (splitText.length === 1) {
+    return [createNewOperation(oldOperation, oldOperation.range, splitText[0] ?? null, 0)]
   }
+
+  return splitText.map((text, index) => createNewOperation(oldOperation, editableRanges[index]!, text, index))
 }
 
-function computeNewOperationsWithIntersectingLockedCode (
+function splitOperationText (
   editor: monaco.editor.ICodeEditor,
-  operation: ValidAnnotatedEditOperation,
+  uneditableRanges: monaco.Range[],
+  text: string | null
+): (string | null)[] {
+  if (text == null || text === '') {
+    return [text]
+  }
+
+  const model = editor.getModel()
+  if (model == null) {
+    return []
+  }
+
+  const splitText: string[] = []
+  const uneditableRangesText = uneditableRanges.map(range => model.getValueInRange(range))
+  let currentRange: number = 0
+  let textToSplit: string | undefined = text
+  while (textToSplit != null && textToSplit !== '' && currentRange < uneditableRangesText.length) {
+    const rangeText = uneditableRangesText[currentRange]
+    if (rangeText != null && rangeText !== '') {
+      const result: string[] = textToSplit.split(rangeText)
+      splitText.push(result[0]!)
+      textToSplit = result[1]
+    }
+    currentRange++
+  }
+
+  if (textToSplit != null && textToSplit !== '') {
+    splitText.push(textToSplit)
+  }
+  return splitText
+}
+
+function splitOperationsForLockedCode (
+  editor: monaco.editor.ICodeEditor,
+  operations: ValidAnnotatedEditOperation[],
   uneditableRanges: monaco.Range[]
 ): ValidAnnotatedEditOperation[] {
-  const newOperations: ValidAnnotatedEditOperation[] = []
-  const editableRanges: monaco.Range[] = minusRanges(operation.range, uneditableRanges)
-
-  // Index of the current uneditable range in the text
-  let uneditableRangeIndex: number = 0
-  // Index of the current editable range in the text
-  let editableRangeIndex: number = 0
-  // The operation text is null or an empty string when it's a delete
-  let remainingText: string = operation.text ?? ''
-
-  do {
-    const editableRange = editableRanges[editableRangeIndex]
-    if (editableRange == null) {
-      // There are no editable ranges left
-      return newOperations
-    }
-
-    const uneditableRange = uneditableRanges[uneditableRangeIndex]
-    if (uneditableRange == null) {
-      // There are no more locked ranges
-      return [
-        ...newOperations,
-        createNewOperation(operation, editableRange, remainingText, editableRangeIndex)
-      ]
-    }
-
-    const { startIndex, endIndex } = getLockedRangeValueIndexesInText(editor, uneditableRange, remainingText)
-    if (startIndex == null || endIndex == null) {
-      return newOperations
-    } else if (startIndex === -1) {
-      // The uneditable text is not in the remaining operation text
-      return [
-        ...newOperations,
-        createNewOperation(operation, editableRange, remainingText, editableRangeIndex)
-      ]
-      // remainingText = null
-    } else if (startIndex === 0) {
-      // The uneditable text is at the beginning of the remaining operation text
-      uneditableRangeIndex++
-      remainingText = remainingText.slice(endIndex)
-    } else {
-      // The uneditable text is in the middle or at the end of the remaining operation text
-      newOperations.push(
-        createNewOperation(operation, editableRange, remainingText.slice(0, startIndex), editableRangeIndex)
-      )
-      uneditableRangeIndex++
-      editableRangeIndex++
-      remainingText = remainingText.slice(endIndex)
-    }
-  } while (remainingText.length > 0)
-
+  let newOperations: ValidAnnotatedEditOperation[] = []
+  for (const operation of operations) {
+    const operationEditableRanges: monaco.Range[] = minusRanges(operation.range, uneditableRanges)
+    const operationUneditableRanges: monaco.Range[] = minusRanges(operation.range, operationEditableRanges)
+    const splitText = splitOperationText(editor, operationUneditableRanges, operation.text)
+    newOperations = [
+      ...newOperations,
+      ...createNewOperationsFromRanges(operation, operationEditableRanges, splitText)
+    ]
+  }
   return newOperations
 }
 
@@ -107,24 +95,15 @@ export function computeNewOperationsForLockedCode (
   editorOperations: ValidAnnotatedEditOperation[],
   withDecoration: boolean
 ): ValidAnnotatedEditOperation[] {
+  const model = editor.getModel()
+  if (model == null) {
+    return []
+  }
+
   const uneditableRanges = getLockedRanges(editor, decorationFilter, withDecoration)
   if (uneditableRanges.length <= 0) {
     return editorOperations
   }
 
-  const newOperations: ValidAnnotatedEditOperation[] = []
-  for (const operation of editorOperations) {
-    const operationRange = operation.range
-    const uneditableRangesThatIntersects = uneditableRanges.filter(range => monaco.Range.areIntersecting(range, operationRange))
-
-    if (uneditableRangesThatIntersects.length <= 0) {
-      // The operation range doesn't intersect with an uneditable range
-      newOperations.push(operation)
-    } else {
-      // The operation range intersects with one or more uneditable range
-      newOperations.push(...computeNewOperationsWithIntersectingLockedCode(editor, operation, uneditableRangesThatIntersects))
-    }
-  }
-
-  return newOperations
+  return splitOperationsForLockedCode(editor, editorOperations, uneditableRanges)
 }
