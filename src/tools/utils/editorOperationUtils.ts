@@ -30,7 +30,7 @@ function createNewOperationsFromRanges (
     return []
   }
 
-  if (splitText.length === 1) {
+  if (splitText.length === 1 && (splitText[0] == null || splitText[0] === '')) {
     return [createNewOperation(oldOperation, oldOperation.range, splitText[0] ?? null, 0)]
   }
 
