@@ -54,18 +54,18 @@ function splitOperationText (
   const splitText: string[] = []
   const uneditableRangesText = uneditableRanges.map(range => model.getValueInRange(range))
   let currentRange: number = 0
-  let textToSplit: string | undefined = text
-  while (textToSplit != null && textToSplit !== '' && currentRange < uneditableRangesText.length) {
+  let textToSplit: string = text
+  while (textToSplit !== '' && currentRange < uneditableRangesText.length) {
     const rangeText = uneditableRangesText[currentRange]
     if (rangeText != null && rangeText !== '') {
-      const result: string[] = textToSplit.split(rangeText)
-      splitText.push(result[0]!)
-      textToSplit = result[1]
+      const rangeTextIndex = textToSplit.indexOf(rangeText)
+      splitText.push(textToSplit.slice(0, rangeTextIndex))
+      textToSplit = textToSplit.slice(rangeTextIndex + rangeText.length)
     }
     currentRange++
   }
 
-  if (textToSplit != null && textToSplit !== '') {
+  if (textToSplit !== '') {
     splitText.push(textToSplit)
   }
   return splitText
