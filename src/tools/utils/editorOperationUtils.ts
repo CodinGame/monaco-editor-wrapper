@@ -30,8 +30,8 @@ function createNewOperationsFromRanges (
     return []
   }
 
-  if (splitText.length === 1 && (splitText[0] == null || splitText[0] === '')) {
-    return [createNewOperation(oldOperation, oldOperation.range, splitText[0] ?? null, 0)]
+  if (splitText.length === 1) {
+    return [oldOperation]
   }
 
   return splitText.map((text, index) => createNewOperation(oldOperation, editableRanges[index]!, text, index))
@@ -59,8 +59,13 @@ function splitOperationText (
     const rangeText = uneditableRangesText[currentRange]
     if (rangeText != null && rangeText !== '') {
       const rangeTextIndex = textToSplit.indexOf(rangeText)
-      splitText.push(textToSplit.slice(0, rangeTextIndex))
-      textToSplit = textToSplit.slice(rangeTextIndex + rangeText.length)
+      if (rangeTextIndex !== -1) {
+        splitText.push(textToSplit.slice(0, rangeTextIndex))
+        textToSplit = textToSplit.slice(rangeTextIndex + rangeText.length)
+      } else {
+        splitText.push(textToSplit)
+        textToSplit = ''
+      }
     }
     currentRange++
   }
