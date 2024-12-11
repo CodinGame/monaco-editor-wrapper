@@ -1,7 +1,7 @@
 import * as monaco from 'monaco-editor'
 import { DisposableStore } from 'vscode/monaco'
 import { IIdentifiedSingleEditOperation, ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
-import { getRangesFromDecorations } from './tools/utils/rangeUtils'
+import { getRangesFromDecorations, minusRanges } from './tools/utils/rangeUtils'
 import { computeNewOperationsForLockedCode } from './tools/utils/editorOperationUtils'
 
 /**
@@ -251,22 +251,16 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
         }
       }, [])
 
-    const hiddenAreas: monaco.IRange[] = []
-    let position = new monaco.Position(1, 1)
-    for (const range of ranges) {
-      const startPosition = model.modifyPosition(range.getStartPosition(), -1)
-      const endPosition = model.modifyPosition(range.getEndPosition(), 1)
-      hiddenAreas.push(monaco.Range.fromPositions(position, startPosition))
-      position = endPosition
-    }
-    hiddenAreas.push(monaco.Range.fromPositions(position, model.getFullModelRange().getEndPosition()))
+    const {
+      firstRanges: hiddenAreas,
+      secondRanges: visibleRanges
+    } = minusRanges(editor, model.getFullModelRange(), ranges)
 
     editor.setHiddenAreas(hiddenAreas, hideId)
 
     // Make sure only visible code is selected
     const selections = editor.getSelections()
     if (selections != null) {
-      const visibleRanges = editor._getViewModel()!.getModelVisibleRanges()
       let newSelections = selections.flatMap(selection =>
         visibleRanges.map(visibleRange => selection.intersectRanges(visibleRange))
           .filter((range): range is monaco.Range => range != null)
