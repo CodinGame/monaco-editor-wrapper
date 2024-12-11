@@ -60,8 +60,18 @@ function splitOperationText (
     if (rangeText != null && rangeText !== '') {
       const rangeTextIndex = textToSplit.indexOf(rangeText)
       if (rangeTextIndex !== -1) {
-        splitText.push(textToSplit.slice(0, rangeTextIndex))
+        const currentUneditableRange = uneditableRanges[currentRange]!
+        let textToKeep = textToSplit.slice(0, rangeTextIndex)
+        if (textToKeep.endsWith('\n') && currentUneditableRange.startColumn === 1) {
+          textToKeep = textToKeep.slice(0, textToKeep.length - 1)
+        }
+        splitText.push(textToKeep)
+
+        const uneditableRangeMaxEndColumn = model.getLineMaxColumn(currentUneditableRange.endLineNumber)
         textToSplit = textToSplit.slice(rangeTextIndex + rangeText.length)
+        if (textToSplit.startsWith('\n') && currentUneditableRange.endColumn === uneditableRangeMaxEndColumn) {
+          textToSplit = textToSplit.slice(1, textToSplit.length)
+        }
       } else {
         splitText.push(textToSplit)
         textToSplit = ''
@@ -71,7 +81,7 @@ function splitOperationText (
   }
 
   if (textToSplit !== '') {
-    splitText.push(textToSplit)
+    splitText.push(textToSplit.endsWith('\n') ? textToSplit.slice(0, textToSplit.length - 1) : textToSplit)
   }
   return splitText
 }

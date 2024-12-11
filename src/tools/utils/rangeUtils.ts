@@ -52,7 +52,7 @@ export function minusRanges (
   }
 
   if (lastEndPosition.isBeforeOrEqual(uniqueRangeEndPosition)) {
-    firstRanges.push(monaco.Range.fromPositions(lastEndPosition, uniqueRangeEndPosition))
+    firstRanges.push(monaco.Range.fromPositions(model.modifyPosition(lastEndPosition, 1), uniqueRangeEndPosition))
   }
 
   return { firstRanges, secondRanges }
