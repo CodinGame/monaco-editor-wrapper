@@ -78,8 +78,10 @@ function splitOperationsForLockedCode (
 ): ValidAnnotatedEditOperation[] {
   let newOperations: ValidAnnotatedEditOperation[] = []
   for (const operation of operations) {
-    const operationEditableRanges: monaco.Range[] = minusRanges(operation.range, uneditableRanges)
-    const operationUneditableRanges: monaco.Range[] = minusRanges(operation.range, operationEditableRanges)
+    const {
+      firstRanges: operationEditableRanges,
+      secondRanges: operationUneditableRanges
+    } = minusRanges(editor, operation.range, uneditableRanges)
     const splitText = splitOperationText(editor, operationUneditableRanges, operation.text)
     newOperations = [
       ...newOperations,

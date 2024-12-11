@@ -15,22 +15,47 @@ export function getRangesFromDecorations (
     .map((decoration) => decoration.range)
 }
 
-export function minusRanges (uniqueRange: monaco.Range, ranges: monaco.Range[]): monaco.Range[] {
-  const newRanges: monaco.Range[] = []
+export function minusRanges (
+  editor: monaco.editor.ICodeEditor,
+  uniqueRange: monaco.Range,
+  ranges: monaco.Range[]
+): {
+  firstRanges: monaco.Range[]
+  secondRanges: monaco.Range[]
+} {
+  const model = editor.getModel()!
+  const firstRanges: monaco.Range[] = []
+  const secondRanges: monaco.Range[] = []
   let lastEndPosition = uniqueRange.getStartPosition()
+  const uniqueRangeEndPosition = uniqueRange.getEndPosition()
   const intersectingRanges = ranges.filter(range => monaco.Range.areIntersecting(range, uniqueRange))
 
   for (const range of intersectingRanges) {
-    const newRange = monaco.Range.fromPositions(lastEndPosition, range.getStartPosition())
-    lastEndPosition = range.getEndPosition()
-    newRanges.push(newRange)
+    const rangeStart = range.getStartPosition()
+    const rangeEnd = range.getEndPosition()
+
+    if (lastEndPosition.isBefore(rangeStart)) {
+      const firstRangeStart = lastEndPosition.equals(uniqueRange.getStartPosition())
+        ? lastEndPosition
+        : model.modifyPosition(lastEndPosition, 1)
+      firstRanges.push(monaco.Range.fromPositions(
+        firstRangeStart,
+        (model.modifyPosition(rangeStart, -1))
+      ))
+    }
+
+    const secondRangeStart = lastEndPosition.isBefore(rangeStart) ? rangeStart : lastEndPosition
+    const secondRangeEnd = uniqueRangeEndPosition.isBefore(rangeEnd) ? uniqueRangeEndPosition : rangeEnd
+    secondRanges.push(monaco.Range.fromPositions(secondRangeStart, secondRangeEnd))
+
+    lastEndPosition = rangeEnd
   }
 
-  if (lastEndPosition.isBeforeOrEqual(uniqueRange.getEndPosition())) {
-    newRanges.push(monaco.Range.fromPositions(lastEndPosition, uniqueRange.getEndPosition()))
+  if (lastEndPosition.isBeforeOrEqual(uniqueRangeEndPosition)) {
+    firstRanges.push(monaco.Range.fromPositions(lastEndPosition, uniqueRangeEndPosition))
   }
 
-  return newRanges
+  return { firstRanges, secondRanges }
 }
 
 export function getLockedRanges (
@@ -45,5 +70,6 @@ export function getLockedRanges (
 
   const fullModelRange = model.getFullModelRange()
   const ranges = getRangesFromDecorations(editor, decorationFilter)
-  return withDecoration ? ranges : minusRanges(fullModelRange, ranges)
+  const { firstRanges, secondRanges } = minusRanges(editor, fullModelRange, ranges)
+  return withDecoration ? secondRanges : firstRanges
 }
