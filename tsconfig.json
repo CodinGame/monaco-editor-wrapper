@@ -24,7 +24,8 @@
     "scripts/update-extensions.ts",
     "rollup.config.ts",
     "jest.config.ts",
-    "babel.test.config.cjs"
+    "babel.test.config.cjs",
+    "FixJSDOMEnvironment.js"
   ],
   "exclude": [
     "dist",

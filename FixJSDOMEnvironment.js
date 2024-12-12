@@ -1,11 +1,19 @@
 import { TestEnvironment } from 'jest-environment-jsdom'
 
 class FixJSDOMEnvironment extends TestEnvironment {
-  constructor(...args) {
-    super(...args);
+  constructor (config, context) {
+    super(config, context)
+
+    this.dom.virtualConsole.removeAllListeners('jsdomError')
+    this.dom.virtualConsole.on('jsdomError', error => {
+      if (error.message.startsWith('Could not parse CSS stylesheet')) {
+        return
+      }
+      context.console.error(error)
+    })
 
     // FIXME https://github.com/jsdom/jsdom/issues/3363
-    this.global.structuredClone = structuredClone;
+    this.global.structuredClone = structuredClone
   }
 }
 

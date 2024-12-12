@@ -149,6 +149,8 @@ Object.defineProperty(window, 'Buffer', {
 
 // Force override performance, for some reason the implementation is empty otherwise
 const _performance = performance
+// remove nodeTiming because otherwise VSCode refuse to detect the env as a browser env, and it also fails to detect a node env (no `process`) so it generates an error
+performance.nodeTiming = undefined
 Object.defineProperty(global, 'performance', {
   get () { return _performance },
   set (v) {
