@@ -2,13 +2,7 @@ import * as monaco from 'monaco-editor'
 import { ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
 import { excludeRanges } from './rangeUtils'
 
-export class LockedCodeError extends Error {
-  constructor (message: string) {
-    super(message)
-    this.name = 'LockedCodeError'
-    Object.setPrototypeOf(this, LockedCodeError.prototype)
-  }
-}
+export class LockedCodeError extends Error {}
 
 function createNewOperation (
   oldOperation: ValidAnnotatedEditOperation,
