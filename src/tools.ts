@@ -2,7 +2,7 @@ import * as monaco from 'monaco-editor'
 import { DisposableStore } from 'vscode/monaco'
 import { IIdentifiedSingleEditOperation, ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
 import { getRangesFromDecorations, minusRanges } from './tools/utils/rangeUtils'
-import { tryIgnoreLockedCode } from './tools/utils/editorOperationUtils'
+import { LockedCodeError, tryIgnoreLockedCode } from './tools/utils/editorOperationUtils'
 
 /**
  * Exctract ranges between startToken and endToken
@@ -141,7 +141,20 @@ function lockCodeUsingDecoration (
         return editorOperations
       }
 
-      editorOperations = tryIgnoreLockedCode(model, decorationFilter, editorOperations, withDecoration)
+      try {
+        editorOperations = tryIgnoreLockedCode(model, decorationFilter, editorOperations, withDecoration)
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.info(e)
+        if (e instanceof LockedCodeError) {
+          // eslint-disable-next-line no-console
+          console.info(e)
+        } else {
+          // eslint-disable-next-line no-console
+          console.error(e)
+        }
+      }
+
       if (transactionMode) {
         const firstForbiddenOperation = editorOperations.find(operation => !canEditRange(operation.range))
         if (firstForbiddenOperation != null) {
