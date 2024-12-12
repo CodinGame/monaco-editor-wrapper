@@ -144,8 +144,6 @@ function lockCodeUsingDecoration (
       try {
         editorOperations = tryIgnoreLockedCode(model, decorationFilter, editorOperations, withDecoration)
       } catch (e) {
-        // eslint-disable-next-line no-console
-        console.info(e)
         if (e instanceof LockedCodeError) {
           // eslint-disable-next-line no-console
           console.info(e)
