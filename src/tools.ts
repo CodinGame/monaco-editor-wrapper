@@ -1,7 +1,7 @@
 import * as monaco from 'monaco-editor'
 import { DisposableStore } from 'vscode/monaco'
 import { IIdentifiedSingleEditOperation, ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
-import { getRangesFromDecorations, minusRanges } from './tools/utils/rangeUtils'
+import { getRangesFromDecorations, excludeRanges } from './tools/utils/rangeUtils'
 import { LockedCodeError, tryIgnoreLockedCode } from './tools/utils/editorOperationUtils'
 
 /**
@@ -266,9 +266,9 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
       }, [])
 
     const {
-      firstRanges: hiddenAreas,
-      secondRanges: visibleRanges
-    } = minusRanges(model, model.getFullModelRange(), ranges)
+      filteredRanges: hiddenAreas,
+      removedRanges: visibleRanges
+    } = excludeRanges(model, model.getFullModelRange(), ranges)
 
     editor.setHiddenAreas(hiddenAreas, hideId)
 

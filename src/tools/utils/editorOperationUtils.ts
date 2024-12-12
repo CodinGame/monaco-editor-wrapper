@@ -1,6 +1,6 @@
 import * as monaco from 'monaco-editor'
 import { ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
-import { getLockedRanges, minusRanges } from './rangeUtils'
+import { getLockedRanges, excludeRanges } from './rangeUtils'
 
 export class LockedCodeError extends Error {
   constructor (message: string) {
@@ -98,9 +98,9 @@ export function tryIgnoreLockedCodeForOperations (
   let newOperations: ValidAnnotatedEditOperation[] = []
   for (const operation of operations) {
     const {
-      firstRanges: operationEditableRanges,
-      secondRanges: operationUneditableRanges
-    } = minusRanges(model, operation.range, uneditableRanges)
+      filteredRanges: operationEditableRanges,
+      removedRanges: operationUneditableRanges
+    } = excludeRanges(model, operation.range, uneditableRanges)
     const splitText = tryIgnoreLockedCodeTextForOperation(model, operationUneditableRanges, operation.text)
     newOperations = [
       ...newOperations,
