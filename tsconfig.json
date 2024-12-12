@@ -19,7 +19,14 @@
     "sourceMap": true,
     "target": "es2020"
   },
-  "include": ["src", "scripts/update-extensions.ts", "rollup.config.ts"],
+  "include": [
+    "src",
+    "scripts/update-extensions.ts",
+    "rollup.config.ts",
+    "jest.config.ts",
+    "babel.test.config.cjs",
+    "FixJSDOMEnvironment.js"
+  ],
   "exclude": [
     "dist",
     "node_modules"

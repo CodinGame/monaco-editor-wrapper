@@ -1,32 +1,8 @@
 import * as monaco from 'monaco-editor'
 import { DisposableStore } from 'vscode/monaco'
 import { IIdentifiedSingleEditOperation, ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
-
-interface PastePayload {
-  text: string
-  pasteOnNewLine: boolean
-  multicursorText: string[] | null
-  mode: string | null
-}
-
-function isPasteAction (handlerId: string, payload: unknown): payload is PastePayload {
-  return handlerId === 'paste'
-}
-
-function getRangesFromDecorations (
-  editor: monaco.editor.ICodeEditor,
-  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
-): monaco.Range[] {
-  const model = editor.getModel()
-  if (model == null) {
-    return []
-  }
-
-  return model
-    .getAllDecorations()
-    .filter(decorationFilter)
-    .map((decoration) => decoration.range)
-}
+import { getRangesFromDecorations, excludeRanges } from './tools/utils/rangeUtils'
+import { LockedCodeError, tryIgnoreLockedCode } from './tools/utils/editorOperationUtils'
 
 /**
  * Exctract ranges between startToken and endToken
@@ -65,19 +41,29 @@ export function extractRangesFromTokens (editor: monaco.editor.ICodeEditor, star
   return []
 }
 
+type ErrorHandler = (editor: monaco.editor.ICodeEditor, firstForbiddenOperation: ValidAnnotatedEditOperation) => void
+
+function generateErrorMessageErrorHandler (errorMessage: string): ErrorHandler {
+  return (editor, operation) => {
+    const messageContribution = editor.getContribution('editor.contrib.messageController')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ;(messageContribution as any).showMessage(errorMessage, operation.range.getStartPosition())
+  }
+}
+
 export interface LockCodeOptions {
   /**
    * Error message displayed in a tooltip when an edit failed
    */
-  errorMessage?: string
+  onError?: ErrorHandler
   /**
    * Allows edit coming from a specific source
    */
-  allowChangeFromSources: string[]
+  allowChangeFromSources?: string[]
   /**
-   * Only take some decorations into account
+   * Locked ranges
    */
-  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
+  getLockedRanges: () => monaco.Range[]
   /**
    * if true: when an edit block comes, either all the edit are applied or none
    */
@@ -88,79 +74,28 @@ export interface LockCodeOptions {
   allowUndoRedo?: boolean
 }
 
-function lockCodeUsingDecoration (
+export function lockCodeRanges (
   editor: monaco.editor.ICodeEditor,
   {
-    errorMessage,
+    onError,
     allowChangeFromSources = [],
-    decorationFilter = () => true,
+    getLockedRanges = () => [],
     transactionMode = true,
     allowUndoRedo = true
-  }: LockCodeOptions,
-  /**
-   * If true, the code within the decoration will be locked.
-   * All the code outside of the decoration will be locked otherwise.
-   */
-  withDecoration: boolean
+  }: LockCodeOptions
 ): monaco.IDisposable {
   const disposableStore = new DisposableStore()
-  function displayLockedCodeError (position: monaco.Position) {
-    if (errorMessage == null) {
-      return
-    }
-    const messageContribution = editor.getContribution('editor.contrib.messageController')
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(messageContribution as any).showMessage(errorMessage, position)
-  }
 
   function canEditRange (range: monaco.IRange) {
-    if (editor.getModel() == null) {
+    const model = editor.getModel()
+    if (model == null) {
       return false
     }
-    const ranges = getRangesFromDecorations(editor, decorationFilter)
+    const ranges = getLockedRanges()
     if (ranges.length === 0) {
       return true
     }
-    return withDecoration
-      ? ranges.every((uneditableRange) => !monaco.Range.areIntersecting(uneditableRange, range))
-      : ranges.some((editableRange) => editableRange.containsRange(range))
-  }
-
-  const originalTrigger = editor.trigger
-  editor.trigger = function (source, handlerId, payload) {
-    // Try to transform whole file pasting into a paste in the editable area only
-    const ranges = getRangesFromDecorations(editor, decorationFilter)
-    const lastEditableRange =
-      ranges.length > 0 ? ranges[ranges.length - 1] : undefined
-    if (isPasteAction(handlerId, payload) && lastEditableRange != null) {
-      const selections = editor.getSelections()
-      const model = editor.getModel()!
-      if (selections != null && selections.length === 1) {
-        const selection = selections[0]!
-        const fullModelRange = model.getFullModelRange()
-        const wholeFileSelected = fullModelRange.equalsRange(selection)
-        if (wholeFileSelected) {
-          const currentEditorValue = editor.getValue()
-          const before = model.getOffsetAt(lastEditableRange.getStartPosition())
-          const after =
-            currentEditorValue.length - model.getOffsetAt(lastEditableRange.getEndPosition())
-          if (
-            currentEditorValue.slice(0, before) === payload.text.slice(0, before) &&
-            currentEditorValue.slice(currentEditorValue.length - after) ===
-              payload.text.slice(payload.text.length - after)
-          ) {
-            editor.setSelection(lastEditableRange)
-            const newPayload: PastePayload = {
-              ...payload,
-              text: payload.text.slice(before, payload.text.length - after)
-            }
-            payload = newPayload
-          }
-        }
-      }
-    }
-
-    return originalTrigger.call(editor, source, handlerId, payload)
+    return ranges.every((uneditableRange) => !monaco.Range.areIntersectingOrTouching(uneditableRange, range))
   }
 
   let currentEditSource: string | null | undefined
@@ -191,7 +126,7 @@ function lockCodeUsingDecoration (
 
     const original = model._validateEditOperations
     model._validateEditOperations = function (this: AugmentedITextModel, rawOperations) {
-      const editorOperations: ValidAnnotatedEditOperation[] = original.call(this, rawOperations)
+      let editorOperations: ValidAnnotatedEditOperation[] = original.call(this, rawOperations)
 
       if (currentEditSource != null && allowChangeFromSources.includes(currentEditSource)) {
         return editorOperations
@@ -201,11 +136,22 @@ function lockCodeUsingDecoration (
         return editorOperations
       }
 
+      try {
+        editorOperations = tryIgnoreLockedCode(model, getLockedRanges(), editorOperations)
+      } catch (e) {
+        if (e instanceof LockedCodeError) {
+          // eslint-disable-next-line no-console
+          console.info(e)
+        } else {
+          // eslint-disable-next-line no-console
+          console.error(e)
+        }
+      }
+
       if (transactionMode) {
         const firstForbiddenOperation = editorOperations.find(operation => !canEditRange(operation.range))
         if (firstForbiddenOperation != null) {
-          displayLockedCodeError(
-            new monaco.Position(firstForbiddenOperation.range.startLineNumber, firstForbiddenOperation.range.startColumn))
+          onError?.(editor, firstForbiddenOperation)
           return []
         } else {
           return editorOperations
@@ -213,8 +159,7 @@ function lockCodeUsingDecoration (
       } else {
         return editorOperations.filter(operation => {
           if (!canEditRange(operation.range)) {
-            displayLockedCodeError(
-              new monaco.Position(operation.range.startLineNumber, operation.range.startColumn))
+            onError?.(editor, operation)
             return false
           }
           return true
@@ -253,25 +198,71 @@ function lockCodeUsingDecoration (
     dispose () {
       restoreModel?.()
       editor.executeEdits = originalExecuteEdit
-      editor.trigger = originalTrigger
     }
   })
 
   return disposableStore
 }
 
+export interface LockCodeFromDecorationOptions {
+  /**
+   * Error message displayed in a tooltip when an edit failed
+   */
+  errorMessage?: string
+  /**
+   * Allows edit coming from a specific source
+   */
+  allowChangeFromSources?: string[]
+  /**
+   * Only take some decorations into account
+   */
+  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
+  /**
+   * if true: when an edit block comes, either all the edit are applied or none
+   */
+  transactionMode?: boolean
+  /**
+   * Should undo/redo be ignored
+   */
+  allowUndoRedo?: boolean
+}
+
 export function lockCodeWithDecoration (
   editor: monaco.editor.ICodeEditor,
-  lockOptions: LockCodeOptions
+  lockOptions: LockCodeFromDecorationOptions
 ): monaco.IDisposable {
-  return lockCodeUsingDecoration(editor, lockOptions, true)
+  return lockCodeRanges(editor, {
+    onError: lockOptions.errorMessage != null ? generateErrorMessageErrorHandler(lockOptions.errorMessage) : undefined,
+    allowChangeFromSources: lockOptions.allowChangeFromSources,
+    getLockedRanges () {
+      const model = editor.getModel()
+      if (model == null) {
+        return []
+      }
+      return getRangesFromDecorations(model, lockOptions.decorationFilter)
+    },
+    transactionMode: lockOptions.transactionMode,
+    allowUndoRedo: lockOptions.allowUndoRedo
+  })
 }
 
 export function lockCodeWithoutDecoration (
   editor: monaco.editor.ICodeEditor,
-  lockOptions: LockCodeOptions
+  lockOptions: LockCodeFromDecorationOptions
 ): monaco.IDisposable {
-  return lockCodeUsingDecoration(editor, lockOptions, false)
+  return lockCodeRanges(editor, {
+    onError: lockOptions.errorMessage != null ? generateErrorMessageErrorHandler(lockOptions.errorMessage) : undefined,
+    allowChangeFromSources: lockOptions.allowChangeFromSources,
+    getLockedRanges () {
+      const model = editor.getModel()
+      if (model == null) {
+        return []
+      }
+      return excludeRanges(model, model.getFullModelRange(), getRangesFromDecorations(model, lockOptions.decorationFilter)).filteredRanges
+    },
+    transactionMode: lockOptions.transactionMode,
+    allowUndoRedo: lockOptions.allowUndoRedo
+  })
 }
 
 let hideCodeWithoutDecorationCounter = 0
@@ -312,22 +303,16 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
         }
       }, [])
 
-    const hiddenAreas: monaco.IRange[] = []
-    let position = new monaco.Position(1, 1)
-    for (const range of ranges) {
-      const startPosition = model.modifyPosition(range.getStartPosition(), -1)
-      const endPosition = model.modifyPosition(range.getEndPosition(), 1)
-      hiddenAreas.push(monaco.Range.fromPositions(position, startPosition))
-      position = endPosition
-    }
-    hiddenAreas.push(monaco.Range.fromPositions(position, model.getFullModelRange().getEndPosition()))
+    const {
+      filteredRanges: hiddenAreas,
+      removedRanges: visibleRanges
+    } = excludeRanges(model, model.getFullModelRange(), ranges)
 
     editor.setHiddenAreas(hiddenAreas, hideId)
 
     // Make sure only visible code is selected
     const selections = editor.getSelections()
     if (selections != null) {
-      const visibleRanges = editor._getViewModel()!.getModelVisibleRanges()
       let newSelections = selections.flatMap(selection =>
         visibleRanges.map(visibleRange => selection.intersectRanges(visibleRange))
           .filter((range): range is monaco.Range => range != null)
