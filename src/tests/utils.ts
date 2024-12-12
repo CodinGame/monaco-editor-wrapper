@@ -15,12 +15,8 @@ export function createTestRange (
   startLine: number,
   endLine: number,
   startColumn: number = 1,
-  endColumn?: number
+  endColumn: number = model.getLineMaxColumn(endLine)
 ): monaco.Range {
-  if (endColumn == null) {
-    endColumn = model.getLineMaxColumn(endLine)
-  }
-
   return new monaco.Range(startLine, startColumn, endLine, endColumn)
 }
 
