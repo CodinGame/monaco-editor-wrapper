@@ -41,15 +41,25 @@ export function extractRangesFromTokens (editor: monaco.editor.ICodeEditor, star
   return []
 }
 
+type ErrorHandler = (editor: monaco.editor.ICodeEditor, firstForbiddenOperation: ValidAnnotatedEditOperation) => void
+
+function generateErrorMessageErrorHandler (errorMessage: string): ErrorHandler {
+  return (editor, operation) => {
+    const messageContribution = editor.getContribution('editor.contrib.messageController')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ;(messageContribution as any).showMessage(errorMessage, operation.range.getStartPosition())
+  }
+}
+
 export interface LockCodeOptions {
   /**
    * Error message displayed in a tooltip when an edit failed
    */
-  errorMessage?: string
+  onError?: ErrorHandler
   /**
    * Allows edit coming from a specific source
    */
-  allowChangeFromSources: string[]
+  allowChangeFromSources?: string[]
   /**
    * Locked ranges
    */
@@ -67,7 +77,7 @@ export interface LockCodeOptions {
 export function lockCodeRanges (
   editor: monaco.editor.ICodeEditor,
   {
-    errorMessage,
+    onError,
     allowChangeFromSources = [],
     getLockedRanges = () => [],
     transactionMode = true,
@@ -75,14 +85,6 @@ export function lockCodeRanges (
   }: LockCodeOptions
 ): monaco.IDisposable {
   const disposableStore = new DisposableStore()
-  function displayLockedCodeError (position: monaco.Position) {
-    if (errorMessage == null) {
-      return
-    }
-    const messageContribution = editor.getContribution('editor.contrib.messageController')
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(messageContribution as any).showMessage(errorMessage, position)
-  }
 
   function canEditRange (range: monaco.IRange) {
     const model = editor.getModel()
@@ -149,8 +151,7 @@ export function lockCodeRanges (
       if (transactionMode) {
         const firstForbiddenOperation = editorOperations.find(operation => !canEditRange(operation.range))
         if (firstForbiddenOperation != null) {
-          displayLockedCodeError(
-            new monaco.Position(firstForbiddenOperation.range.startLineNumber, firstForbiddenOperation.range.startColumn))
+          onError?.(editor, firstForbiddenOperation)
           return []
         } else {
           return editorOperations
@@ -158,8 +159,7 @@ export function lockCodeRanges (
       } else {
         return editorOperations.filter(operation => {
           if (!canEditRange(operation.range)) {
-            displayLockedCodeError(
-              new monaco.Position(operation.range.startLineNumber, operation.range.startColumn))
+            onError?.(editor, operation)
             return false
           }
           return true
@@ -212,7 +212,7 @@ export interface LockCodeFromDecorationOptions {
   /**
    * Allows edit coming from a specific source
    */
-  allowChangeFromSources: string[]
+  allowChangeFromSources?: string[]
   /**
    * Only take some decorations into account
    */
@@ -232,7 +232,7 @@ export function lockCodeWithDecoration (
   lockOptions: LockCodeFromDecorationOptions
 ): monaco.IDisposable {
   return lockCodeRanges(editor, {
-    errorMessage: lockOptions.errorMessage,
+    onError: lockOptions.errorMessage != null ? generateErrorMessageErrorHandler(lockOptions.errorMessage) : undefined,
     allowChangeFromSources: lockOptions.allowChangeFromSources,
     getLockedRanges () {
       const model = editor.getModel()
@@ -251,7 +251,7 @@ export function lockCodeWithoutDecoration (
   lockOptions: LockCodeFromDecorationOptions
 ): monaco.IDisposable {
   return lockCodeRanges(editor, {
-    errorMessage: lockOptions.errorMessage,
+    onError: lockOptions.errorMessage != null ? generateErrorMessageErrorHandler(lockOptions.errorMessage) : undefined,
     allowChangeFromSources: lockOptions.allowChangeFromSources,
     getLockedRanges () {
       const model = editor.getModel()
