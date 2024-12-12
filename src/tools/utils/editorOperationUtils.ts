@@ -41,34 +41,34 @@ function createNewOperationsFromRanges (
   return splitText.map((text, index) => createNewOperation(oldOperation, editableRanges[index]!, text, index))
 }
 
-function splitOperationText (
+function tryIgnoreLockedCodeTextForOperation (
   model: monaco.editor.ITextModel,
-  uneditableRanges: monaco.Range[],
-  text: string | null
+  uneditableRangesInOperationRange: monaco.Range[],
+  operationText: string | null
 ): (string | null)[] {
-  if (text == null || text === '') {
-    if (uneditableRanges.length > 0) {
+  if (operationText == null || operationText === '') {
+    if (uneditableRangesInOperationRange.length > 0) {
       throw new LockedCodeError('Cannot delete locked code sections')
     }
     return [operationText]
   }
 
   const splitText: string[] = []
-  const uneditableRangesText = uneditableRanges.map(range => model.getValueInRange(range))
+  const uneditableRangesText = uneditableRangesInOperationRange.map(range => model.getValueInRange(range))
   let currentRange: number = 0
-  let textToSplit: string = text
-  while (textToSplit !== '' && currentRange < uneditableRangesText.length) {
+  let remainingText: string = operationText
+  while (remainingText.length > 0 && currentRange < uneditableRangesText.length) {
     const rangeText = uneditableRangesText[currentRange]
     if (rangeText != null && rangeText !== '') {
-      const rangeTextIndex = textToSplit.indexOf(rangeText)
+      const rangeTextIndex = remainingText.indexOf(rangeText)
 
       if (rangeTextIndex === -1) {
         throw new LockedCodeError('Cannot edit locked code sections')
       }
 
-      const currentUneditableRange = uneditableRanges[currentRange]!
+      const currentUneditableRange = uneditableRangesInOperationRange[currentRange]!
       if (rangeTextIndex !== 0) {
-        let textToKeep = textToSplit.slice(0, rangeTextIndex)
+        let textToKeep = remainingText.slice(0, rangeTextIndex)
         if (textToKeep.endsWith('\n') && currentUneditableRange.startColumn === 1) {
           textToKeep = textToKeep.slice(0, textToKeep.length - 1)
         }
@@ -76,21 +76,21 @@ function splitOperationText (
       }
 
       const uneditableRangeMaxEndColumn = model.getLineMaxColumn(currentUneditableRange.endLineNumber)
-      textToSplit = textToSplit.slice(rangeTextIndex + rangeText.length)
-      if (textToSplit.startsWith('\n') && currentUneditableRange.endColumn === uneditableRangeMaxEndColumn) {
-        textToSplit = textToSplit.slice(1, textToSplit.length)
+      remainingText = remainingText.slice(rangeTextIndex + rangeText.length)
+      if (remainingText.startsWith('\n') && currentUneditableRange.endColumn === uneditableRangeMaxEndColumn) {
+        remainingText = remainingText.slice(1, remainingText.length)
       }
     }
     currentRange++
   }
 
-  if (textToSplit !== '') {
-    splitText.push(textToSplit.endsWith('\n') ? textToSplit.slice(0, textToSplit.length - 1) : textToSplit)
+  if (remainingText !== '') {
+    splitText.push(remainingText.endsWith('\n') ? remainingText.slice(0, remainingText.length - 1) : remainingText)
   }
   return splitText
 }
 
-export function splitOperationsForLockedCode (
+export function tryIgnoreLockedCodeForOperations (
   model: monaco.editor.ITextModel,
   operations: ValidAnnotatedEditOperation[],
   uneditableRanges: monaco.Range[]
@@ -101,7 +101,7 @@ export function splitOperationsForLockedCode (
       firstRanges: operationEditableRanges,
       secondRanges: operationUneditableRanges
     } = minusRanges(model, operation.range, uneditableRanges)
-    const splitText = splitOperationText(model, operationUneditableRanges, operation.text)
+    const splitText = tryIgnoreLockedCodeTextForOperation(model, operationUneditableRanges, operation.text)
     newOperations = [
       ...newOperations,
       ...createNewOperationsFromRanges(operation, operationEditableRanges, splitText)
@@ -121,5 +121,5 @@ export function tryIgnoreLockedCode (
     return editorOperations
   }
 
-  return splitOperationsForLockedCode(model, editorOperations, uneditableRanges)
+  return tryIgnoreLockedCodeForOperations(model, editorOperations, uneditableRanges)
 }

@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals'
 import { canTestOperationsEditRanges, createDefaultTestLockedCodeRanges, createDefaultTestModel, createTestOperation, createTestRange } from '../utils'
-import { splitOperationsForLockedCode } from '../../tools/utils/editorOperationUtils'
+import { tryIgnoreLockedCodeForOperations } from '../../tools/utils/editorOperationUtils'
 
 describe('Locked code', () => {
   test('Edit editable range', async () => {
@@ -9,7 +9,7 @@ describe('Locked code', () => {
 
     const operationRange = createTestRange(model, 8, 9)
     const operation = createTestOperation(operationRange, '  return 42;')
-    const splitOperations = splitOperationsForLockedCode(model, [operation], uneditableRanges)
+    const splitOperations = tryIgnoreLockedCodeForOperations(model, [operation], uneditableRanges)
 
     expect(splitOperations.length).toEqual(1)
     expect(splitOperations[0]).toEqual(createTestOperation(operationRange, '  return 42;'))
@@ -22,7 +22,7 @@ describe('Locked code', () => {
 
     const operationRange = createTestRange(model, 4, 4)
     const operation = createTestOperation(operationRange, '// tata')
-    const splitOperations = splitOperationsForLockedCode(model, [operation], uneditableRanges)
+    const splitOperations = tryIgnoreLockedCodeForOperations(model, [operation], uneditableRanges)
 
     expect(splitOperations.length).toEqual(1)
     expect(splitOperations[0]).toEqual(createTestOperation(operationRange, '// tata'))
@@ -56,7 +56,7 @@ function findLargest(numbers: number[]): number {
 /* Ignore and do not change the code above */
 
 // last comment`)
-    const splitOperations = splitOperationsForLockedCode(model, [operation], uneditableRanges)
+    const splitOperations = tryIgnoreLockedCodeForOperations(model, [operation], uneditableRanges)
 
     expect(splitOperations.length).toEqual(4)
     expect(splitOperations[0]).toEqual(
@@ -92,7 +92,7 @@ function findLargest(numbers: number[]): number {
   // function
   return 42;
 }`)
-    const splitOperations = splitOperationsForLockedCode(model, [operation], uneditableRanges)
+    const splitOperations = tryIgnoreLockedCodeForOperations(model, [operation], uneditableRanges)
 
     expect(splitOperations.length).toEqual(1)
     expect(splitOperations[0]).toEqual(createTestOperation(fullModelRange, `function findLargest(numbers: number[]): number {
@@ -112,7 +112,7 @@ function findLargest(numbers: number[]): number {
 
 /* Ignore and do not change the code below */
 // toto`)
-    const splitOperations = splitOperationsForLockedCode(model, [operation], uneditableRanges)
+    const splitOperations = tryIgnoreLockedCodeForOperations(model, [operation], uneditableRanges)
 
     expect(splitOperations.length).toEqual(1)
     expect(splitOperations[0]).toEqual(
@@ -138,7 +138,7 @@ function findLargest(numbers: number[]): number {
 /* Ignore and do not change the code above */
 
 // other comment`)
-    const splitOperations = splitOperationsForLockedCode(model, [operation], uneditableRanges)
+    const splitOperations = tryIgnoreLockedCodeForOperations(model, [operation], uneditableRanges)
 
     expect(splitOperations.length).toEqual(2)
     expect(splitOperations[0]).toEqual(
@@ -158,7 +158,7 @@ function findLargest(numbers: number[]): number {
     const firstOperation = createTestOperation(firstRange, '  // first comment\n  return 42;', { major: 0, minor: 0 })
     const secondRange = createTestRange(model, 16, 16)
     const secondOperation = createTestOperation(secondRange, '// second operation comment', { major: 1, minor: 0 })
-    const splitOperations = splitOperationsForLockedCode(model, [firstOperation, secondOperation], uneditableRanges)
+    const splitOperations = tryIgnoreLockedCodeForOperations(model, [firstOperation, secondOperation], uneditableRanges)
 
     expect(splitOperations.length).toEqual(2)
     expect(splitOperations[0]).toEqual(
@@ -178,7 +178,7 @@ function findLargest(numbers: number[]): number {
     const firstOperation = createTestOperation(firstRange, '  // function comment\n  return 42;', { major: 0, minor: 0 })
     const secondRange = createTestRange(model, 13, 13)
     const secondOperation = createTestOperation(secondRange, '// uneditable comment', { major: 1, minor: 0 })
-    const splitOperations = splitOperationsForLockedCode(model, [firstOperation, secondOperation], uneditableRanges)
+    const splitOperations = tryIgnoreLockedCodeForOperations(model, [firstOperation, secondOperation], uneditableRanges)
 
     expect(splitOperations.length).toEqual(2)
     expect(splitOperations[0]).toEqual(
