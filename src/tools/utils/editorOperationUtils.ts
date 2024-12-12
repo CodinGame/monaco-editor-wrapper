@@ -26,11 +26,7 @@ function createNewOperationsFromRanges (
   editableRanges: monaco.Range[],
   splitText: (string | null)[]
 ): ValidAnnotatedEditOperation[] {
-  if (editableRanges.length <= 0) {
-    return []
-  }
-
-  if (splitText.length === 1) {
+  if (editableRanges.length <= 0 || splitText.length <= 0) {
     return [oldOperation]
   }
 
@@ -38,17 +34,12 @@ function createNewOperationsFromRanges (
 }
 
 function splitOperationText (
-  editor: monaco.editor.ICodeEditor,
+  model: monaco.editor.ITextModel,
   uneditableRanges: monaco.Range[],
   text: string | null
 ): (string | null)[] {
   if (text == null || text === '') {
-    return [text]
-  }
-
-  const model = editor.getModel()
-  if (model == null) {
-    return []
+    return uneditableRanges.length > 0 ? [] : [text]
   }
 
   const splitText: string[] = []
@@ -59,22 +50,24 @@ function splitOperationText (
     const rangeText = uneditableRangesText[currentRange]
     if (rangeText != null && rangeText !== '') {
       const rangeTextIndex = textToSplit.indexOf(rangeText)
-      if (rangeTextIndex !== -1) {
-        const currentUneditableRange = uneditableRanges[currentRange]!
+
+      if (rangeTextIndex === -1) {
+        return []
+      }
+
+      const currentUneditableRange = uneditableRanges[currentRange]!
+      if (rangeTextIndex !== 0) {
         let textToKeep = textToSplit.slice(0, rangeTextIndex)
         if (textToKeep.endsWith('\n') && currentUneditableRange.startColumn === 1) {
           textToKeep = textToKeep.slice(0, textToKeep.length - 1)
         }
         splitText.push(textToKeep)
+      }
 
-        const uneditableRangeMaxEndColumn = model.getLineMaxColumn(currentUneditableRange.endLineNumber)
-        textToSplit = textToSplit.slice(rangeTextIndex + rangeText.length)
-        if (textToSplit.startsWith('\n') && currentUneditableRange.endColumn === uneditableRangeMaxEndColumn) {
-          textToSplit = textToSplit.slice(1, textToSplit.length)
-        }
-      } else {
-        splitText.push(textToSplit)
-        textToSplit = ''
+      const uneditableRangeMaxEndColumn = model.getLineMaxColumn(currentUneditableRange.endLineNumber)
+      textToSplit = textToSplit.slice(rangeTextIndex + rangeText.length)
+      if (textToSplit.startsWith('\n') && currentUneditableRange.endColumn === uneditableRangeMaxEndColumn) {
+        textToSplit = textToSplit.slice(1, textToSplit.length)
       }
     }
     currentRange++
@@ -86,8 +79,8 @@ function splitOperationText (
   return splitText
 }
 
-function splitOperationsForLockedCode (
-  editor: monaco.editor.ICodeEditor,
+export function splitOperationsForLockedCode (
+  model: monaco.editor.ITextModel,
   operations: ValidAnnotatedEditOperation[],
   uneditableRanges: monaco.Range[]
 ): ValidAnnotatedEditOperation[] {
@@ -96,8 +89,8 @@ function splitOperationsForLockedCode (
     const {
       firstRanges: operationEditableRanges,
       secondRanges: operationUneditableRanges
-    } = minusRanges(editor, operation.range, uneditableRanges)
-    const splitText = splitOperationText(editor, operationUneditableRanges, operation.text)
+    } = minusRanges(model, operation.range, uneditableRanges)
+    const splitText = splitOperationText(model, operationUneditableRanges, operation.text)
     newOperations = [
       ...newOperations,
       ...createNewOperationsFromRanges(operation, operationEditableRanges, splitText)
@@ -107,20 +100,15 @@ function splitOperationsForLockedCode (
 }
 
 export function computeNewOperationsForLockedCode (
-  editor: monaco.editor.ICodeEditor,
+  model: monaco.editor.ITextModel,
   decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean,
   editorOperations: ValidAnnotatedEditOperation[],
   withDecoration: boolean
 ): ValidAnnotatedEditOperation[] {
-  const model = editor.getModel()
-  if (model == null) {
-    return []
-  }
-
-  const uneditableRanges = getLockedRanges(editor, decorationFilter, withDecoration)
+  const uneditableRanges = getLockedRanges(model, decorationFilter, withDecoration)
   if (uneditableRanges.length <= 0) {
     return editorOperations
   }
 
-  return splitOperationsForLockedCode(editor, editorOperations, uneditableRanges)
+  return splitOperationsForLockedCode(model, editorOperations, uneditableRanges)
 }

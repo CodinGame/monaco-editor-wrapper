@@ -90,10 +90,11 @@ function lockCodeUsingDecoration (
   }
 
   function canEditRange (range: monaco.IRange) {
-    if (editor.getModel() == null) {
+    const model = editor.getModel()
+    if (model == null) {
       return false
     }
-    const ranges = getRangesFromDecorations(editor, decorationFilter)
+    const ranges = getRangesFromDecorations(model, decorationFilter)
     if (ranges.length === 0) {
       return true
     }
@@ -140,7 +141,7 @@ function lockCodeUsingDecoration (
         return editorOperations
       }
 
-      editorOperations = computeNewOperationsForLockedCode(editor, decorationFilter, editorOperations, withDecoration)
+      editorOperations = computeNewOperationsForLockedCode(model, decorationFilter, editorOperations, withDecoration)
       if (transactionMode) {
         const firstForbiddenOperation = editorOperations.find(operation => !canEditRange(operation.range))
         if (firstForbiddenOperation != null) {
