@@ -2,6 +2,14 @@ import * as monaco from 'monaco-editor'
 import { ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
 import { getLockedRanges, minusRanges } from './rangeUtils'
 
+export class LockedCodeError extends Error {
+  constructor (message: string) {
+    super(message)
+    this.name = 'LockedCodeError'
+    Object.setPrototypeOf(this, LockedCodeError.prototype)
+  }
+}
+
 function createNewOperation (
   oldOperation: ValidAnnotatedEditOperation,
   newRange: monaco.Range,
@@ -26,7 +34,7 @@ function createNewOperationsFromRanges (
   editableRanges: monaco.Range[],
   splitText: (string | null)[]
 ): ValidAnnotatedEditOperation[] {
-  if (editableRanges.length <= 0 || splitText.length <= 0) {
+  if (editableRanges.length <= 0) {
     return [oldOperation]
   }
 
@@ -39,7 +47,10 @@ function splitOperationText (
   text: string | null
 ): (string | null)[] {
   if (text == null || text === '') {
-    return uneditableRanges.length > 0 ? [] : [text]
+    if (uneditableRanges.length > 0) {
+      throw new LockedCodeError('Cannot delete locked code sections')
+    }
+    return [operationText]
   }
 
   const splitText: string[] = []
@@ -52,7 +63,7 @@ function splitOperationText (
       const rangeTextIndex = textToSplit.indexOf(rangeText)
 
       if (rangeTextIndex === -1) {
-        return []
+        throw new LockedCodeError('Cannot edit locked code sections')
       }
 
       const currentUneditableRange = uneditableRanges[currentRange]!
