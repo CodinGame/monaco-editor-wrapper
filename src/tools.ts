@@ -51,9 +51,9 @@ export interface LockCodeOptions {
    */
   allowChangeFromSources: string[]
   /**
-   * Only take some decorations into account
+   * Locked ranges
    */
-  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
+  getLockedRanges: () => monaco.Range[]
   /**
    * if true: when an edit block comes, either all the edit are applied or none
    */
@@ -64,20 +64,15 @@ export interface LockCodeOptions {
   allowUndoRedo?: boolean
 }
 
-function lockCodeUsingDecoration (
+export function lockCodeRanges (
   editor: monaco.editor.ICodeEditor,
   {
     errorMessage,
     allowChangeFromSources = [],
-    decorationFilter = () => true,
+    getLockedRanges = () => [],
     transactionMode = true,
     allowUndoRedo = true
-  }: LockCodeOptions,
-  /**
-   * If true, the code within the decoration will be locked.
-   * All the code outside of the decoration will be locked otherwise.
-   */
-  withDecoration: boolean
+  }: LockCodeOptions
 ): monaco.IDisposable {
   const disposableStore = new DisposableStore()
   function displayLockedCodeError (position: monaco.Position) {
@@ -94,13 +89,11 @@ function lockCodeUsingDecoration (
     if (model == null) {
       return false
     }
-    const ranges = getRangesFromDecorations(model, decorationFilter)
+    const ranges = getLockedRanges()
     if (ranges.length === 0) {
       return true
     }
-    return withDecoration
-      ? ranges.every((uneditableRange) => !monaco.Range.areIntersectingOrTouching(uneditableRange, range))
-      : ranges.some((editableRange) => editableRange.containsRange(range))
+    return ranges.every((uneditableRange) => !monaco.Range.areIntersectingOrTouching(uneditableRange, range))
   }
 
   let currentEditSource: string | null | undefined
@@ -142,7 +135,7 @@ function lockCodeUsingDecoration (
       }
 
       try {
-        editorOperations = tryIgnoreLockedCode(model, decorationFilter, editorOperations, withDecoration)
+        editorOperations = tryIgnoreLockedCode(model, getLockedRanges(), editorOperations)
       } catch (e) {
         if (e instanceof LockedCodeError) {
           // eslint-disable-next-line no-console
@@ -211,18 +204,65 @@ function lockCodeUsingDecoration (
   return disposableStore
 }
 
+export interface LockCodeFromDecorationOptions {
+  /**
+   * Error message displayed in a tooltip when an edit failed
+   */
+  errorMessage?: string
+  /**
+   * Allows edit coming from a specific source
+   */
+  allowChangeFromSources: string[]
+  /**
+   * Only take some decorations into account
+   */
+  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
+  /**
+   * if true: when an edit block comes, either all the edit are applied or none
+   */
+  transactionMode?: boolean
+  /**
+   * Should undo/redo be ignored
+   */
+  allowUndoRedo?: boolean
+}
+
 export function lockCodeWithDecoration (
   editor: monaco.editor.ICodeEditor,
-  lockOptions: LockCodeOptions
+  lockOptions: LockCodeFromDecorationOptions
 ): monaco.IDisposable {
-  return lockCodeUsingDecoration(editor, lockOptions, true)
+  return lockCodeRanges(editor, {
+    errorMessage: lockOptions.errorMessage,
+    allowChangeFromSources: lockOptions.allowChangeFromSources,
+    getLockedRanges () {
+      const model = editor.getModel()
+      if (model == null) {
+        return []
+      }
+      return getRangesFromDecorations(model, lockOptions.decorationFilter)
+    },
+    transactionMode: lockOptions.transactionMode,
+    allowUndoRedo: lockOptions.allowUndoRedo
+  })
 }
 
 export function lockCodeWithoutDecoration (
   editor: monaco.editor.ICodeEditor,
-  lockOptions: LockCodeOptions
+  lockOptions: LockCodeFromDecorationOptions
 ): monaco.IDisposable {
-  return lockCodeUsingDecoration(editor, lockOptions, false)
+  return lockCodeRanges(editor, {
+    errorMessage: lockOptions.errorMessage,
+    allowChangeFromSources: lockOptions.allowChangeFromSources,
+    getLockedRanges () {
+      const model = editor.getModel()
+      if (model == null) {
+        return []
+      }
+      return excludeRanges(model, model.getFullModelRange(), getRangesFromDecorations(model, lockOptions.decorationFilter)).filteredRanges
+    },
+    transactionMode: lockOptions.transactionMode,
+    allowUndoRedo: lockOptions.allowUndoRedo
+  })
 }
 
 let hideCodeWithoutDecorationCounter = 0
