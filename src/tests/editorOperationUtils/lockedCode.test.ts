@@ -1,39 +1,94 @@
-import { describe, expect, test } from '@jest/globals'
-import { canTestOperationsEditRanges, createDefaultTestLockedCodeRanges, createDefaultTestModel, createTestOperation, createTestRange } from '../utils'
-import { tryIgnoreLockedCodeForOperations } from '../../tools/utils/editorOperationUtils'
+import { describe, expect, test, beforeEach, afterEach, jest } from '@jest/globals'
+import * as monaco from 'monaco-editor'
+import { DisposableStore } from 'vscode/monaco'
+import { createDefaultTestLockedCodeRanges, createDefaultTestModel, createTestOperation, createTestRange } from '../utils'
+import { lockCodeRanges } from '../../tools'
+
+let disposableStore: DisposableStore
+beforeEach(() => {
+  disposableStore = new DisposableStore()
+})
+afterEach(() => {
+  disposableStore.dispose()
+})
 
 describe('Locked code', () => {
-  test('Edit editable range', async () => {
+  test('Edit editable range', () => {
     const model = createDefaultTestModel()
-    const uneditableRanges = createDefaultTestLockedCodeRanges(model)
+    disposableStore.add(model)
+    const editor = monaco.editor.create(document.createElement('div'), {
+      model
+    })
+    disposableStore.add(editor)
+    disposableStore.add(lockCodeRanges(editor, {
+      getLockedRanges () {
+        return createDefaultTestLockedCodeRanges(model)
+      }
+    }))
 
     const operationRange = createTestRange(model, 8, 9)
     const operation = createTestOperation(operationRange, '  return 42;')
-    const splitOperations = tryIgnoreLockedCodeForOperations(model, [operation], uneditableRanges)
 
-    expect(splitOperations.length).toEqual(1)
-    expect(splitOperations[0]).toEqual(createTestOperation(operationRange, '  return 42;'))
-    expect(canTestOperationsEditRanges(splitOperations, uneditableRanges)).toBe(true)
+    const onDidChangeContent = jest.fn()
+    disposableStore.add(model.onDidChangeContent(onDidChangeContent))
+
+    editor.executeEdits(null, [operation])
+
+    expect(onDidChangeContent).toHaveBeenCalledTimes(1)
+    expect(onDidChangeContent.mock.calls[0]![0]).toMatchObject({
+      changes: [{
+        range: operation.range,
+        text: operation.text
+      }]
+    })
   })
 
   test('Edit locked code', () => {
     const model = createDefaultTestModel()
-    const uneditableRanges = createDefaultTestLockedCodeRanges(model)
+    const onError = jest.fn()
+    disposableStore.add(model)
+    const editor = monaco.editor.create(document.createElement('div'), {
+      model
+    })
+    disposableStore.add(editor)
+    disposableStore.add(lockCodeRanges(editor, {
+      getLockedRanges () {
+        return createDefaultTestLockedCodeRanges(model)
+      },
+      onError (editor, firstForbiddenOperation) {
+        onError(firstForbiddenOperation)
+      }
+    }))
 
     const operationRange = createTestRange(model, 4, 4)
     const operation = createTestOperation(operationRange, '// tata')
-    const splitOperations = tryIgnoreLockedCodeForOperations(model, [operation], uneditableRanges)
 
-    expect(splitOperations.length).toEqual(1)
-    expect(splitOperations[0]).toEqual(createTestOperation(operationRange, '// tata'))
-    expect(canTestOperationsEditRanges(splitOperations, uneditableRanges)).toBe(false)
+    const onDidChangeContent = jest.fn()
+    disposableStore.add(model.onDidChangeContent(onDidChangeContent))
+
+    editor.executeEdits(null, [operation])
+
+    expect(onError).toHaveBeenCalledTimes(1)
+    expect(onError.mock.calls[0]![0]).toMatchObject({
+      range: { startLineNumber: 4, startColumn: 1, endLineNumber: 4, endColumn: 8 },
+      text: '// tata'
+    })
   })
 
   test('Paste the whole editor with the locked code sections intact', () => {
     const model = createDefaultTestModel()
-    const fullModelRange = model.getFullModelRange()
-    const uneditableRanges = createDefaultTestLockedCodeRanges(model)
+    disposableStore.add(model)
+    const editor = monaco.editor.create(document.createElement('div'), {
+      model
+    })
+    disposableStore.add(editor)
+    disposableStore.add(lockCodeRanges(editor, {
+      getLockedRanges () {
+        return createDefaultTestLockedCodeRanges(model)
+      }
+    }))
 
+    const fullModelRange = model.getFullModelRange()
     const operation = createTestOperation(fullModelRange, `// first comment
 
 /* Ignore and do not change the code below */
@@ -56,55 +111,85 @@ function findLargest(numbers: number[]): number {
 /* Ignore and do not change the code above */
 
 // last comment`)
-    const splitOperations = tryIgnoreLockedCodeForOperations(model, [operation], uneditableRanges)
 
-    expect(splitOperations.length).toEqual(4)
-    expect(splitOperations[0]).toEqual(
-      createTestOperation(createTestRange(model, 1, 2), '// first comment\n', { major: 0, minor: 0 })
-    )
-    expect(splitOperations[1]).toEqual(
-      createTestOperation(
-        createTestRange(model, 6, 11),
-        `
+    const onDidChangeContent = jest.fn()
+    disposableStore.add(model.onDidChangeContent(onDidChangeContent))
+
+    editor.executeEdits(null, [operation])
+
+    expect(onDidChangeContent).toHaveBeenCalledTimes(1)
+    expect(onDidChangeContent.mock.calls[0]![0]).toMatchObject({
+      changes: [{
+        range: { startLineNumber: 21, startColumn: 1, endLineNumber: 22, endColumn: 24 },
+        text: '\n// last comment'
+      }, {
+        range: { startLineNumber: 15, startColumn: 1, endLineNumber: 17, endColumn: 1 },
+        text: '\n// second comment\n'
+      }, {
+        range: { startLineNumber: 6, startColumn: 1, endLineNumber: 11, endColumn: 1 },
+        text: `
 function findLargest(numbers: number[]): number {
   // function
   return 42;
 }
-`,
-        { major: 0, minor: 1 }
-      )
-    )
-    expect(splitOperations[2]).toEqual(
-      createTestOperation(createTestRange(model, 15, 17), '\n// second comment\n', { major: 0, minor: 2 })
-    )
-    expect(splitOperations[3]).toEqual(
-      createTestOperation(createTestRange(model, 21, 22), '\n// last comment', { major: 0, minor: 3 })
-    )
-    expect(canTestOperationsEditRanges(splitOperations, uneditableRanges)).toBe(true)
+`
+      }, {
+        range: { startLineNumber: 1, startColumn: 1, endLineNumber: 2, endColumn: 1 },
+        text: '// first comment\n'
+      }]
+    })
   })
 
   test('Paste the whole editor without the locked code sections', () => {
     const model = createDefaultTestModel()
-    const fullModelRange = model.getFullModelRange()
-    const uneditableRanges = createDefaultTestLockedCodeRanges(model)
+    const onError = jest.fn()
+    disposableStore.add(model)
+    const editor = monaco.editor.create(document.createElement('div'), {
+      model
+    })
+    disposableStore.add(editor)
+    disposableStore.add(lockCodeRanges(editor, {
+      getLockedRanges () {
+        return createDefaultTestLockedCodeRanges(model)
+      },
+      onError (editor, firstForbiddenOperation) {
+        onError(firstForbiddenOperation)
+      }
+    }))
 
+    const fullModelRange = model.getFullModelRange()
     const operation = createTestOperation(fullModelRange, `function findLargest(numbers: number[]): number {
   // function
   return 42;
 }`)
-    const splitOperations = tryIgnoreLockedCodeForOperations(model, [operation], uneditableRanges)
 
-    expect(splitOperations.length).toEqual(1)
-    expect(splitOperations[0]).toEqual(createTestOperation(fullModelRange, `function findLargest(numbers: number[]): number {
+    const onDidChangeContent = jest.fn()
+    disposableStore.add(model.onDidChangeContent(onDidChangeContent))
+
+    editor.executeEdits(null, [operation])
+
+    expect(onError).toHaveBeenCalledTimes(1)
+    expect(onError.mock.calls[0]![0]).toMatchObject({
+      range: fullModelRange,
+      text: `function findLargest(numbers: number[]): number {
   // function
   return 42;
-}`))
-    expect(canTestOperationsEditRanges(splitOperations, uneditableRanges)).toBe(false)
+}`
+    })
   })
 
   test('Edit range intersecting with one locked code section', () => {
     const model = createDefaultTestModel()
-    const uneditableRanges = createDefaultTestLockedCodeRanges(model)
+    disposableStore.add(model)
+    const editor = monaco.editor.create(document.createElement('div'), {
+      model
+    })
+    disposableStore.add(editor)
+    disposableStore.add(lockCodeRanges(editor, {
+      getLockedRanges () {
+        return createDefaultTestLockedCodeRanges(model)
+      }
+    }))
 
     const operationRange = createTestRange(model, 9, 13)
     const operation = createTestOperation(operationRange, `  return 42;
@@ -112,18 +197,33 @@ function findLargest(numbers: number[]): number {
 
 /* Ignore and do not change the code below */
 // toto`)
-    const splitOperations = tryIgnoreLockedCodeForOperations(model, [operation], uneditableRanges)
 
-    expect(splitOperations.length).toEqual(1)
-    expect(splitOperations[0]).toEqual(
-      createTestOperation(createTestRange(model, 9, 11), '  return 42;\n}\n')
-    )
-    expect(canTestOperationsEditRanges(splitOperations, uneditableRanges)).toBe(true)
+    const onDidChangeContent = jest.fn()
+    disposableStore.add(model.onDidChangeContent(onDidChangeContent))
+
+    editor.executeEdits(null, [operation])
+
+    expect(onDidChangeContent).toHaveBeenCalledTimes(1)
+    expect(onDidChangeContent.mock.calls[0]![0]).toMatchObject({
+      changes: [{
+        range: { startLineNumber: 9, startColumn: 1, endLineNumber: 11, endColumn: 1 },
+        text: '  return 42;\n}\n'
+      }]
+    })
   })
 
   test('Edit range intersecting with multiple locked code sections', () => {
     const model = createDefaultTestModel()
-    const uneditableRanges = createDefaultTestLockedCodeRanges(model)
+    disposableStore.add(model)
+    const editor = monaco.editor.create(document.createElement('div'), {
+      model
+    })
+    disposableStore.add(editor)
+    disposableStore.add(lockCodeRanges(editor, {
+      getLockedRanges () {
+        return createDefaultTestLockedCodeRanges(model)
+      }
+    }))
 
     const operationRange = createTestRange(model, 12, 22)
     const operation = createTestOperation(operationRange, `/* Ignore and do not change the code below */
@@ -138,55 +238,122 @@ function findLargest(numbers: number[]): number {
 /* Ignore and do not change the code above */
 
 // other comment`)
-    const splitOperations = tryIgnoreLockedCodeForOperations(model, [operation], uneditableRanges)
 
-    expect(splitOperations.length).toEqual(2)
-    expect(splitOperations[0]).toEqual(
-      createTestOperation(createTestRange(model, 15, 17), '\n// new comment\n// on two lines\n', { major: 0, minor: 0 })
-    )
-    expect(splitOperations[1]).toEqual(
-      createTestOperation(createTestRange(model, 21, 22), '\n// other comment', { major: 0, minor: 1 })
-    )
-    expect(canTestOperationsEditRanges(splitOperations, uneditableRanges)).toBe(true)
+    const onDidChangeContent = jest.fn()
+    disposableStore.add(model.onDidChangeContent(onDidChangeContent))
+
+    editor.executeEdits(null, [operation])
+
+    expect(onDidChangeContent).toHaveBeenCalledTimes(1)
+    expect(onDidChangeContent.mock.calls[0]![0]).toMatchObject({
+      changes: [{
+        range: { startLineNumber: 21, startColumn: 1, endLineNumber: 22, endColumn: 24 },
+        text: '\n// other comment'
+      }, {
+        range: { startLineNumber: 15, startColumn: 1, endLineNumber: 17, endColumn: 1 },
+        text: '\n// new comment\n// on two lines\n'
+      }]
+    })
   })
 
   test('Multiple edits on only editable ranges', () => {
     const model = createDefaultTestModel()
-    const uneditableRanges = createDefaultTestLockedCodeRanges(model)
+    disposableStore.add(model)
+    const editor = monaco.editor.create(document.createElement('div'), {
+      model
+    })
+    disposableStore.add(editor)
+    disposableStore.add(lockCodeRanges(editor, {
+      getLockedRanges () {
+        return createDefaultTestLockedCodeRanges(model)
+      }
+    }))
 
     const firstRange = createTestRange(model, 8, 9)
-    const firstOperation = createTestOperation(firstRange, '  // first comment\n  return 42;', { major: 0, minor: 0 })
+    const firstOperation = createTestOperation(firstRange, '  // first comment\n  return 42;')
     const secondRange = createTestRange(model, 16, 16)
-    const secondOperation = createTestOperation(secondRange, '// second operation comment', { major: 1, minor: 0 })
-    const splitOperations = tryIgnoreLockedCodeForOperations(model, [firstOperation, secondOperation], uneditableRanges)
+    const secondOperation = createTestOperation(secondRange, '// second operation comment')
 
-    expect(splitOperations.length).toEqual(2)
-    expect(splitOperations[0]).toEqual(
-      createTestOperation(firstRange, '  // first comment\n  return 42;', { major: 0, minor: 0 })
-    )
-    expect(splitOperations[1]).toEqual(
-      createTestOperation(secondRange, '// second operation comment', { major: 1, minor: 0 })
-    )
-    expect(canTestOperationsEditRanges(splitOperations, uneditableRanges)).toBe(true)
+    const onDidChangeContent = jest.fn()
+    disposableStore.add(model.onDidChangeContent(onDidChangeContent))
+
+    editor.executeEdits(null, [firstOperation, secondOperation])
+
+    expect(onDidChangeContent).toHaveBeenCalledTimes(1)
+    expect(onDidChangeContent.mock.calls[0]![0]).toMatchObject({
+      changes: [{
+        range: secondOperation.range,
+        text: secondOperation.text
+      }, {
+        range: firstOperation.range,
+        text: firstOperation.text
+      }]
+    })
   })
 
   test('Multiple edits on editable and locked code ranges', () => {
     const model = createDefaultTestModel()
-    const uneditableRanges = createDefaultTestLockedCodeRanges(model)
+    const onError = jest.fn()
+    disposableStore.add(model)
+    const editor = monaco.editor.create(document.createElement('div'), {
+      model
+    })
+    disposableStore.add(editor)
+    disposableStore.add(lockCodeRanges(editor, {
+      getLockedRanges () {
+        return createDefaultTestLockedCodeRanges(model)
+      },
+      onError (editor, firstForbiddenOperation) {
+        onError(firstForbiddenOperation)
+      }
+    }))
 
     const firstRange = createTestRange(model, 8, 9)
-    const firstOperation = createTestOperation(firstRange, '  // function comment\n  return 42;', { major: 0, minor: 0 })
+    const firstOperation = createTestOperation(firstRange, '  // function comment\n  return 42;')
     const secondRange = createTestRange(model, 13, 13)
-    const secondOperation = createTestOperation(secondRange, '// uneditable comment', { major: 1, minor: 0 })
-    const splitOperations = tryIgnoreLockedCodeForOperations(model, [firstOperation, secondOperation], uneditableRanges)
+    const secondOperation = createTestOperation(secondRange, '// uneditable comment')
 
-    expect(splitOperations.length).toEqual(2)
-    expect(splitOperations[0]).toEqual(
-      createTestOperation(firstRange, '  // function comment\n  return 42;', { major: 0, minor: 0 })
-    )
-    expect(splitOperations[1]).toEqual(
-      createTestOperation(secondRange, '// uneditable comment', { major: 1, minor: 0 })
-    )
-    expect(canTestOperationsEditRanges(splitOperations, uneditableRanges)).toBe(false)
+    const onDidChangeContent = jest.fn()
+    disposableStore.add(model.onDidChangeContent(onDidChangeContent))
+
+    editor.executeEdits(null, [firstOperation, secondOperation])
+
+    expect(onError).toHaveBeenCalledTimes(1)
+    expect(onError.mock.calls[0]![0]).toMatchObject({
+      range: { startLineNumber: 13, startColumn: 1, endLineNumber: 13, endColumn: 8 },
+      text: '// uneditable comment'
+    })
+  })
+
+  test('Removing line return before a locked code range', () => {
+    const model = createDefaultTestModel()
+    const onError = jest.fn()
+    disposableStore.add(model)
+    const editor = monaco.editor.create(document.createElement('div'), {
+      model
+    })
+    disposableStore.add(editor)
+    disposableStore.add(lockCodeRanges(editor, {
+      getLockedRanges () {
+        return createDefaultTestLockedCodeRanges(model)
+      },
+      onError (editor, firstForbiddenOperation) {
+        onError(firstForbiddenOperation)
+      }
+    }))
+
+    const operationRange = createTestRange(model, 2, 3)
+    const operation = createTestOperation(operationRange, '')
+
+    const onDidChangeContent = jest.fn()
+    disposableStore.add(model.onDidChangeContent(onDidChangeContent))
+
+    editor.executeEdits(null, [operation])
+
+    expect(onError).toHaveBeenCalledTimes(1)
+    expect(onError.mock.calls[0]![0]).toMatchObject({
+      range: { startLineNumber: 2, startColumn: 1, endLineNumber: 3, endColumn: 46 },
+      text: ''
+    })
   })
 })

@@ -1,5 +1,4 @@
 import * as monaco from 'monaco-editor'
-import { ISingleEditOperationIdentifier, ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
 import { EDITOR_DEFAULT_CODE } from './constants'
 
 export function createTestModel (content: string, language: string = 'typescript'): monaco.editor.ITextModel {
@@ -22,17 +21,12 @@ export function createTestRange (
 
 export function createTestOperation (
   range: monaco.Range,
-  text: string,
-  identifier?: ISingleEditOperationIdentifier
-): ValidAnnotatedEditOperation {
-  return new ValidAnnotatedEditOperation(
-    identifier ?? { major: 0, minor: 0 },
+  text: string
+): monaco.editor.IIdentifiedSingleEditOperation {
+  return {
     range,
-    text,
-    false,
-    false,
-    false
-  )
+    text
+  }
 }
 
 export function createDefaultTestLockedCodeRanges (model: monaco.editor.ITextModel): monaco.Range[] {
@@ -41,14 +35,4 @@ export function createDefaultTestLockedCodeRanges (model: monaco.editor.ITextMod
     createTestRange(model, 12, 14),
     createTestRange(model, 18, 20)
   ]
-}
-
-export function canTestOperationsEditRanges (splitOperations: ValidAnnotatedEditOperation[], uneditableRanges: monaco.Range[]): boolean {
-  if (splitOperations.length <= 0) {
-    return false
-  }
-
-  return splitOperations.every(({ range }) =>
-    uneditableRanges.every((uneditableRange) => !monaco.Range.areIntersectingOrTouching(uneditableRange, range))
-  )
 }
