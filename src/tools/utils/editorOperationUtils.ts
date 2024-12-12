@@ -85,7 +85,7 @@ function tryIgnoreLockedCodeTextForOperation (
   }
 
   if (remainingText !== '') {
-    splitText.push(remainingText.endsWith('\n') ? remainingText.slice(0, remainingText.length - 1) : remainingText)
+    splitText.push(remainingText)
   }
   return splitText
 }
