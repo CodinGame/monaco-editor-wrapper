@@ -24,8 +24,6 @@
     "scripts/update-extensions.ts",
     "rollup.config.ts",
     "jest.config.ts",
-    "src/tests",
-    "jest",
     "babel.test.config.cjs"
   ],
   "exclude": [
