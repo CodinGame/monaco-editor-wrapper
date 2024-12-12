@@ -1,32 +1,8 @@
 import * as monaco from 'monaco-editor'
 import { DisposableStore } from 'vscode/monaco'
 import { IIdentifiedSingleEditOperation, ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
-
-interface PastePayload {
-  text: string
-  pasteOnNewLine: boolean
-  multicursorText: string[] | null
-  mode: string | null
-}
-
-function isPasteAction (handlerId: string, payload: unknown): payload is PastePayload {
-  return handlerId === 'paste'
-}
-
-function getRangesFromDecorations (
-  editor: monaco.editor.ICodeEditor,
-  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
-): monaco.Range[] {
-  const model = editor.getModel()
-  if (model == null) {
-    return []
-  }
-
-  return model
-    .getAllDecorations()
-    .filter(decorationFilter)
-    .map((decoration) => decoration.range)
-}
+import { getRangesFromDecorations, minusRanges } from './tools/utils/rangeUtils'
+import { LockedCodeError, tryIgnoreLockedCode } from './tools/utils/editorOperationUtils'
 
 /**
  * Exctract ranges between startToken and endToken
@@ -114,53 +90,17 @@ function lockCodeUsingDecoration (
   }
 
   function canEditRange (range: monaco.IRange) {
-    if (editor.getModel() == null) {
+    const model = editor.getModel()
+    if (model == null) {
       return false
     }
-    const ranges = getRangesFromDecorations(editor, decorationFilter)
+    const ranges = getRangesFromDecorations(model, decorationFilter)
     if (ranges.length === 0) {
       return true
     }
     return withDecoration
-      ? ranges.every((uneditableRange) => !monaco.Range.areIntersecting(uneditableRange, range))
+      ? ranges.every((uneditableRange) => !monaco.Range.areIntersectingOrTouching(uneditableRange, range))
       : ranges.some((editableRange) => editableRange.containsRange(range))
-  }
-
-  const originalTrigger = editor.trigger
-  editor.trigger = function (source, handlerId, payload) {
-    // Try to transform whole file pasting into a paste in the editable area only
-    const ranges = getRangesFromDecorations(editor, decorationFilter)
-    const lastEditableRange =
-      ranges.length > 0 ? ranges[ranges.length - 1] : undefined
-    if (isPasteAction(handlerId, payload) && lastEditableRange != null) {
-      const selections = editor.getSelections()
-      const model = editor.getModel()!
-      if (selections != null && selections.length === 1) {
-        const selection = selections[0]!
-        const fullModelRange = model.getFullModelRange()
-        const wholeFileSelected = fullModelRange.equalsRange(selection)
-        if (wholeFileSelected) {
-          const currentEditorValue = editor.getValue()
-          const before = model.getOffsetAt(lastEditableRange.getStartPosition())
-          const after =
-            currentEditorValue.length - model.getOffsetAt(lastEditableRange.getEndPosition())
-          if (
-            currentEditorValue.slice(0, before) === payload.text.slice(0, before) &&
-            currentEditorValue.slice(currentEditorValue.length - after) ===
-              payload.text.slice(payload.text.length - after)
-          ) {
-            editor.setSelection(lastEditableRange)
-            const newPayload: PastePayload = {
-              ...payload,
-              text: payload.text.slice(before, payload.text.length - after)
-            }
-            payload = newPayload
-          }
-        }
-      }
-    }
-
-    return originalTrigger.call(editor, source, handlerId, payload)
   }
 
   let currentEditSource: string | null | undefined
@@ -191,7 +131,7 @@ function lockCodeUsingDecoration (
 
     const original = model._validateEditOperations
     model._validateEditOperations = function (this: AugmentedITextModel, rawOperations) {
-      const editorOperations: ValidAnnotatedEditOperation[] = original.call(this, rawOperations)
+      let editorOperations: ValidAnnotatedEditOperation[] = original.call(this, rawOperations)
 
       if (currentEditSource != null && allowChangeFromSources.includes(currentEditSource)) {
         return editorOperations
@@ -199,6 +139,20 @@ function lockCodeUsingDecoration (
 
       if (allowUndoRedo && (this._isUndoing || this._isRedoing)) {
         return editorOperations
+      }
+
+      try {
+        editorOperations = tryIgnoreLockedCode(model, decorationFilter, editorOperations, withDecoration)
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.info(e)
+        if (e instanceof LockedCodeError) {
+          // eslint-disable-next-line no-console
+          console.info(e)
+        } else {
+          // eslint-disable-next-line no-console
+          console.error(e)
+        }
       }
 
       if (transactionMode) {
@@ -253,7 +207,6 @@ function lockCodeUsingDecoration (
     dispose () {
       restoreModel?.()
       editor.executeEdits = originalExecuteEdit
-      editor.trigger = originalTrigger
     }
   })
 
@@ -312,22 +265,16 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
         }
       }, [])
 
-    const hiddenAreas: monaco.IRange[] = []
-    let position = new monaco.Position(1, 1)
-    for (const range of ranges) {
-      const startPosition = model.modifyPosition(range.getStartPosition(), -1)
-      const endPosition = model.modifyPosition(range.getEndPosition(), 1)
-      hiddenAreas.push(monaco.Range.fromPositions(position, startPosition))
-      position = endPosition
-    }
-    hiddenAreas.push(monaco.Range.fromPositions(position, model.getFullModelRange().getEndPosition()))
+    const {
+      firstRanges: hiddenAreas,
+      secondRanges: visibleRanges
+    } = minusRanges(model, model.getFullModelRange(), ranges)
 
     editor.setHiddenAreas(hiddenAreas, hideId)
 
     // Make sure only visible code is selected
     const selections = editor.getSelections()
     if (selections != null) {
-      const visibleRanges = editor._getViewModel()!.getModelVisibleRanges()
       let newSelections = selections.flatMap(selection =>
         visibleRanges.map(visibleRange => selection.intersectRanges(visibleRange))
           .filter((range): range is monaco.Range => range != null)
