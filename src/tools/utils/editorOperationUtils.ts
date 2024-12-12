@@ -99,7 +99,7 @@ export function splitOperationsForLockedCode (
   return newOperations
 }
 
-export function computeNewOperationsForLockedCode (
+export function tryIgnoreLockedCode (
   model: monaco.editor.ITextModel,
   decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean,
   editorOperations: ValidAnnotatedEditOperation[],
