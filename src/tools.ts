@@ -98,7 +98,7 @@ function lockCodeUsingDecoration (
       return true
     }
     return withDecoration
-      ? ranges.every((uneditableRange) => !monaco.Range.areIntersecting(uneditableRange, range))
+      ? ranges.every((uneditableRange) => !monaco.Range.areIntersectingOrTouching(uneditableRange, range))
       : ranges.some((editableRange) => editableRange.containsRange(range))
   }
 
@@ -254,7 +254,7 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
     const {
       firstRanges: hiddenAreas,
       secondRanges: visibleRanges
-    } = minusRanges(editor, model.getFullModelRange(), ranges)
+    } = minusRanges(model, model.getFullModelRange(), ranges)
 
     editor.setHiddenAreas(hiddenAreas, hideId)
 

@@ -1,14 +1,9 @@
 import * as monaco from 'monaco-editor'
 
 export function getRangesFromDecorations (
-  editor: monaco.editor.ICodeEditor,
+  model: monaco.editor.ITextModel,
   decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
 ): monaco.Range[] {
-  const model = editor.getModel()
-  if (model == null) {
-    return []
-  }
-
   return model
     .getAllDecorations()
     .filter(decorationFilter)
@@ -16,19 +11,18 @@ export function getRangesFromDecorations (
 }
 
 export function minusRanges (
-  editor: monaco.editor.ICodeEditor,
+  model: monaco.editor.ITextModel,
   uniqueRange: monaco.Range,
   ranges: monaco.Range[]
 ): {
   firstRanges: monaco.Range[]
   secondRanges: monaco.Range[]
 } {
-  const model = editor.getModel()!
   const firstRanges: monaco.Range[] = []
   const secondRanges: monaco.Range[] = []
   let lastEndPosition = uniqueRange.getStartPosition()
   const uniqueRangeEndPosition = uniqueRange.getEndPosition()
-  const intersectingRanges = ranges.filter(range => monaco.Range.areIntersecting(range, uniqueRange))
+  const intersectingRanges = ranges.filter(range => monaco.Range.areIntersectingOrTouching(range, uniqueRange))
 
   for (const range of intersectingRanges) {
     const rangeStart = range.getStartPosition()
@@ -52,24 +46,22 @@ export function minusRanges (
   }
 
   if (lastEndPosition.isBeforeOrEqual(uniqueRangeEndPosition)) {
-    firstRanges.push(monaco.Range.fromPositions(model.modifyPosition(lastEndPosition, 1), uniqueRangeEndPosition))
+    const firstRangeStart = lastEndPosition.equals(uniqueRange.getStartPosition())
+      ? lastEndPosition
+      : model.modifyPosition(lastEndPosition, 1)
+    firstRanges.push(monaco.Range.fromPositions(firstRangeStart, uniqueRangeEndPosition))
   }
 
   return { firstRanges, secondRanges }
 }
 
 export function getLockedRanges (
-  editor: monaco.editor.ICodeEditor,
+  model: monaco.editor.ITextModel,
   decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean,
   withDecoration: boolean
 ): monaco.Range[] {
-  const model = editor.getModel()
-  if (model == null) {
-    return []
-  }
-
   const fullModelRange = model.getFullModelRange()
-  const ranges = getRangesFromDecorations(editor, decorationFilter)
-  const { firstRanges, secondRanges } = minusRanges(editor, fullModelRange, ranges)
+  const ranges = getRangesFromDecorations(model, decorationFilter)
+  const { firstRanges, secondRanges } = minusRanges(model, fullModelRange, ranges)
   return withDecoration ? secondRanges : firstRanges
 }
