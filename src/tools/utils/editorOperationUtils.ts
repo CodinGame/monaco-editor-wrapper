@@ -1,6 +1,7 @@
 import * as monaco from 'monaco-editor'
 import { ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
 import { excludeRanges } from './rangeUtils'
+import { normalizeStringLineBreaks } from './stringUtils'
 
 export class LockedCodeError extends Error {}
 
@@ -50,7 +51,7 @@ function tryIgnoreLockedCodeTextForOperation (
   const splitText: string[] = []
   const uneditableRangesText = uneditableRangesInOperationRange.map(range => model.getValueInRange(range))
   let currentRange: number = 0
-  let remainingText: string = operationText
+  let remainingText: string = normalizeStringLineBreaks(operationText)
   while (remainingText.length > 0 && currentRange < uneditableRangesText.length) {
     const rangeText = uneditableRangesText[currentRange]
     if (rangeText != null && rangeText !== '') {
