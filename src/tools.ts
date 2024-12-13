@@ -177,7 +177,7 @@ export function lockCodeRanges (
   // Handle selection of the last line of an editable range
   disposableStore.add(
     editor.onDidChangeCursorSelection((e) => {
-      if (canEditRange(e.selection)) {
+      if (canEditRange(e.selection) || e.selection.isEmpty()) {
         return
       }
       const model = editor.getModel()
