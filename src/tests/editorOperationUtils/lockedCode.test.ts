@@ -1,4 +1,3 @@
-/* eslint-disable quotes */
 import { describe, expect, test, beforeEach, afterEach, jest } from '@jest/globals'
 import * as monaco from 'monaco-editor'
 import { DisposableStore } from 'vscode/monaco'
@@ -373,18 +372,18 @@ function findLargest(numbers: number[]): number {
 
     const operationRange = createTestRange(model, 12, 22)
     const operation = createTestOperation(operationRange,
-      "/* Ignore and do not change the code below */\n" +
-      "// toto\r\n" +
-      "/* Ignore and do not change the code above */\n" +
-      "\n" +
-      "// new comment\r\n" +
-      "// on two lines\r" +
-      "\n" +
-      "/* Ignore and do not change the code below */\r\n" +
-      "// toto\r" +
-      "/* Ignore and do not change the code above */\n" +
-      "\n" +
-      "// other comment\n"
+      '/* Ignore and do not change the code below */\n' +
+      '// toto\r\n' +
+      '/* Ignore and do not change the code above */\n' +
+      '\n' +
+      '// new comment\r\n' +
+      '// on two lines\r' +
+      '\n' +
+      '/* Ignore and do not change the code below */\r\n' +
+      '// toto\r' +
+      '/* Ignore and do not change the code above */\n' +
+      '\n' +
+      '// other comment\n'
     )
 
     const onDidChangeContent = jest.fn()
