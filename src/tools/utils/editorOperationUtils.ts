@@ -51,7 +51,7 @@ function tryIgnoreLockedCodeTextForOperation (
   const splitText: string[] = []
   const uneditableRangesText = uneditableRangesInOperationRange.map(range => model.getValueInRange(range))
   let currentRange: number = 0
-  let remainingText: string = normalizeStringLineBreaks(operationText)
+  let remainingText: string = normalizeStringLineBreaks(operationText, model.getEOL())
   while (remainingText.length > 0 && currentRange < uneditableRangesText.length) {
     const rangeText = uneditableRangesText[currentRange]
     if (rangeText != null && rangeText !== '') {
