@@ -356,4 +356,50 @@ function findLargest(numbers: number[]): number {
       text: ''
     })
   })
+
+  test('Handle all systems line break character', () => {
+    const model = createDefaultTestModel()
+    disposableStore.add(model)
+    const editor = monaco.editor.create(document.createElement('div'), {
+      model
+    })
+    disposableStore.add(editor)
+    disposableStore.add(lockCodeRanges(editor, {
+      getLockedRanges () {
+        return createDefaultTestLockedCodeRanges(model)
+      }
+    }))
+
+    const operationRange = createTestRange(model, 12, 22)
+    const operation = createTestOperation(operationRange,
+      '/* Ignore and do not change the code below */\n' +
+      '// toto\r\n' +
+      '/* Ignore and do not change the code above */\n' +
+      '\n' +
+      '// new comment\r\n' +
+      '// on two lines\r' +
+      '\n' +
+      '/* Ignore and do not change the code below */\r\n' +
+      '// toto\r' +
+      '/* Ignore and do not change the code above */\n' +
+      '\n' +
+      '// other comment\n'
+    )
+
+    const onDidChangeContent = jest.fn()
+    disposableStore.add(model.onDidChangeContent(onDidChangeContent))
+
+    editor.executeEdits(null, [operation])
+
+    expect(onDidChangeContent).toHaveBeenCalledTimes(1)
+    expect(onDidChangeContent.mock.calls[0]![0]).toMatchObject({
+      changes: [{
+        range: { startLineNumber: 21, startColumn: 1, endLineNumber: 22, endColumn: 24 },
+        text: '\n// other comment\n'
+      }, {
+        range: { startLineNumber: 15, startColumn: 1, endLineNumber: 17, endColumn: 1 },
+        text: '\n// new comment\n// on two lines'
+      }]
+    })
+  })
 })
