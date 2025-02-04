@@ -10,9 +10,14 @@ import { addExtension, dataToEsm } from '@rollup/pluginutils'
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets'
 import path from 'path'
 import fs from 'fs'
-import pkg from './package.json' assert { type: 'json' }
+import type { PackageJson } from 'type-fest'
 
-const externals = Object.keys(pkg.dependencies)
+export const pkg: PackageJson = JSON.parse(
+  fs.readFileSync(new URL('./package.json', import.meta.url).pathname).toString()
+)
+
+
+const externals = Object.keys(pkg.dependencies!)
 
 const extensions = ['.js', '.ts']
 
