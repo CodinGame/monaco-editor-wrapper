@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-expect-error library is not typed
 import { getPublicGalleryAPI } from '@vscode/vsce/out/util.js'
 import { ExtensionQueryFlags, PublishedExtension, ExtensionVersion } from 'azure-devops-node-api/interfaces/GalleryInterfaces.js'
 import fs from 'fs/promises'

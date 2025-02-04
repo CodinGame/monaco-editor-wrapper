@@ -1,6 +1,6 @@
 import { describe, expect, test, beforeEach, afterEach, jest } from '@jest/globals'
 import * as monaco from 'monaco-editor'
-import { DisposableStore } from 'vscode/monaco'
+import { DisposableStore } from '@codingame/monaco-vscode-api/monaco'
 import { createDefaultTestLockedCodeRanges, createDefaultTestModel, createTestOperation, createTestRange } from '../utils'
 import { lockCodeRanges } from '../../tools'
 

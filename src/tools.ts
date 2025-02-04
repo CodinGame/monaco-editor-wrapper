@@ -1,6 +1,6 @@
 import * as monaco from 'monaco-editor'
-import { DisposableStore } from 'vscode/monaco'
-import { IIdentifiedSingleEditOperation, ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
+import { DisposableStore } from '@codingame/monaco-vscode-api/monaco'
+import { IIdentifiedSingleEditOperation, ValidAnnotatedEditOperation } from '@codingame/monaco-vscode-api/vscode/vs/editor/common/model'
 import { getRangesFromDecorations, excludeRanges } from './tools/utils/rangeUtils'
 import { LockedCodeError, tryIgnoreLockedCode } from './tools/utils/editorOperationUtils'
 

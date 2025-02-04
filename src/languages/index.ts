@@ -1,5 +1,5 @@
 import * as monaco from 'monaco-editor'
-import { StandaloneServices, ILanguageService, getService } from 'vscode/services'
+import { StandaloneServices, ILanguageService, getService } from '@codingame/monaco-vscode-api'
 
 const customAliases: Partial<Record<string, string[]>> = {
   csharp: ['c#'],
