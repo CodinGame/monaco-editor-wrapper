@@ -1,5 +1,5 @@
 import * as monaco from 'monaco-editor'
-import { ValidAnnotatedEditOperation } from 'vscode/vscode/vs/editor/common/model'
+import { ValidAnnotatedEditOperation } from '@codingame/monaco-vscode-api/vscode/vs/editor/common/model'
 import { excludeRanges } from './rangeUtils'
 import { normalizeStringLineBreaks } from './stringUtils'
 

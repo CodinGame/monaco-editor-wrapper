@@ -1,6 +1,6 @@
 import * as monaco from 'monaco-editor'
 import { OpenEditor, IEditorOptions, IResolvedTextEditorModel } from '@codingame/monaco-vscode-editor-service-override'
-import { IReference } from 'vscode/monaco'
+import { IReference } from '@codingame/monaco-vscode-api/monaco'
 
 let currentEditor: ({
   model: monaco.editor.ITextModel

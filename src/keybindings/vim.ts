@@ -1,7 +1,7 @@
 import { IDisposable } from 'monaco-editor'
 import * as monacoVim from 'monaco-vim'
 import * as monaco from 'monaco-editor'
-import { IJSONSchema } from 'vscode/monaco'
+import { IJSONSchema } from '@codingame/monaco-vscode-api/monaco'
 import { configurationRegistry, ConfigurationScope } from '@codingame/monaco-vscode-configuration-service-override'
 import { getConfiguration, onConfigurationChanged } from '../configuration'
 

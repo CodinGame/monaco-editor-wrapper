@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-expect-error library is not typed
 import { getPublicGalleryAPI } from '@vscode/vsce/out/util.js'
 import { ExtensionQueryFlags, PublishedExtension, ExtensionVersion } from 'azure-devops-node-api/interfaces/GalleryInterfaces.js'
 import fs from 'fs/promises'
@@ -23,10 +23,8 @@ async function run () {
   }
 
   if (updates.length > 0) {
-    // eslint-disable-next-line no-console
     console.info(`${updates.length} extensions updated:\n${updates.map(({ extension, from, to }) => `${extension}: ${from} => ${to}`).join('\n')}`)
   } else {
-    // eslint-disable-next-line no-console
     console.info('Everything up to date')
   }
   await fs.writeFile('./vscode-extensions.json', JSON.stringify(extensions, null, 2))
