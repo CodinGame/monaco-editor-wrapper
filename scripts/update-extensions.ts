@@ -23,10 +23,8 @@ async function run () {
   }
 
   if (updates.length > 0) {
-    // eslint-disable-next-line no-console
     console.info(`${updates.length} extensions updated:\n${updates.map(({ extension, from, to }) => `${extension}: ${from} => ${to}`).join('\n')}`)
   } else {
-    // eslint-disable-next-line no-console
     console.info('Everything up to date')
   }
   await fs.writeFile('./vscode-extensions.json', JSON.stringify(extensions, null, 2))

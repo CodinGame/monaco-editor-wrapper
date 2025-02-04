@@ -140,10 +140,8 @@ export function lockCodeRanges (
         editorOperations = tryIgnoreLockedCode(model, getLockedRanges(), editorOperations)
       } catch (e) {
         if (e instanceof LockedCodeError) {
-          // eslint-disable-next-line no-console
           console.info(e)
         } else {
-          // eslint-disable-next-line no-console
           console.error(e)
         }
       }
@@ -538,7 +536,7 @@ export function mapClipboard (
     }
     const transformed = toClipboard(content)
     if (transformed !== content) {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+       
       if (clipdata.types != null) {
         clipdata.types.forEach(type => clipdata.setData(type, toClipboard(content)))
       } else {
