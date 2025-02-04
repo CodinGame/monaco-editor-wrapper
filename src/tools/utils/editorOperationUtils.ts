@@ -5,15 +5,16 @@ import { normalizeStringLineBreaks } from './stringUtils'
 
 export class LockedCodeError extends Error {}
 
-function createNewOperation (
+function createNewOperation(
   oldOperation: ValidAnnotatedEditOperation,
   newRange: monaco.Range,
   newText: string | null,
   index: number
 ): ValidAnnotatedEditOperation {
-  const identifier = oldOperation.identifier != null
-    ? { major: oldOperation.identifier.major, minor: oldOperation.identifier.minor + index }
-    : null
+  const identifier =
+    oldOperation.identifier != null
+      ? { major: oldOperation.identifier.major, minor: oldOperation.identifier.minor + index }
+      : null
   return new ValidAnnotatedEditOperation(
     identifier,
     newRange,
@@ -24,7 +25,7 @@ function createNewOperation (
   )
 }
 
-function createNewOperationsFromRanges (
+function createNewOperationsFromRanges(
   oldOperation: ValidAnnotatedEditOperation,
   editableRanges: monaco.Range[],
   splitText: (string | null)[]
@@ -33,10 +34,12 @@ function createNewOperationsFromRanges (
     return [oldOperation]
   }
 
-  return splitText.map((text, index) => createNewOperation(oldOperation, editableRanges[index]!, text, index))
+  return splitText.map((text, index) =>
+    createNewOperation(oldOperation, editableRanges[index]!, text, index)
+  )
 }
 
-function tryIgnoreLockedCodeTextForOperation (
+function tryIgnoreLockedCodeTextForOperation(
   model: monaco.editor.ITextModel,
   uneditableRangesInOperationRange: monaco.Range[],
   operationText: string | null
@@ -49,7 +52,9 @@ function tryIgnoreLockedCodeTextForOperation (
   }
 
   const splitText: string[] = []
-  const uneditableRangesText = uneditableRangesInOperationRange.map(range => model.getValueInRange(range))
+  const uneditableRangesText = uneditableRangesInOperationRange.map((range) =>
+    model.getValueInRange(range)
+  )
   let currentRange: number = 0
   let remainingText: string = normalizeStringLineBreaks(operationText, model.getEOL())
   while (remainingText.length > 0 && currentRange < uneditableRangesText.length) {
@@ -70,9 +75,14 @@ function tryIgnoreLockedCodeTextForOperation (
         splitText.push(textToKeep)
       }
 
-      const uneditableRangeMaxEndColumn = model.getLineMaxColumn(currentUneditableRange.endLineNumber)
+      const uneditableRangeMaxEndColumn = model.getLineMaxColumn(
+        currentUneditableRange.endLineNumber
+      )
       remainingText = remainingText.slice(rangeTextIndex + rangeText.length)
-      if (remainingText.startsWith('\n') && currentUneditableRange.endColumn === uneditableRangeMaxEndColumn) {
+      if (
+        remainingText.startsWith('\n') &&
+        currentUneditableRange.endColumn === uneditableRangeMaxEndColumn
+      ) {
         remainingText = remainingText.slice(1, remainingText.length)
       }
     }
@@ -85,18 +95,20 @@ function tryIgnoreLockedCodeTextForOperation (
   return splitText
 }
 
-export function tryIgnoreLockedCodeForOperations (
+export function tryIgnoreLockedCodeForOperations(
   model: monaco.editor.ITextModel,
   operations: ValidAnnotatedEditOperation[],
   uneditableRanges: monaco.Range[]
 ): ValidAnnotatedEditOperation[] {
   let newOperations: ValidAnnotatedEditOperation[] = []
   for (const operation of operations) {
-    const {
-      filteredRanges: operationEditableRanges,
-      removedRanges: operationUneditableRanges
-    } = excludeRanges(model, operation.range, uneditableRanges)
-    const splitText = tryIgnoreLockedCodeTextForOperation(model, operationUneditableRanges, operation.text)
+    const { filteredRanges: operationEditableRanges, removedRanges: operationUneditableRanges } =
+      excludeRanges(model, operation.range, uneditableRanges)
+    const splitText = tryIgnoreLockedCodeTextForOperation(
+      model,
+      operationUneditableRanges,
+      operation.text
+    )
     newOperations = [
       ...newOperations,
       ...createNewOperationsFromRanges(operation, operationEditableRanges, splitText)
@@ -105,7 +117,7 @@ export function tryIgnoreLockedCodeForOperations (
   return newOperations
 }
 
-export function tryIgnoreLockedCode (
+export function tryIgnoreLockedCode(
   model: monaco.editor.ITextModel,
   uneditableRanges: monaco.Range[],
   editorOperations: ValidAnnotatedEditOperation[]

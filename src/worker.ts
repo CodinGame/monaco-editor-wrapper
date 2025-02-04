@@ -2,11 +2,26 @@ import { Worker } from './tools/crossOriginWorker'
 export type WorkerLoader = () => Worker
 
 const workerLoaders: Partial<Record<string, WorkerLoader>> = {
-  editorWorkerService: () => new Worker(new URL('monaco-editor/esm/vs/editor/editor.worker.js', import.meta.url), { type: 'module' }),
-  textMateWorker: () => new Worker(new URL('@codingame/monaco-vscode-textmate-service-override/worker', import.meta.url), { type: 'module' }),
-  languageDetectionWorkerService: () => new Worker(new URL('@codingame/monaco-vscode-language-detection-worker-service-override/worker', import.meta.url), { type: 'module' })
+  editorWorkerService: () =>
+    new Worker(new URL('monaco-editor/esm/vs/editor/editor.worker.js', import.meta.url), {
+      type: 'module'
+    }),
+  textMateWorker: () =>
+    new Worker(
+      new URL('@codingame/monaco-vscode-textmate-service-override/worker', import.meta.url),
+      { type: 'module' }
+    ),
+  languageDetectionWorkerService: () =>
+    new Worker(
+      new URL(
+        '@codingame/monaco-vscode-language-detection-worker-service-override/worker',
+        import.meta.url
+      ),
+      { type: 'module' }
+    )
 }
-export function registerWorkerLoader (label: string, workerLoader: WorkerLoader): void {
+
+export function registerWorkerLoader(label: string, workerLoader: WorkerLoader): void {
   workerLoaders[label] = workerLoader
 }
 

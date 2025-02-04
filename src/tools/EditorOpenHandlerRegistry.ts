@@ -1,12 +1,18 @@
 import * as monaco from 'monaco-editor'
-import { OpenEditor, IEditorOptions, IResolvedTextEditorModel } from '@codingame/monaco-vscode-editor-service-override'
+import {
+  OpenEditor,
+  IEditorOptions,
+  IResolvedTextEditorModel
+} from '@codingame/monaco-vscode-editor-service-override'
 import { IReference } from '@codingame/monaco-vscode-api/monaco'
 
-let currentEditor: ({
-  model: monaco.editor.ITextModel
-  editor: monaco.editor.ICodeEditor
-} & monaco.IDisposable) | null = null
-function openNewCodeEditor (modelRef: IReference<IResolvedTextEditorModel>) {
+let currentEditor:
+  | ({
+      model: monaco.editor.ITextModel
+      editor: monaco.editor.ICodeEditor
+    } & monaco.IDisposable)
+  | null = null
+function openNewCodeEditor(modelRef: IReference<IResolvedTextEditorModel>) {
   if (currentEditor != null && modelRef.object.textEditorModel === currentEditor.model) {
     return currentEditor.editor
   }
@@ -23,7 +29,11 @@ function openNewCodeEditor (modelRef: IReference<IResolvedTextEditorModel>) {
 
   const editorElem = document.createElement('div')
   editorElem.style.position = 'absolute'
-  editorElem.style.top = editorElem.style.bottom = editorElem.style.left = editorElem.style.right = '0'
+  editorElem.style.top =
+    editorElem.style.bottom =
+    editorElem.style.left =
+    editorElem.style.right =
+      '0'
   editorElem.style.margin = 'auto'
   editorElem.style.width = '80%'
   editorElem.style.height = '80%'
@@ -32,14 +42,11 @@ function openNewCodeEditor (modelRef: IReference<IResolvedTextEditorModel>) {
 
   document.body.appendChild(container)
   try {
-    const editor = monaco.editor.create(
-      editorElem,
-      {
-        model: modelRef.object.textEditorModel,
-        readOnly: true,
-        automaticLayout: true
-      }
-    )
+    const editor = monaco.editor.create(editorElem, {
+      model: modelRef.object.textEditorModel,
+      readOnly: true,
+      automaticLayout: true
+    })
 
     currentEditor = {
       dispose: () => {
@@ -68,11 +75,16 @@ function openNewCodeEditor (modelRef: IReference<IResolvedTextEditorModel>) {
   }
 }
 
-export type EditorOpenHandler = (modelRef: IReference<IResolvedTextEditorModel>, input: IEditorOptions | undefined, editor: monaco.editor.ICodeEditor | null, sideBySide?: boolean) => Promise<monaco.editor.ICodeEditor | null>
+export type EditorOpenHandler = (
+  modelRef: IReference<IResolvedTextEditorModel>,
+  input: IEditorOptions | undefined,
+  editor: monaco.editor.ICodeEditor | null,
+  sideBySide?: boolean
+) => Promise<monaco.editor.ICodeEditor | null>
 
 export default class EditorOpenHandlerRegistry {
   private handlers: EditorOpenHandler[] = []
-  public registerEditorOpenHandler (handler: EditorOpenHandler): monaco.IDisposable {
+  public registerEditorOpenHandler(handler: EditorOpenHandler): monaco.IDisposable {
     this.handlers.push(handler)
 
     return {
@@ -105,7 +117,10 @@ export default class EditorOpenHandlerRegistry {
         onModelUnmount()
       })
       const onDidChangeModelDisposable = modelEditor.onDidChangeModel((e) => {
-        if (e.newModelUrl == null || e.newModelUrl.toString() !== modelRef.object.textEditorModel.uri.toString()) {
+        if (
+          e.newModelUrl == null ||
+          e.newModelUrl.toString() !== modelRef.object.textEditorModel.uri.toString()
+        ) {
           onModelUnmount()
           onDidDisposeDisposable.dispose()
           onDidChangeModelDisposable.dispose()

@@ -16,7 +16,6 @@ export const pkg: PackageJson = JSON.parse(
   fs.readFileSync(new URL('./package.json', import.meta.url).pathname).toString()
 )
 
-
 const externals = Object.keys(pkg.dependencies!)
 
 const extensions = ['.js', '.ts']
@@ -39,18 +38,20 @@ export default rollup.defineConfig({
     'features/typescriptStandalone': 'src/features/typescriptStandalone.ts',
     'features/workingCopyBackup': 'src/features/workingCopyBackup.ts'
   },
-  output: [{
-    dir: 'dist',
-    format: 'esm',
-    paths: {
-      'monaco-editor-core': 'monaco-editor'
-    },
-    preserveModules: true,
-    preserveModulesRoot: 'src',
-    assetFileNames: 'assets/[name][extname]',
-    entryFileNames: '[name].js',
-    chunkFileNames: '[name].js'
-  }],
+  output: [
+    {
+      dir: 'dist',
+      format: 'esm',
+      paths: {
+        'monaco-editor-core': 'monaco-editor'
+      },
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+      assetFileNames: 'assets/[name][extname]',
+      entryFileNames: '[name].js',
+      chunkFileNames: '[name].js'
+    }
+  ],
   plugins: [
     importMetaAssets({
       include: ['**/*.ts', '**/*.js'],
@@ -58,7 +59,7 @@ export default rollup.defineConfig({
     }),
     {
       name: 'external-resolver',
-      resolveId (id) {
+      resolveId(id) {
         // monaco-editor can safely be imported with monaco-vscode-api
         if (id === 'monaco-editor/esm/vs/editor/editor.api') {
           return {
@@ -73,7 +74,10 @@ export default rollup.defineConfig({
             external: 'absolute'
           }
         }
-        if (/\.wasm$/.test(id) || externals.some(external => id === external || id.startsWith(`${external}/`))) {
+        if (
+          /\.wasm$/.test(id) ||
+          externals.some((external) => id === external || id.startsWith(`${external}/`))
+        ) {
           return {
             id,
             external: true
@@ -84,26 +88,27 @@ export default rollup.defineConfig({
     },
     {
       name: 'd-ts-glob-import',
-      async resolveId (source, importer) {
+      async resolveId(source, importer) {
         if (source.startsWith('types:')) {
           return `types:${path.resolve(path.dirname(importer!), source.slice(6))}`
         }
         return undefined
       },
-      async load (importee) {
+      async load(importee) {
         if (importee.startsWith('types:')) {
           const cwd = importee.slice(6)
           const files = await glob('**/*.d.ts', {
             cwd
           })
 
-          const data = Object.fromEntries(await Promise.all(files.map(async f => {
-            const data = await fs.promises.readFile(path.resolve(cwd, f))
-            return [
-              f,
-              data.toString('utf-8')
-            ]
-          })))
+          const data = Object.fromEntries(
+            await Promise.all(
+              files.map(async (f) => {
+                const data = await fs.promises.readFile(path.resolve(cwd, f))
+                return [f, data.toString('utf-8')]
+              })
+            )
+          )
           return dataToEsm(data)
         }
         return undefined
@@ -111,13 +116,13 @@ export default rollup.defineConfig({
     },
     {
       name: 'glob-vsix-import',
-      async resolveId (source, importer) {
+      async resolveId(source, importer) {
         if (source.endsWith('*.vsix')) {
           return `vsixGlob:${path.resolve(path.dirname(importer!), source)}`
         }
         return undefined
       },
-      async load (importee) {
+      async load(importee) {
         if (importee.startsWith('vsixGlob:')) {
           const files = await glob(importee.slice(9))
 
@@ -134,7 +139,7 @@ ${files.map((_, index) => `    whenReady${index}()`).join(',\n')}
       }
     },
     vsixPlugin({
-      transformManifest (manifest) {
+      transformManifest(manifest) {
         const {
           commands,
           debuggers,
@@ -149,9 +154,9 @@ ${files.map((_, index) => `    whenReady${index}()`).join(',\n')}
           viewsContainers,
           typescriptServerPlugins,
           ...remainingContribute
-        } = ((manifest.contributes ?? {}) as (IExtensionManifest['contributes'] & {
+        } = (manifest.contributes ?? {}) as IExtensionManifest['contributes'] & {
           typescriptServerPlugins: unknown // typescript extension specific field
-        }))
+        }
 
         const {
           activationEvents,
@@ -183,14 +188,16 @@ ${files.map((_, index) => `    whenReady${index}()`).join(',\n')}
     }),
     visualizer(),
     alias({
-      entries: [{
-        find: /^monaco-editor-core\//,
-        replacement: 'monaco-editor/'
-      }]
+      entries: [
+        {
+          find: /^monaco-editor-core\//,
+          replacement: 'monaco-editor/'
+        }
+      ]
     }),
     {
       name: 'dynamic-import-polyfill',
-      renderDynamicImport (): { left: string, right: string } {
+      renderDynamicImport(): { left: string; right: string } {
         return {
           left: 'import(',
           right: ').then(module => module)'

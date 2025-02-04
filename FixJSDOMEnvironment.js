@@ -1,11 +1,11 @@
 import { TestEnvironment } from 'jest-environment-jsdom'
 
 class FixJSDOMEnvironment extends TestEnvironment {
-  constructor (config, context) {
+  constructor(config, context) {
     super(config, context)
 
     this.dom.virtualConsole.removeAllListeners('jsdomError')
-    this.dom.virtualConsole.on('jsdomError', error => {
+    this.dom.virtualConsole.on('jsdomError', (error) => {
       if (error.message.startsWith('Could not parse CSS stylesheet')) {
         return
       }

@@ -21,7 +21,7 @@ for (const [languageId, aliases] of Object.entries(customAliases)) {
   })
 }
 
-function getMonacoLanguage (languageOrModeId: string): string {
+function getMonacoLanguage(languageOrModeId: string): string {
   const languageService = StandaloneServices.get(ILanguageService)
   const modeId = languageService.getLanguageIdByLanguageName(languageOrModeId.toLowerCase())
   if (modeId != null) {
@@ -37,11 +37,8 @@ function getMonacoLanguage (languageOrModeId: string): string {
   return 'plaintext'
 }
 
-async function loadLanguage (languageId: string): Promise<void> {
-  (await getService(ILanguageService)).createById(languageId)
+async function loadLanguage(languageId: string): Promise<void> {
+  ;(await getService(ILanguageService)).createById(languageId)
 }
 
-export {
-  getMonacoLanguage,
-  loadLanguage
-}
+export { getMonacoLanguage, loadLanguage }

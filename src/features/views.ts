@@ -17,10 +17,10 @@ registerServices({
   ...getMultiDiffEditorServiceOverride(),
   ...getStatusBarServiceOverride(),
   ...getQuickAccessServiceOverride({
-    shouldUseGlobalPicker () {
+    shouldUseGlobalPicker() {
       return useGlobalPicker()
     },
-    isKeybindingConfigurationVisible () {
+    isKeybindingConfigurationVisible() {
       return true
     }
   })
