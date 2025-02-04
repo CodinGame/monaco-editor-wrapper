@@ -13,10 +13,10 @@ registerServices({
   ...getWorkbenchServiceOverride(),
   ...getMultiDiffEditorServiceOverride(),
   ...getQuickAccessServiceOverride({
-    shouldUseGlobalPicker () {
+    shouldUseGlobalPicker() {
       return useGlobalPicker()
     },
-    isKeybindingConfigurationVisible () {
+    isKeybindingConfigurationVisible() {
       return true
     }
   })

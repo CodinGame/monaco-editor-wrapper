@@ -1,39 +1,55 @@
 import * as monaco from 'monaco-editor'
 import { DisposableStore } from '@codingame/monaco-vscode-api/monaco'
-import { IIdentifiedSingleEditOperation, ValidAnnotatedEditOperation } from '@codingame/monaco-vscode-api/vscode/vs/editor/common/model'
+import {
+  IIdentifiedSingleEditOperation,
+  ValidAnnotatedEditOperation
+} from '@codingame/monaco-vscode-api/vscode/vs/editor/common/model'
 import { getRangesFromDecorations, excludeRanges } from './tools/utils/rangeUtils'
 import { LockedCodeError, tryIgnoreLockedCode } from './tools/utils/editorOperationUtils'
 
 /**
  * Exctract ranges between startToken and endToken
  */
-export function extractRangesFromTokens (editor: monaco.editor.ICodeEditor, startToken: string, endToken: string, isRegex: boolean = false): monaco.Range[] {
+export function extractRangesFromTokens(
+  editor: monaco.editor.ICodeEditor,
+  startToken: string,
+  endToken: string,
+  isRegex: boolean = false
+): monaco.Range[] {
   const editorModel = editor.getModel()
   const ranges: monaco.Range[] = []
   if (editorModel != null) {
     let currentPosition = editorModel.getFullModelRange().getStartPosition()
     let match: monaco.editor.FindMatch | null
-    while ((match = editorModel.findNextMatch(startToken,
-      /* searchStart */currentPosition,
-      /* isRegex */isRegex,
-      /* matchCase */true,
-      /* wordSeparators */null,
-      /* captureMatches */false
-    )) != null) {
+    while (
+      (match = editorModel.findNextMatch(
+        startToken,
+        /* searchStart */ currentPosition,
+        /* isRegex */ isRegex,
+        /* matchCase */ true,
+        /* wordSeparators */ null,
+        /* captureMatches */ false
+      )) != null
+    ) {
       if (match.range.getStartPosition().isBefore(currentPosition)) {
         break
       }
-      const matchEnd = editorModel.findNextMatch(endToken,
-        /* searchStart */match.range.getEndPosition(),
-        /* isRegex */isRegex,
-        /* matchCase */true,
-        /* wordSeparators */null,
-        /* captureMatches */false
+      const matchEnd = editorModel.findNextMatch(
+        endToken,
+        /* searchStart */ match.range.getEndPosition(),
+        /* isRegex */ isRegex,
+        /* matchCase */ true,
+        /* wordSeparators */ null,
+        /* captureMatches */ false
       )
-      if (matchEnd != null && matchEnd.range.getStartPosition().isBefore(match.range.getStartPosition())) {
+      if (
+        matchEnd != null &&
+        matchEnd.range.getStartPosition().isBefore(match.range.getStartPosition())
+      ) {
         break
       }
-      currentPosition = matchEnd?.range.getEndPosition() ?? editorModel.getFullModelRange().getEndPosition()
+      currentPosition =
+        matchEnd?.range.getEndPosition() ?? editorModel.getFullModelRange().getEndPosition()
       ranges.push(monaco.Range.fromPositions(match.range.getStartPosition(), currentPosition))
     }
     return ranges
@@ -41,9 +57,12 @@ export function extractRangesFromTokens (editor: monaco.editor.ICodeEditor, star
   return []
 }
 
-type ErrorHandler = (editor: monaco.editor.ICodeEditor, firstForbiddenOperation: ValidAnnotatedEditOperation) => void
+type ErrorHandler = (
+  editor: monaco.editor.ICodeEditor,
+  firstForbiddenOperation: ValidAnnotatedEditOperation
+) => void
 
-function generateErrorMessageErrorHandler (errorMessage: string): ErrorHandler {
+function generateErrorMessageErrorHandler(errorMessage: string): ErrorHandler {
   return (editor, operation) => {
     const messageContribution = editor.getContribution('editor.contrib.messageController')
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -74,7 +93,7 @@ export interface LockCodeOptions {
   allowUndoRedo?: boolean
 }
 
-export function lockCodeRanges (
+export function lockCodeRanges(
   editor: monaco.editor.ICodeEditor,
   {
     onError,
@@ -86,7 +105,7 @@ export function lockCodeRanges (
 ): monaco.IDisposable {
   const disposableStore = new DisposableStore()
 
-  function canEditRange (range: monaco.IRange) {
+  function canEditRange(range: monaco.IRange) {
     const model = editor.getModel()
     if (model == null) {
       return false
@@ -95,7 +114,9 @@ export function lockCodeRanges (
     if (ranges.length === 0) {
       return true
     }
-    return ranges.every((uneditableRange) => !monaco.Range.areIntersectingOrTouching(uneditableRange, range))
+    return ranges.every(
+      (uneditableRange) => !monaco.Range.areIntersectingOrTouching(uneditableRange, range)
+    )
   }
 
   let currentEditSource: string | null | undefined
@@ -110,13 +131,15 @@ export function lockCodeRanges (
   }
 
   interface AugmentedITextModel extends monaco.editor.ITextModel {
-    _validateEditOperations(rawOperations: readonly IIdentifiedSingleEditOperation[]): ValidAnnotatedEditOperation[]
+    _validateEditOperations(
+      rawOperations: readonly IIdentifiedSingleEditOperation[]
+    ): ValidAnnotatedEditOperation[]
     _isUndoing: boolean
     _isRedoing: boolean
   }
 
   let restoreModel: (() => void) | undefined
-  function lockModel () {
+  function lockModel() {
     restoreModel?.()
     const model = editor.getModel() as AugmentedITextModel | undefined
 
@@ -147,7 +170,9 @@ export function lockCodeRanges (
       }
 
       if (transactionMode) {
-        const firstForbiddenOperation = editorOperations.find(operation => !canEditRange(operation.range))
+        const firstForbiddenOperation = editorOperations.find(
+          (operation) => !canEditRange(operation.range)
+        )
         if (firstForbiddenOperation != null) {
           onError?.(editor, firstForbiddenOperation)
           return []
@@ -155,7 +180,7 @@ export function lockCodeRanges (
           return editorOperations
         }
       } else {
-        return editorOperations.filter(operation => {
+        return editorOperations.filter((operation) => {
           if (!canEditRange(operation.range)) {
             onError?.(editor, operation)
             return false
@@ -193,7 +218,7 @@ export function lockCodeRanges (
   )
 
   disposableStore.add({
-    dispose () {
+    dispose() {
       restoreModel?.()
       editor.executeEdits = originalExecuteEdit
     }
@@ -225,14 +250,17 @@ export interface LockCodeFromDecorationOptions {
   allowUndoRedo?: boolean
 }
 
-export function lockCodeWithDecoration (
+export function lockCodeWithDecoration(
   editor: monaco.editor.ICodeEditor,
   lockOptions: LockCodeFromDecorationOptions
 ): monaco.IDisposable {
   return lockCodeRanges(editor, {
-    onError: lockOptions.errorMessage != null ? generateErrorMessageErrorHandler(lockOptions.errorMessage) : undefined,
+    onError:
+      lockOptions.errorMessage != null
+        ? generateErrorMessageErrorHandler(lockOptions.errorMessage)
+        : undefined,
     allowChangeFromSources: lockOptions.allowChangeFromSources,
-    getLockedRanges () {
+    getLockedRanges() {
       const model = editor.getModel()
       if (model == null) {
         return []
@@ -244,19 +272,26 @@ export function lockCodeWithDecoration (
   })
 }
 
-export function lockCodeWithoutDecoration (
+export function lockCodeWithoutDecoration(
   editor: monaco.editor.ICodeEditor,
   lockOptions: LockCodeFromDecorationOptions
 ): monaco.IDisposable {
   return lockCodeRanges(editor, {
-    onError: lockOptions.errorMessage != null ? generateErrorMessageErrorHandler(lockOptions.errorMessage) : undefined,
+    onError:
+      lockOptions.errorMessage != null
+        ? generateErrorMessageErrorHandler(lockOptions.errorMessage)
+        : undefined,
     allowChangeFromSources: lockOptions.allowChangeFromSources,
-    getLockedRanges () {
+    getLockedRanges() {
       const model = editor.getModel()
       if (model == null) {
         return []
       }
-      return excludeRanges(model, model.getFullModelRange(), getRangesFromDecorations(model, lockOptions.decorationFilter)).filteredRanges
+      return excludeRanges(
+        model,
+        model.getFullModelRange(),
+        getRangesFromDecorations(model, lockOptions.decorationFilter)
+      ).filteredRanges
     },
     transactionMode: lockOptions.transactionMode,
     allowUndoRedo: lockOptions.allowUndoRedo
@@ -264,23 +299,25 @@ export function lockCodeWithoutDecoration (
 }
 
 let hideCodeWithoutDecorationCounter = 0
-export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean): monaco.IDisposable {
+export function hideCodeWithoutDecoration(
+  editor: monaco.editor.ICodeEditor,
+  decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
+): monaco.IDisposable {
   const hideId = `hideCodeWithoutDecoration:${hideCodeWithoutDecorationCounter++}`
 
-  function updateHiddenAreas (): void {
+  function updateHiddenAreas(): void {
     const model = editor.getModel()
     if (model == null) {
       return
     }
 
-    const decorations = model.getAllDecorations()
-      .filter(decorationFilter)
+    const decorations = model.getAllDecorations().filter(decorationFilter)
     if (decorations.length === 0) {
       return
     }
 
     const ranges = decorations
-      .map(decoration => decoration.range)
+      .map((decoration) => decoration.range)
       .sort((a, b) => a.startLineNumber - b.startLineNumber)
       // merge ranges
       .reduce<monaco.Range[]>((acc, range) => {
@@ -294,27 +331,26 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
             monaco.Range.fromPositions(lastRange.getStartPosition(), range.getEndPosition())
           ]
         } else {
-          return [
-            ...acc,
-            range
-          ]
+          return [...acc, range]
         }
       }, [])
 
-    const {
-      filteredRanges: hiddenAreas,
-      removedRanges: visibleRanges
-    } = excludeRanges(model, model.getFullModelRange(), ranges)
+    const { filteredRanges: hiddenAreas, removedRanges: visibleRanges } = excludeRanges(
+      model,
+      model.getFullModelRange(),
+      ranges
+    )
 
     editor.setHiddenAreas(hiddenAreas, hideId)
 
     // Make sure only visible code is selected
     const selections = editor.getSelections()
     if (selections != null) {
-      let newSelections = selections.flatMap(selection =>
-        visibleRanges.map(visibleRange => selection.intersectRanges(visibleRange))
+      let newSelections = selections.flatMap((selection) =>
+        visibleRanges
+          .map((visibleRange) => selection.intersectRanges(visibleRange))
           .filter((range): range is monaco.Range => range != null)
-          .map(range => monaco.Selection.fromRange(range, selection.getDirection()))
+          .map((range) => monaco.Selection.fromRange(range, selection.getDirection()))
       )
       if (newSelections.length === 0 && visibleRanges.length > 0) {
         newSelections = [monaco.Selection.fromPositions(visibleRanges[0]!.getStartPosition())]
@@ -327,16 +363,20 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
 
   const disposableStore = new DisposableStore()
 
-  disposableStore.add(editor.onDidChangeModel(() => {
-    updateHiddenAreas()
-  }))
-  disposableStore.add(editor.onDidChangeModelDecorations(() => {
-    updateHiddenAreas()
-  }))
+  disposableStore.add(
+    editor.onDidChangeModel(() => {
+      updateHiddenAreas()
+    })
+  )
+  disposableStore.add(
+    editor.onDidChangeModelDecorations(() => {
+      updateHiddenAreas()
+    })
+  )
   updateHiddenAreas()
 
   disposableStore.add({
-    dispose () {
+    dispose() {
       editor.setHiddenAreas([], hideId)
     }
   })
@@ -347,15 +387,20 @@ export function hideCodeWithoutDecoration (editor: monaco.editor.ICodeEditor, de
 /**
  * Collapse everything from ranges
  */
-export async function collapseCodeSectionsFromRanges (editor: monaco.editor.ICodeEditor, ranges: monaco.IRange[]): Promise<void> {
+export async function collapseCodeSectionsFromRanges(
+  editor: monaco.editor.ICodeEditor,
+  ranges: monaco.IRange[]
+): Promise<void> {
   if (ranges.length > 0) {
     const selections = editor.getSelections()
-    editor.setSelections(ranges.map(r => ({
-      selectionStartLineNumber: r.startLineNumber,
-      selectionStartColumn: r.startColumn,
-      positionLineNumber: r.endLineNumber,
-      positionColumn: r.endColumn
-    })))
+    editor.setSelections(
+      ranges.map((r) => ({
+        selectionStartLineNumber: r.startLineNumber,
+        selectionStartColumn: r.startColumn,
+        positionLineNumber: r.endLineNumber,
+        positionColumn: r.endColumn
+      }))
+    )
     await editor.getAction('editor.createFoldingRangeFromSelection')!.run()
     if (selections != null) {
       editor.setSelections(selections)
@@ -366,16 +411,21 @@ export async function collapseCodeSectionsFromRanges (editor: monaco.editor.ICod
 /**
  * Collapse everything between startToken and endToken
  */
-export async function collapseCodeSections (editor: monaco.editor.ICodeEditor, startToken: string, endToken: string, isRegex: boolean = false): Promise<void> {
+export async function collapseCodeSections(
+  editor: monaco.editor.ICodeEditor,
+  startToken: string,
+  endToken: string,
+  isRegex: boolean = false
+): Promise<void> {
   const ranges: monaco.IRange[] = extractRangesFromTokens(editor, startToken, endToken, isRegex)
   await collapseCodeSectionsFromRanges(editor, ranges)
 }
 
 interface IDecorationProvider {
-  provideDecorations (model: monaco.editor.ITextModel): monaco.editor.IModelDeltaDecoration[]
+  provideDecorations(model: monaco.editor.ITextModel): monaco.editor.IModelDeltaDecoration[]
 }
 
-export function registerTextDecorationProvider (provider: IDecorationProvider): monaco.IDisposable {
+export function registerTextDecorationProvider(provider: IDecorationProvider): monaco.IDisposable {
   const disposableStore = new DisposableStore()
 
   const watchEditor = (editor: monaco.editor.ICodeEditor): monaco.IDisposable => {
@@ -394,7 +444,7 @@ export function registerTextDecorationProvider (provider: IDecorationProvider): 
     disposableStore.add(editor.onDidChangeModel(checkEditor))
     disposableStore.add(editor.onDidChangeModelContent(checkEditor))
     disposableStore.add({
-      dispose () {
+      dispose() {
         decorationCollection.clear()
       }
     })
@@ -402,13 +452,17 @@ export function registerTextDecorationProvider (provider: IDecorationProvider): 
     return disposableStore
   }
 
-  monaco.editor.getEditors().forEach(editor => disposableStore.add(watchEditor(editor)))
-  disposableStore.add(monaco.editor.onDidCreateEditor(editor => disposableStore.add(watchEditor(editor))))
+  monaco.editor.getEditors().forEach((editor) => disposableStore.add(watchEditor(editor)))
+  disposableStore.add(
+    monaco.editor.onDidCreateEditor((editor) => disposableStore.add(watchEditor(editor)))
+  )
 
   return disposableStore
 }
 
-export function runOnAllEditors (cb: (editor: monaco.editor.ICodeEditor) => monaco.IDisposable): monaco.IDisposable {
+export function runOnAllEditors(
+  cb: (editor: monaco.editor.ICodeEditor) => monaco.IDisposable
+): monaco.IDisposable {
   const disposableStore = new DisposableStore()
 
   const handleEditor = (editor: monaco.editor.ICodeEditor) => {
@@ -426,7 +480,7 @@ export function runOnAllEditors (cb: (editor: monaco.editor.ICodeEditor) => mona
   return disposableStore
 }
 
-export function preventAlwaysConsumeTouchEvent (editor: monaco.editor.ICodeEditor): void {
+export function preventAlwaysConsumeTouchEvent(editor: monaco.editor.ICodeEditor): void {
   let firstX = 0
   let firstY = 0
   let atTop = false
@@ -492,7 +546,7 @@ export function preventAlwaysConsumeTouchEvent (editor: monaco.editor.ICodeEdito
   })
 }
 
-export function mapClipboard (
+export function mapClipboard(
   editor: monaco.editor.ICodeEditor,
   {
     toClipboard,
@@ -523,22 +577,22 @@ export function mapClipboard (
     originalTrigger.call(this, source, handlerId, payload)
   }
   disposableStore.add({
-    dispose () {
+    dispose() {
       editor.trigger = originalTrigger
     }
   })
 
-  function mapCopy (event: ClipboardEvent): void {
-    const clipdata = event.clipboardData ?? (window as unknown as { clipboardData: DataTransfer }).clipboardData
+  function mapCopy(event: ClipboardEvent): void {
+    const clipdata =
+      event.clipboardData ?? (window as unknown as { clipboardData: DataTransfer }).clipboardData
     let content = clipdata.getData('Text')
     if (content.length === 0) {
       content = copiedText
     }
     const transformed = toClipboard(content)
     if (transformed !== content) {
-       
       if (clipdata.types != null) {
-        clipdata.types.forEach(type => clipdata.setData(type, toClipboard(content)))
+        clipdata.types.forEach((type) => clipdata.setData(type, toClipboard(content)))
       } else {
         clipdata.setData('text/plain', toClipboard(content))
       }
@@ -548,7 +602,7 @@ export function mapClipboard (
   editorDomNode.addEventListener('copy', mapCopy)
   editorDomNode.addEventListener('cut', mapCopy)
   disposableStore.add({
-    dispose () {
+    dispose() {
       editorDomNode.removeEventListener('copy', mapCopy)
       editorDomNode.removeEventListener('cut', mapCopy)
     }

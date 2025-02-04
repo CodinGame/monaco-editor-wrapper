@@ -1,7 +1,9 @@
 import getExtensionServiceOverride from '@codingame/monaco-vscode-extensions-service-override'
 import getModelServiceOverride from '@codingame/monaco-vscode-model-service-override'
 import getDialogsServiceOverride from '@codingame/monaco-vscode-dialogs-service-override'
-import getConfigurationServiceOverride, { IStoredWorkspace } from '@codingame/monaco-vscode-configuration-service-override'
+import getConfigurationServiceOverride, {
+  IStoredWorkspace
+} from '@codingame/monaco-vscode-configuration-service-override'
 import getKeybindingsServiceOverride from '@codingame/monaco-vscode-keybindings-service-override'
 import getTextmateServiceOverride from '@codingame/monaco-vscode-textmate-service-override'
 import getThemeServiceOverride from '@codingame/monaco-vscode-theme-service-override'
@@ -19,7 +21,14 @@ import getEmmetServiceOverride from '@codingame/monaco-vscode-emmet-service-over
 import getWorkingCopyServiceOverride from '@codingame/monaco-vscode-working-copy-service-override'
 import { initialize as initializeServices } from '@codingame/monaco-vscode-api'
 import * as monaco from 'monaco-editor'
-import { RegisteredFile, RegisteredFileSystemProvider, registerCustomProvider, OverlayFileSystemProvider, EmptyFileSystemProvider, RegisteredMemoryFile } from '@codingame/monaco-vscode-files-service-override'
+import {
+  RegisteredFile,
+  RegisteredFileSystemProvider,
+  registerCustomProvider,
+  OverlayFileSystemProvider,
+  EmptyFileSystemProvider,
+  RegisteredMemoryFile
+} from '@codingame/monaco-vscode-files-service-override'
 import { IWorkbenchConstructionOptions, IWorkspaceProvider } from '@codingame/monaco-vscode-api'
 import EditorOpenHandlerRegistry from './tools/EditorOpenHandlerRegistry'
 import { whenReady as whenExtensionsReady } from './extensions'
@@ -37,18 +46,18 @@ overlayFileSystem.register(1, defaultFilesystemProvider)
 
 registerCustomProvider('file', overlayFileSystem)
 
-export function registerFile (file: RegisteredFile): monaco.IDisposable {
+export function registerFile(file: RegisteredFile): monaco.IDisposable {
   return defaultFilesystemProvider.registerFile(file)
 }
 
 const editorOpenHandlerRegistry = new EditorOpenHandlerRegistry()
 
 let _useGlobalPicker: boolean | (() => boolean) = false
-export function setUseGlobalPicker (useGlobalPicker: boolean | (() => boolean) = true): void {
+export function setUseGlobalPicker(useGlobalPicker: boolean | (() => boolean) = true): void {
   _useGlobalPicker = useGlobalPicker
 }
 
-export function useGlobalPicker (): boolean {
+export function useGlobalPicker(): boolean {
   // should picker and keybindings be global or per-editor
   return typeof _useGlobalPicker === 'function' ? _useGlobalPicker() : _useGlobalPicker
 }
@@ -60,7 +69,7 @@ let services: monaco.editor.IEditorOverrideServices = {
   ...getDialogsServiceOverride(),
   ...getConfigurationServiceOverride(),
   ...getKeybindingsServiceOverride({
-    shouldUseGlobalKeybindings () {
+    shouldUseGlobalKeybindings() {
       return useGlobalPicker()
     }
   }),
@@ -81,7 +90,7 @@ let services: monaco.editor.IEditorOverrideServices = {
   }),
   ...getLifecycleServiceOverride(),
   ...getQuickAccessServiceOverride({
-    shouldUseGlobalPicker () {
+    shouldUseGlobalPicker() {
       return useGlobalPicker()
     }
   }),
@@ -91,19 +100,29 @@ let services: monaco.editor.IEditorOverrideServices = {
   })
 }
 
-export function registerServices (newServices: monaco.editor.IEditorOverrideServices): void {
+export function registerServices(newServices: monaco.editor.IEditorOverrideServices): void {
   services = {
     ...services,
     ...newServices
   }
 }
 
-export function generateAndInitializeWorkspace (workspaceFile = monaco.Uri.file('/workspace.code-workspace'), label?: string): IWorkspaceProvider {
-  registerFile(new RegisteredMemoryFile(workspaceFile, JSON.stringify(<IStoredWorkspace>{
-    folders: [{
-      path: '/tmp/project'
-    }]
-  })))
+export function generateAndInitializeWorkspace(
+  workspaceFile = monaco.Uri.file('/workspace.code-workspace'),
+  label?: string
+): IWorkspaceProvider {
+  registerFile(
+    new RegisteredMemoryFile(
+      workspaceFile,
+      JSON.stringify(<IStoredWorkspace>{
+        folders: [
+          {
+            path: '/tmp/project'
+          }
+        ]
+      })
+    )
+  )
   return {
     open: async () => false,
     workspace: {
@@ -123,11 +142,14 @@ void initializePromise.then(() => {
   initialized = true
 })
 
-export function isInitialized (): boolean {
+export function isInitialized(): boolean {
   return initialized
 }
 
-export async function initialize (constructionOptions: IWorkbenchConstructionOptions = {}, container?: HTMLElement): Promise<void> {
+export async function initialize(
+  constructionOptions: IWorkbenchConstructionOptions = {},
+  container?: HTMLElement
+): Promise<void> {
   if (constructionOptions.workspaceProvider == null) {
     constructionOptions = {
       ...constructionOptions,
@@ -144,6 +166,4 @@ export async function initialize (constructionOptions: IWorkbenchConstructionOpt
   setInitialized()
 }
 
-export {
-  editorOpenHandlerRegistry
-}
+export { editorOpenHandlerRegistry }

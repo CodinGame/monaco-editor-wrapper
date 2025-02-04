@@ -1,4 +1,4 @@
-export function addStyle (styleString: string): void {
+export function addStyle(styleString: string): void {
   const style = document.createElement('style')
   style.textContent = styleString
   document.head.append(style)

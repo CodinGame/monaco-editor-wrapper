@@ -1,7 +1,12 @@
 import { describe, expect, test, beforeEach, afterEach, jest } from '@jest/globals'
 import * as monaco from 'monaco-editor'
 import { DisposableStore } from '@codingame/monaco-vscode-api/monaco'
-import { createDefaultTestLockedCodeRanges, createDefaultTestModel, createTestOperation, createTestRange } from '../utils'
+import {
+  createDefaultTestLockedCodeRanges,
+  createDefaultTestModel,
+  createTestOperation,
+  createTestRange
+} from '../utils'
 import { lockCodeRanges } from '../../tools'
 
 let disposableStore: DisposableStore
@@ -20,11 +25,13 @@ describe('Locked code', () => {
       model
     })
     disposableStore.add(editor)
-    disposableStore.add(lockCodeRanges(editor, {
-      getLockedRanges () {
-        return createDefaultTestLockedCodeRanges(model)
-      }
-    }))
+    disposableStore.add(
+      lockCodeRanges(editor, {
+        getLockedRanges() {
+          return createDefaultTestLockedCodeRanges(model)
+        }
+      })
+    )
 
     const operationRange = createTestRange(model, 8, 9)
     const operation = createTestOperation(operationRange, '  return 42;')
@@ -36,10 +43,12 @@ describe('Locked code', () => {
 
     expect(onDidChangeContent).toHaveBeenCalledTimes(1)
     expect(onDidChangeContent.mock.calls[0]![0]).toMatchObject({
-      changes: [{
-        range: operation.range,
-        text: operation.text
-      }]
+      changes: [
+        {
+          range: operation.range,
+          text: operation.text
+        }
+      ]
     })
   })
 
@@ -51,14 +60,16 @@ describe('Locked code', () => {
       model
     })
     disposableStore.add(editor)
-    disposableStore.add(lockCodeRanges(editor, {
-      getLockedRanges () {
-        return createDefaultTestLockedCodeRanges(model)
-      },
-      onError (editor, firstForbiddenOperation) {
-        onError(firstForbiddenOperation)
-      }
-    }))
+    disposableStore.add(
+      lockCodeRanges(editor, {
+        getLockedRanges() {
+          return createDefaultTestLockedCodeRanges(model)
+        },
+        onError(editor, firstForbiddenOperation) {
+          onError(firstForbiddenOperation)
+        }
+      })
+    )
 
     const operationRange = createTestRange(model, 4, 4)
     const operation = createTestOperation(operationRange, '// tata')
@@ -82,14 +93,18 @@ describe('Locked code', () => {
       model
     })
     disposableStore.add(editor)
-    disposableStore.add(lockCodeRanges(editor, {
-      getLockedRanges () {
-        return createDefaultTestLockedCodeRanges(model)
-      }
-    }))
+    disposableStore.add(
+      lockCodeRanges(editor, {
+        getLockedRanges() {
+          return createDefaultTestLockedCodeRanges(model)
+        }
+      })
+    )
 
     const fullModelRange = model.getFullModelRange()
-    const operation = createTestOperation(fullModelRange, `// first comment
+    const operation = createTestOperation(
+      fullModelRange,
+      `// first comment
 
 /* Ignore and do not change the code below */
 // tutu
@@ -110,7 +125,8 @@ function findLargest(numbers: number[]): number {
 // toto
 /* Ignore and do not change the code above */
 
-// last comment`)
+// last comment`
+    )
 
     const onDidChangeContent = jest.fn()
     disposableStore.add(model.onDidChangeContent(onDidChangeContent))
@@ -119,24 +135,29 @@ function findLargest(numbers: number[]): number {
 
     expect(onDidChangeContent).toHaveBeenCalledTimes(1)
     expect(onDidChangeContent.mock.calls[0]![0]).toMatchObject({
-      changes: [{
-        range: { startLineNumber: 21, startColumn: 1, endLineNumber: 22, endColumn: 24 },
-        text: '\n// last comment'
-      }, {
-        range: { startLineNumber: 15, startColumn: 1, endLineNumber: 17, endColumn: 1 },
-        text: '\n// second comment\n'
-      }, {
-        range: { startLineNumber: 6, startColumn: 1, endLineNumber: 11, endColumn: 1 },
-        text: `
+      changes: [
+        {
+          range: { startLineNumber: 21, startColumn: 1, endLineNumber: 22, endColumn: 24 },
+          text: '\n// last comment'
+        },
+        {
+          range: { startLineNumber: 15, startColumn: 1, endLineNumber: 17, endColumn: 1 },
+          text: '\n// second comment\n'
+        },
+        {
+          range: { startLineNumber: 6, startColumn: 1, endLineNumber: 11, endColumn: 1 },
+          text: `
 function findLargest(numbers: number[]): number {
   // function
   return 42;
 }
 `
-      }, {
-        range: { startLineNumber: 1, startColumn: 1, endLineNumber: 2, endColumn: 1 },
-        text: '// first comment\n'
-      }]
+        },
+        {
+          range: { startLineNumber: 1, startColumn: 1, endLineNumber: 2, endColumn: 1 },
+          text: '// first comment\n'
+        }
+      ]
     })
   })
 
@@ -148,20 +169,25 @@ function findLargest(numbers: number[]): number {
       model
     })
     disposableStore.add(editor)
-    disposableStore.add(lockCodeRanges(editor, {
-      getLockedRanges () {
-        return createDefaultTestLockedCodeRanges(model)
-      },
-      onError (editor, firstForbiddenOperation) {
-        onError(firstForbiddenOperation)
-      }
-    }))
+    disposableStore.add(
+      lockCodeRanges(editor, {
+        getLockedRanges() {
+          return createDefaultTestLockedCodeRanges(model)
+        },
+        onError(editor, firstForbiddenOperation) {
+          onError(firstForbiddenOperation)
+        }
+      })
+    )
 
     const fullModelRange = model.getFullModelRange()
-    const operation = createTestOperation(fullModelRange, `function findLargest(numbers: number[]): number {
+    const operation = createTestOperation(
+      fullModelRange,
+      `function findLargest(numbers: number[]): number {
   // function
   return 42;
-}`)
+}`
+    )
 
     const onDidChangeContent = jest.fn()
     disposableStore.add(model.onDidChangeContent(onDidChangeContent))
@@ -185,18 +211,23 @@ function findLargest(numbers: number[]): number {
       model
     })
     disposableStore.add(editor)
-    disposableStore.add(lockCodeRanges(editor, {
-      getLockedRanges () {
-        return createDefaultTestLockedCodeRanges(model)
-      }
-    }))
+    disposableStore.add(
+      lockCodeRanges(editor, {
+        getLockedRanges() {
+          return createDefaultTestLockedCodeRanges(model)
+        }
+      })
+    )
 
     const operationRange = createTestRange(model, 9, 13)
-    const operation = createTestOperation(operationRange, `  return 42;
+    const operation = createTestOperation(
+      operationRange,
+      `  return 42;
 }
 
 /* Ignore and do not change the code below */
-// toto`)
+// toto`
+    )
 
     const onDidChangeContent = jest.fn()
     disposableStore.add(model.onDidChangeContent(onDidChangeContent))
@@ -205,10 +236,12 @@ function findLargest(numbers: number[]): number {
 
     expect(onDidChangeContent).toHaveBeenCalledTimes(1)
     expect(onDidChangeContent.mock.calls[0]![0]).toMatchObject({
-      changes: [{
-        range: { startLineNumber: 9, startColumn: 1, endLineNumber: 11, endColumn: 1 },
-        text: '  return 42;\n}\n'
-      }]
+      changes: [
+        {
+          range: { startLineNumber: 9, startColumn: 1, endLineNumber: 11, endColumn: 1 },
+          text: '  return 42;\n}\n'
+        }
+      ]
     })
   })
 
@@ -219,14 +252,18 @@ function findLargest(numbers: number[]): number {
       model
     })
     disposableStore.add(editor)
-    disposableStore.add(lockCodeRanges(editor, {
-      getLockedRanges () {
-        return createDefaultTestLockedCodeRanges(model)
-      }
-    }))
+    disposableStore.add(
+      lockCodeRanges(editor, {
+        getLockedRanges() {
+          return createDefaultTestLockedCodeRanges(model)
+        }
+      })
+    )
 
     const operationRange = createTestRange(model, 12, 22)
-    const operation = createTestOperation(operationRange, `/* Ignore and do not change the code below */
+    const operation = createTestOperation(
+      operationRange,
+      `/* Ignore and do not change the code below */
 // toto
 /* Ignore and do not change the code above */
 
@@ -237,7 +274,8 @@ function findLargest(numbers: number[]): number {
 // toto
 /* Ignore and do not change the code above */
 
-// other comment`)
+// other comment`
+    )
 
     const onDidChangeContent = jest.fn()
     disposableStore.add(model.onDidChangeContent(onDidChangeContent))
@@ -246,13 +284,16 @@ function findLargest(numbers: number[]): number {
 
     expect(onDidChangeContent).toHaveBeenCalledTimes(1)
     expect(onDidChangeContent.mock.calls[0]![0]).toMatchObject({
-      changes: [{
-        range: { startLineNumber: 21, startColumn: 1, endLineNumber: 22, endColumn: 24 },
-        text: '\n// other comment'
-      }, {
-        range: { startLineNumber: 15, startColumn: 1, endLineNumber: 17, endColumn: 1 },
-        text: '\n// new comment\n// on two lines\n'
-      }]
+      changes: [
+        {
+          range: { startLineNumber: 21, startColumn: 1, endLineNumber: 22, endColumn: 24 },
+          text: '\n// other comment'
+        },
+        {
+          range: { startLineNumber: 15, startColumn: 1, endLineNumber: 17, endColumn: 1 },
+          text: '\n// new comment\n// on two lines\n'
+        }
+      ]
     })
   })
 
@@ -263,11 +304,13 @@ function findLargest(numbers: number[]): number {
       model
     })
     disposableStore.add(editor)
-    disposableStore.add(lockCodeRanges(editor, {
-      getLockedRanges () {
-        return createDefaultTestLockedCodeRanges(model)
-      }
-    }))
+    disposableStore.add(
+      lockCodeRanges(editor, {
+        getLockedRanges() {
+          return createDefaultTestLockedCodeRanges(model)
+        }
+      })
+    )
 
     const firstRange = createTestRange(model, 8, 9)
     const firstOperation = createTestOperation(firstRange, '  // first comment\n  return 42;')
@@ -281,13 +324,16 @@ function findLargest(numbers: number[]): number {
 
     expect(onDidChangeContent).toHaveBeenCalledTimes(1)
     expect(onDidChangeContent.mock.calls[0]![0]).toMatchObject({
-      changes: [{
-        range: secondOperation.range,
-        text: secondOperation.text
-      }, {
-        range: firstOperation.range,
-        text: firstOperation.text
-      }]
+      changes: [
+        {
+          range: secondOperation.range,
+          text: secondOperation.text
+        },
+        {
+          range: firstOperation.range,
+          text: firstOperation.text
+        }
+      ]
     })
   })
 
@@ -299,14 +345,16 @@ function findLargest(numbers: number[]): number {
       model
     })
     disposableStore.add(editor)
-    disposableStore.add(lockCodeRanges(editor, {
-      getLockedRanges () {
-        return createDefaultTestLockedCodeRanges(model)
-      },
-      onError (editor, firstForbiddenOperation) {
-        onError(firstForbiddenOperation)
-      }
-    }))
+    disposableStore.add(
+      lockCodeRanges(editor, {
+        getLockedRanges() {
+          return createDefaultTestLockedCodeRanges(model)
+        },
+        onError(editor, firstForbiddenOperation) {
+          onError(firstForbiddenOperation)
+        }
+      })
+    )
 
     const firstRange = createTestRange(model, 8, 9)
     const firstOperation = createTestOperation(firstRange, '  // function comment\n  return 42;')
@@ -333,14 +381,16 @@ function findLargest(numbers: number[]): number {
       model
     })
     disposableStore.add(editor)
-    disposableStore.add(lockCodeRanges(editor, {
-      getLockedRanges () {
-        return createDefaultTestLockedCodeRanges(model)
-      },
-      onError (editor, firstForbiddenOperation) {
-        onError(firstForbiddenOperation)
-      }
-    }))
+    disposableStore.add(
+      lockCodeRanges(editor, {
+        getLockedRanges() {
+          return createDefaultTestLockedCodeRanges(model)
+        },
+        onError(editor, firstForbiddenOperation) {
+          onError(firstForbiddenOperation)
+        }
+      })
+    )
 
     const operationRange = createTestRange(model, 2, 3)
     const operation = createTestOperation(operationRange, '')
@@ -364,26 +414,29 @@ function findLargest(numbers: number[]): number {
       model
     })
     disposableStore.add(editor)
-    disposableStore.add(lockCodeRanges(editor, {
-      getLockedRanges () {
-        return createDefaultTestLockedCodeRanges(model)
-      }
-    }))
+    disposableStore.add(
+      lockCodeRanges(editor, {
+        getLockedRanges() {
+          return createDefaultTestLockedCodeRanges(model)
+        }
+      })
+    )
 
     const operationRange = createTestRange(model, 12, 22)
-    const operation = createTestOperation(operationRange,
+    const operation = createTestOperation(
+      operationRange,
       '/* Ignore and do not change the code below */\n' +
-      '// toto\r\n' +
-      '/* Ignore and do not change the code above */\n' +
-      '\n' +
-      '// new comment\r\n' +
-      '// on two lines\r' +
-      '\n' +
-      '/* Ignore and do not change the code below */\r\n' +
-      '// toto\r' +
-      '/* Ignore and do not change the code above */\n' +
-      '\n' +
-      '// other comment\n'
+        '// toto\r\n' +
+        '/* Ignore and do not change the code above */\n' +
+        '\n' +
+        '// new comment\r\n' +
+        '// on two lines\r' +
+        '\n' +
+        '/* Ignore and do not change the code below */\r\n' +
+        '// toto\r' +
+        '/* Ignore and do not change the code above */\n' +
+        '\n' +
+        '// other comment\n'
     )
 
     const onDidChangeContent = jest.fn()
@@ -393,13 +446,16 @@ function findLargest(numbers: number[]): number {
 
     expect(onDidChangeContent).toHaveBeenCalledTimes(1)
     expect(onDidChangeContent.mock.calls[0]![0]).toMatchObject({
-      changes: [{
-        range: { startLineNumber: 21, startColumn: 1, endLineNumber: 22, endColumn: 24 },
-        text: '\n// other comment\n'
-      }, {
-        range: { startLineNumber: 15, startColumn: 1, endLineNumber: 17, endColumn: 1 },
-        text: '\n// new comment\n// on two lines'
-      }]
+      changes: [
+        {
+          range: { startLineNumber: 21, startColumn: 1, endLineNumber: 22, endColumn: 24 },
+          text: '\n// other comment\n'
+        },
+        {
+          range: { startLineNumber: 15, startColumn: 1, endLineNumber: 17, endColumn: 1 },
+          text: '\n// new comment\n// on two lines'
+        }
+      ]
     })
   })
 })

@@ -34,7 +34,7 @@ import { whenReady as whenYamlReady } from '@codingame/monaco-vscode-yaml-defaul
 import { whenReady as whenNpmReady } from '@codingame/monaco-vscode-npm-default-extension'
 import { whenReady as whenOtherExtensionsReady } from '../extensions/*.vsix'
 
-export async function whenReady (): Promise<void> {
+export async function whenReady(): Promise<void> {
   await Promise.allSettled([
     whenThemeReady(),
     whenClojureReady(),

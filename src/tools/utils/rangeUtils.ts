@@ -1,6 +1,6 @@
 import * as monaco from 'monaco-editor'
 
-export function getRangesFromDecorations (
+export function getRangesFromDecorations(
   model: monaco.editor.ITextModel,
   decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean
 ): monaco.Range[] {
@@ -10,7 +10,7 @@ export function getRangesFromDecorations (
     .map((decoration) => decoration.range)
 }
 
-export function excludeRanges (
+export function excludeRanges(
   model: monaco.editor.ITextModel,
   uniqueRange: monaco.Range,
   ranges: monaco.Range[]
@@ -22,7 +22,9 @@ export function excludeRanges (
   const removedRanges: monaco.Range[] = []
   let lastEndPosition = uniqueRange.getStartPosition()
   const uniqueRangeEndPosition = uniqueRange.getEndPosition()
-  const intersectingRanges = ranges.filter(range => monaco.Range.areIntersectingOrTouching(range, uniqueRange))
+  const intersectingRanges = ranges.filter((range) =>
+    monaco.Range.areIntersectingOrTouching(range, uniqueRange)
+  )
 
   for (const range of intersectingRanges) {
     const rangeStart = range.getStartPosition()
@@ -32,14 +34,15 @@ export function excludeRanges (
       const firstRangeStart = lastEndPosition.equals(uniqueRange.getStartPosition())
         ? lastEndPosition
         : model.modifyPosition(lastEndPosition, 1)
-      filteredRanges.push(monaco.Range.fromPositions(
-        firstRangeStart,
-        (model.modifyPosition(rangeStart, -1))
-      ))
+      filteredRanges.push(
+        monaco.Range.fromPositions(firstRangeStart, model.modifyPosition(rangeStart, -1))
+      )
     }
 
     const secondRangeStart = lastEndPosition.isBefore(rangeStart) ? rangeStart : lastEndPosition
-    const secondRangeEnd = uniqueRangeEndPosition.isBefore(rangeEnd) ? uniqueRangeEndPosition : rangeEnd
+    const secondRangeEnd = uniqueRangeEndPosition.isBefore(rangeEnd)
+      ? uniqueRangeEndPosition
+      : rangeEnd
     removedRanges.push(monaco.Range.fromPositions(secondRangeStart, secondRangeEnd))
 
     lastEndPosition = rangeEnd
@@ -55,13 +58,17 @@ export function excludeRanges (
   return { filteredRanges, removedRanges }
 }
 
-export function getLockedRanges (
+export function getLockedRanges(
   model: monaco.editor.ITextModel,
   decorationFilter: (decoration: monaco.editor.IModelDecoration) => boolean,
   withDecoration: boolean
 ): monaco.Range[] {
   const fullModelRange = model.getFullModelRange()
   const ranges = getRangesFromDecorations(model, decorationFilter)
-  const { filteredRanges: firstRanges, removedRanges: secondRanges } = excludeRanges(model, fullModelRange, ranges)
+  const { filteredRanges: firstRanges, removedRanges: secondRanges } = excludeRanges(
+    model,
+    fullModelRange,
+    ranges
+  )
   return withDecoration ? secondRanges : firstRanges
 }

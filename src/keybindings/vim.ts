@@ -2,7 +2,10 @@ import { IDisposable } from 'monaco-editor'
 import * as monacoVim from 'monaco-vim'
 import * as monaco from 'monaco-editor'
 import { IJSONSchema } from '@codingame/monaco-vscode-api/monaco'
-import { configurationRegistry, ConfigurationScope } from '@codingame/monaco-vscode-configuration-service-override'
+import {
+  configurationRegistry,
+  ConfigurationScope
+} from '@codingame/monaco-vscode-configuration-service-override'
 import { getConfiguration, onConfigurationChanged } from '../configuration'
 
 const vimKeybindingsSchema: IJSONSchema = {
@@ -58,7 +61,10 @@ interface VimConfiguration {
   visualModeKeyBindings: VimKeybindingConfiguration[]
 }
 
-function mapVimKeyBindings (keybindingConfig: VimKeybindingConfiguration[] | undefined, mode: string) {
+function mapVimKeyBindings(
+  keybindingConfig: VimKeybindingConfiguration[] | undefined,
+  mode: string
+) {
   if (keybindingConfig != null) {
     for (const item of keybindingConfig) {
       if (item.after != null && item.before != null) {
@@ -67,7 +73,10 @@ function mapVimKeyBindings (keybindingConfig: VimKeybindingConfiguration[] | und
     }
   }
 }
-function unmapVimKeyBindings (keybindingConfig: VimKeybindingConfiguration[] | undefined, mode: string) {
+function unmapVimKeyBindings(
+  keybindingConfig: VimKeybindingConfiguration[] | undefined,
+  mode: string
+) {
   if (keybindingConfig != null) {
     for (const item of keybindingConfig) {
       if (item.after != null && item.before != null) {
@@ -92,6 +101,9 @@ onConfigurationChanged(() => {
   }
 })
 
-export function initVimMode (editor: monaco.editor.ICodeEditor, statusBarElement: Element): IDisposable {
+export function initVimMode(
+  editor: monaco.editor.ICodeEditor,
+  statusBarElement: Element
+): IDisposable {
   return monacoVim.initVimMode(editor, statusBarElement)
 }

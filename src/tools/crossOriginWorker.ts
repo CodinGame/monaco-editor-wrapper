@@ -5,16 +5,16 @@
  * Copied from https://github.com/jantimon/remote-web-worker/blob/main/src/index.ts
  */
 export class Worker extends window.Worker {
-  constructor (scriptURL: string | URL, options?: WorkerOptions) {
+  constructor(scriptURL: string | URL, options?: WorkerOptions) {
     const url = String(scriptURL)
     super(
       // Check if the URL is remote
       url.includes('://') && !url.startsWith(location.origin)
-        // Launch the worker with an inline script that will use `importScripts`
-        // to bootstrap the actual script to work around the same origin policy.
-        ? URL.createObjectURL(
-          new Blob(
-            [
+        ? // Launch the worker with an inline script that will use `importScripts`
+          // to bootstrap the actual script to work around the same origin policy.
+          URL.createObjectURL(
+            new Blob(
+              [
                 // Replace the `importScripts` function with
                 // a patched version that will resolve relative URLs
                 // to the remote script URL.
@@ -29,10 +29,10 @@ export class Worker extends window.Worker {
                 // a = arguments
                 // u = URL
                 `importScripts=((i)=>(...a)=>i(...a.map((u)=>''+new URL(u,"${url}"))))(importScripts);importScripts("${url}")`
-            ],
-            { type: 'text/javascript' }
+              ],
+              { type: 'text/javascript' }
+            )
           )
-        )
         : scriptURL,
       options
     )

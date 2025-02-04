@@ -6,8 +6,8 @@ declare module 'monaco-vim' {
   ) => monaco.IDisposable
   export const VimMode: {
     Vim: {
-      map (lhs: string, rhs: string, ctx: string): void
-      unmap (lhs: string, ctx: string): void
+      map(lhs: string, rhs: string, ctx: string): void
+      unmap(lhs: string, ctx: string): void
     }
   }
 }
