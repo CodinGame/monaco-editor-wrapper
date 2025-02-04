@@ -9,7 +9,7 @@
     "generate-types": "tsc --project tsconfig.types.json",
     "update-extensions": "node --loader ts-node/esm scripts/update-extensions.ts",
     "download-extensions": "./scripts/download-extensions.sh",
-    "lint": "eslint '{src/**/*.ts,scripts/*.ts,rollup.config.ts}'",
+    "lint": "eslint '{src/**/*.ts,scripts/*.ts,rollup.config.ts}' && prettier --check '**/*.{js,ts}'",
     "preprepare": "npm run download-extensions",
     "test": "jest --runInBand",
     "test:watch": "jest --watch"
@@ -236,6 +236,7 @@
     "babel-jest": "^29.7.0",
     "babel-plugin-transform-import-meta": "^2.3.2",
     "browser-resolve": "^2.0.0",
+    "canvas": "3.1.0",
     "conventional-changelog-conventionalcommits": "^8.0.0",
     "cson-parser": "4.0.9",
     "deep-equal": "2.2.3",
@@ -251,6 +252,7 @@
     "monaco-emacs": "^0.3.0",
     "monaco-vim": "^0.4.2",
     "postcss": "8.5.1",
+    "prettier": "^3.4.2",
     "rollup": "4.34.2",
     "rollup-plugin-visualizer": "5.14.0",
     "ts-node": "10.9.2",
@@ -258,8 +260,7 @@
     "type-fest": "^4.33.0",
     "typescript": "5.7.3",
     "typescript-eslint": "^8.23.0",
-    "whatwg-fetch": "^3.6.20",
-    "canvas": "3.1.0"
+    "whatwg-fetch": "^3.6.20"
   },
   "browserslist": [
     "defaults",
