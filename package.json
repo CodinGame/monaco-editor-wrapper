@@ -302,6 +302,7 @@
     }
   },
   "overrides": {
+    "globals": "15.14.0",
     "monaco-editor": "$monaco-editor",
     "rollup": "$rollup",
     "typescript": "$typescript",

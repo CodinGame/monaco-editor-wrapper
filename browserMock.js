@@ -1,6 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable @typescript-eslint/no-useless-constructor */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { fetch as fetchPolyfill } from 'whatwg-fetch'
 import fs from 'fs/promises'
 import { performance } from 'perf_hooks'
@@ -13,7 +10,7 @@ window.process = undefined
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
+  value: jest.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
@@ -27,12 +24,12 @@ Object.defineProperty(window, 'matchMedia', {
 
 Object.defineProperty(window, 'fetch', {
   value: jest.fn(async (url, options) => {
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (url.startsWith('file:')) {
       const content = await fs.readFile(new URL(url).pathname)
       return {
         json: async () => JSON.stringify(JSON.parse(content.toString())),
-        arrayBuffer: async () => content.buffer.slice(content.byteOffset, content.byteOffset + content.byteLength),
+        arrayBuffer: async () =>
+          content.buffer.slice(content.byteOffset, content.byteOffset + content.byteLength),
         status: 200
       }
     } else {
@@ -49,24 +46,24 @@ Object.defineProperty(URL, 'createObjectURL', {
 
 Object.defineProperty(window, 'Worker', {
   value: class Worker {
-    constructor (stringUrl) {}
-    postMessage (msg) {}
-    terminate () {}
-    removeEventListener () {}
+    constructor(stringUrl) {}
+    postMessage(msg) {}
+    terminate() {}
+    removeEventListener() {}
   }
 })
 
 Object.defineProperty(window, 'ResizeObserver', {
   value: class ResizeObserver {
-    constructor (stringUrl) {}
-    observe () {}
+    constructor(stringUrl) {}
+    observe() {}
   }
 })
 
 // These 2 classes come from https://gist.github.com/Yaffle/5458286
 Object.defineProperty(window, 'TextEncoder', {
   value: class TextEncoder {
-    encode (string) {
+    encode(string) {
       const octets = []
       const length = string.length
       let i = 0
@@ -74,23 +71,23 @@ Object.defineProperty(window, 'TextEncoder', {
         const codePoint = string.codePointAt(i)
         let c = 0
         let bits = 0
-        if (codePoint <= 0x0000007F) {
+        if (codePoint <= 0x0000007f) {
           c = 0
           bits = 0x00
-        } else if (codePoint <= 0x000007FF) {
+        } else if (codePoint <= 0x000007ff) {
           c = 6
-          bits = 0xC0
-        } else if (codePoint <= 0x0000FFFF) {
+          bits = 0xc0
+        } else if (codePoint <= 0x0000ffff) {
           c = 12
-          bits = 0xE0
-        } else if (codePoint <= 0x001FFFFF) {
+          bits = 0xe0
+        } else if (codePoint <= 0x001fffff) {
           c = 18
-          bits = 0xF0
+          bits = 0xf0
         }
         octets.push(bits | (codePoint >> c))
         c -= 6
         while (c >= 0) {
-          octets.push(0x80 | ((codePoint >> c) & 0x3F))
+          octets.push(0x80 | ((codePoint >> c) & 0x3f))
           c -= 6
         }
         i += codePoint >= 0x10000 ? 2 : 1
@@ -101,7 +98,7 @@ Object.defineProperty(window, 'TextEncoder', {
 })
 Object.defineProperty(window, 'TextDecoder', {
   value: class TextDecoder {
-    decode (octets) {
+    decode(octets) {
       if (octets == null) {
         return ''
       }
@@ -111,16 +108,16 @@ Object.defineProperty(window, 'TextDecoder', {
         let octet = octets[i]
         let bytesNeeded = 0
         let codePoint = 0
-        if (octet <= 0x7F) {
+        if (octet <= 0x7f) {
           bytesNeeded = 0
-          codePoint = octet & 0xFF
-        } else if (octet <= 0xDF) {
+          codePoint = octet & 0xff
+        } else if (octet <= 0xdf) {
           bytesNeeded = 1
-          codePoint = octet & 0x1F
-        } else if (octet <= 0xEF) {
+          codePoint = octet & 0x1f
+        } else if (octet <= 0xef) {
           bytesNeeded = 2
-          codePoint = octet & 0x0F
-        } else if (octet <= 0xF4) {
+          codePoint = octet & 0x0f
+        } else if (octet <= 0xf4) {
           bytesNeeded = 3
           codePoint = octet & 0x07
         }
@@ -128,11 +125,11 @@ Object.defineProperty(window, 'TextDecoder', {
           let k = 0
           while (k < bytesNeeded) {
             octet = octets[i + k + 1]
-            codePoint = (codePoint << 6) | (octet & 0x3F)
+            codePoint = (codePoint << 6) | (octet & 0x3f)
             k += 1
           }
         } else {
-          codePoint = 0xFFFD
+          codePoint = 0xfffd
           bytesNeeded = octets.length - i
         }
         string += String.fromCodePoint(codePoint)
@@ -152,14 +149,16 @@ const _performance = performance
 // remove nodeTiming because otherwise VSCode refuse to detect the env as a browser env, and it also fails to detect a node env (no `process`) so it generates an error
 performance.nodeTiming = undefined
 Object.defineProperty(global, 'performance', {
-  get () { return _performance },
-  set (v) {
+  get() {
+    return _performance
+  },
+  set(v) {
     // ignore
   }
 })
 
 global.CSS = {
-  escape: v => v
+  escape: (v) => v
 }
 
 Element.prototype.scrollIntoView = jest.fn()
