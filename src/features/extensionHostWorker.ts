@@ -2,9 +2,12 @@ import getExtensionServiceOverride from '@codingame/monaco-vscode-extensions-ser
 import { registerServices } from '../services'
 import { Worker } from '../tools/FakeWorker'
 
-const fakeWorker = new Worker(new URL('vscode/workers/extensionHost.worker', import.meta.url), {
-  type: 'module'
-})
+const fakeWorker = new Worker(
+  new URL('@codingame/monaco-vscode-api/workers/extensionHost.worker', import.meta.url),
+  {
+    type: 'module'
+  }
+)
 
 registerServices({
   ...getExtensionServiceOverride({
