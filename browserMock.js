@@ -1,6 +1,11 @@
 import { fetch as fetchPolyfill } from 'whatwg-fetch'
 import fs from 'fs/promises'
 import { performance } from 'perf_hooks'
+import crypto from 'node:crypto'
+
+Object.defineProperty(globalThis, 'crypto', {
+  value: crypto
+})
 
 Object.defineProperty(document, 'queryCommandSupported', {
   value: jest.fn().mockImplementation(() => true)
