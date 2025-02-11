@@ -11,7 +11,7 @@ const fakeWorker = new Worker(
 
 registerServices({
   ...getExtensionServiceOverride({
-    url: fakeWorker.url.toString(),
+    url: new URL(fakeWorker.url, window.location.href).toString(),
     options: fakeWorker.options
   })
 })
