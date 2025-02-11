@@ -2,16 +2,16 @@ import { Worker } from './tools/crossOriginWorker'
 export type WorkerLoader = () => Worker
 
 const workerLoaders: Partial<Record<string, WorkerLoader>> = {
-  editorWorkerService: () =>
+  TextEditorWorker: () =>
     new Worker(new URL('monaco-editor/esm/vs/editor/editor.worker.js', import.meta.url), {
       type: 'module'
     }),
-  textMateWorker: () =>
+  TextMateWorker: () =>
     new Worker(
       new URL('@codingame/monaco-vscode-textmate-service-override/worker', import.meta.url),
       { type: 'module' }
     ),
-  languageDetectionWorkerService: () =>
+  LanguageDetectionWorker: () =>
     new Worker(
       new URL(
         '@codingame/monaco-vscode-language-detection-worker-service-override/worker',

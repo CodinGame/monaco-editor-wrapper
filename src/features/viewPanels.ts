@@ -9,7 +9,7 @@ import { Worker } from '../tools/crossOriginWorker'
 import '@codingame/monaco-vscode-references-view-default-extension'
 
 registerWorkerLoader(
-  'outputLinkComputer',
+  'OutputLinkDetectionWorker',
   () =>
     new Worker(
       new URL('@codingame/monaco-vscode-output-service-override/worker', import.meta.url),
