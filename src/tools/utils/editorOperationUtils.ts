@@ -2,6 +2,7 @@ import * as monaco from 'monaco-editor'
 import { ValidAnnotatedEditOperation } from '@codingame/monaco-vscode-api/vscode/vs/editor/common/model'
 import { excludeRanges } from './rangeUtils'
 import { normalizeStringLineBreaks } from './stringUtils'
+import { Range } from '@codingame/monaco-vscode-api/vscode/vs/editor/common/core/range'
 
 export class LockedCodeError extends Error {}
 
@@ -17,7 +18,7 @@ function createNewOperation(
       : null
   return new ValidAnnotatedEditOperation(
     identifier,
-    newRange,
+    newRange as Range, // desync between monaco type and VSCode class, force cast
     newText,
     oldOperation.forceMoveMarkers,
     oldOperation.isAutoWhitespaceEdit,
