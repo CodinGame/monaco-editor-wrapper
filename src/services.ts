@@ -68,11 +68,7 @@ let services: monaco.editor.IEditorOverrideServices = {
   ...getModelServiceOverride(),
   ...getDialogsServiceOverride(),
   ...getConfigurationServiceOverride(),
-  ...getKeybindingsServiceOverride({
-    shouldUseGlobalKeybindings() {
-      return useGlobalPicker()
-    }
-  }),
+  ...getKeybindingsServiceOverride(),
   ...getTextmateServiceOverride(),
   ...getThemeServiceOverride(),
   ...getLanguagesServiceOverride(),
