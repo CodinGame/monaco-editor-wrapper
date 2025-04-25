@@ -32,7 +32,6 @@ import { whenReady as whenVbReady } from '@codingame/monaco-vscode-vb-default-ex
 import { whenReady as wheXmlReady } from '@codingame/monaco-vscode-xml-default-extension'
 import { whenReady as whenYamlReady } from '@codingame/monaco-vscode-yaml-default-extension'
 import { whenReady as whenNpmReady } from '@codingame/monaco-vscode-npm-default-extension'
-import { whenReady as whenOtherExtensionsReady } from '../extensions/*.vsix'
 
 export async function whenReady(): Promise<void> {
   await Promise.allSettled([
@@ -69,7 +68,6 @@ export async function whenReady(): Promise<void> {
     whenVbReady(),
     wheXmlReady(),
     whenYamlReady(),
-    whenNpmReady(),
-    whenOtherExtensionsReady()
+    whenNpmReady()
   ])
 }

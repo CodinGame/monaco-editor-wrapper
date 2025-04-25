@@ -142,9 +142,15 @@ export function isInitialized(): boolean {
   return initialized
 }
 
+export interface InitializeOptions {
+  container?: HTMLElement
+  // Should additional extension be registered? (it's mostly additional languages, registered from marketplace extensions after removing everything else)
+  registerAdditionalExtensions?: boolean
+}
+
 export async function initialize(
   constructionOptions: IWorkbenchConstructionOptions = {},
-  container?: HTMLElement
+  { container, registerAdditionalExtensions = true }: InitializeOptions = {}
 ): Promise<void> {
   if (constructionOptions.workspaceProvider == null) {
     constructionOptions = {
@@ -156,6 +162,11 @@ export async function initialize(
   await initializeServices(services, container, constructionOptions, {
     userHome: monaco.Uri.file('/')
   })
+
+  if (registerAdditionalExtensions) {
+    const { whenReady } = await import('./additionalExtensions.js')
+    await whenReady()
+  }
 
   await whenExtensionsReady()
 
