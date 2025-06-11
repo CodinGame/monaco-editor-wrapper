@@ -91,7 +91,7 @@
         "./dist/features/debug.d.ts"
       ],
       "features/testing": [
-        "./dist/features/debug.d.ts"
+        "./dist/features/testing.d.ts"
       ],
       "features/terminal": [
         "./dist/features/terminal.d.ts"
@@ -102,8 +102,8 @@
       "features/extensionHostWorker": [
         "./dist/features/extensionHostWorker.d.ts"
       ],
-      "features/notitications": [
-        "./dist/features/notitications.d.ts"
+      "features/notifications": [
+        "./dist/features/notifications.d.ts"
       ],
       "features/extensionGallery": [
         "./dist/features/extensionGallery.d.ts"
