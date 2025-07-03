@@ -128,5 +128,10 @@
     "publisher": "golang",
     "name": "Go",
     "version": "0.47.2"
+  },
+  {
+    "publisher": "Vue",
+    "name": "volar",
+    "version": "3.0.1"
   }
 ]
