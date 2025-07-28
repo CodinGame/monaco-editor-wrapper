@@ -133,5 +133,10 @@
     "publisher": "Vue",
     "name": "volar",
     "version": "3.0.1"
+  },
+  {
+    "publisher": "HashiCorp",
+    "name": "terraform",
+    "version": "2.34.2025012311"
   }
 ]
