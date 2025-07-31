@@ -2,7 +2,7 @@
   {
     "publisher": "Angular",
     "name": "ng-template",
-    "version": "19.2.4"
+    "version": "20.1.1"
   },
   {
     "publisher": "webfreak",
@@ -12,7 +12,7 @@
   {
     "publisher": "Dart-Code",
     "name": "dart-code",
-    "version": "3.109.20250404"
+    "version": "3.117.20250731"
   },
   {
     "publisher": "justusadam",
@@ -27,7 +27,7 @@
   {
     "publisher": "ocamllabs",
     "name": "ocaml-platform",
-    "version": "1.29.0"
+    "version": "1.31.0"
   },
   {
     "publisher": "alefragnani",
@@ -42,22 +42,22 @@
   {
     "publisher": "scalameta",
     "name": "metals",
-    "version": "1.49.2"
+    "version": "1.52.4"
   },
   {
     "publisher": "broadcomMFD",
     "name": "cobol-language-support",
-    "version": "2.4.0"
+    "version": "2.4.3"
   },
   {
     "publisher": "JakeBecker",
     "name": "elixir-ls",
-    "version": "0.27.2"
+    "version": "0.28.0"
   },
   {
     "publisher": "pgourlain",
     "name": "erlang",
-    "version": "1.1.2"
+    "version": "1.1.3"
   },
   {
     "publisher": "bitwisecook",
@@ -77,32 +77,32 @@
   {
     "publisher": "redhat",
     "name": "java",
-    "version": "1.42.2025041008"
+    "version": "1.44.2025073008"
   },
   {
     "publisher": "sumneko",
     "name": "lua",
-    "version": "3.14.0"
+    "version": "3.15.0"
   },
   {
     "publisher": "ms-vscode",
     "name": "cpptools",
-    "version": "1.25.1"
+    "version": "1.26.3"
   },
   {
     "publisher": "ms-dotnettools",
     "name": "csharp",
-    "version": "2.74.24"
+    "version": "2.87.26"
   },
   {
     "publisher": "ms-python",
     "name": "python",
-    "version": "2025.5.2025042501"
+    "version": "2025.11.2025072901"
   },
   {
     "publisher": "REditorSupport",
     "name": "r",
-    "version": "2.8.5"
+    "version": "2.8.6"
   },
   {
     "publisher": "castwide",
@@ -112,12 +112,12 @@
   {
     "publisher": "JuanBlanco",
     "name": "solidity",
-    "version": "0.0.184"
+    "version": "0.0.185"
   },
   {
     "publisher": "svelte",
     "name": "svelte-vscode",
-    "version": "109.5.4"
+    "version": "109.10.0"
   },
   {
     "publisher": "batisteo",
@@ -127,12 +127,12 @@
   {
     "publisher": "golang",
     "name": "Go",
-    "version": "0.47.2"
+    "version": "0.49.0"
   },
   {
     "publisher": "Vue",
     "name": "volar",
-    "version": "3.0.1"
+    "version": "3.0.4"
   },
   {
     "publisher": "HashiCorp",
