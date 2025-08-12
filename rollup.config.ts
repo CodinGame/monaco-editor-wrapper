@@ -153,6 +153,7 @@ ${files.map((_, index) => `    whenReady${index}()`).join(',\n')}
           terminal,
           viewsContainers,
           typescriptServerPlugins,
+          configurationDefaults,
           ...remainingContribute
         } = (manifest.contributes ?? {}) as IExtensionManifest['contributes'] & {
           typescriptServerPlugins: unknown // typescript extension specific field
@@ -173,7 +174,15 @@ ${files.map((_, index) => `    whenReady${index}()`).join(',\n')}
 
         return {
           ...remainingManifest,
-          contributes: remainingContribute
+          contributes: {
+            ...remainingContribute,
+            // Only keep scoped keys
+            configurationDefaults: Object.fromEntries(
+              Object.entries(configurationDefaults ?? {}).filter(
+                ([key]) => /^\[.*\]$/.exec(key) != null
+              )
+            )
+          }
         }
       }
     }),
