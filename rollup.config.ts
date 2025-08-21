@@ -154,6 +154,7 @@ ${files.map((_, index) => `    whenReady${index}()`).join(',\n')}
           viewsContainers,
           typescriptServerPlugins,
           configurationDefaults,
+          icons,
           ...remainingContribute
         } = (manifest.contributes ?? {}) as IExtensionManifest['contributes'] & {
           typescriptServerPlugins: unknown // typescript extension specific field
