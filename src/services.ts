@@ -146,11 +146,17 @@ export interface InitializeOptions {
   container?: HTMLElement
   // Should additional extension be registered? (it's mostly additional languages, registered from marketplace extensions after removing everything else)
   registerAdditionalExtensions?: boolean
+
+  waitForDefaultExtensions?: boolean
 }
 
 export async function initialize(
   constructionOptions: IWorkbenchConstructionOptions = {},
-  { container, registerAdditionalExtensions = true }: InitializeOptions = {}
+  {
+    container,
+    registerAdditionalExtensions = true,
+    waitForDefaultExtensions = true
+  }: InitializeOptions = {}
 ): Promise<void> {
   if (constructionOptions.workspaceProvider == null) {
     constructionOptions = {
@@ -165,10 +171,14 @@ export async function initialize(
 
   if (registerAdditionalExtensions) {
     const { whenReady } = await import('./additionalExtensions.js')
-    await whenReady()
+    if (waitForDefaultExtensions) {
+      await whenReady()
+    }
   }
 
-  await whenExtensionsReady()
+  if (waitForDefaultExtensions) {
+    await whenExtensionsReady()
+  }
 
   setInitialized()
 }
