@@ -270,8 +270,8 @@
     "not IE_Mob 11"
   ],
   "volta": {
-    "node": "22.13.0",
-    "npm": "11.0.0"
+    "node": "22.19.0",
+    "npm": "11.6.2"
   },
   "release": {
     "extends": "@codingame/semantic-release-config-github"
