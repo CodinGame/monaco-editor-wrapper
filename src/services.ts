@@ -33,7 +33,6 @@ import { IWorkbenchConstructionOptions, IWorkspaceProvider } from '@codingame/mo
 import EditorOpenHandlerRegistry from './tools/EditorOpenHandlerRegistry'
 import { whenReady as whenExtensionsReady } from './extensions'
 import 'vscode/localExtensionHost'
-import './customExtensions'
 import './languages'
 import './worker'
 
