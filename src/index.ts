@@ -21,6 +21,7 @@ import {
   setUseGlobalPicker
 } from './services'
 import './style'
+import { registerWorkerLoader } from './worker'
 export * from './tools'
 
 export {
@@ -45,5 +46,6 @@ export {
   getMonacoLanguage,
   registerEditorOpenHandler,
   loadLanguage,
-  setUseGlobalPicker
+  setUseGlobalPicker,
+  registerWorkerLoader
 }
