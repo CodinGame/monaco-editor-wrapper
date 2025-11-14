@@ -565,7 +565,12 @@ export function mapClipboard(
       copiedText = editor.getModel()!.getValueInRange(editor.getSelection()!)
     } else if (handlerId === 'editor.action.clipboardCutAction') {
       copiedText = editor.getModel()!.getValueInRange(editor.getSelection()!)
-    } else if (handlerId === 'paste') {
+    } else if (
+      ((handlerId: string, payload: unknown): payload is { text: string } => handlerId === 'paste')(
+        handlerId,
+        payload
+      )
+    ) {
       const newText = fromClipboard(payload.text)
       if (newText !== payload.text) {
         payload = {
