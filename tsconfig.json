@@ -1,6 +1,7 @@
 {
   "extends": "@codingame/tsconfig",
   "compilerOptions": {
+    "outDir": "dist",
     "baseUrl": "./app",
     "noImplicitOverride": true,
     "resolveJsonModule": true,
