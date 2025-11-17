@@ -167,3 +167,8 @@ global.CSS = {
 }
 
 Element.prototype.scrollIntoView = jest.fn()
+
+Object.defineProperty(document, 'adoptedStyleSheets', {
+  value: [],
+  writable: true
+})
