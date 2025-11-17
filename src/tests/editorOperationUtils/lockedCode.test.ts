@@ -8,6 +8,13 @@ import {
   createTestRange
 } from '../utils'
 import { lockCodeRanges } from '../../tools'
+import { initialize } from '../../services'
+
+beforeAll(async () => {
+  await initialize(undefined, {
+    registerAdditionalExtensions: false
+  })
+})
 
 let disposableStore: DisposableStore
 beforeEach(() => {
