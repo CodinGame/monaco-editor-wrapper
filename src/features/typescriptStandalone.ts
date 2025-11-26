@@ -1,4 +1,4 @@
-import '@codingame/monaco-vscode-standalone-typescript-language-features'
+import * as typescript from '@codingame/monaco-vscode-standalone-typescript-language-features'
 import * as monaco from 'monaco-editor'
 import {
   FileSystemProviderCapabilities,
@@ -29,13 +29,11 @@ declare global {
 export {}
 `
 
-const compilerOptions: Parameters<
-  typeof monaco.languages.typescript.typescriptDefaults.setCompilerOptions
->[0] = {
-  target: monaco.languages.typescript.ScriptTarget.ES2016,
+const compilerOptions: Parameters<typeof typescript.typescriptDefaults.setCompilerOptions>[0] = {
+  target: typescript.ScriptTarget.ES2016,
   allowNonTsExtensions: true,
-  moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-  module: monaco.languages.typescript.ModuleKind.CommonJS,
+  moduleResolution: typescript.ModuleResolutionKind.NodeJs,
+  module: typescript.ModuleKind.CommonJS,
   noEmit: true,
   lib: ['es2020']
 }
@@ -48,7 +46,7 @@ class TypescriptWorkerTypeFileSystemProvider
     FileSystemProviderCapabilities.PathCaseSensitive |
     FileSystemProviderCapabilities.Readonly
 
-  constructor(private getWorker: () => Promise<monaco.languages.typescript.TypeScriptWorker>) {}
+  constructor(private getWorker: () => Promise<typescript.TypeScriptWorker>) {}
 
   private async getExtraLib(resource: monaco.Uri) {
     const content = await (await this.getWorker()).getScriptText(resource.path.slice(1))
@@ -106,37 +104,37 @@ class TypescriptWorkerTypeFileSystemProvider
   }
 }
 
-monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions)
-monaco.languages.typescript.javascriptDefaults.setCompilerOptions(compilerOptions)
-monaco.languages.typescript.typescriptDefaults.addExtraLib(global, 'global.d.ts')
-monaco.languages.typescript.javascriptDefaults.addExtraLib(global, 'global.d.ts')
+typescript.typescriptDefaults.setCompilerOptions(compilerOptions)
+typescript.javascriptDefaults.setCompilerOptions(compilerOptions)
+typescript.typescriptDefaults.addExtraLib(global, 'global.d.ts')
+typescript.javascriptDefaults.addExtraLib(global, 'global.d.ts')
 
 monaco.languages.onLanguage('typescript', async () => {
   registerFileSystemOverlay(
     -1,
     new TypescriptWorkerTypeFileSystemProvider(async () =>
-      (await monaco.languages.typescript.getTypeScriptWorker())()
+      (await typescript.getTypeScriptWorker())()
     )
   )
 
   const types = (await import('types:../../node_modules/typescript-worker-node-types')).default
 
   for (const [file, content] of Object.entries(types)) {
-    monaco.languages.typescript.typescriptDefaults.addExtraLib(content, `node/${file}`)
+    typescript.typescriptDefaults.addExtraLib(content, `node/${file}`)
   }
 })
 monaco.languages.onLanguage('javascript', async () => {
   registerFileSystemOverlay(
     -1,
     new TypescriptWorkerTypeFileSystemProvider(async () =>
-      (await monaco.languages.typescript.getJavaScriptWorker())()
+      (await typescript.getJavaScriptWorker())()
     )
   )
 
   const types = (await import('types:../../node_modules/typescript-worker-node-types')).default
 
   for (const [file, content] of Object.entries(types)) {
-    monaco.languages.typescript.javascriptDefaults.addExtraLib(content, `node/${file}`)
+    typescript.javascriptDefaults.addExtraLib(content, `node/${file}`)
   }
 })
 
