@@ -7,6 +7,7 @@ import { registerServices } from '../services'
 import { registerWorkerLoader } from '../worker'
 import { Worker } from '../tools/crossOriginWorker'
 import '@codingame/monaco-vscode-references-view-default-extension'
+import '@codingame/monaco-vscode-merge-conflict-default-extension'
 
 registerWorkerLoader(
   'OutputLinkDetectionWorker',
