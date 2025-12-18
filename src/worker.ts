@@ -31,13 +31,13 @@ window.MonacoEnvironment = {
     if (worker != null) {
       return worker.url.toString()
     }
-    throw new Error(`Unimplemented worker ${label} (${moduleId})`)
+    return undefined
   },
   getWorkerOptions(moduleId, label) {
     const worker = workers[label]
     if (worker != null) {
       return worker.options
     }
-    throw new Error(`Unimplemented worker ${label} (${moduleId})`)
+    return undefined
   }
 }
