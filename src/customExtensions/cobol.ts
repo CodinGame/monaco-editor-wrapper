@@ -1,6 +1,6 @@
 import { ExtensionHostKind, registerExtension } from '@codingame/monaco-vscode-api/extensions'
 
-const { registerFileUrl } = registerExtension(
+const { registerFileUrl, whenReady } = registerExtension(
   {
     name: 'cobol-indent',
     publisher: 'codingame',
@@ -41,3 +41,5 @@ const { registerFileUrl } = registerExtension(
 )
 
 registerFileUrl('./extension.js', new URL('./cobol-extension.js', import.meta.url).href)
+
+export { whenReady }
