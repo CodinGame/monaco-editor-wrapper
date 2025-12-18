@@ -161,6 +161,7 @@
     "@codingame/monaco-vscode-markdown-math-default-extension": "^24.1.0",
     "@codingame/monaco-vscode-markers-service-override": "^24.1.0",
     "@codingame/monaco-vscode-media-preview-default-extension": "^24.1.0",
+    "@codingame/monaco-vscode-merge-conflict-default-extension": "^24.1.0",
     "@codingame/monaco-vscode-model-service-override": "^24.1.0",
     "@codingame/monaco-vscode-multi-diff-editor-service-override": "^24.1.0",
     "@codingame/monaco-vscode-notifications-service-override": "^24.1.0",
