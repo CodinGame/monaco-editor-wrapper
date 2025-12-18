@@ -1,1 +1,1 @@
-import './cobol'
+export { whenReady } from './cobol'
