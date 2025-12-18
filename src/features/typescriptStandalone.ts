@@ -10,8 +10,8 @@ import {
   registerFileSystemOverlay
 } from '@codingame/monaco-vscode-files-service-override'
 import * as vscode from 'vscode'
-import { registerWorkerLoader } from '../worker.js'
-import { Worker } from '../tools/crossOriginWorker'
+import { registerWorker } from '../worker.js'
+import { Worker } from '../tools/FakeWorker.js'
 
 const global = `
 declare global {
@@ -38,9 +38,7 @@ const compilerOptions: Parameters<typeof typescript.typescriptDefaults.setCompil
   lib: ['es2020']
 }
 
-class TypescriptWorkerTypeFileSystemProvider
-  implements IFileSystemProviderWithFileReadWriteCapability
-{
+class TypescriptWorkerTypeFileSystemProvider implements IFileSystemProviderWithFileReadWriteCapability {
   capabilities =
     FileSystemProviderCapabilities.FileReadWrite |
     FileSystemProviderCapabilities.PathCaseSensitive |
@@ -138,13 +136,12 @@ monaco.languages.onLanguage('javascript', async () => {
   }
 })
 
-const workerLoader = () =>
-  new Worker(
-    new URL(
-      '@codingame/monaco-vscode-standalone-typescript-language-features/worker',
-      import.meta.url
-    ),
-    { type: 'module' }
-  )
-registerWorkerLoader('typescript', workerLoader)
-registerWorkerLoader('javascript', workerLoader)
+const worker = new Worker(
+  new URL(
+    '@codingame/monaco-vscode-standalone-typescript-language-features/worker',
+    import.meta.url
+  ),
+  { type: 'module' }
+)
+registerWorker('typescript', worker)
+registerWorker('javascript', worker)

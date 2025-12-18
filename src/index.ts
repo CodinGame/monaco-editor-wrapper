@@ -19,10 +19,11 @@ import {
   registerFile,
   registerServices,
   setUseGlobalPicker
-} from './services'
-import './style'
-import { registerWorkerLoader } from './worker'
-export * from './tools'
+} from './services.js'
+import './style.js'
+import { registerWorker } from './worker.js'
+export * from './tools.js'
+import { Worker } from './tools/FakeWorker'
 
 export {
   monaco,
@@ -47,5 +48,6 @@ export {
   registerEditorOpenHandler,
   loadLanguage,
   setUseGlobalPicker,
-  registerWorkerLoader
+  registerWorker,
+  Worker
 }
