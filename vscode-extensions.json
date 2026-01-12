@@ -2,7 +2,7 @@
   {
     "publisher": "Angular",
     "name": "ng-template",
-    "version": "20.3.3"
+    "version": "21.0.1"
   },
   {
     "publisher": "webfreak",
@@ -12,7 +12,7 @@
   {
     "publisher": "Dart-Code",
     "name": "dart-code",
-    "version": "3.123.20251113"
+    "version": "3.127.20251229"
   },
   {
     "publisher": "justusadam",
@@ -32,7 +32,7 @@
   {
     "publisher": "alefragnani",
     "name": "pascal",
-    "version": "9.9.0"
+    "version": "10.0.0"
   },
   {
     "publisher": "scala-lang",
@@ -42,7 +42,7 @@
   {
     "publisher": "scalameta",
     "name": "metals",
-    "version": "1.59.2"
+    "version": "1.61.1"
   },
   {
     "publisher": "broadcomMFD",
@@ -52,7 +52,7 @@
   {
     "publisher": "JakeBecker",
     "name": "elixir-ls",
-    "version": "0.29.3"
+    "version": "0.30.0"
   },
   {
     "publisher": "pgourlain",
@@ -77,27 +77,27 @@
   {
     "publisher": "redhat",
     "name": "java",
-    "version": "1.48.2025111408"
+    "version": "1.52.2026010808"
   },
   {
     "publisher": "sumneko",
     "name": "lua",
-    "version": "3.15.0"
+    "version": "3.16.4"
   },
   {
     "publisher": "ms-vscode",
     "name": "cpptools",
-    "version": "1.29.0"
+    "version": "1.30.0"
   },
   {
     "publisher": "ms-dotnettools",
     "name": "csharp",
-    "version": "2.101.21"
+    "version": "2.111.2"
   },
   {
     "publisher": "ms-python",
     "name": "python",
-    "version": "2025.19.2025111701"
+    "version": "2026.1.2026010901"
   },
   {
     "publisher": "REditorSupport",
@@ -117,7 +117,7 @@
   {
     "publisher": "svelte",
     "name": "svelte-vscode",
-    "version": "109.12.0"
+    "version": "109.12.1"
   },
   {
     "publisher": "batisteo",
@@ -127,12 +127,12 @@
   {
     "publisher": "golang",
     "name": "Go",
-    "version": "0.51.1"
+    "version": "0.53.0"
   },
   {
     "publisher": "Vue",
     "name": "volar",
-    "version": "3.1.4"
+    "version": "3.2.2"
   },
   {
     "publisher": "HashiCorp",
