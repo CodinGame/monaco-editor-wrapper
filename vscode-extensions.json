@@ -2,7 +2,7 @@
   {
     "publisher": "Angular",
     "name": "ng-template",
-    "version": "21.0.1"
+    "version": "21.1.1"
   },
   {
     "publisher": "webfreak",
@@ -12,7 +12,7 @@
   {
     "publisher": "Dart-Code",
     "name": "dart-code",
-    "version": "3.127.20251229"
+    "version": "3.129.20260202"
   },
   {
     "publisher": "justusadam",
@@ -42,7 +42,7 @@
   {
     "publisher": "scalameta",
     "name": "metals",
-    "version": "1.61.1"
+    "version": "1.63.2"
   },
   {
     "publisher": "broadcomMFD",
@@ -77,27 +77,27 @@
   {
     "publisher": "redhat",
     "name": "java",
-    "version": "1.52.2026010808"
+    "version": "1.53.2026020509"
   },
   {
     "publisher": "sumneko",
     "name": "lua",
-    "version": "3.16.4"
+    "version": "3.17.1"
   },
   {
     "publisher": "ms-vscode",
     "name": "cpptools",
-    "version": "1.30.0"
+    "version": "1.30.5"
   },
   {
     "publisher": "ms-dotnettools",
     "name": "csharp",
-    "version": "2.111.2"
+    "version": "2.121.32"
   },
   {
     "publisher": "ms-python",
     "name": "python",
-    "version": "2026.1.2026010901"
+    "version": "2026.1.2026021001"
   },
   {
     "publisher": "REditorSupport",
@@ -117,7 +117,7 @@
   {
     "publisher": "svelte",
     "name": "svelte-vscode",
-    "version": "109.12.1"
+    "version": "109.13.0"
   },
   {
     "publisher": "batisteo",
@@ -127,16 +127,16 @@
   {
     "publisher": "golang",
     "name": "Go",
-    "version": "0.53.0"
+    "version": "0.53.1"
   },
   {
     "publisher": "Vue",
     "name": "volar",
-    "version": "3.2.2"
+    "version": "3.2.4"
   },
   {
     "publisher": "HashiCorp",
     "name": "terraform",
-    "version": "2.37.2025092217"
+    "version": "2.38.2026021014"
   }
 ]
