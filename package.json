@@ -24,6 +24,7 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "default": "./dist/main.js"
     },
     "./features/views": {
