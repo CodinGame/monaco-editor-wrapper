@@ -35,6 +35,7 @@ Object.defineProperty(window, 'fetch', {
         json: async () => JSON.stringify(JSON.parse(content.toString())),
         arrayBuffer: async () =>
           content.buffer.slice(content.byteOffset, content.byteOffset + content.byteLength),
+        text: async () => content.toString(),
         status: 200
       }
     } else {
