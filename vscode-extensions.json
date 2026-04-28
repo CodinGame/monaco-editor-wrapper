@@ -12,7 +12,7 @@
   {
     "publisher": "Dart-Code",
     "name": "dart-code",
-    "version": "3.133.20260331"
+    "version": "3.133.20260421"
   },
   {
     "publisher": "justusadam",
@@ -42,7 +42,7 @@
   {
     "publisher": "scalameta",
     "name": "metals",
-    "version": "1.64.3"
+    "version": "1.65.3"
   },
   {
     "publisher": "broadcomMFD",
@@ -77,27 +77,27 @@
   {
     "publisher": "redhat",
     "name": "java",
-    "version": "1.54.2026040108"
+    "version": "1.55.2026042408"
   },
   {
     "publisher": "sumneko",
     "name": "lua",
-    "version": "3.17.1"
+    "version": "3.18.2"
   },
   {
     "publisher": "ms-vscode",
     "name": "cpptools",
-    "version": "1.31.4"
+    "version": "1.32.1"
   },
   {
     "publisher": "ms-dotnettools",
     "name": "csharp",
-    "version": "2.131.79"
+    "version": "2.136.19"
   },
   {
     "publisher": "ms-python",
     "name": "python",
-    "version": "2026.5.2026032701"
+    "version": "2026.5.2026042602"
   },
   {
     "publisher": "REditorSupport",
@@ -132,7 +132,7 @@
   {
     "publisher": "Vue",
     "name": "volar",
-    "version": "3.2.6"
+    "version": "3.2.7"
   },
   {
     "publisher": "HashiCorp",
