@@ -32,6 +32,9 @@ import { whenReady as whenVbReady } from '@codingame/monaco-vscode-vb-default-ex
 import { whenReady as wheXmlReady } from '@codingame/monaco-vscode-xml-default-extension'
 import { whenReady as whenYamlReady } from '@codingame/monaco-vscode-yaml-default-extension'
 import { whenReady as whenNpmReady } from '@codingame/monaco-vscode-npm-default-extension'
+import { whenReady as whenDotEnvReady } from '@codingame/monaco-vscode-dotenv-default-extension'
+import { whenReady as whenPromptBasicsReady } from '@codingame/monaco-vscode-prompt-basics-default-extension'
+import { whenReady as whenMermaidReady } from '@codingame/monaco-vscode-mermaid-markdown-features-default-extension'
 
 export async function whenReady(): Promise<void> {
   await Promise.allSettled([
@@ -68,6 +71,9 @@ export async function whenReady(): Promise<void> {
     whenVbReady(),
     wheXmlReady(),
     whenYamlReady(),
-    whenNpmReady()
+    whenNpmReady(),
+    whenDotEnvReady(),
+    whenPromptBasicsReady(),
+    whenMermaidReady()
   ])
 }

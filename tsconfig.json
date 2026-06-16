@@ -1,8 +1,9 @@
 {
   "extends": "@codingame/tsconfig",
   "compilerOptions": {
+    "rootDir": ".",
+    "moduleResolution": "bundler",
     "outDir": "dist",
-    "baseUrl": "./app",
     "noImplicitOverride": true,
     "resolveJsonModule": true,
     "lib": [
@@ -12,11 +13,6 @@
     ],
     "module": "esnext",
     "noEmit": true,
-    "paths": {
-      "app/*": [
-        "*"
-      ]
-    },
     "sourceMap": true,
     "target": "es2020"
   },
