@@ -5,7 +5,7 @@
   "description": "Configured monaco-vscode-api with tools and extensions",
   "scripts": {
     "build": "npm run lint && npm run compile && npm run generate-types && npm test",
-    "compile": "node --experimental-json-modules ./node_modules/.bin/rollup --config rollup.config.ts --configPlugin typescript",
+    "compile": "rollup --config rollup.config.ts --configPlugin 'typescript={tsconfig: `tsconfig.rollup-config.json`}'",
     "generate-types": "tsc --project tsconfig.types.json",
     "update-extensions": "tsx scripts/update-extensions.ts",
     "download-extensions": "./scripts/download-extensions.sh",

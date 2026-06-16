@@ -1,7 +1,7 @@
 {
   "extends": "@codingame/tsconfig",
   "compilerOptions": {
-    "rootDir": ".",
+    "rootDir": "./src",
     "moduleResolution": "bundler",
     "outDir": "dist",
     "noImplicitOverride": true,
