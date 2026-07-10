@@ -12,12 +12,12 @@
   {
     "publisher": "Dart-Code",
     "name": "dart-code",
-    "version": "3.137.20260611"
+    "version": "3.139.20260702"
   },
   {
     "publisher": "haskell",
     "name": "haskell",
-    "version": "2.8.1"
+    "version": "2.8.2"
   },
   {
     "publisher": "mathiasfrohlich",
@@ -27,7 +27,7 @@
   {
     "publisher": "ocamllabs",
     "name": "ocaml-platform",
-    "version": "2.0.1"
+    "version": "2.3.0"
   },
   {
     "publisher": "alefragnani",
@@ -42,12 +42,12 @@
   {
     "publisher": "scalameta",
     "name": "metals",
-    "version": "1.67.1"
+    "version": "1.68.1"
   },
   {
     "publisher": "broadcomMFD",
     "name": "cobol-language-support",
-    "version": "2.5.0"
+    "version": "2.5.1"
   },
   {
     "publisher": "JakeBecker",
@@ -57,7 +57,7 @@
   {
     "publisher": "pgourlain",
     "name": "erlang",
-    "version": "1.1.3"
+    "version": "1.1.4"
   },
   {
     "publisher": "bitwisecook",
@@ -77,7 +77,7 @@
   {
     "publisher": "redhat",
     "name": "java",
-    "version": "1.55.2026061309"
+    "version": "1.56.2026070909"
   },
   {
     "publisher": "sumneko",
@@ -87,17 +87,17 @@
   {
     "publisher": "ms-vscode",
     "name": "cpptools",
-    "version": "1.32.2"
+    "version": "1.33.4"
   },
   {
     "publisher": "ms-dotnettools",
     "name": "csharp",
-    "version": "2.143.56"
+    "version": "2.146.2"
   },
   {
     "publisher": "ms-python",
     "name": "python",
-    "version": "2026.5.2026061001"
+    "version": "2026.5.2026070801"
   },
   {
     "publisher": "REditorSupport",
@@ -117,7 +117,7 @@
   {
     "publisher": "svelte",
     "name": "svelte-vscode",
-    "version": "110.2.0"
+    "version": "110.2.1"
   },
   {
     "publisher": "batisteo",
@@ -132,7 +132,7 @@
   {
     "publisher": "Vue",
     "name": "volar",
-    "version": "3.3.5"
+    "version": "3.3.7"
   },
   {
     "publisher": "HashiCorp",
