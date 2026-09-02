@@ -64,9 +64,15 @@ type ErrorHandler = (
 
 function generateErrorMessageErrorHandler(errorMessage: string): ErrorHandler {
   return (editor, operation) => {
-    const messageContribution = editor.getContribution('editor.contrib.messageController')
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(messageContribution as any).showMessage(errorMessage, operation.range.getStartPosition())
+    try {
+      const messageContribution = editor.getContribution('editor.contrib.messageController') as {
+        showMessage(message: string, position: monaco.IPosition): void
+      } | null
+      messageContribution?.showMessage(errorMessage, operation.range.getStartPosition())
+    } catch {
+      // Contributions can be missing or already disposed (e.g. InstantiationService has been
+      // disposed). Never throw from onError: that aborts pushEditOperations and blocks typing.
+    }
   }
 }
 
