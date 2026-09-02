@@ -76,6 +76,21 @@ function generateErrorMessageErrorHandler(errorMessage: string): ErrorHandler {
   }
 }
 
+function notifyLockedCodeError(
+  onError: ErrorHandler | undefined,
+  editor: monaco.editor.ICodeEditor,
+  operation: ValidAnnotatedEditOperation
+) {
+  if (onError == null) {
+    return
+  }
+  try {
+    onError(editor, operation)
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 export interface LockCodeOptions {
   /**
    * Error message displayed in a tooltip when an edit failed
@@ -180,7 +195,7 @@ export function lockCodeRanges(
           (operation) => !canEditRange(operation.range)
         )
         if (firstForbiddenOperation != null) {
-          onError?.(editor, firstForbiddenOperation)
+          notifyLockedCodeError(onError, editor, firstForbiddenOperation)
           return []
         } else {
           return editorOperations
@@ -188,7 +203,7 @@ export function lockCodeRanges(
       } else {
         return editorOperations.filter((operation) => {
           if (!canEditRange(operation.range)) {
-            onError?.(editor, operation)
+            notifyLockedCodeError(onError, editor, operation)
             return false
           }
           return true
