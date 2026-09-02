@@ -16,7 +16,7 @@ import {
   createTestOperation,
   createTestRange
 } from '../utils'
-import { lockCodeRanges } from '../../tools'
+import { lockCodeRanges, lockCodeWithDecoration } from '../../tools'
 import { initialize } from '../../services'
 
 beforeAll(async () => {
@@ -425,6 +425,71 @@ function findLargest(numbers: number[]): number {
       range: { startLineNumber: 2, startColumn: 1, endLineNumber: 3, endColumn: 46 },
       text: ''
     })
+  })
+
+  test('Throwing onError still rejects the edit without failing executeEdits', () => {
+    const model = createDefaultTestModel()
+    disposableStore.add(model)
+    const editor = monaco.editor.create(document.createElement('div'), {
+      model
+    })
+    disposableStore.add(editor)
+    disposableStore.add(
+      lockCodeRanges(editor, {
+        getLockedRanges() {
+          return createDefaultTestLockedCodeRanges(model)
+        },
+        onError() {
+          throw new Error('InstantiationService has been disposed')
+        }
+      })
+    )
+
+    const operationRange = createTestRange(model, 4, 4)
+    const operation = createTestOperation(operationRange, '// tata')
+
+    const onDidChangeContent = jest.fn()
+    disposableStore.add(model.onDidChangeContent(onDidChangeContent))
+
+    expect(() => editor.executeEdits(null, [operation])).not.toThrow()
+    expect(onDidChangeContent).not.toHaveBeenCalled()
+  })
+
+  test('Missing message contribution still rejects the locked edit without failing executeEdits', () => {
+    const model = createDefaultTestModel()
+    disposableStore.add(model)
+    const editor = monaco.editor.create(document.createElement('div'), {
+      model
+    })
+    disposableStore.add(editor)
+    const lockedRange = createDefaultTestLockedCodeRanges(model)[0]!
+    const decorations = editor.createDecorationsCollection([
+      {
+        range: lockedRange,
+        options: { isWholeLine: true }
+      }
+    ])
+    disposableStore.add(
+      lockCodeWithDecoration(editor, {
+        errorMessage: 'This section is read-only and cannot be edited',
+        decorationFilter: (decoration) => decorations.has(decoration)
+      })
+    )
+    const originalGetContribution = editor.getContribution.bind(editor)
+    jest.spyOn(editor, 'getContribution').mockImplementation((id: string) => {
+      if (id === 'editor.contrib.messageController') {
+        throw new Error('InstantiationService has been disposed')
+      }
+      return originalGetContribution(id)
+    })
+
+    const operation = createTestOperation(lockedRange, '// tata')
+
+    const onDidChangeContent = jest.fn()
+    disposableStore.add(model.onDidChangeContent(onDidChangeContent))
+
+    expect(() => editor.executeEdits(null, [operation])).not.toThrow()
+    expect(onDidChangeContent).not.toHaveBeenCalled()
   })
 
   test('Handle all systems line break character', () => {
