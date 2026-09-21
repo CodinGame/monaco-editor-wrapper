@@ -241,7 +241,7 @@
     "babel-plugin-transform-import-meta": "^2.3.3",
     "browser-resolve": "^2.0.0",
     "canvas": "3.2.3",
-    "conventional-changelog-conventionalcommits": "^10.4.0",
+    "conventional-changelog-conventionalcommits": "^10.3.0",
     "cson-parser": "4.0.9",
     "deep-equal": "2.2.3",
     "eslint": "9.39.3",
