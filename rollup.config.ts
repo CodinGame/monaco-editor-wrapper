@@ -76,7 +76,7 @@ export default rollup.defineConfig({
           }
         }
         if (
-          /\.wasm$/.test(id) ||
+          id.endsWith('.wasm') ||
           externals.some((external) => id === external || id.startsWith(`${external}/`))
         ) {
           return {
@@ -142,34 +142,34 @@ ${files.map((_, index) => `    whenReady${index}()`).join(',\n')}
     vsixPlugin({
       transformManifest(manifest) {
         const {
-          commands,
-          debuggers,
-          keybindings,
-          menus,
-          views,
-          walkthroughs,
-          breakpoints,
-          taskDefinitions,
-          viewsWelcome,
-          terminal,
-          viewsContainers,
-          typescriptServerPlugins,
+          commands: _commands,
+          debuggers: _debuggers,
+          keybindings: _keybindings,
+          menus: _menus,
+          views: _views,
+          walkthroughs: _walkthroughs,
+          breakpoints: _breakpoints,
+          taskDefinitions: _taskDefinitions,
+          viewsWelcome: _viewsWelcome,
+          terminal: _terminal,
+          viewsContainers: _viewsContainers,
+          typescriptServerPlugins: _typescriptServerPlugins,
           configurationDefaults,
-          icons,
+          icons: _icons,
           ...remainingContribute
         } = (manifest.contributes ?? {}) as IExtensionManifest['contributes'] & {
           typescriptServerPlugins: unknown // typescript extension specific field
         }
 
         const {
-          activationEvents,
-          devDependencies,
-          dependencies,
-          scripts,
-          browser,
-          main,
-          l10n,
-          extensionDependencies, // for pure-d that requires hbenl.vscode-test-explorer
+          activationEvents: _activationEvents,
+          devDependencies: _devDependencies,
+          dependencies: _dependencies,
+          scripts: _scripts,
+          browser: _browser,
+          main: _main,
+          l10n: _l10n,
+          extensionDependencies: _extensionDependencies, // for pure-d that requires hbenl.vscode-test-explorer
           ...remainingManifest
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } = manifest as any
