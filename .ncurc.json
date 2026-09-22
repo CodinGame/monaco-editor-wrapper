@@ -1,6 +1,5 @@
 {
   "reject": [
-    "typescript-worker-node-types",
-    "eslint"
+    "typescript-worker-node-types"
   ]
 }

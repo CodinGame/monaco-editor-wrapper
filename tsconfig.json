@@ -18,7 +18,6 @@
   },
   "include": [
     "browserMock.js",
-    "eslint.config.js",
     "src",
     "scripts/update-extensions.ts",
     "rollup.config.ts",

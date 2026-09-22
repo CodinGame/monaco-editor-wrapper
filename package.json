@@ -9,7 +9,7 @@
     "generate-types": "tsc --project tsconfig.types.json",
     "update-extensions": "tsx scripts/update-extensions.ts",
     "download-extensions": "./scripts/download-extensions.sh",
-    "lint": "eslint '{src/**/*.ts,scripts/*.ts,rollup.config.ts}' && prettier --check '**/*.{js,ts}'",
+    "lint": "oxlint src scripts rollup.config.ts && prettier --check '**/*.{js,ts}'",
     "preprepare": "npm run download-extensions",
     "test": "jest --runInBand",
     "test:watch": "jest --watch"
@@ -222,7 +222,7 @@
     "@codingame/commitlint-config-codingame": "^1.2.1",
     "@codingame/monaco-vscode-rollup-vsix-plugin": "^37.1.0",
     "@codingame/semantic-release-config-github": "^2.2.1",
-    "@codingame/tsconfig": "^1.2.1",
+    "@codingame/tsconfig": "^1.2.3",
     "@commitlint/cli": "^21.2.3",
     "@jest/globals": "^30.5.2",
     "@rollup/plugin-alias": "6.0.0",
@@ -234,17 +234,16 @@
     "@types/jest": "^30.0.0",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "26.6.2",
-    "@vscode/vsce": "^3.9.2",
+    "@vscode/vsce": "^4.0.0",
     "@web/rollup-plugin-import-meta-assets": "^3.0.0",
-    "azure-devops-node-api": "^15.1.2",
-    "babel-jest": "^30.4.1",
+    "azure-devops-node-api": "^17.0.1",
+    "babel-jest": "^30.5.2",
     "babel-plugin-transform-import-meta": "^2.3.3",
     "browser-resolve": "^2.0.0",
     "canvas": "3.2.3",
-    "conventional-changelog-conventionalcommits": "^10.3.0",
+    "conventional-changelog-conventionalcommits": "^10.4.0",
     "cson-parser": "4.0.9",
     "deep-equal": "2.2.3",
-    "eslint": "9.39.3",
     "fake-indexeddb": "^6.2.5",
     "fast-glob": "^3.3.3",
     "fast-plist": "0.1.3",
@@ -255,6 +254,7 @@
     "json5": "2.2.3",
     "monaco-emacs": "^0.3.0",
     "monaco-vim": "^0.4.4",
+    "oxlint": "^1.85.0",
     "postcss": "8.5.28",
     "prettier": "^3.9.8",
     "rollup": "4.63.4",
@@ -263,7 +263,6 @@
     "tsx": "^4.23.15",
     "type-fest": "^5.10.0",
     "typescript": "6.0.3",
-    "typescript-eslint": "^8.70.0",
     "whatwg-fetch": "^3.6.20"
   },
   "browserslist": [
@@ -309,7 +308,6 @@
     }
   },
   "overrides": {
-    "globals": "15.14.0",
     "monaco-editor": "$monaco-editor",
     "canvas": "$canvas"
   }
