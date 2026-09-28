@@ -196,6 +196,7 @@
     "@codingame/monaco-vscode-testing-service-override": "^37.1.0",
     "@codingame/monaco-vscode-textmate-service-override": "^37.1.0",
     "@codingame/monaco-vscode-theme-defaults-default-extension": "^37.1.0",
+    "@codingame/monaco-vscode-theme-modern-icons-default-extension": "^37.1.0",
     "@codingame/monaco-vscode-theme-service-override": "^37.1.0",
     "@codingame/monaco-vscode-theme-seti-default-extension": "^37.1.0",
     "@codingame/monaco-vscode-timeline-service-override": "^37.1.0",
