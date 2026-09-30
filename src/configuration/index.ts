@@ -12,7 +12,7 @@ import {
   onUserConfigurationChange,
   IConfigurationNode,
   IConfigurationDefaults
-} from '@codingame/monaco-vscode-configuration-service-override'
+} from '@codingame/monaco-vscode-configuration-service-override/common'
 
 configurationRegistry.registerDefaultConfigurations([
   {

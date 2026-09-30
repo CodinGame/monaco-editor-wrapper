@@ -1,6 +1,6 @@
 import getExtensionServiceOverride from '@codingame/monaco-vscode-extensions-service-override'
 import getModelServiceOverride from '@codingame/monaco-vscode-model-service-override'
-import type { IStoredWorkspace } from '@codingame/monaco-vscode-configuration-service-override'
+import type { IStoredWorkspace } from '@codingame/monaco-vscode-configuration-service-override/common'
 import getKeybindingsServiceOverride from '@codingame/monaco-vscode-keybindings-service-override'
 import getTextmateServiceOverride from '@codingame/monaco-vscode-textmate-service-override'
 import getThemeServiceOverride from '@codingame/monaco-vscode-theme-service-override'

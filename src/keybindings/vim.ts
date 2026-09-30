@@ -5,7 +5,7 @@ import { IJSONSchema } from '@codingame/monaco-vscode-api/monaco'
 import {
   configurationRegistry,
   ConfigurationScope
-} from '@codingame/monaco-vscode-configuration-service-override'
+} from '@codingame/monaco-vscode-configuration-service-override/common'
 import { getConfiguration, onConfigurationChanged } from '../configuration'
 
 const vimKeybindingsSchema: IJSONSchema = {
