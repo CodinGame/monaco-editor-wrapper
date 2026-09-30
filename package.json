@@ -78,6 +78,14 @@
     "./features/workingCopyBackup": {
       "types": "./dist/features/workingCopyBackup.d.ts",
       "default": "./dist/features/workingCopyBackup.js"
+    },
+    "./features/configuration": {
+      "types": "./dist/features/configuration.d.ts",
+      "default": "./dist/features/configuration.js"
+    },
+    "./features/dialogs": {
+      "types": "./dist/features/dialogs.d.ts",
+      "default": "./dist/features/dialogs.js"
     }
   },
   "typesVersions": {
@@ -117,6 +125,12 @@
       ],
       "features/workingCopyBackup": [
         "./dist/features/workingCopyBackup.d.ts"
+      ],
+      "features/configuration": [
+        "./dist/features/configuration.d.ts"
+      ],
+      "features/dialogs": [
+        "./dist/features/dialogs.d.ts"
       ]
     }
   },

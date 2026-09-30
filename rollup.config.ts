@@ -37,7 +37,9 @@ export default rollup.defineConfig({
     'features/workbench': 'src/features/workbench.ts',
     'features/profile': 'src/features/profile.ts',
     'features/typescriptStandalone': 'src/features/typescriptStandalone.ts',
-    'features/workingCopyBackup': 'src/features/workingCopyBackup.ts'
+    'features/workingCopyBackup': 'src/features/workingCopyBackup.ts',
+    'features/configuration': 'src/features/configuration.ts',
+    'features/dialogs': 'src/features/dialogs.ts'
   },
   output: [
     {
