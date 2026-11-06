@@ -5,7 +5,6 @@ import { registerServices, useGlobalPicker } from '../services'
 
 import '@codingame/monaco-vscode-theme-seti-default-extension'
 import '@codingame/monaco-vscode-theme-modern-icons-default-extension'
-import '@codingame/monaco-vscode-media-preview-default-extension'
 import '@codingame/monaco-vscode-markdown-language-features-default-extension'
 import '@codingame/monaco-vscode-markdown-math-default-extension'
 import '@codingame/monaco-vscode-configuration-editing-default-extension'
