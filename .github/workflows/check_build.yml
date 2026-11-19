@@ -9,11 +9,11 @@ jobs:
     name: Lint commits
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           # we actually need "github.event.pull_request.commits + 1" commit
           fetch-depth: 0
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
       - run: npm ci
       - run: npx commitlint --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose
   check:
@@ -22,11 +22,11 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
       with:
         fetch-depth: 0
     - name: Setup Node.js
-      uses: actions/setup-node@v6
+      uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
       with:
         node-version: 25.2.0
     - name: Install dependencies
@@ -35,10 +35,10 @@ jobs:
       run: npm run build
     - name: Generate release notes preview
       id: build-release-notes
-      uses: guilhermetod/semantic-release-notes-preview@v1.0.0
+      uses: guilhermetod/semantic-release-notes-preview@015a2c1849e7703ee43e0350b04970ae3a76b49d # v1.0.0
     - name: Comment release notes preview
       if: steps.build-release-notes.outputs.releaseNotes
-      uses: peter-evans/create-or-update-comment@v1
+      uses: peter-evans/create-or-update-comment@a35cf36e5301d70b76f316e867e7788a55a31dae # v1.4.5
       with:
         issue-number: ${{ github.event.number }}
         body: |
