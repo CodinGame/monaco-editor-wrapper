@@ -11,8 +11,10 @@ import '@codingame/monaco-vscode-markdown-math-default-extension'
 import '@codingame/monaco-vscode-configuration-editing-default-extension'
 
 registerServices({
-  ...getViewsServiceOverride((model, input, sideBySide) => {
-    return editorOpenHandlerRegistry.openCodeEditor(model, input, sideBySide)
+  ...getViewsServiceOverride({
+    openEditorFallback: (model, input, sideBySide) => {
+      return editorOpenHandlerRegistry.openCodeEditor(model, input, sideBySide)
+    }
   }),
   ...getMultiDiffEditorServiceOverride(),
   ...getStatusBarServiceOverride(),
